@@ -1,0 +1,12 @@
+#ident	"@(#)Awmrc	4.2"	2/5/90
+
+menu = "Applications" {
+	xterm:      !"xterm &"
+	xcalc:      !"xcalc -fg black -bg white &"
+	xmh:        !"xmh &"
+	xlock:      !"xlock &"
+	xwininfo:   !"xwininfo &"
+	xclock:     !"xclock &"
+	xload:      !"xload &"
+	xman:       !"xman &"
+}

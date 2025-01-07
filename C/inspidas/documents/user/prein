@@ -1,0 +1,171 @@
+C
+$! File:          PREIN.MANUAL
+$! Date:          Feb. 1990
+$! Author:        Akio Kitao
+$! Update:        Apr. 16 1990
+$! Last update:   Apr. 20 1990
+$! Function:      A Brief description of the tasks in PREIN
+
+
+                            T A S K     P R E I N
+
+
+TABLE OF CONTENTS:
+
+I.   PREIN OVERVIEW
+          1. PURPOSE
+          2. SYNTAX
+          3. SUBTASKS
+          4. TREE STRUCTURE
+
+II.  SUBTASK BUILD
+          1. BUILD CROSSLINK
+          2. BUILD PRIMARY
+          3. BUILD END
+          4. BUILD READ
+
+III. SUBTASK WRITE
+          1. WRITE ANGLE
+          2. WRITE ABE
+          3. WRITE PREIN
+
+IV.  SUBTASK READ
+          1. READ ANGLE
+
+V.   EXAMPLES
+
+
+I. PREIN OVERVIEW
+
+  PURPOSE: The object of this TASK is to set up input data for PRECEP
+
+  SYNTAX:  PREIN
+
+  SUBTASKS:
+
+           BUILD
+           WRITE
+           READ
+
+  TREE STRUCTURE
+
+  SUBTASK    KEYWORD
+
+  BUILD -----PRIMARY
+          !
+          !--CROSSLINK
+          !
+          !--READ
+          !
+          !--END
+
+  READ  -----ANGLE
+
+  WRITE -----ANGLE
+          !
+          !--PREIN
+
+
+
+II. SUBTASK BUILD
+
+
+  PURPOSE: Specify amino acid sequence, end groups and crosslink.
+
+  SYNTAX:
+
+  BUILD PRIMary               { NAME char }(repeat) END
+
+        CROSslink             CYS1 { NUM inte }  CYS2 { NUM inte }(repeat)
+
+        END                   NEND { NUM  inte } CEND { NUM  inte }
+
+        READ                  { FILENAME  char }
+
+  COMMAND ORDERING:
+           BUILD PRIMARY must be called first,to fill the arrays before
+           any further calculations.
+
+  GLOSSARY :
+      KEYWORD :
+         CROSslink
+            CYS1 - Residue number in crosslink paired with cys2.
+            CYS2 - Residue number in crosslink paired with cys1.
+         END
+            NEND - N-end group number (default is 1).
+            CEND - C-end group number (default is 11).
+      PARAMETER :
+         PRIMary
+            NAME  - Amino acid name (A4), such as ALA, LYS+
+         CROSslink
+            NUM - Residue number in crosslink (excluding end group).
+         END
+            NUM - End group number ( see ECEPP manual ).
+         READ
+            FILENAME  - ABE formatted file name.
+
+  EXAMPLE: BUILD PRIMARY ALA CYS GLY PRO CYS ARG CYS GLY CYS END
+           BUILD CROSSLINK CYS1 3  CYS2 6 -
+                           CYS1 8  CYS2 10
+           BUILD END NEND 1 CEND 11
+           BUILD READ D52362.INSPIDA2.EXAMPLES.DATA(ABE)
+
+
+
+III. SUBTASK WRITE
+
+
+  PURPOSE: Writes dihedral angle(ECEPP format), sequence data(ABE
+           format) and input data for PRECEP.
+
+  SYNTAX :
+
+  WRITE ANGLe                 { FILENAME char }
+
+        PREIn                 { FILENAME char }
+
+  COMMAND ORDERING:
+
+  GLOSSARY:
+      PARAMETER :
+         ANGLe
+            FILENAME - filename of angle data ( ECEPP format ).
+         PREIn
+            FILENAME - filename for PRECEP input data.
+
+  EXAMPLES: WRITE PREIN D52362.LETSGO.PREIN.DATA
+
+
+
+IV. SUBTASK :  READ
+
+
+ PURPOSE : Read dihedral angle(ECEPP format).
+
+ SYNTAX :
+
+  READ  ANGLe                 { FILENAME char }
+
+
+ GLOSSARY:
+      PARAMETER :
+         ANGLe
+            FILENAME - filename of angle data ( ECEPP format ).
+
+ EXAMPLE: READ ANGLE D52362.INSPIDAS.ANGLE.DATA
+
+
+
+V.  EXAMPLES
+
+    PREIN
+       BUILD PRIMARY ALA CYS GLY PRO CYS ARG CYS GLY CYS END
+       BUILD CROSSLINK CYS1 2  CYS2 5 -
+                       CYS1 7  CYS2 9
+           BUILD END NEND 1 CEND 14
+       BUILD READ D52362.INSPIDA2.EXAMPLES.DATA(ABE)
+       READ ANGLE D52362.INSPIDAS.ANGLE.DATA
+       WRITE PREIN D52362.LETSGO.PREIN.DATA
+    QUIT
+
+

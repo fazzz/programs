@@ -1,0 +1,27 @@
+# Makefile : originally written by F.Hirata
+#
+OBJS= \
+flxsub.o \
+graph.o \
+iolibdas.o \
+ioroutn.o \
+mathlib.o \
+minim.o \
+mc.o \
+nma.o \
+nmanal.o \
+precep.o \
+prein.o \
+utilitydas.o \
+main.o
+
+FFLAGS= -ZV -Wf" -dp -astatic -em" 
+
+main :
+	cf77 $(FFLAGS) -o inspidas $(OBJS)
+
+all :
+	cf77 $(CFLAGS) -c *.f
+
+clear :
+	rm *.o

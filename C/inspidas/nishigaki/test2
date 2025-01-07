@@ -1,0 +1,76 @@
+#
+# Test program
+set filename= (\
+common/alpha \
+common/atom \
+common/bond \
+common/charge \
+common/cntl \
+common/command \
+common/coord \
+common/echo \
+common/eigen \
+common/fileio \
+common/fmatrix \
+common/hmatrix \
+common/inter0 \
+common/maxold \
+common/maxsize \
+common/nbtype \
+common/primry \
+common/refrnc \
+common/size \
+common/sspair \
+common/table1 \
+common/torsnp \
+common/torsn0 \
+common/unitnums \
+common/varang \
+common/wkcal1 \
+common/wkcal2 \
+common/wkcal3 \
+common/wkdrvtv \
+common/wkenrg \
+common/work \
+common/workmana \
+data/bd8 \
+data/sdatx \
+data/unitx \
+example/data/abe \
+example/data/flexout \
+example/data/inp \
+example/data/minin \
+example/data/minout \
+example/data/prein \
+example/data/preout \
+example/input/decaala \
+example/input/inp \
+example/input/minim \
+example/input/nmanal \
+example/input/precep \
+example/input/prein \
+source/dadas \
+source/fedrtemp \
+source/flxsub \
+source/graph \
+source/iolib \
+source/ioroutn \
+source/main \
+source/mathlib \
+source/mc \
+source/mcmain \
+source/minim \
+source/nma \
+source/nmanal \
+source/nmanal1 \
+source/precep \
+source/prein \
+source/reg1 \
+source/reg2v2 \
+source/utilitie)
+@ count=0
+while (1)
+  @ count++
+  if ($count > 67) exit
+  cut -c1-72 ~nisigaki/mt/inspidas/mtfile$count > $filename[$count]
+end

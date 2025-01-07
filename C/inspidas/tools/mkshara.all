@@ -1,0 +1,13 @@
+cut.shara ../source/flxsub >../ld/flxsub.f
+cut.shara ../source/graph >../ld/graph.f
+cut.shara ../source/iolibdas >../ld/iolibdas.f
+cut.shara ../source/ioroutn >../ld/ioroutn.f
+cut.shara ../source/main >../ld/main.f
+cut.shara ../source/mathlib >../ld/mathlib.f
+cut.shara ../source/mc >../ld/mc.f
+cut.shara ../source/minim >../ld/minim.f
+cut.shara ../source/nma >../ld/nma.f
+cut.shara ../source/nmanal >../ld/nmanal.f
+cut.shara ../source/precep >../ld/precep.f
+cut.shara ../source/prein >../ld/prein.f
+cut.shara ../source/utilitydas >../ld/utilitydas.f

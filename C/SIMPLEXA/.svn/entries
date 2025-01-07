@@ -1,0 +1,52 @@
+8
+
+dir
+1797
+svn://172.16.165.94/yamamori/var/svn/SIMPLEXA/trunk
+svn://172.16.165.94
+
+
+
+2011-03-15T11:44:49.273103Z
+1738
+yamamori
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c8113bb6-d80e-0410-aa45-c078eb5207e6
+
+SIMPLEXA.c
+file
+
+
+
+
+2011-03-22T08:36:45.000000Z
+d6fa2a0ce40fc605cb6da1f44ef3a77b
+2011-03-15T11:44:49.273103Z
+1738
+yamamori
+
+SIMPLEXA.h
+file
+
+
+
+
+2011-03-22T08:36:45.000000Z
+34fff8f869bb5c1d39887c7b8cd54273
+2011-03-15T11:44:49.273103Z
+1738
+yamamori
+

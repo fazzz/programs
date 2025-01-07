@@ -1,0 +1,273 @@
+C
+$! File:          MINIM.MANUAL
+$! Date:          Apr. 1990
+$! Author:        Kenzi Mizuguti
+$! Update:
+$! Last update:   Jun.18 1990
+$! Function:      A Brief description of the tasks in MINIM
+
+
+                            T A S K     M I N I M
+
+
+TABLE OF CONTENTS:
+
+I.   MINIM OVERVIEW
+          1. PURPOSE
+          2. SYNTAX
+          3. SUBTASKS
+          4. TREE STRUCTURE
+
+II.  SUBTASK INPUT
+          1. INPUT CNTL
+
+III. SUBTASK READ
+          1. READ PARM
+          2. READ ANGL
+          3. READ PREC
+
+IV.  SUBTASK GET
+          1. GET ANGL
+
+V.   SUBTASK RESTART
+
+VI.  SUBTASK RUN
+
+VII. SUBTASK WRITE
+          1. WRITE ANGLE
+          2. WRITE COOR FLEX
+
+VIII. SUBTASK PUT
+          1. PUT COOR
+          2. PUT FMAT
+
+IX.  EXAMPLES
+
+
+ I. MINIM OVERVIEW
+
+   PURPOSE: The object of this TASK is to minimize conformational enrgy
+            function.
+
+   SYNTAX:  MINIM
+
+   SUBTASKS:
+            INPUt
+            READ
+            GET
+            RESTart
+            RUN
+            WRITe
+            PUT
+
+   TREE STRUCTURE:
+
+   SUBTASK    KEYWORD
+
+   INPUt -----CNTL ------TLIMIT
+                      !
+                      !--LOUT
+                      !
+                      !--NUMRNG
+                      !
+                      !--LRANGE
+                      !
+                      !--WVLTN0
+                      !
+                      !--LFUNC0
+                      !
+                      !--NITRTN
+                      !
+                      !--CONV0
+                      !
+                      !--LOMEGA
+
+   READ  -----PRECep
+           !
+           !--PARM
+           !
+           !--ANGL
+
+   GET   -----ANGLe
+
+   RESTart
+
+   RUN
+
+   WRITE -----ANGLE
+           !
+           !--COORd-----FLEX
+                     !
+                     !--PDB
+
+   PUT -------COORd
+           !
+           !--FMATrix
+
+
+ II. SUBTASK INPUT
+
+   PURPOSE: Read in control parameters for minimization.
+
+   SYNTAX:
+
+    INPUt CNTL  TLIMIT       { NUM real }
+
+                LOUT         { NUM inte }
+
+                NUMRNG       { NUM inte }
+
+                LRANGE       { NUM inte }
+
+                WVLTN0       { NUM real }
+
+                LFUNC0       { NUM inte }
+
+                NITRTN       { NUM inte }
+
+                CONV0        { NUM real }
+
+                LOMEGA       { NUM inte }
+
+   GLOSSARY :
+    TLIMIT     CPU TIME LIMIT (SEC).
+    LOUT       CONTROL FOR OUTPUT.    AT EVERY LOUT-TH ITERATION
+               ANGLES ARE OUTPUTTED TO THE RESTART FILE.
+    NUMRNG     NUMBER OF DATA SPECIFIED BELOW.
+    LRANGE     RANGE OF INTERACTABLE ATOM PAIRS.  RANGE IS GIVEN BY
+               THE DISTANCE BETWEEN UNITS.
+    WVLTN0     WEIGHTING FACTOR FOR PENALTY FUNCTION IN THE FUNCTON
+               TO  BE MINIMIZED.
+    LFUNC0     OPTION OF ENERGY FUNCTION.
+               LFUNC0<0 : CONFORMATIONAL ENERGY ONLY.
+               LFUNC0=0 : CONF. ENERGY + (PENALTY  FUNC.)*WVLTN.
+               LFUNC0>0 : PENALTY FUNCTION ONLY.
+    NITRTN     LIMIT NUMBER OF ITERATIONS.
+    CONV0      WHEN ENERGY DIFFERENCE BETWEEN TWO CONSECUTIVE ITERATION
+               IS LESS THAN THIS VALUE, MINIMIZATION IS TERMINATED.
+                (1.D-12  IS RECOMMENDED)
+    LOMEGA     OPTION FOR ENERGY BARRIER OF OMEGA.
+               IF LOMEGA=0, STANDARD VALUES (10 KCAL/MOL) ARE ASSIGNED.
+               OTHERWISE 1000 KCAL/MOL IS ASSIGNED.
+
+   EXAMPLE: INPUT CNTL -
+              TLIMIT 600 LOUT 50 NUMRNG 1 -
+              LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -
+              CONV0 1.D-12 LOMEGA 0
+
+   NOTE: Without this subtask, default values shown in the EXAMPLE are
+         used.
+
+
+ III. SUBTASK :  READ
+
+  PURPOSE : Read in enrgy parameters(BD8),initial angles in units of
+            degrees, and PRECEP output data.
+
+  SYNTAX :
+
+   READ  PARM       { FILENAME char }
+
+   READ  ANGLe      { FILENAME char }
+
+   READ  PRECep     { FILENAME char }
+
+
+  EXAMPLE: READ PRECEP D52362.INSPIDA2.PREOUT.DATA
+           READ PARM   D52362.INSPIDA2.DATA.DATA(BD8)
+           READ ANGLE  D52362.INSPIDA2.EXAMPLE.DATA(ANGL)
+
+
+
+ IV. SUBTASK :  GET
+
+  PURPOSE : Read in initial angles in units of radians
+           (unformatted).
+
+  SYNTAX :
+
+   GET  ANGLe       { FILENAME char }
+
+  EXAMPLE: GET ANGLE D52362.INSPIDA2.ANGL.DATA
+
+
+
+ V. SUBTASK :  RESTART
+
+  PURPOSE : Open a restart file.
+
+  SYNTAX :
+
+   RESTart          { FILENAME char }
+
+  GLOSSARY:
+   Restart file : A file used for continuation to the next job
+                  if convergence is not attained in one job.
+
+  EXAMPLE: RESTart   D52362.INSPIDA2.RESTART.DATA
+
+  NOTE : 1.If this task is done, angles are written to the restart file
+           at every LOUT-th itteration. See INPUT section.
+         2.The restart file can be an input file of subtask GET.
+         3.If the minimization converges, the final angles are written
+           to the restart file.
+
+
+ VI. SUBTASK :  RUN
+
+  PURPOSE : Run minimization.
+
+  SYNTAX : RUN
+
+
+
+
+ VII. SUBTASK : WRITE
+
+  PURPOSE: Print out final angles(formatted), and flex formatted data
+           (angles and coordinates).
+
+  SYNTAX :
+
+   WRITE ANGLe      { FILENAME char }
+
+   WRITE COORd FLEX { FILENAME char }
+
+  GLOSSARY:
+   Flex format : see the flex format manual.
+
+  EXAMPLES: WRITE ANGLE D52362.INSPIDA2.MINANG.DATA
+            WRITE COORD FLEX D52362.INSPIDA2.MINCOO.DATA
+
+
+ VIII. SUBTASK : PUT
+
+  PURPOSE: Print out coordinates and first and second derivatives
+           at the final conformation (unformatted).
+
+  SYNTAX :
+
+   PUT COORd        { FILENAME char }
+
+   PUT FMATrix      { FILENAME char }
+
+  EXAMPLES: PUT COORd   D52362.INSPIDA2.COOR.BIN
+            PUT FMATrix D52362.INSPIDA2.FMAT.BIN
+
+
+ IX. EXAMPLES
+      MINIM
+        INPUT CNTL -
+            TLIMIT 600. LOUT 50 NUMRNG 1 -
+            LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -
+            CONV0 1.D-12 LOMEGA 0
+        READ PRECEP   D52362.INSPIDA2.PREOUT.DATA
+        READ PARM     D52362.INSPIDA2.DATA.DATA(BD8)
+        READ ANGLE    D52362.INSPIDA2.EXAMPLE.DATA(ANGL)
+        RESTART       D52362.INSPIDA2.RESTART.DATA
+        RUN
+        WRITE ANGLE   D52362.INSPIDA2.MINANG.DATA
+        WRITE COORD FLEX   D52362.INSPIDA2.MINCOO.DATA
+        PUT COORd          D52362.INSPIDA2.MINCOO.BIN
+        PUT FMATRIX        D52362.INSPIDA2.FMTRX.BIN
+      QUIT

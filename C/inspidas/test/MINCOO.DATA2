@@ -1,0 +1,143 @@
+0       FEDEROUT                        MODIFIED  7Dec90 FEDER                  
+ ***    DECA-ALANINE                                                            
+        KEY     DIHDMNCH4 PHI,PSI,OMEGA -       3F8.3                           
+ ***    DIHEDRAL ANGLES OF MAIN CHAIN                                           
+        KEY     EKHI1   4 KHI1  ECEPP   -       F8.3                            
+        KEY     EKHI2   4 KHI2  ECEPP   -       F8.3                            
+        KEY     EKHI3   4 KHI3  ECEPP   -       F8.3                            
+        KEY     EKHI4   4 KHI4  ECEPP   -       F8.3                            
+        KEY     EKHI5   4 KHI5  ECEPP   -       F8.3                            
+        KEY     EKHI6   4 KHI6  ECEPP   -       F8.3                            
+        KEY     EKHI7   4 KHI7  ECEPP   -       F8.3                            
+ ***    DIHEDRAL ANGLES OF SIDE CHAIN   BY ECEPP    FORMAT                      
+        KEY     COODT   5 ATOM CO-ORDTS -       3F8.3                           
+ ***    CARTESIAN CO-ORDINATES OF ATOMS                                         
+        KEY     SSBCNN3 5 S-S BOND      -       2A8,8X                          
+ ***    DISULPHIDE BOND INSIDE A CHAIN                                          
+1                                                                               
+2                                                                               
+3                                                                               
+4       0001    ALA                     DIHDMNCH -82.011 -61.764 179.103        
+        EKHI1     54.437                                                        
+5       H2 1    H                       COODT     -0.380  -0.940   0.000        
+5       N       N                       COODT      0.000   0.000   0.000        
+5       H2 2    H                       COODT     -0.380   0.470   0.814        
+5       CA      C                       COODT      1.453   0.000   0.000        
+5       HA      H                       COODT      1.785  -0.837  -0.615        
+5       CB      C                       COODT      1.964   1.301  -0.622        
+5       C       C                       COODT      1.959  -0.201   1.430        
+5       O       O                       COODT      2.638  -1.184   1.720        
+5       HB 1    H                       COODT      3.049   1.345  -0.532        
+5       HB 2    H                       COODT      1.684   1.335  -1.675        
+5       HB 3    H                       COODT      1.522   2.151  -0.101        
+4       0002    ALA                     DIHDMNCH -66.958 -39.719 180.130        
+        EKHI1    -59.067                                                        
+5       N       N                       COODT      1.608   0.747   2.286        
+5       HN      H                       COODT      1.066   1.551   2.040        
+5       CA      C                       COODT      2.001   0.677   3.683        
+5       HA      H                       COODT      3.077   0.508   3.717        
+5       CB      C                       COODT      1.691   2.009   4.369        
+5       C       C                       COODT      1.290  -0.502   4.350        
+5       O       O                       COODT      1.883  -1.210   5.163        
+5       HB 1    H                       COODT      0.619   2.203   4.317        
+5       HB 2    H                       COODT      2.001   1.962   5.413        
+5       HB 3    H                       COODT      2.230   2.811   3.866        
+4       0003    ALA                     DIHDMNCH -66.308 -39.104 181.464        
+        EKHI1    -59.170                                                        
+5       N       N                       COODT      0.029  -0.676   3.983        
+5       HN      H                       COODT     -0.445  -0.096   3.320        
+5       CA      C                       COODT     -0.770  -1.755   4.537        
+5       HA      H                       COODT     -0.699  -1.696   5.623        
+5       CB      C                       COODT     -2.233  -1.570   4.129        
+5       C       C                       COODT     -0.201  -3.097   4.072        
+5       O       O                       COODT     -0.157  -4.057   4.840        
+5       HB 1    H                       COODT     -2.313  -1.597   3.042        
+5       HB 2    H                       COODT     -2.834  -2.371   4.557        
+5       HB 3    H                       COODT     -2.594  -0.609   4.496        
+4       0004    ALA                     DIHDMNCH -67.708 -41.103 180.634        
+        EKHI1    -58.174                                                        
+5       N       N                       COODT      0.223  -3.121   2.817        
+5       HN      H                       COODT      0.204  -2.330   2.205        
+5       CA      C                       COODT      0.759  -4.337   2.231        
+5       HA      H                       COODT      0.046  -5.140   2.422        
+5       CB      C                       COODT      0.903  -4.155   0.719        
+5       C       C                       COODT      2.088  -4.681   2.906        
+5       O       O                       COODT      2.360  -5.846   3.193        
+5       HB 1    H                       COODT      1.605  -3.346   0.516        
+5       HB 2    H                       COODT      1.275  -5.079   0.276        
+5       HB 3    H                       COODT     -0.068  -3.910   0.288        
+4       0005    ALA                     DIHDMNCH -65.521 -40.884 181.124        
+        EKHI1    -59.159                                                        
+5       N       N                       COODT      2.881  -3.645   3.141        
+5       HN      H                       COODT      2.649  -2.700   2.913        
+5       CA      C                       COODT      4.181  -3.825   3.765        
+5       HA      H                       COODT      4.722  -4.580   3.194        
+5       CB      C                       COODT      4.961  -2.510   3.706        
+5       C       C                       COODT      3.990  -4.326   5.198        
+5       O       O                       COODT      4.725  -5.198   5.657        
+5       HB 1    H                       COODT      4.415  -1.739   4.249        
+5       HB 2    H                       COODT      5.942  -2.649   4.161        
+5       HB 3    H                       COODT      5.083  -2.205   2.667        
+4       0006    ALA                     DIHDMNCH -66.239 -40.387 182.121        
+        EKHI1    -59.198                                                        
+5       N       N                       COODT      2.998  -3.752   5.864        
+5       HN      H                       COODT      2.395  -3.054   5.477        
+5       CA      C                       COODT      2.716  -4.112   7.243        
+5       HA      H                       COODT      3.646  -4.026   7.805        
+5       CB      C                       COODT      1.695  -3.134   7.827        
+5       C       C                       COODT      2.232  -5.562   7.298        
+5       O       O                       COODT      2.606  -6.311   8.199        
+5       HB 1    H                       COODT      0.770  -3.189   7.254        
+5       HB 2    H                       COODT      1.495  -3.396   8.866        
+5       HB 3    H                       COODT      2.093  -2.121   7.779        
+4       0007    ALA                     DIHDMNCH -68.027 -36.787 181.212        
+        EKHI1    -59.255                                                        
+5       N       N                       COODT      1.408  -5.915   6.323        
+5       HN      H                       COODT      1.132  -5.309   5.577        
+5       CA      C                       COODT      0.833  -7.249   6.274        
+5       HA      H                       COODT      0.404  -7.461   7.254        
+5       CB      C                       COODT     -0.284  -7.286   5.229        
+5       C       C                       COODT      1.938  -8.265   5.983        
+5       O       O                       COODT      1.921  -9.375   6.513        
+5       HB 1    H                       COODT      0.127  -7.044   4.249        
+5       HB 2    H                       COODT     -0.724  -8.283   5.203        
+5       HB 3    H                       COODT     -1.051  -6.557   5.492        
+4       0008    ALA                     DIHDMNCH -71.412 -37.093 180.940        
+        EKHI1    -58.871                                                        
+5       N       N                       COODT      2.872  -7.850   5.140        
+5       HN      H                       COODT      2.888  -6.940   4.727        
+5       CA      C                       COODT      3.969  -8.720   4.751        
+5       HA      H                       COODT      3.547  -9.691   4.492        
+5       CB      C                       COODT      4.668  -8.142   3.519        
+5       C       C                       COODT      4.923  -8.892   5.935        
+5       O       O                       COODT      5.470  -9.974   6.145        
+5       HB 1    H                       COODT      5.074  -7.159   3.759        
+5       HB 2    H                       COODT      5.478  -8.805   3.216        
+5       HB 3    H                       COODT      3.950  -8.050   2.704        
+4       0009    ALA                     DIHDMNCH -69.929 -36.983 178.739        
+        EKHI1    -59.040                                                        
+5       N       N                       COODT      5.094  -7.808   6.678        
+5       HN      H                       COODT      4.635  -6.936   6.509        
+5       CA      C                       COODT      5.987  -7.820   7.824        
+5       HA      H                       COODT      6.931  -8.263   7.505        
+5       CB      C                       COODT      6.248  -6.383   8.283        
+5       C       C                       COODT      5.380  -8.684   8.931        
+5       O       O                       COODT      6.099  -9.388   9.638        
+5       HB 1    H                       COODT      5.307  -5.920   8.579        
+5       HB 2    H                       COODT      6.932  -6.391   9.131        
+5       HB 3    H                       COODT      6.691  -5.815   7.464        
+4       0010    ALA                     DIHDMNCH -69.934 -32.997 178.767        
+        EKHI1    -58.625                                                        
+5       N       N                       COODT      4.063  -8.602   9.046        
+5       HN      H                       COODT      3.487  -8.013   8.478        
+5       CA      C                       COODT      3.347  -9.388  10.037        
+5       HA      H                       COODT      3.861  -9.266  10.990        
+5       CB      C                       COODT      1.919  -8.858  10.175        
+5       C       C                       COODT      3.386 -10.864   9.635        
+5       O       O                       COODT      3.419 -11.744  10.493        
+5       HB 1    H                       COODT      1.401  -8.956   9.221        
+5       HB 2    H                       COODT      1.390  -9.433  10.936        
+5       HB 3    H                       COODT      1.947  -7.809  10.467        
+5       OXT     O                       COODT      3.380 -11.083   8.363        
+5       HXT     H                       COODT      3.426 -12.066   8.185        
+END                                                                             

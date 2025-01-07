@@ -1,0 +1,11 @@
+#!/bin/sh
+
+xrdb -merge $HOME/.Xdefaults
+
+xset s 360
+
+xterm  =80x6+0+0 -C -T "Console" -fn ardents -fg \#103040 -bg \#c09060 &
+xterm  =80x40+450+308 -T `hostname` -fg \#f0c090 -bg \#103040 &
+xterm  =80x11+450+105 &
+
+#xclock =84x84+1190+0 -analog &

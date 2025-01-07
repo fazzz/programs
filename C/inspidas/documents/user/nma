@@ -1,0 +1,148 @@
+C
+$! File:          NMA.MANUAL
+$! Date:          May 1990
+$! Author:        Kenji Mizuguchi
+$! Update:
+$! Last update:   Oct. 1992
+$! Function:      A Brief description of the tasks in NMA
+
+
+                            T A S K     N M A
+
+
+TABLE OF CONTENTS:
+
+I.   NMA OVERVIEW
+          1. PURPOSE
+          2. SYNTAX
+          3. SUBTASKS
+          4. TREE STRUCTURE
+
+II.  SUBTASK HMAT
+
+III. SUBTASK KMAT
+
+IV.  SUBTASK DIAG
+
+V.   SUBTASK WRITE
+
+VI.  SUBTASK PUT
+
+VII. EXAMPLES
+
+
+ I. NMA OVERVIEW
+
+   PURPOSE: The object of this TASK is to do a normal mode analysis.
+
+   SYNTAX:  NMA
+
+   SUBTASKS:
+            HMAT
+            KMAT
+            DIAG
+            WRITE
+            PUT
+
+   TREE STRUCTURE:
+
+   SUBTASK    KEYWORD
+
+   HMAT
+
+   KMAT
+
+   DIAG
+
+   WRITE
+
+   PUT
+
+
+
+ II. SUBTASK HMAT
+
+   PURPOSE: Calculate H-matrix.
+
+   SYNTAX: HMAT
+
+   GLOSSARY : H-matrix : a kinetic enrgy matrix.
+
+
+ III. SUBTASK :  KMAT
+
+   PURPOSE : Calculate K-matrix and KV-matrix, and print out K-matrix
+             in the form of row vectors(unformatted).
+
+   SYNTAX :
+
+    KMAT             { FILENAME char }
+
+   GLOSSARY : K-matrix  : a transform matrix between Cartesian
+                          coordinates and dihedral angles.
+              KV-matrix : K-matrix * V-matrix.
+
+   COMMAND ORDERING :This subtask must be put after subtasks HMAT and
+                     DIAG.
+
+   OUTPUT FORMAT :
+           DO 2000 KK=1,NUMATM
+           WRITE(IOUT46) (AKX(I),I=1,NUMVAR),(AKY(I),I=1,NUMVAR),
+          &              (AKZ(I),I=1,NUMVAR)
+      2000 CONTINUE
+
+
+ IV. SUBTASK :  DIAG
+
+   PURPOSE : Solve the generalized eigen value equation FV=HVE.
+
+   SYNTAX : DIAG
+
+   NOTE : F : second-derivative matrix.
+          H : kinetic enrgy matrix.
+          V : eigen vector matrix.
+          E : eigen value matrix.
+
+
+ V. SUBTASK :  WRITE
+
+   PURPOSE : Print out eigen values and eigen vectors(formatted).
+
+   SYNTAX :
+
+    WRITe            { FILENAME char }
+
+   OUTPUT FORMAT :
+         WRITE(IOUT,*) NUMVAR
+         WRITE(IOUT,1000) (EIGVAL(I),I=1,NUMVAR)
+         WRITE(IOUT,1000) ((EIGVEC(I,J),I=1,NUMVAR),J=1,NUMVAR)
+    1000 FORMAT(1X,10E12.4)
+
+
+
+ VI. SUBTASK :  PUT
+
+   PURPOSE : Print out eigen values and eigen vectors(unformatted).
+
+   SYNTAX :
+
+    PUT              { FILENAME char }
+
+   OUTPUT FORMAT :
+         WRITE(IOUT) NUMVAR,(EIGVAL(I),I=1,NUMVAR),
+        &            ((EIGVEC(I,J),I=1,NUMVAR),J=1,NUMVAR)
+
+
+ VII. EXAMPLES
+
+      NMA
+        HMAT
+        DIAG
+        WRITE -
+          D52362.INSPIDA2.TEST.EIGEN.DATA
+        PUT -
+          D52362.INSPIDA2.TEST.EIGEN.BIN
+        KMAT -
+          D52362.INSPIDA2.TEST.KMAT.BIN
+      QUIT
+

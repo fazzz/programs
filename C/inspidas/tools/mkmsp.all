@@ -1,0 +1,13 @@
+cut.cmsp ../source/flxsub >../msp/flxsub
+cut.cmsp ../source/graph >../msp/graph
+cut.cmsp ../source/iolibdas >../msp/iolibdas
+cut.cmsp ../source/ioroutn >../msp/ioroutn
+cut.cmsp ../source/main >../msp/main
+cut.cmsp ../source/mathlib >../msp/mathlib
+cut.cmsp ../source/mc >../msp/mc
+cut.cmsp ../source/minim >../msp/minim
+cut.cmsp ../source/nma >../msp/nma
+cut.cmsp ../source/nmanal >../msp/nmanal
+cut.cmsp ../source/precep >../msp/precep
+cut.cmsp ../source/prein >../msp/prein
+cut.cmsp ../source/utilitydas >../msp/utilitydas

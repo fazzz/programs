@@ -1,0 +1,96 @@
+string.lo: string.c nc.h ../config.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/sys/types.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs-64.h /usr/include/bits/types.h \
+ /usr/include/bits/wordsize.h /opt/intel/Compiler/11.0/083/include/stddef.h \
+ /usr/include/bits/typesizes.h /usr/include/time.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/time.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/bits/wordsize.h netcdf.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-x86_64/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h ncio.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h fbits.h /usr/include/stdlib.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/alloca.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/string.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/ctype.h \
+ /usr/include/assert.h ncx.h ../config.h rnd.h \
+ /opt/intel/Compiler/11.0/083/include/stddef.h /usr/include/errno.h
+
+nc.h:
+
+../config.h:
+
+/opt/intel/Compiler/11.0/083/include/stddef.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/time.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+netcdf.h:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-x86_64/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+ncio.h:
+
+fbits.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/alloca.h:
+
+/usr/include/string.h:
+
+/usr/include/ctype.h:
+
+/usr/include/assert.h:
+
+ncx.h:
+
+rnd.h:

@@ -1,0 +1,35 @@
+# Makefile : originally written by F.Hirata, revised edition by K.Oda
+#
+OBJS= \
+../ld/flxsub.o \
+../ld/graph.o \
+../ld/iolibdas.o \
+../ld/ioroutn.o \
+../ld/mathlib.o \
+../ld/minim.o \
+../ld/mc.o \
+../ld/nma.o \
+../ld/nmanal.o \
+../ld/precep.o \
+../ld/prein.o \
+../ld/utilitydas.o \
+../ld/main.o
+
+
+TARGET= nma
+
+CFLAGS= -O2
+
+main : $(OBJS)
+	ifort $(CFLAGS) -o inspidas $(OBJS)
+
+all :
+	ifort $(CFLAGS) -c *.f
+
+$(TARGET).o : $(TARGET).f
+	ifort $(CFLAGS) -c $(TARGET).f
+
+$(TARGET).f : $(TARGET)
+	cut.shara $(TARGET) >$(TARGET).f
+clear :
+	rm *.o

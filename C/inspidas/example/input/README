@@ -1,0 +1,9 @@
+Available sample input files
+
+ decaala :(decaalanine) 
+          Read in initial dihedral angles, minimize the conformational enrgy, do normal mode analysis.
+ nmanal  :(decaalanine)
+          Calculate various quantities from the results of the normal mode analysis. See the source file 'nmanal'.
+
+Output files are usually on the derectory /labo/qclib/inspidas/example/data/decaala.
+

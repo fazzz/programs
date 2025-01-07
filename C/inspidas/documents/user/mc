@@ -1,0 +1,87 @@
+C
+$! File:          MONT.MANUAL
+$! Date:          Oct. 1992
+$! Author:        Koji Oda
+$! Update:
+$! Last update:   Oct. 1992
+$! Function:      A Brief description of the tasks in MONT
+
+
+                            T A S K    M O N T 
+
+I. MONT OVERVIEW
+
+   PURPOSE: The object of this TASK is to do a Monte Carlo simulation
+            in dihedral angle space.
+
+   SYNTAX:  MONT
+
+II. SYNTAX
+
+MONTe Carlo
+    INPUt
+        CNTL
+            ISTART : = 0 FOR FRESH START;
+                     OTHERWISE CONTINUING JOB
+            IECEPP : = 1 FOR ECEPP FORMAT OF INITIAL ANGLES;
+                         OTHERWISE NO FORMAT
+            ICUT   : = 1 FOR CUTOFF; OTHERWISE NO CUTOFF
+                     ... CUT OFF OPERATION IS NOT AVAILABLE IN THIS VERSION
+            IXS    : A SEED FOR RANDOM NUMBER GENERATOR
+            TEMP   : TEMPERATURE
+            ESMALL : THE LOWEST LIMIT OF EIGENVALUE (USUALLY = 10.0)
+            FLUC   : THE COEFFICIENT OF THE STEP LENGTH (USUALLY =1.3)
+            LOUTE  : OUTPUT OF ENERGY EVERY LOUTE STEPS
+            LOUTA  : OUTPUT OF ANGLES EVERY LOUTA STEPS
+            LLIST  : REVISION OF INTERACTION TABLE EVERY LLIST STEPS
+            LMTR   : ACCEPTANCE RATIO IS AVERAGED FOR EACH LMTR STEPS
+            LLTR   : REVISION OF HESSIAN EVERY LLTR STEPS
+            ACPL   : IF ACP < ACPL, HESSIAN IS REVISED
+            ITIMEL : CPU TIME LIMIT IN SECOND
+                        (Now it has no meaning on TITAN)
+            LTR    : LIMIT OF STEP
+
+    FILE
+        RESR <filename>
+            -RESTART FILE NAME (READ)
+        RESW <filename>
+            -RESTART FILE NAME (WRITE)
+        ENGY <filename>
+            -ENERGY FILE NAME
+        ANGL <filename>
+            -ANGLE FILE NAME
+        COOR <filename>
+            -COORDINATE(SNGL) FILE NAME
+
+    READ/GET (formatted/unformatted)
+        PRECep <filename>
+            -READ IN PRECEP OUTPUT DATA
+        PARMeter <filename>
+            -READ IN ENERGY PARAMETERS
+        ANGL <filename>
+            -READ IN INITIAL ANGLES
+
+    RUN
+
+    QUIT
+
+
+III. EXAMPLE
+
+  WRITE /tmp1/oda/egf.out TITLE TEST OF INSPIDAS MONTE CARLO*
+  MONT
+    INPUT CNTL -
+      ISTART 0 IECEPP 1 ICUT 0 IXS 4324 -
+      TEMP 300.0 ESMALL 10.0 FLUC 1.4 -
+      LOUTE 1 LOUTA 10 LLIST 5000 LMTR 2000 ITIMEL 10600 LTR 10000 -
+      LLTR 5000 ACPL 0.1
+    READ PRECEP -
+      /tmp1/oda/egftest/preout.data1
+    READ PARM -
+      /labo/qclib/inspidas/data/bd8
+    READ ANGLE -
+      /tmp1/oda/egftest/ecepp.data
+    RUN
+    QUIT
+  END
+

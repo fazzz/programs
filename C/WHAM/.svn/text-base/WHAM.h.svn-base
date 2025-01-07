@@ -1,0 +1,58 @@
+
+#define ON 1
+#define OFF 0
+
+#define MINSHIFT 10e-4
+#define maxi 100
+
+
+
+
+double wham_ite(int nwindows,  // num of purb
+		int *nt,       // num of snapshots
+		double *ebF,   // exp(bFk)
+	        double ***ebW  // exp(-bWj(Ri,l))
+		);
+
+double wham_calc_force(int nwindows,  // num of purb
+		       int *nt,       // num of snapshots
+		       double ***ebW, // exp(-bWj(Ri,l))
+		       double ***trj, // Ri,l(x,y,z)
+		       double **ui,   // ui(1......numnb)
+		       double *fact,  // fa(1......numnb)
+		       double temp    // tp
+		       );
+
+double wham_calc_force_drest(int nwindows,   // num of purb
+			     int *nt,        // num of snapshots
+			     double ***ebW,  // exp(-bWj(Ri,l))
+			     double ***trj,  // Ri,l(x,y,z)
+			     int numatom,
+			     int **dihedpairs,//
+			     double **theta_ref, //
+			     int numdihed,   //
+			     double V_rest,
+			     double temp     // tp
+			     );
+
+double wham_calc_force_carest(int nwindows,  // num of purb
+			      int *nt,        // num of snapshots
+			      double ***ebW,  // exp(-bWj(Ri,l))
+			      double ***trj,  // Ri,l(x,y,z)
+			      int numca,    // num of c-alpha
+			      double **crd_ref,// reference crd of c-alpha
+			      double V_rest,  // force const for restraint
+			      double temp     // tp(beta)
+			      );
+
+double wham_pmf2d(int num_k,
+		  int num_x,
+		  int num_y,
+		  int nwindows,
+		  int *nt,
+		  double *ebF,   
+		  double ***ebW,  // exp(-bWj(Ri,l))
+		  double **hist,   // Ni(l,x,y)
+		  double **pmf    // pmf(x,y)
+		  );
+

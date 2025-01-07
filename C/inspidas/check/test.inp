@@ -1,0 +1,26 @@
+  WRITE DECAALA.OUT TITLE TEST OF INSPIDAS *
+  PREIN
+ !   BUILD READ  abe 
+     BUILD PRIM  ALA END
+ !   BUILD END   NEND 3 CEND 15
+     BUILD END   NEND 1 CEND 11
+ !   READ  ANGL  minin
+  QUIT
+  PRECEP
+     READ  PARM  STANDARD -
+            ../data/sdatx 
+     READ  PARM UNIT -
+            ../data/unitx 
+     RUN
+     WRITE PREO preout
+  QUIT
+  MINIM
+    INPUT CNTL -
+      TLIMIT 600 LOUT 50 NUMRNG 1 -
+      LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -
+      CONV0 1.D-12 LOMEGA 0
+    READ  PARM  ../data/bd8
+    RUN
+    WRITE COORD FLEX -
+      coo.flex
+  QUIT

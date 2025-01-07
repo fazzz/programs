@@ -1,0 +1,21 @@
+ls
+cd common
+ls
+vi maxsize
+ls
+cp maxsize.BPTI maxsize
+vi maxsize
+cd common
+ls
+vi maxsize
+cp maxsize.ori maxsize
+ls
+cd common
+ls
+diff maxsize maxsize.ori
+cp maxsize.EGLC maxsize
+ls
+cd commobn
+cd common
+ls
+cp maxsize.ori maxsize

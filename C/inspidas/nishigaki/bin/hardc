@@ -1,0 +1,11 @@
+#
+# get a hardcopy of an window image
+#
+xwd -nobdrs -out winimg -xy
+rcp winimg qc515:~
+rm winimg
+
+rsh qc515 /usr/local/bin/X11R3/xpr -device ps winimg | \
+    rsh qc515 /usr/ucb/lpr -Plw
+rsh qc515 rm winimg
+

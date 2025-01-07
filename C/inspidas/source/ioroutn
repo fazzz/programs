@@ -1,0 +1,296 @@
+CGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOG
+C
+C  *** IOROUTN  ***
+C      THIS FILE INCLUDES I/O ROUTINES.
+C
+C      RDANGL INSTALLED BY AKIO KITAO, APR. 27, 1990
+C      WTANGL INSTALLED BY AKIO KITAO, APR. 27, 1990
+C
+CGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOGOG
+C
+C     THIS SUBROUTINE READS DIHEDRAL ANGLE DATA FROM ANG.DATA FILE
+C     ( ECEPP FORMAT)
+C
+      SUBROUTINE RDANGL(IREAD)
+C
+C     *** DECLARE ***
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+C
+      PARAMETER (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+C
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (COMMAND)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/command'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+CMSP  INCLUDE (VARANG)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/varang'
+C
+C     *** READ DIHEDRAL ANGLE DATA FROM ANG.DATA FILE ***
+C
+      DO 10 I=1,NUMRES
+        READ(IREAD,1100)(ANGLES(J,I),J=1,10)
+ 1100   FORMAT(10F8.3)
+   10 CONTINUE
+C
+      DO 20 I=1,NUMRES
+      DO 20 J=1,10
+        ANGRAD(J,I) = ANGLES(J,I) * RAD
+   20 CONTINUE
+C
+      RETURN
+      END
+C
+C     THIS SUBROUTINE WRITE DIHEDRAL ANGLE DATA
+C     ( ECEPP FORMAT)
+C
+      SUBROUTINE WTANGL(IWRITE)
+C
+C     *** DECLARE ***
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+C
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (COMMAND)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/command'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+CMSP  INCLUDE (VARANG)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/varang'
+C
+      PARAMETER (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+C
+C     *** WRITE DIHEDRAL ANGLE DATA
+C
+      DO 10 I=1,NUMRES
+      DO 10 J=1,10
+        ANGLES(J,I) = ANGRAD(J,I) / RAD
+   10 CONTINUE
+C
+      DO 20 I=1,NUMRES
+        WRITE(IWRITE,1100)(ANGLES(J,I),J=1,10)
+ 1100   FORMAT(10F8.3)
+   20 CONTINUE
+C
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE  GTANGL (IREAD,II)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8 (A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (VARANG)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/varang'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+C     COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS,NUMRES
+C     DIMENSION  VAR(NUMVAR)
+C  FOR FRESH START THE INPUT FILE CONTAINS DIHEDRAL ANGLES ONLY.
+C  FOR RESTART THE INPUT FILE CONTAINS DIHEDRAL ANGLES AND THE
+C  ITERATION NUMBER.
+C
+      II=1
+      READ(IREAD)  (VAR(I),I=1,NUMVAR)
+      READ(IREAD,END=10)  II
+        WRITE(IOUT06,*) 'READ FROM A RESTART FILE'
+        WRITE(IOUT02,*) 'READ FROM A RESTART FILE'
+        II = II + 1
+  10  CONTINUE
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE  PTANGL (IWRITE,VAR,II)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8 (A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+C     COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS,NUMRES
+      DIMENSION  VAR(MAXVAR)
+      WRITE(IWRITE) (VAR(I),I=1,NUMVAR)
+      WRITE(IWRITE) II
+      REWIND  IWRITE
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE  PTCOOR (IWRITE)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8 (A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (COORD)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/coord'
+      WRITE(IWRITE) ((CO(J,I),J=1,3),I=1,NUMATM)
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE RDSTD(FL,LEVEL,IDENT,ATTRIB,NR,RECS)
+C-----------------------------------------------------------------------
+      INTEGER FL, LEVEL, NR
+      CHARACTER IDENT*8, ATTRIB*8, RECS*(*)
+      COMMON /BUFFER/BUF
+      CHARACTER*80 BUF
+      CALL RDSTDM(FL,BUF,LEVEL,IDENT,ATTRIB,NR,RECS)
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE RDSTDM(FL,BUF,LEVEL,IDENT,ATTRIB,NR,RECS)
+C-----------------------------------------------------------------------
+      INTEGER FL, LEVEL, NR
+      CHARACTER IDENT*8, ATTRIB*8, RECS*(*), BUF*80
+      CHARACTER*8 LEV0,LEV1,LEV2,LEV3,LEV4,LEV5,ENDL
+      DATA LEV0/'0       '/, LEV1/'1       '/, LEV2/'2       '/, LEV3/
+     &'3       '/, LEV4/'4       '/, LEV5/'5       '/, ENDL/'END     '/
+      IF(.NOT.(NR .EQ. 0))GOTO  3000
+      READ(FL,'(A80)',END=99) BUF
+ 3000 CONTINUE
+      IF(.NOT.(BUF(1:8) .EQ. ENDL))GOTO  3002
+      LEVEL = -1
+      RETURN
+ 3002 CONTINUE
+      I = 1
+ 3004 CONTINUE
+      IF(.NOT.(I+79 .LE. LEN(RECS)))GOTO  3007
+      RECS(I:I+79) = BUF
+      I = I + 80
+ 3007 CONTINUE
+      READ (FL,'(A80)',END=99) BUF
+ 3005 IF(.NOT.(BUF (1:8) .EQ. LEV0 .OR.BUF (1:8) .EQ. LEV1 .OR.BUF (1:8)
+     & .EQ. LEV2 .OR.BUF (1:8) .EQ. LEV3 .OR.BUF (1:8) .EQ. LEV4 .OR.
+     &BUF (1:8) .EQ. LEV5 .OR.BUF (1:8) .EQ. ENDL ))GOTO  3004
+      IF(.NOT.(RECS(1:8) .EQ. LEV0))GOTO  3009
+      LEVEL = 0
+ 3009 CONTINUE
+      IF(.NOT.(RECS(1:8) .EQ. LEV1))GOTO  3011
+      LEVEL = 1
+ 3011 CONTINUE
+      IF(.NOT.(RECS(1:8) .EQ. LEV2))GOTO  3013
+      LEVEL = 2
+ 3013 CONTINUE
+      IF(.NOT.(RECS(1:8) .EQ. LEV3))GOTO  3015
+      LEVEL = 3
+ 3015 CONTINUE
+      IF(.NOT.(RECS(1:8) .EQ. LEV4))GOTO  3017
+      LEVEL = 4
+ 3017 CONTINUE
+      IF(.NOT.(RECS(1:8) .EQ. LEV5))GOTO  3019
+      LEVEL = 5
+ 3019 CONTINUE
+      IDENT = RECS(9:16)
+      ATTRIB = RECS(17:24)
+      NR = (I-1)/80
+      RETURN
+ 99    LEVEL = -1
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE GTINFO(KEY,NI,INFORM,NR,RECS)
+C-----------------------------------------------------------------------
+      INTEGER NI, NR
+      CHARACTER KEY*8, INFORM*(*), RECS*(*)
+      CHARACTER*8 CONT,SPCE,LEV0,LEV1,LEV2,LEV3,LEV4,LEV5
+      DATA CONT/'-       '/, SPCE/'        '/, LEV0/'0       '/, LEV1/
+     &'1       '/, LEV2/'2       '/, LEV3/'3       '/, LEV4/'4       '/,
+     & LEV5/'5       '/
+      NI = 0
+      I=1
+ 3000 IF(.NOT.(I.LE.NR))GOTO  3002
+      IB = 80*(I-1)
+      IF(.NOT.(RECS(IB+1:IB+8 ) .EQ. SPCE .OR.RECS(IB+1:IB+8 ) .EQ.
+     &LEV0 .OR.RECS(IB+1:IB+8 ) .EQ. LEV1 .OR.RECS(IB+1:IB+8 ) .EQ.
+     &LEV2 .OR.RECS(IB+1:IB+8 ) .EQ. LEV3 .OR.RECS(IB+1:IB+8 ) .EQ.
+     &LEV4 .OR.RECS(IB+1:IB+8 ) .EQ. LEV5 ))GOTO  3003
+      IF(.NOT.(RECS(IB+ 9:IB+16) .EQ. KEY))GOTO  3005
+      GO TO 1
+ 3005 CONTINUE
+      IF(.NOT.(RECS(IB+41:IB+48) .EQ. KEY))GOTO  3007
+      GO TO 2
+ 3007 CONTINUE
+ 3003 CONTINUE
+      I=I+1
+      GOTO  3000
+ 3002 CONTINUE
+      RETURN
+ 3009 IF(.NOT.(I.LE.NR))GOTO  3011
+      IB = 80*(I-1)
+      IF(.NOT.(RECS(IB+9:IB+16) .NE. CONT))GOTO  3012
+      GOTO  3011
+ 3012 CONTINUE
+ 1     INFORM = INFORM(1:NI) // RECS(IB+17:IB+40)
+      NI = NI + 24
+      IF(.NOT.(RECS(IB+41:IB+48) .NE. CONT))GOTO  3014
+      GOTO  3011
+ 3014 CONTINUE
+ 2     INFORM = INFORM(1:NI) // RECS(IB+49:IB+72)
+      NI = NI + 24
+      I=I+1
+      GOTO  3009
+ 3011 CONTINUE
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE WTEIG(IOUT)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8(A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (EIGEN)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/eigen'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+C
+      WRITE(IOUT,*) NUMVAR
+      WRITE(IOUT,1000) (EIGVAL(I),I=1,NUMVAR)
+      WRITE(IOUT,1000) ((EIGVEC(I,J),I=1,NUMVAR),J=1,NUMVAR)
+ 1000 FORMAT(1X,10E12.4)
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE PTEIG(IOUT)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8(A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (EIGEN)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/eigen'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+C
+      WRITE(IOUT) NUMVAR,(EIGVAL(I),I=1,NUMVAR),
+     &            ((EIGVEC(I,J),I=1,NUMVAR),J=1,NUMVAR)
+      RETURN
+      END
+C-----------------------------------------------------------------------
+      SUBROUTINE GTEIG(IIN)
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8(A-H,O-Z)
+CMSP  INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+CMSP  INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+CMSP  INCLUDE (EIGEN)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/eigen'
+CMSP  INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+C
+      READ(IIN) NUMVAR,(EIGVAL(I),I=1,NUMVAR),
+     &          ((EIGVEC(I,J),I=1,NUMVAR),J=1,NUMVAR)
+      RETURN
+      END

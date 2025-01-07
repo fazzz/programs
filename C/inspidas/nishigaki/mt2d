@@ -1,0 +1,17 @@
+#
+#
+#
+set numfile=67
+set count=0
+
+while(1)
+	@ count+=1
+	if($count > $numfile) exit
+
+	set filen=mtfile$count
+
+	list
+	list > $filen
+	list
+end
+

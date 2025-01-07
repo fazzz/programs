@@ -1,0 +1,1037 @@
+Breakpoint 17 at 0x4022d8: file mainECEP_mkiniang.c, line 234.
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:ALA
+dd:1 -59.999524
+dd:2 15.313272
+dd:3 179.725834
+dd:4 48.972598
+dd:5 -175.455342
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:ARG
+dd:1 -60.002564
+dd:2 -119.691985
+dd:3 -121.332687
+dd:4 238.658172
+dd:5 -121.183738
+dd:6 180.029201
+dd:7 -0.294643
+dd:8 0.067721
+dd:9 20.507235
+dd:10 89.579010
+dd:11 35.206155
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:ASN
+dd:1 -60.034827
+dd:2 -121.032725
+dd:3 -121.354117
+dd:4 -0.031055
+dd:5 180.023144
+dd:6 -179.970357
+dd:7 239.998109
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:ASP
+dd:1 -60.021561
+dd:2 -121.012489
+dd:3 -121.923296
+dd:4 0.042605
+dd:5 0.021816
+dd:6 -180.001416
+dd:7 240.029658
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:CYS
+dd:1 -60.015202
+dd:2 240.673023
+dd:3 -121.898714
+dd:4 -180.033871
+dd:5 -120.002524
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:GLU
+dd:1 -59.988536
+dd:2 -118.521191
+dd:3 -121.391689
+dd:4 238.596566
+dd:5 -0.020859
+dd:6 -0.020264
+dd:7 180.052673
+dd:8 240.030327
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:GLY
+dd:1 300.013212
+dd:2 238.613491
+dd:3 -179.997000
+dd:4 -119.997000
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:HIS
+dd:1 -59.962756
+dd:2 242.151012
+dd:3 -121.818476
+dd:4 0.004321
+dd:5 -180.033536
+dd:6 -120.050409
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:ILE
+dd:1 -59.967062
+dd:2 -117.570090
+dd:3 -117.395113
+dd:4 239.966808
+dd:5 238.655800
+dd:6 -119.981286
+dd:7 179.983604
+dd:8 240.003659
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:LEU
+dd:1 -60.004474
+dd:2 -117.533402
+dd:3 -122.120013
+dd:4 117.362760
+dd:5 -120.009151
+dd:6 -119.999946
+dd:7 179.996553
+dd:8 -120.009829
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:LYS
+dd:1 -59.988573
+dd:2 -117.520162
+dd:3 -121.376610
+dd:4 -121.425928
+dd:5 238.544313
+dd:6 238.677799
+dd:7 239.973795
+dd:8 180.002362
+dd:9 239.993444
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:MET
+dd:1 -59.963212
+dd:2 -118.984158
+dd:3 -121.378359
+dd:4 -121.222300
+dd:5 -0.043017
+dd:6 -119.971687
+dd:7 179.975039
+dd:8 -119.966502
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:SER
+dd:1 -59.954749
+dd:2 -119.189810
+dd:3 -121.513330
+dd:4 -0.017815
+dd:5 -179.937147
+dd:6 240.022600
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:TRP
+dd:1 -59.961286
+dd:2 241.175748
+dd:3 238.125930
+dd:4 0.006660
+dd:5 -180.028722
+dd:6 239.995796
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:THR
+dd:1 -59.992509
+dd:2 -116.942483
+dd:3 -122.999695
+dd:4 0.057181
+dd:5 120.032896
+dd:6 180.026119
+dd:7 -119.936366
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:TYR
+dd:1 -59.966794
+dd:2 -119.496135
+dd:3 -121.821698
+dd:4 0.028015
+dd:5 -0.081298
+dd:6 179.984970
+dd:7 240.001789
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:PHE
+dd:1 -59.949528
+dd:2 -119.397715
+dd:3 -121.782777
+dd:4 -0.020970
+dd:5 179.990570
+dd:6 239.979092
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:PRO
+dd:1 63.226566
+dd:2 0.055736
+dd:3 -179.951893
+dd:4 52.412570
+
+starting
+[Thread debugging using libthread_db enabled]
+
+breakpoint 17
+
+Breakpoint 17, 
+frame-begin 0 0x4022d8
+main (argc=6, argv=0x7fffffffdaf8) at mainECEP_mkiniang.c:234
+
+source /home/yamamori/work/programs/readECEPE/mainECEP_mkiniang.c:234:5947:beg:0x4022d8
+
+stopped
+dd:VAL
+dd:1 -60.014038
+dd:2 -117.948433
+dd:3 -241.995595
+dd:4 -119.979982
+dd:5 -120.023372
+dd:6 180.000656
+dd:7 239.983352
+
+post-prompt
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+1	#define _GNU_SOURCE  
+2	
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	#include <unistd.h>
+6	#include <math.h>
+7	
+8	#include "ECEPE.h"
+9	#include "PROTOPO.h"
+10	#include "PT.h"
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022d8 in main at mainECEP_mkiniang.c:234
+	breakpoint already hit 1 time
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx test.ang
+
+Program exited with code 01.
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402269 in main at mainECEP_mkiniang.c:234
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Program received signal SIGINT, Interrupt.
+0x000000000040a3c5 in close_ring ()
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402269 in main at mainECEP_mkiniang.c:234
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000402a72 in main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:329
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022b8 in main at mainECEP_mkiniang.c:234
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022b8 in main at mainECEP_mkiniang.c:234
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x00000000004022b8 in main at mainECEP_mkiniang.c:234
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Program exited normally.
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+1	#define _GNU_SOURCE  
+2	
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	#include <unistd.h>
+6	#include <math.h>
+7	
+8	#include "ECEPE.h"
+9	#include "PROTOPO.h"
+10	#include "PT.h"
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+1	#define _GNU_SOURCE  
+2	
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	#include <unistd.h>
+6	#include <math.h>
+7	
+8	#include "ECEPE.h"
+9	#include "PROTOPO.h"
+10	#include "PT.h"
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 1 time
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 1 time
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 2 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 1 time
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 2 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 2 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 2 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 2 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 3 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 2 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 3 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 3 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 3 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 3 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 4 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 3 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 4 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 4 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 4 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 4 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 5 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 4 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 5 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 5 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 5 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 5 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 6 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 5 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 6 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 6 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 6 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 6 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 7 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 6 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 7 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 7 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 7 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 7 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 8 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 7 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 8 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 8 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 8 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 8 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 9 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 8 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 9 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 9 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 9 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 9 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 10 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 9 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 10 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 10 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 10 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 10 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 11 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 10 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 11 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 11 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 11 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 11 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 12 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 11 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 12 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 12 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 12 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 12 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 13 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 12 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 13 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 13 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 13 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 13 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 14 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 13 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 14 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 14 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 14 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 14 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 15 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 14 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 15 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 15 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 15 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 15 times
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 16 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 15 times
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 16 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 16 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 16 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 16 times
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 16 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 16 times
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+1	#define _GNU_SOURCE  
+2	
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	#include <unistd.h>
+6	#include <math.h>
+7	
+8	#include "ECEPE.h"
+9	#include "PROTOPO.h"
+10	#include "PT.h"
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 16 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 16 times
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 17 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 16 times
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+
+Breakpoint 19, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:296
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 17 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 17 times
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+
+Breakpoint 18, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:292
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+18      breakpoint     keep y   0x000000000040280e in main at mainECEP_mkiniang.c:291
+	breakpoint already hit 18 times
+19      breakpoint     keep y   0x0000000000402907 in main at mainECEP_mkiniang.c:296
+	breakpoint already hit 17 times
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+
+Breakpoint 20, main (argc=6, argv=0x7fffffffdaa0) at mainECEP_mkiniang.c:336
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -l -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Breakpoint 20, main (argc=6, argv=0x7fffffffdaa8) at mainECEP_mkiniang.c:336
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+
+Program exited normally.
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+1	#define _GNU_SOURCE  
+2	
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	#include <unistd.h>
+6	#include <math.h>
+7	
+8	#include "ECEPE.h"
+9	#include "PROTOPO.h"
+10	#include "PT.h"
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+	breakpoint already hit 1 time
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+Starting program: /home/yamamori/mybin/ECEP_mkiniangg -l -d /home/yamamori/work/programs/readECEPE/delta_dihed.dat2 -c HP35.preo /home/yamamori/work/programs/inspidas/data/bd8 xxxx xxxx /home/yamamori/calspa/input/HP35v_ECEPE.crd test.ang
+
+Breakpoint 21, main (argc=6, argv=0x7fffffffdaa8) at mainECEP_mkiniang.c:171
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time
+Num     Type           Disp Enb Address            What
+17      breakpoint     keep y   0x0000000000402283 in main at mainECEP_mkiniang.c:234
+20      breakpoint     keep y   0x0000000000402afc in main at mainECEP_mkiniang.c:335
+21      breakpoint     keep y   0x0000000000401bea in main at mainECEP_mkiniang.c:169
+	breakpoint already hit 1 time

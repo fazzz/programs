@@ -1,0 +1,24 @@
+DIRFRC_DEFINES = -DSLOW_INDIRECTVEC -DDIRFRC_COMTRANS 
+MPI_DEFINES =
+MPI_INCLUDE =
+MPI_LIBS =
+
+CPP = /lib/cpp
+CPPFLAGS = -traditional -P
+F90_DEFINES = -DSKINNB_DEF=2.0 -DGB_IA64_ACCEL
+
+F90 = ifort
+MODULE_SUFFIX = mod
+F90FLAGS = -c -auto
+F90_OPT_DBG = -g -traceback
+F90_OPT_LO = -IPF_fma -ftz -ip -O0
+F90_OPT_MED = -IPF_fma -ftz -ip -O2
+F90_OPT_HI = -IPF_fma -ftz -ip -O3
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = icc
+CFLAGS =
+
+LOAD = ifort
+LOADFLAGS = -i-static
+LOADLIBS = -Wl,-rpath=$(IFORT_RPATH)

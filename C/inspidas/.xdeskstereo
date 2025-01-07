@@ -1,0 +1,14 @@
+#!/bin/sh
+TZ=PST8PDT
+export TZ
+xrdb -merge $HOME/.Xdefaults
+#xset s 360 m 4 2
+xclock -analog -g 100x100+830+0&
+xload =200x100+940+0& 
+xterm =80x50+0+0 -sb -sl 1000 -n `hostname` &
+xterm =80x8+0+900 -C -fn ardents -n console &
+DISPLAY=unix:0.1
+export DISPLAY 
+awm &
+xterm -geometry 80x25+0+10 -sb -sl 1000 -n `hostname` &
+

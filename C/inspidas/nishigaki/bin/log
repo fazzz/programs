@@ -1,0 +1,8 @@
+#
+echo -n "Input command : "
+set com=$<
+echo $com > logfile
+echo "" >> logfile
+$com >> logfile
+cat logfile
+rm logfile

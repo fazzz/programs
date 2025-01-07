@@ -1,0 +1,394 @@
+
+     INSPIDAS V 0.0  TITAN    VERSION :     7-Dec-90     17:30:33  
+
+ 
+       TITLE : TEST OF INSPIDAS
+ 
+      INPUT: 
+ 
+        WRITE DECAALA.OUT TITLE TEST OF INSPIDAS *                                    
+        PREIN                                                                         
+      !    BUILD READ  /labo/qclib/inspidas/example/data/abe                          
+           BUILD PRIM  ALA ALA ALA ALA ALA ALA ALA ALA ALA ALA END                    
+           BUILD END   NEND 1 CEND 11                                                 
+           READ  ANGL  /labo/qclib/inspidas/example/data/minin                        
+           WRITE PREIN /labo/qclib/inspidas/test/PREIN                                
+        QUIT                                                                          
+        PRECEP                                                                        
+           READ  PARM  STANDARD -                                                     
+                  /labo/qclib/inspidas/data/sdatx                                     
+           READ  PARM UNIT -                                                          
+                  /labo/qclib/inspidas/data/unitx                                     
+           READ  PREIN -                                                              
+                  /labo/qclib/inspidas/example/data/prein                             
+           RUN                                                                        
+           WRITE PREOUT -                                                             
+                  /labo/qclib/inspidas/test/PREOUT                                    
+           QUIT                                                                       
+        MINIM                                                                         
+          INPUT CNTL -                                                                
+            TLIMIT 600 LOUT 50 NUMRNG 1 -                                             
+            LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -                              
+            CONV0 1.D-12 LOMEGA 0                                                     
+          READ PRECEP -                                                               
+            /labo/qclib/inspidas/test/PREOUT                                          
+          READ PARM -                                                                 
+            /labo/qclib/inspidas/data/bd8                                             
+          READ ANGLE -                                                                
+            /labo/qclib/inspidas/example/data/minin                                   
+          RUN                                                                         
+          WRITE ANGLE -                                                               
+                  /labo/qclib/inspidas/test/MINANG.DATA                               
+          WRITE COORD FLEX -                                                          
+                  /labo/qclib/inspidas/test/MINCOO.DATA                               
+          PUT FMATRIX -                                                               
+                  /labo/qclib/inspidas/test/DRVTV.DATA                                
+          QUIT                                                                        
+        NMA                                                                           
+         HMAT                                                                         
+         DIAG                                                                         
+         WRIT -                                                                       
+                  /labo/qclib/inspidas/test/EIGEN.DATA                                
+         PUT  -                                                                       
+                  /labo/qclib/inspidas/test/EIGEN.BIN                                 
+         KMAT -                                                                       
+                  /labo/qclib/inspidas/test/KMAT.BIN                                  
+         GRPH                                                                         
+        QUIT                                                                          
+        END                                                                           
+ 
+
+      NEXT TASK :  PREIN 
+
+
+      NEXT SUBTASK * BUIL
+
+      *** PRIMARY STRUCTURE *** 
+        ALA   ALA   ALA   ALA   ALA   ALA   ALA   ALA   ALA   ALA 
+          1     1     1     1     1     1     1     1     1     1
+
+      NEXT SUBTASK * BUIL
+
+      *** END GROUP ***    
+        DEFAULT     N-END   1  C-END  11
+        CHANGED TO  N-END   1  C-END  11
+
+      NEXT SUBTASK * READ
+
+     ANGL : READ FROM /labo/qclib/inspidas/example/data/minin                     
+
+      NEXT SUBTASK * WRIT
+
+     PREI : WRITE TO  /labo/qclib/inspidas/test/PREIN                             
+
+      NEXT SUBTASK * QUIT
+
+
+      NEXT TASK :  PRECEP 
+
+
+      NEXT SUBTASK * READ
+
+
+      NEXT SUBTASK * READ
+
+
+      NEXT SUBTASK * READ
+
+
+      NEXT SUBTASK * RUN 
+
+
+      NEXT SUBTASK * WRIT
+
+
+      NEXT SUBTASK * QUIT
+
+
+      NEXT TASK :  MINIMIZATION 
+
+
+      NEXT SUBTASK : INPU
+
+
+      NEXT SUBTASK : READ
+
+
+
+ TITLE1 :  DECA-ALANINE                                                                    
+0   NUMATM= 103,   NUMVAR=  40,   NUMRES= 12,   NUMINT=     135,   NSS= 0
+
+     PRECEP OUTPUT DATA ARE READ IN FROM FILE:/labo/qclib/inspidas/test/PREOUT                            
+
+      NEXT SUBTASK : READ
+
+     ENERGY PARAMETERS ARE READ IN FROM FILE:/labo/qclib/inspidas/data/bd8                               
+
+      NEXT SUBTASK : READ
+
+     INITIAL ANGLES ARE READ IN FROM FILE:/labo/qclib/inspidas/example/data/minin                     
+
+      NEXT SUBTASK : RUN 
+
+  NUMVAR=          40 NUMINT=         135 NN2=         820
+,   TLIMIT=    4.1(SEC),   LOUT= 50
+    1:  LRANGE=400,   WVLTN0= 0.00000D+00,   LFUNC0=-1,   NITRTN=  200,   CONVO= 1.000D-12,   LOMEGA=0
+0               ******** PARAMETERS HAVE BEEN CHANGED ********
+    KRANGE= 29,  WVLTN= 0.000E+00,   LFUNC=*,   MAXITR=  200,   CONV= 1.000E-12,   LOMEGA=0
+
+    -> MINIMIZA CONFORMATIONAL ENERGY ONLY
+
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70000D+01  6.01738D+01 -2.33989D+01  0.00000D+00  0.00000D+00  6.37749D+01
+
+                                                                            ITERATION NO.    0,  F0=  6.377494693877D+01
+                  *******
+                                                                            ITERATION NO.    1,  F0=  6.284077583883D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70094D+01  6.05498D+01 -2.47185D+01  0.00000D+00  0.00000D+00  6.28408D+01
+
+                                                                            ITERATION NO.    2,  F0=  6.229166798305D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70172D+01  6.03570D+01 -2.50825D+01  0.00000D+00  0.00000D+00  6.22917D+01
+
+                                                                            ITERATION NO.    3,  F0=  6.181073187452D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70468D+01  6.06547D+01 -2.58908D+01  0.00000D+00  0.00000D+00  6.18107D+01
+
+                                                                            ITERATION NO.    4,  F0=  6.134863044454D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70431D+01  6.04536D+01 -2.61480D+01  0.00000D+00  0.00000D+00  6.13486D+01
+
+                                                                            ITERATION NO.    5,  F0=  6.035650571141D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.71453D+01  6.10247D+01 -2.78135D+01  0.00000D+00  0.00000D+00  6.03565D+01
+
+                                                                            ITERATION NO.    6,  F0=  5.924815144210D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.70907D+01  6.06744D+01 -2.85169D+01  0.00000D+00  0.00000D+00  5.92482D+01
+
+                                                                            ITERATION NO.    7,  F0=  5.104639300808D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        2.52989D+01  6.16473D+01 -3.58998D+01  0.00000D+00  0.00000D+00  5.10464D+01
+
+                                                                            ITERATION NO.    8,  F0=  2.129410276145D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        9.14034D+00  6.12222D+01 -4.90684D+01  0.00000D+00  0.00000D+00  2.12941D+01
+
+                                                                            ITERATION NO.    9,  F0=  1.353132922054D+01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        8.33534D+00  6.11632D+01 -5.59672D+01  0.00000D+00  0.00000D+00  1.35313D+01
+
+                                                                            ITERATION NO.   10,  F0=  9.690393934979D+00
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        6.31340D+00  6.06496D+01 -5.72726D+01  0.00000D+00  0.00000D+00  9.69039D+00
+
+                                                                            ITERATION NO.   11,  F0=  5.793363964007D+00
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        3.78312D+00  6.09074D+01 -5.88971D+01  0.00000D+00  0.00000D+00  5.79336D+00
+
+                                                                            ITERATION NO.   12,  F0=  4.206180021779D+00
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        3.42118D+00  6.06059D+01 -5.98209D+01  0.00000D+00  0.00000D+00  4.20618D+00
+
+                                                                            ITERATION NO.   13,  F0=  5.690682380374D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        7.93521D-01  6.02888D+01 -6.05133D+01  0.00000D+00  0.00000D+00  5.69068D-01
+
+                                                                            ITERATION NO.   14,  F0= -1.976472510951D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        4.21381D-01  6.02911D+01 -6.09101D+01  0.00000D+00  0.00000D+00 -1.97647D-01
+
+                                                                            ITERATION NO.   15,  F0= -4.417281998959D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.63880D-01  6.03719D+01 -6.09775D+01  0.00000D+00  0.00000D+00 -4.41728D-01
+
+                                                                            ITERATION NO.   16,  F0= -4.484794588583D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.47328D-01  6.03513D+01 -6.09471D+01  0.00000D+00  0.00000D+00 -4.48479D-01
+
+                                                                            ITERATION NO.   17,  F0= -4.495465780541D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.46878D-01  6.03498D+01 -6.09463D+01  0.00000D+00  0.00000D+00 -4.49547D-01
+
+                                                                            ITERATION NO.   18,  F0= -4.513293235723D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.58966D-01  6.03424D+01 -6.09527D+01  0.00000D+00  0.00000D+00 -4.51329D-01
+
+                                                                            ITERATION NO.   19,  F0= -4.531569574955D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.58106D-01  6.03447D+01 -6.09560D+01  0.00000D+00  0.00000D+00 -4.53157D-01
+
+                                                                            ITERATION NO.   20,  F0= -4.539295228893D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.61625D-01  6.03345D+01 -6.09501D+01  0.00000D+00  0.00000D+00 -4.53930D-01
+
+                                                                            ITERATION NO.   21,  F0= -4.541145419078D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60204D-01  6.03311D+01 -6.09454D+01  0.00000D+00  0.00000D+00 -4.54115D-01
+
+                                                                            ITERATION NO.   22,  F0= -4.541414605143D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60507D-01  6.03284D+01 -6.09430D+01  0.00000D+00  0.00000D+00 -4.54141D-01
+
+                                                                            ITERATION NO.   23,  F0= -4.541432653811D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60327D-01  6.03276D+01 -6.09421D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+                                                                            ITERATION NO.   24,  F0= -4.541433091450D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60335D-01  6.03275D+01 -6.09420D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+                                                                            ITERATION NO.   25,  F0= -4.541433094186D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60333D-01  6.03275D+01 -6.09420D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+                                                                            ITERATION NO.   26,  F0= -4.541433094189D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60333D-01  6.03275D+01 -6.09420D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+                                                                            ITERATION NO.    0,  F0= -4.541433094189D-01
+                  *******
+                                                                            ITERATION NO.    1,  F0= -4.541433094190D-01
+                  *******
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60333D-01  6.03275D+01 -6.09420D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+1
+                                      CONFORMATIONAL ENERGY F0                                       
+                                                                                                     
+    70. +                                                                                            
+        !                                                                                            
+        *  *                                                                                         
+        !     *   *  *  *                                                                            
+        !                  *                                                                         
+        !                                                                                            
+        !                      *                                                                     
+        !                                                                                            
+        !                                                                                            
+ E      !                                                                                            
+ N  40. +                                                                                            
+ E      !                                                                                            
+ R      !                                                                                            
+ G      !                                                                                            
+ Y      !                                                                                            
+        !                                                                                            
+        !                         *                                                                  
+        !                                                                                            
+        !                            *                                                               
+        !                                                                                            
+    10. +                               *                                                            
+        !                                  *   *                                                     
+        !                                                                                            
+     0. +                                         *  *  *  *   *  *  *  *   *  *  *  *  *   *  *  *  
+        !                                                                                            
+        +---------------+------------------+---------------+-------------------+------------------+--
+        0.              5.                11.             16.                 22.                28. 
+                                                 ITERATIONS                                          
+0    ***  END OF MINIMIZATION  ***
+
+
+      NEXT SUBTASK : WRIT
+
+     FINAL ANGLES ARE WRITEN TO FILE:/labo/qclib/inspidas/test/MINANG.DATA                       
+
+      NEXT SUBTASK : WRIT
+
+     FINAL COORDINATES ARE WRITEN TO FILE:/labo/qclib/inspidas/test/MINCOO.DATA                       
+
+      NEXT SUBTASK : PUT 
+
+0          ETOR          EES          ENB        ELOOP       ECYSTR       ETOTAL
+        1.60333D-01  6.03275D+01 -6.09420D+01  0.00000D+00  0.00000D+00 -4.54143D-01
+
+0
+
+    GRADIENT (KCAL/MOL/RADIAN)
+     1  -4.796D-14:    2  -6.661D-16:    3  -8.771D-14:    4  -1.388D-14:    5  -4.086D-14:    6   4.691D-15:    7   7.017D-14:
+     8   1.491D-13:    9  -1.310D-14:   10  -2.304D-15:   11   1.235D-13:   12   2.705D-13:   13   2.220D-14:   14   9.215D-15:
+    15  -2.487D-14:   16   1.904D-13:   17  -2.132D-14:   18   1.044D-14:   19  -1.172D-13:   20   2.653D-14:   21   8.704D-14:
+    22  -7.966D-15:   23  -6.750D-14:   24  -2.514D-13:   25  -7.816D-14:   26  -2.776D-17:   27  -3.091D-13:   28  -3.695D-13:
+    29  -3.917D-13:   30   1.896D-14:   31  -3.979D-13:   32  -2.175D-13:   33  -2.842D-13:   34   1.762D-14:   35  -1.421D-13:
+    36  -3.331D-15:   37  -1.066D-14:   38   5.329D-15:   39  -5.690D-15:   40   8.271D-15
+     FIRST AND SECOND DIRIVATIVES ARE WRITEN TO FILE:/labo/qclib/inspidas/test/DRVTV.DATA                        
+
+      NEXT SUBTASK : QUIT
+
+
+      NEXT TASK :  NORMAL MODE ANALYSIS
+
+
+      NEXT SUBTASK : HMAT
+
+
+      NEXT SUBTASK : DIAG
+
+
+      NEXT SUBTASK : WRIT
+
+     EIGEN VALUES AND EIGEN VECTORS ARE WRITTEN TO FILE:/labo/qclib/inspidas/test/EIGEN.DATA                        
+
+      NEXT SUBTASK : PUT 
+
+     EIGEN VALUES AND EIGEN VECTORS ARE WRITTEN TO FILE:/labo/qclib/inspidas/test/EIGEN.BIN                         
+
+      NEXT SUBTASK : KMAT
+
+     ELEMENTS OF KV-MATRIX ARE WRITTEN TO FILE:/labo/qclib/inspidas/test/KMAT.BIN                          
+
+      NEXT SUBTASK : GRPH
+
+1
+                                              WAVE_NUMBER HISTGRAM                                               
+                                                                                                                 
+        !                                                                                                        
+        !                                                                                                        
+    4.0 +                            *                                                                           
+        !                            *                                                                           
+        !                            *                                                                           
+ N      !  * ** *                    *                                                                           
+ U      !  * ** *                    *                                                                           
+ M      !  * ** *                    *                                                                           
+ B      !  * ** *                    *                                                                           
+ E  2.0 + ** ***** *  ***          ****                                                                          
+ R      ! ** ***** *  ***          ****                                                                          
+        ! ** ***** *  ***          ****                                                                          
+        ! ** ***** *  ***          ****                                                                          
+    1.0 + ********** ****          ****                  *                                                       
+        ! ********** ****          ****                  *                                                       
+        ! ********** ****          ****                  *                                                       
+        ! ********** ****          ****                  *                                                       
+        +-----------*----**********----******************-****************************************************---
+         0.                200.                400.                600.                800.                1000. 
+                                                       WAVE NUMBER                                               
+     0 DATA ARE OUT OF RANGE.
+
+      NEXT SUBTASK : QUIT
+
+ %TIMIT-I, STEP CPU TIME (SEC) =     19.34  TOTAL CPU TIME (SEC) =     19.34   (   0.3 MIN) 

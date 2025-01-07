@@ -1,0 +1,1024 @@
+C***********************************************************************
+      SUBROUTINE MC
+C***********************************************************************
+C MONTE.FORT77(MONTE)
+C
+C MONTE CALRO SIMULATION IN ECEPP WITH OR WITHOUT CUTOFF
+C BASED ON 'PERI.PMSGO.MC.FORT(MONTE)'
+C
+C THIS PROGRAM IS LINKED WITH
+C      MINIMA.FORT77(FEDERCS) FOR THE CUTOFF OPERATION
+C      MINIMA.FORT77(FEDERNS) FOR  NO-CUTOFF OPERATION
+C
+C INPUT
+C      1 :        : MAIN INPUT FILE  (INSPIDAS SYSTEM)
+C        : 5      : CONTROL PARAMETERS
+C     75 : IOINIT : THE INITIAL ANGLES IN ECEPP FORMAT
+C     77 :        : INITIAL ANGLES IN UNIT OF RADIANS (UNFORMATTED)
+C     79 : IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     71 : 20     : PRECEP OUTPUT
+C     73 : 21     : ENERGY PARAMETERS (BD8)
+C OUTPUT
+C      2 :        : MAIN OUTPUT FILE (INSPIDAS SYSTEM)
+C      6 :        : MAIN LOG FILE    (INSPIDAS SYSTEM)
+C        : 6      : SYSOUT DATA
+C     72 : IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     74 : IOERG  : OUTPUT OF ENERGY
+C     76 : IOANG  : OUTPUT OF ANGLES
+C     78 : 15     : OUTPUT OF COORDINATE IN SIGLE PRECISION
+C
+C CONTROL PARAMETERS
+C     ISTART : = 0 FOR FRESH START;
+C              OTHERWISE CONTINUING JOB
+C
+C     IECEPP : = 1 FOR ECEPP FORMAT OF INITIAL ANGLES;
+C                  OTHERWISE NO FORMAT
+C     ICUT   : = 1 FOR CUTOFF; OTHERWISE NO CUTOFF
+C              ... CUT OFF OPERATION IS NOT AVAILABLE IN THIS VERSION
+C     IXS    : A SEED FOR RANDOM NUMBER GENERATOR
+C     TEMP   : TEMPERATURE
+C     ESMALL : THE LOWEST LIMIT OF EIGENVALUE (USUALLY = 10.0)
+C     FLUC   : THE COEFFICIENT OF THE STEP LENGTH (USUALLY =1.3)
+C     LOUTE  : OUTPUT OF ENERGY EVERY LOUTE STEPS
+C     LOUTA  : OUTPUT OF ANGLES EVERY LOUTA STEPS
+C     LLIST  : REVISION OF INTERACTION TABLE EVERY LLIST STEPS
+C     LMTR   : ACCEPTANCE RATIO IS AVERAGED FOR EACH LMTR STEPS
+C     LLTR   : REVISION OF HESSIAN EVERY LLTR STEPS
+C     ACPL   : IF ACP < ACPL, HESSIAN IS REVISED
+C     ITIMEL : CPU TIME LIMIT IN SECOND
+C                 (Now it has no meaning on TITAN)
+C     LTR    : LIMIT OF STEP
+C
+C     LOUTG  : OUTPUT OF ENERGY EVERY LOUTG STEPS FOR GRAPH
+C                 LOUTG := max ( LTR / IGRMAX , 1 )
+C
+C**********************************************************************
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+C
+      PARAMETER (MAXMTR=2000)
+C
+C Include files needed for INSPIDAS interface
+C
+      INCLUDE (COMMAND)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/command'
+      INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+      INCLUDE (FILEIO)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/fileio'
+C
+C Include files needed for THIS program
+C
+      INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+C             = MAXATM,MAXVAR,MAXRES
+C
+      INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+C             = NUMATM,NUMVAR,NN2,NUMINT,NSS,NUMRES
+C
+      INCLUDE (VARANG)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/varang'
+C             = ANGLES(10,MAXRES),INDXV(MAXVAR)
+C               VAR(MAXVAR)
+C
+      INCLUDE (EIGEN)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/eigen'
+C             = EIGVAL(MAXVAR),EIGVEC(MAXVAR,MAXVAR)
+C
+      INCLUDE (COORD)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/coord'
+C             = CO(3,MAXATM)
+C
+      INCLUDE (CHARGE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/charge'
+C             = CHARGE(MAXATM)
+C
+      INCLUDE (BOND)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/bond'
+C             = IBCHAR(3,MAXVAR)
+      INCLUDE (ATOM)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/atom'
+C             = KUNIT(MAXATM)
+      INCLUDE (SSPAIR)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/sspair'
+C             = KSSPER(6,2,MAXSS),JSS(3,MAXSS),KSS(MAXSS2),LSS(MAXSS2)
+C
+      COMMON/ENE000/ FT(5)
+C                    ... ETOR,EES,ENB,ELOOP,ECYSTR
+C
+      COMMON/TABLE4/ KMAX,LISTK(-1:MAXVAR),JANGLE(MXPAIR),
+     &               KANGLE(0:MXPAR1)
+C
+C
+C Work variables for INSPIDAS
+C
+      CHARACTER*4 SUBTAS,NXTWD
+      CHARACTER*20 FORMA
+      CHARACTER*80 NAME
+C
+C Variables for calling GRPH,FOUTGR
+C
+      PARAMETER (IGRMAX=100)
+      DIMENSION  GX(IGRMAX),GY(IGRMAX)
+C
+C Variables for this routine
+C
+      DIMENSION VART(MAXVAR),F(6),IACP(MAXMTR)
+      REAL*4 ANGS(MAXVAR)
+C            <= SNGL(VAR(MAXVAR))
+      REAL*4 XYZ(3,MAXATM)
+C            <= SNGL(CO(3,MAXATM))
+C
+      INTEGER*4 IX,IXS
+C
+C
+C DEFAULT VALUES OF CONTROL PARAMETERS
+C
+      ISTART = 0
+      IECEPP = 1
+      ICUT   = 0
+C            ... CUT OFF OPERATION IS NOT AVAILABLE IN THIS VERSION
+      IXS    = 1
+      TEMP   = 300.0D0
+      ESMALL = 10.0D0
+      FLUC   = 1.3D0
+      LOUTE  = 10
+      LOUTA  = 10
+      LLIST  = 10
+      LMTR   = 100
+      LLTR   = 10
+      ACPL   = 0.2D0
+      ITIMEL = 10
+      LTR    = 1000
+C
+C FILE FLAG
+C
+      IREST = 0
+      IENGY = 0
+      IANGL = 0
+      ICOOR = 0
+C
+C=======================================================================
+C
+C     *** GET SUBTASK
+C
+  999 CONTINUE
+      CALL NXTCMN(SUBTAS)
+      WRITE(IOUT02,5) SUBTAS
+      WRITE(IOUT06,5) SUBTAS
+    5 FORMAT(/5X,' NEXT SUBTASK : ',A4,/)
+      IF (SUBTAS.EQ.'QUIT') GOTO 990
+C
+C-----------------------------------------------------------------------
+C INPUT OF THE INFORMATION FOR THE SIMULATION
+C-----------------------------------------------------------------------
+C
+C READ CONTROL PARAMETERS
+C
+C     READ(5,*) ISTART,IECEPP,ICUT,IXS
+C     READ(5,*) TEMP,ESMALL,FLUC
+C     READ(5,*) LOUTE,LOUTA,LLIST,LMTR
+C     READ(5,*) ITIMEL,LTR,LLTR,ACPL
+C     READ(5,*) IOINIT,IOREST,IOERG,IOANG
+C
+      IF (SUBTAS.EQ.'INPU') THEN
+        CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+        IF (NXTWD.EQ.'CNTL') THEN
+          CALL GETPAI(COMLY2,COMLEN,'ISTART',6,' ',0,ISTART)
+          CALL GETPAI(COMLY2,COMLEN,'IECEPP',6,' ',0,IECEPP)
+          CALL GETPAI(COMLY2,COMLEN,'ICUT',4,' ',0,ICUT)
+          CALL GETPAI(COMLY2,COMLEN,'IXS',3,' ',0,IXS)
+          CALL GETPAF(COMLY2,COMLEN,'TEMP',4,' ',0,TEMP)
+          CALL GETPAF(COMLY2,COMLEN,'ESMALL',6,' ',0,ESMALL)
+          CALL GETPAF(COMLY2,COMLEN,'FLUC',4,' ',0,FLUC)
+          CALL GETPAI(COMLY2,COMLEN,'LOUTE',5,' ',0,LOUTE)
+          CALL GETPAI(COMLY2,COMLEN,'LOUTA',5,' ',0,LOUTA)
+          CALL GETPAI(COMLY2,COMLEN,'LLIST',5,' ',0,LLIST)
+          CALL GETPAI(COMLY2,COMLEN,'LMTR',4,' ',0,LMTR)
+          CALL GETPAI(COMLY2,COMLEN,'ITIMEL',6,' ',0,ITIMEL)
+          CALL GETPAI(COMLY2,COMLEN,'LTR',3,' ',0,LTR)
+          CALL GETPAI(COMLY2,COMLEN,'LLTR',4,' ',0,LLTR)
+          CALL GETPAF(COMLY2,COMLEN,'ACPL',4,' ',0,ACPL)
+        END IF
+C
+        WRITE(IOUT02,*) 'ISTART  ',ISTART
+        WRITE(IOUT02,*) 'IECEPP  ',IECEPP
+        WRITE(IOUT02,*) 'ICUT  ',ICUT
+        WRITE(IOUT02,*) 'IXS  ',IXS
+        WRITE(IOUT02,*) 'TEMP  ',TEMP
+        WRITE(IOUT02,*) 'ESMALL  ',ESMALL
+        WRITE(IOUT02,*) 'FLUC  ',FLUC
+        WRITE(IOUT02,*) 'LOUTE  ',LOUTE
+        WRITE(IOUT02,*) 'LOUTA  ',LOUTA
+        WRITE(IOUT02,*) 'LLIST  ',LLIST
+        WRITE(IOUT02,*) 'LMTR  ',LMTR
+        WRITE(IOUT02,*) 'ITIMEL  ',ITIMEL
+        WRITE(IOUT02,*) 'LTR  ',LTR
+        WRITE(IOUT02,*) 'LLTR  ',LLTR
+        WRITE(IOUT02,*) 'ACPL  ',ACPL
+C
+        WRITE(IOUT06,*) 'ISTART  ',ISTART
+        WRITE(IOUT06,*) 'IECEPP  ',IECEPP
+        WRITE(IOUT06,*) 'ICUT  ',ICUT
+        WRITE(IOUT06,*) 'IXS  ',IXS
+        WRITE(IOUT06,*) 'TEMP  ',TEMP
+        WRITE(IOUT06,*) 'ESMALL  ',ESMALL
+        WRITE(IOUT06,*) 'FLUC  ',FLUC
+        WRITE(IOUT06,*) 'LOUTE  ',LOUTE
+        WRITE(IOUT06,*) 'LOUTA  ',LOUTA
+        WRITE(IOUT06,*) 'LLIST  ',LLIST
+        WRITE(IOUT06,*) 'LMTR  ',LMTR
+        WRITE(IOUT06,*) 'ITIMEL  ',ITIMEL
+        WRITE(IOUT06,*) 'LTR  ',LTR
+        WRITE(IOUT06,*) 'LLTR  ',LLTR
+        WRITE(IOUT06,*) 'ACPL  ',ACPL
+C
+      GOTO 999
+      END IF
+C
+C-----------SPECIFY FILES ------------------
+C                                   
+      IF (SUBTAS.EQ.'FILE') THEN
+        CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+        IF (NXTWD.EQ.'RESR') THEN
+          CALL GTFLNM(NAME)
+          FORMA='UNFORMATTED'
+          CALL OPENRD(IN79,FORMA,NAME,IOUT06)
+          WRITE(IOUT06,5900) NXTWD,' RESTART FILE NAME (READ) ',NAME
+          WRITE(IOUT02,1900) 'RESTART FILE NAME (READ) :',NAME
+          NXTWD='----'
+          IF (ISTART.EQ.0) THEN
+            WRITE(IOUT06,*) '<<WARNING>> ISTART=0: ISTART needs
+     & to take non-zero value for RESTART. Now, executing FRESH START'
+            WRITE(IOUT02,*) '<<WARNING>> ISTART=0: ISTART needs
+     & to take non-zero value for RESTART. Now, executing FRESH START'
+            CLOSE(IN79)
+          END IF
+        END IF
+        IF (NXTWD.EQ.'RESW') THEN
+          CALL GTFLNM(NAME)
+          CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+          FORMA='UNFORMATTED'
+          IF (NXTWD.EQ.'OVER') FORMA='OVERWRITE  '
+          CALL OPENWT(IOUT72,FORMA,NAME,IOUT06)
+          WRITE(IOUT06,5900) NXTWD,' RESTART FILE NAME (WRITE) ',NAME
+          WRITE(IOUT02,1900) 'RESTART FILE NAME (WRITE) :',NAME
+          IREST=1
+          NXTWD='----'
+        END IF
+        IF (NXTWD.EQ.'ENGY') THEN
+          CALL GTFLNM(NAME)
+          CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+          FORMA='UNFORMATTED'
+          IF (NXTWD.EQ.'OVER') FORMA='OVERWRITE  '
+          CALL OPENWT(IOUT74,FORMA,NAME,IOUT06)
+          WRITE(IOUT06,5900) NXTWD,' ENERGY FILE NAME ',NAME
+          WRITE(IOUT02,1900) 'ENERGY FILE NAME:',NAME
+          IENGY=1
+          NXTWD='----'
+        END IF
+        IF (NXTWD.EQ.'ANGL') THEN
+          CALL GTFLNM(NAME)
+          CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+          FORMA='UNFORMATTED'
+          IF (NXTWD.EQ.'OVER') FORMA='OVERWRITE  '
+          CALL OPENWT(IOUT76,FORMA,NAME,IOUT06)
+          WRITE(IOUT06,5900) NXTWD,' ANGLE FILE NAME ',NAME
+          WRITE(IOUT02,1900) 'ANGLE FILE NAME:',NAME
+          IANGL=1
+          NXTWD='----'
+        END IF
+        IF (NXTWD.EQ.'COOR') THEN
+          CALL GTFLNM(NAME)
+          CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+          FORMA='UNFORMATTED'
+          IF (NXTWD.EQ.'OVER') FORMA='OVERWRITE  '
+          CALL OPENWT(IOUT78,FORMA,NAME,IOUT06)
+          WRITE(IOUT06,5900) NXTWD,' COORDINATE(SNGL) FILE NAME ',NAME
+          WRITE(IOUT02,1900) 'COORDINATE(SNGL) FILE NAME:',NAME
+          ICOOR=1
+          NXTWD='----'
+        END IF
+ 5900     FORMAT(5X,A4,A,A60)
+ 1900     FORMAT (5X,A,A60)
+      GOTO 999
+      END IF
+C
+C---------------------------------------------------------------------
+C
+      IF (SUBTAS.EQ.'READ') THEN
+        CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+C
+C--- READ IN PRECEP OUTPUT DATA ---
+C                           (FROM UNIT 71)
+C
+        IF (NXTWD.EQ.'PREC') THEN
+          CALL GTFLNM(NAME)
+          CALL OPENRD(IN71,'FORMATTED',NAME,IOUT06)
+          WRITE(IOUT06,6200) NXTWD,NAME
+ 6200    FORMAT(5X,A4,' READ FROM ',A60)
+C
+          ITMP=IN31
+          IN31=IN71
+          CALL INPUTA
+          IN31=ITMP
+C         ... THIS SUBROUTINE-CALL MUST BE CHANGED TO
+C                'CALL INPUTA(IN71)'
+C             TO DO THIS, CHANGE SUBROUINE INPUTA IN "minim"
+C
+          CLOSE (IN71)
+          WRITE (IOUT02,2200) NAME
+ 2200    FORMAT (5X,'PRECEP OUTPUT DATA ARE READ IN FROM FILE:',
+     1            A60)
+        END IF
+C
+C--- READ IN ENERGY PARAMETERS ---
+C                          (FROM UNIT 73)
+C
+        IF (NXTWD.EQ.'PARM') THEN
+          CALL GTFLNM(NAME)
+          CALL OPENRD(IN73,'FORMATTED',NAME,IOUT06)
+          WRITE(IOUT06,6000) NXTWD,NAME
+ 6000    FORMAT(5X,A4,' READ FROM ',A60)
+C
+          ITMP=IN33
+          IN33=IN73
+          CALL CRDREF(CO)
+          CALL READ21
+          IN33=ITMP
+C         ... THIS SUBROUTINE-CALL MUST BE CHANGED TO
+C                'CALL READ21(IN73)'
+C             TO DO THIS, CHANGE SUBROUINE READ21 IN "minim"
+C
+          CLOSE (IN73)
+          WRITE (IOUT02,2000) NAME
+ 2000    FORMAT (5X,'ENERGY PARAMETERS ARE READ IN FROM FILE:',
+     1            A60)
+        END IF
+C
+C--- READ IN INITIAL ANGLES ---
+C               (FORMATTED, FROM UNIT 75)
+C
+        IF (NXTWD.EQ.'ANGL') THEN
+          CALL GTFLNM(NAME)
+          CALL OPENRD(IN75,'FORMATTED',NAME,IOUT06)
+          WRITE(IOUT06,6100) NXTWD,NAME
+ 6100    FORMAT(5X,A4,' READ FROM ',A60)
+C
+          ITMP=IN35
+          IN35=IN75
+          CALL INPANG
+          IN35=ITMP
+C         ... THIS SUBROUTINE-CALL MUST BE CHANGED TO
+C                'CALL INPANG(IN75)'
+C             TO DO THIS, CHANGE SUBROUINE INPANG IN "minim"
+C
+          CLOSE (IN75)
+          WRITE (IOUT02,2100) NAME
+          IF (ISTART.NE.0) THEN
+            WRITE (IOUT06,*) '<<WARNING>> These initial angles are
+     & neglected because ISTART!=0 (RESTART)'
+            WRITE (IOUT02,*) '<<WARNING>> These initial angles are
+     & neglected because ISTART!=0 (RESTART)'
+          END IF
+ 2100    FORMAT (5X,'INITIAL ANGLES ARE READ IN FROM FILE:',
+     1            A60)
+        END IF
+      GOTO 999
+      END IF
+C
+C-----------READ IN INITIAL ANGLES ---------------
+C              (UNFORMATTED, FROM UNIT 77)
+C
+      IF (SUBTAS.EQ.'GET ') THEN
+        CALL NXTWRD(COMLY2,COMLEN,NXTWD,4)
+        IF (NXTWD.EQ.'ANGL') THEN
+          CALL GTFLNM(NAME)
+          CALL OPENRD(IN77,'UNFORMATTED',NAME,IOUT06)
+          WRITE(IOUT06,7100) NXTWD,NAME
+ 7100    FORMAT(5X,A4,' READ FROM ',A60)
+          CALL GTANGL(IN77,ITMP)
+C              ... IN "ioroutn"
+C
+          CLOSE (IN77)
+          WRITE (IOUT02,3100) NAME
+ 3100    FORMAT (5X,'INITIAL ANGLES ARE READ IN FROM FILE:',
+     1            A60)
+        END IF
+        GOTO 999
+      END IF
+C
+C-----------RUN MONTE CARLO  ----------------------------
+C
+      IF (SUBTAS.EQ.'RUN') THEN
+        BETA=1.0D0/(1.987D-3*TEMP)
+        IF (LTR.GE.IGRMAX) THEN
+          LOUTG  = LTR / IGRMAX
+        ELSE
+          LOUTG  = 1
+        END IF
+C
+C     ----- BEGINNING OF MCMAIN
+C
+C
+C PREPAIR THE BOND INFORMATION
+C
+      CALL  PRESET(KMAX,LISTK,JANGLE,KANGLE,IBCHAR)
+      CALL  PRESS2(JANGLE,KUNIT,IBCHAR,KSSPER,JSS,KSS,LSS)
+C-----------------------------------------------------------------------
+C FOR A FRESH START (ISTART=0)
+C-----------------------------------------------------------------------
+      IF(ISTART.EQ.0) THEN
+        IX=IXS
+        NTR=0
+        MTR=0
+        NOUTE=0
+        NOUTA=0
+        NOUTG=0
+        NLIST=0
+        NLTR=0
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(VAR)
+          ICALC = 1
+        ELSE
+          CALL PAIR14 (KMAX,LISTK,JANGLE,KANGLE)
+          ICALC = 2
+        END IF
+C     THE INITIAL ENERGY
+        CALL ENRGYA(VAR,ETOTAL,CO,CHARGE)
+        DO 120 I=1,5
+          F(I+1) = FT(I)
+  120   CONTINUE
+        F(1) = ETOTAL
+C     THE INITIAL IACP IS ALL 'ACCEPTED'
+        DO 130 I=1,LMTR
+          IACP(I)=1
+  130   CONTINUE
+        NACP=LMTR
+        ACP=1.0D0
+C-----------------------------------------------------------------------
+C FOR A CONTINUATION JOB (ISTART OTHER THAN 0)
+C-----------------------------------------------------------------------
+      ELSE
+        READ(IN79) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &               ICALC
+        READ(IN79) VAR,F,EIGVEC
+        WRITE(IOUT02,*)' IX NTR MTR NOUTE NOUTA NLIST NLTR NACP',
+     &            ' ACP  ICALC'
+        WRITE(IOUT06,*)' IX NTR MTR NOUTE NOUTA NLIST NLTR NACP',
+     &            ' ACP  ICALC'
+        WRITE(IOUT02,*) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,NACP,ACP,
+     &             ICALC
+        WRITE(IOUT06,*) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,NACP,ACP,
+     &             ICALC
+        REWIND IN79
+        CLOSE(IN79)
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(VAR)
+        ELSE
+          CALL PAIR14 (KMAX,LISTK,JANGLE,KANGLE)
+        END IF
+      END IF
+C-----------------------------------------------------------------------
+C TRIAL ANGLE AND TRIAL ENERGY ARE NOW CALCULATED
+C ACCORDING TO ICALC
+C-----------------------------------------------------------------------
+      IGRPH  = NTR
+      IGRPH0 = NTR - 1
+C
+  140 IF(ICALC .EQ. 1) THEN
+        CALL SAMPL1(VART,CR,IX,BETA,ESMALL,FLUC,ETOTAL)
+        ICALC = 3
+      END IF
+      IF(ICALC .EQ. 2) THEN
+        CALL SAMPL2(VART,CR,IX,BETA,ESMALL,FLUC,ETOTAL)
+        ICALC = 3
+      END IF
+CDEBUG
+      IF(ICALC .EQ. 3) THEN
+        CALL SAMPL3(VART,CR,IX,ETOTAL)
+      END IF
+C
+C  UPDATE THE COUNT PARAMETERS
+C
+      NTR=NTR+1
+      NLIST=NLIST+1
+      NOUTE=NOUTE+1
+      NOUTA=NOUTA+1
+      NOUTG=NOUTG+1
+      NLTR=NLTR+1
+      MTR=MOD(MTR,LMTR) + 1
+C-----------------------------------------------------------------------
+C  CHECK WHTHER THE TRIAL STEP IS ACCEPTED
+C-----------------------------------------------------------------------
+C
+C WHEN ACCEPTED
+C
+      CRT = DEXP(BETA*(F(1)-ETOTAL))
+CDEBUG
+C     WRITE(*,*) 'CRT=',CRT,'CR=',CR
+C     WRITE(*,*) 'Etotal=',ETOTAL,'E=',F(1)
+C     WRITE(IOUT02,*) 'CRT=',CRT,'CR=',CR
+C     WRITE(IOUT02,*) 'Etotal=',ETOTAL,'E=',F(1)
+      IF(CR .LT. CRT) THEN
+C
+C     UPDATE ANGLES AND ENERGY
+C
+CDEBUG
+C       WRITE(IOUT06,*) 'Success!'
+        DO 150 I=1,NUMVAR
+          VAR(I)=VART(I)
+  150   CONTINUE
+        DO 160 I=1,5
+          F(I+1) = FT(I)
+  160   CONTINUE
+        F(1) = ETOTAL
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+        IF(IACP(MTR).EQ.0) THEN
+            NACP=NACP+1
+            ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+            IACP(MTR)=1
+        END IF
+C
+C WHEN REJECTED
+C
+      ELSE
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+CDEBUG
+C       WRITE(IOUT06,*) 'Fault'
+        IF(IACP(MTR).EQ.1) THEN
+          NACP=NACP-1
+          ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+          IACP(MTR)=0
+        END IF
+      END IF
+C-----------------------------------------------------------------------
+C  CHECK PRINT OPTION
+C-----------------------------------------------------------------------
+C
+C     OUTPUT OF ENERGY
+C
+      IF(NOUTE .GE. LOUTE) THEN
+        IF(IENGY .EQ. 1) THEN
+          WRITE(IOUT74) NTR,ACP,(F(I),I=1,6)
+        END IF
+        IF(NTR .EQ. (NTR/100)*100) THEN
+          WRITE(IOUT02,'(I8,F8.3,3X,6D13.5)') NTR,ACP,(F(I),I=1,6)
+          WRITE(IOUT06,'(I8,F8.3,3X,6D13.5)') NTR,ACP,(F(I),I=1,6)
+        END IF
+        NOUTE = 0
+      END IF
+C
+C     OUTPUT OF ENERGY FOR GRAPH
+C
+      IF(NOUTG .GE. LOUTG) THEN
+        GX(IGRPH-IGRPH0)=DBLE(NTR)
+        GY(IGRPH-IGRPH0)=F(1)
+        IGRPH = IGRPH + 1
+        IF ((IGRPH - IGRPH0).GT.IGRMAX) THEN
+          CALL FOUTGR(IOUT02,100,30,IGRPH - IGRPH0 - 1,GX,GY)
+          CALL FOUTGR(IOUT06, 70,20,IGRPH - IGRPH0 - 1,GX,GY)
+          IGRPH0 = IGRPH - 1
+        END IF
+        NOUTG = 0
+      END IF
+C
+C
+C     OUTPUT OF ANGLES IN SINGLE PRECISION
+C
+      IF(NOUTA .GE. LOUTA) THEN
+        IF (IANGL .EQ. 1) THEN
+          DO 170 I = 1,NUMVAR
+            ANGS(I) = SNGL(VAR(I))
+  170     CONTINUE
+          WRITE(IOUT76) NTR
+          WRITE(IOUT76) (ANGS(I),I=1,NUMVAR)
+        END IF
+        NOUTA = 0
+      END IF
+C
+C     OUTPUT OF COORDINATE IN SINGLE PRECISION
+C
+      IF(NTR .EQ. (NTR/100)*100 ) THEN
+        IF (ICOOR .EQ. 1) THEN
+          CALL GENRA(VAR,CO)
+          DO 171 I = 1,NUMATM
+            XYZ(1,I) = SNGL(CO(1,I))
+            XYZ(2,I) = SNGL(CO(2,I))
+            XYZ(3,I) = SNGL(CO(3,I))
+  171     CONTINUE
+          WRITE(IOUT78) ( (XYZ(I,J),I=1,3), J=1,NUMATM )
+        END IF
+      END IF
+C-----------------------------------------------------------------------
+C WHAT SHOULD BE NEXT STEP?
+C-----------------------------------------------------------------------
+C
+C     CHECK CPU TIME LIMIT
+C
+      CALL CLOCK(ICPU)
+      IF(ICPU .GE. ITIMEL) THEN
+        IF (IREST .EQ. 1) THEN
+          WRITE(IOUT72) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                  ICALC
+          WRITE(IOUT72) VAR,F,EIGVEC
+        END IF
+        WRITE(IOUT02,*) ' END BY CPU TIME LIMIT'
+        WRITE(IOUT06,*) ' END BY CPU TIME LIMIT'
+        WRITE(IOUT02,*) 'NTR  ',NTR,'ACP  ',ACP
+        WRITE(IOUT06,*) 'NTR  ',NTR,'ACP  ',ACP
+        GOTO 991
+      END IF
+C
+C     CHECK THE TOTAL NUMBER OF TRIAL STEPS
+C
+      IF(NTR .GE. LTR) THEN
+        IF (IREST .EQ. 1) THEN
+          WRITE(IOUT72) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                  ICALC
+          WRITE(IOUT72) VAR,F,EIGVEC
+        END IF
+        WRITE(IOUT02,*) ' END BY STEP NUMBER LIMIT'
+        WRITE(IOUT06,*) ' END BY STEP NUMBER LIMIT'
+        WRITE(IOUT02,*) 'NTR  ',NTR,'ACP  ',ACP
+        WRITE(IOUT06,*) 'NTR  ',NTR,'ACP  ',ACP
+        GOTO 991
+      END IF
+C
+C     FIND ICALC (UPDATE PAIR TABLE? UPDATE SECOND DERIVATIVE?)
+C
+C     PAIR TABLE IS UPDATED
+      IF(ICUT .EQ. 1) THEN
+        IF(NLIST .GE. LLIST) THEN
+          ICALC = 1
+          NLIST = 0
+        END IF
+      END IF
+C     SECOND DERIVATIVE IS UPDATED
+      IF(ACP .LT. ACPL .OR. NLTR .GE. LLTR) THEN
+        ICALC = 2
+        NLTR = 0
+      END IF
+      GO TO 140
+
+C     ----- END OF MCMAIN
+  991 IF ((IGRPH - IGRPH0 - 1).GT.0) THEN
+        CALL FOUTGR(IOUT02,100,30,IGRPH - IGRPH0 - 1,GX,GY)
+        CALL FOUTGR(IOUT06, 70,20,IGRPH - IGRPH0 - 1,GX,GY)
+      END IF
+C
+      WRITE(IOUT02,*) '***** MCMAIN ENDED *****'
+      WRITE(IOUT06,*) '***** MCMAIN ENDED *****'
+C     ----- CLOSE FILES
+      IF (IREST.EQ.1) THEN
+        CLOSE(IOUT72)
+      END IF
+      IF (IENGY.EQ.1) THEN
+        CLOSE(IOUT74)
+      END IF
+      IF (IANGL.EQ.1) THEN
+        CLOSE(IOUT76)
+      END IF
+      IF (ICOOR.EQ.1) THEN
+        CLOSE(IOUT78)
+      END IF
+C
+      GOTO 999
+      END IF
+C
+  990 RETURN
+      END
+C
+C
+C
+C***********************************************************************
+C SAMPLING ROUTINE
+C***********************************************************************
+      SUBROUTINE SAMPL1(VART,CR,IX,BETA,ESMALL,FLUC,ETOTAL)
+      IMPLICIT REAL*8 (A-H,O-Z)
+C
+      INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+      INCLUDE (SIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/size'
+C             = NUMATM,NUMVAR,NN2,NUMINT,NSS
+C
+      INCLUDE (VARANG)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/varang'
+C             = VAR(MAXVAR)
+C
+      INCLUDE (FMATRIX)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/fmatrix'
+C             = DF(MAXVAR),G(MXPAIR)
+C
+      INCLUDE (COORD)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/coord'
+C             = CO(3,MAXATM)
+C
+      INCLUDE (CHARGE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/charge'
+C             = CHARGE(MAXATM)
+C
+      INCLUDE (EIGEN)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/eigen'
+C             = EIGVAL(MAXVAR),EIGVEC(MAXVAR,MAXVAR)
+C
+      INCLUDE (UNITNUMS)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/unitnums'
+C
+      COMMON/ENE000/ FT(5)
+C                    ... ETOR,EES,ENB,ELOOP,ECYSTR
+C
+      DIMENSION VART(MAXVAR)
+C               ... NEWLY GENERATED DIHEDRAL ANGLE FOR TRIAL
+      INTEGER*4 IX
+C               ... SEED FOR GENERATING RANDOM NUMBER IN RANU2A
+      REAL*8 W(MAXVAR+1)
+C            ... WORK AREA TO GET RANDOM NUMBER FROM RANU2A
+      REAL*8 CR
+C            = DBLE(W(NUMVAR+1))
+C
+CSSL2 DIMENSION VW(MAXVAR*15),IVW(MAXVAR*7)
+C               ... WORK AREA FOR 'DVSEG2'
+      DIMENSION A(MAXVAR,MAXVAR),
+     &          W1(MAXVAR),W2(MAXVAR),W3(MAXVAR),W4(MAXVAR),
+     &          W5(MAXVAR),W6(MAXVAR),W7(MAXVAR)
+C
+C UPDATE THE PAIR INTERACTION TABLE
+C
+CDEBUG
+C     WRITE(IOUT06,*) 'SAMPLING #1(UPDATE THE PAIR INTERACTION TABLE)'
+      CALL CUTOFF(VAR)
+C          ... DUMMY FUNCTION IN THIS VERSION ('90-12)
+C
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL2
+C-----------------------------------------------------------------------
+      ENTRY SAMPL2(VART,CR,IX,BETA,ESMALL,FLUC,ETOTAL)
+C
+C UPDATE THE SECOND DERIVATIVE MATRIX
+C
+CCCCC
+CDEBUG
+C     WRITE(IOUT06,*) 'SAMPLING #2(UPDATE THE SECOND DERIVATIVE MATRIX)'
+C     CALL CLOCK(I1)
+      CALL DRVTVA(VAR,ETOTAL,DF,G,CO,CHARGE)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(IOUT02,*) 'TIME FOR DERVTV ',I3
+C     WRITE(IOUT06,*) 'TIME FOR DERVTV ',I3
+CCCCC
+C
+C EIGENVALUE AND EIGENVECTOR FOR G
+C (MSP:CALLS SUBROUTINE 'VSEG2' IN SSL-II (EXTENDED VERSION))
+C (GENESIS:             'EVCSF' IN MATH/IMSL                )
+C
+C     CALL CLOCK(I1)
+C
+CSSL2 CALL DVSEG2(G,NUMVAR,-NUMVAR,-1.0D0
+C    &            ,EIGVAL,EIGVEC,MAXVAR,VW,IVW,ICON)
+CIMSL CALL DEVCSF(NUMVAR,G,NUMVAR,EIGVAL,EIGVEC,NUMVAR)
+C
+C     ----- preparing A -----
+C              A  ... right upper half := G
+      K=0
+      DO 200 J=1,NUMVAR
+        DO 210 I=1,J
+          K=K+1
+          A(I,J)=G(K)
+CDEBUG
+C         WRITE(*,*) G(K)
+C         WRITE(IOUT02,*) G(K)
+  210   CONTINUE
+  200 CONTINUE
+
+      EPS = 1.0D-10
+      IORD = -1
+      ICHO = 0
+      CALL NSHOUD(A,MAXVAR,NUMVAR,NUMVAR,NUMVAR,
+     &            EPS,IORD,
+     &            EIGVAL,EIGVEC,ILL,
+     &            W1,W2,W3,W4,W5,W6,W7)
+      IF (ILL .NE. 0) THEN
+        WRITE(IOUT06,*) ' STOPPED AT NGHOUD BECAUSE ILL=' ,ILL
+        STOP
+      END IF
+C
+C     make EIGVEC(1,*) positive on any machine
+C
+      DO 220 J=1,NUMVAR
+        IF (EIGVEC(1,J).LT.(0.0D0)) THEN
+          DO 230 I=1,NUMVAR
+            EIGVEC(I,J)= -EIGVEC(I,J)
+  230     CONTINUE
+        END IF
+  220 CONTINUE
+C
+CDEBUG
+C     WRITE(IOUT02,*) 'EIGEN VECTOR'
+C     DO 322 J=1,NUMVAR
+C       WRITE(IOUT02,*) EIGVEC(1,J)
+C 322 CONTINUE
+C     STOP
+CDEBUG
+C     DO 321 J=1,NUMVAR
+C       WRITE(*,*) EIGVAL(J)
+C       WRITE(IOUT02,*) EIGVAL(J)
+C 321 CONTINUE
+C     ----- normalization -----
+C     DO 320 J=1,NUMVAR
+C       DNORM = 0
+C       DO 300 I=1,NUMVAR
+C         DNORM = DNORM + EIGVEC(I,J) * EIGVEC(I,J)
+C 300   CONTINUE
+C       DNORM = DSQRT(DNORM)
+C       WRITE (*,*) DNORM
+C       DO 310 I=1,NUMVAR
+C         EIGVEC(I,J) = EIGVEC(I,J) / DNORM
+C 310   CONTINUE
+C 320 CONTINUE
+C     -------------------------
+C
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(IOUT02,*) 'TIME FOR DVSEG2 ',I3
+C     WRITE(IOUT06,*) 'TIME FOR DVSEG2 ',I3
+CCCCC
+CSSL2 IF(ICON .NE. 0) THEN
+CSSL2   WRITE(IOUT02,*) ' STOPPED AT DVSEG2 BECAUSE ICON=', ICON
+CSSL2   WRITE(IOUT06,*) ' STOPPED AT DVSEG2 BECAUSE ICON=', ICON
+CSSL2   STOP
+CSSL2 END IF
+C
+C DETERMINATION OF STEP SIZE
+C
+      RVAR = DFLOAT(NUMVAR)
+      SIG=2.0D0*FLUC*DSQRT(3.0D0/BETA/RVAR)
+      SQRE = DSQRT(ESMALL)
+      DO 100 I=1,NUMVAR
+        IF(DABS(EIGVAL(I)).GE.ESMALL) THEN
+          EIGVAL(I)=DSQRT(DABS(EIGVAL(I)))
+        ELSE
+          EIGVAL(I)=SQRE
+        END IF
+  100 CONTINUE
+      DO 110 I=1,NUMVAR
+        DO 110 J=1,NUMVAR
+          EIGVEC(I,J)=SIG*EIGVEC(I,J)/EIGVAL(J)
+  110 CONTINUE
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL3
+C-----------------------------------------------------------------------
+      ENTRY SAMPL3(VART,CR,IX,ETOTAL)
+C
+C RANDOM NUMBER
+C (CALLS SUBROUTINE 'RANDOM', CUT FROM IMPACT)
+C
+CDEBUG
+C     WRITE(IOUT06,*) 'SAMPLING #3'
+      CALL RANU2A(IX,W,NUMVAR+1,ICON)
+      CR=DBLE(W(NUMVAR+1))
+C
+C TRIAL ANGLES
+C
+      DO 120 I=1,NUMVAR
+        VART(I)=VAR(I)
+        DO 120 J=1,NUMVAR
+          VART(I)=VART(I)+(DBLE(W(J))-0.5D0)*EIGVEC(I,J)
+  120 CONTINUE
+CDEBUG
+C     DO 121 I=1,NUMVAR
+C       WRITE(IOUT02,*) VART(I)
+C 121 CONTINUE
+C
+C ENERGY
+C
+CCCCCC
+C     CALL CLOCK(I1)
+      CALL ENRGYA(VART,ETOTAL,CO,CHARGE)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(IOUT02,*) 'TIME FOR ENERGY ',I3
+C     WRITE(IOUT06,*) 'TIME FOR ENERGY ',I3
+CCCCCCC
+C
+      RETURN
+      END
+C
+C----------------------------------------------------
+C following routines are not need in complete version
+C----------------------------------------------------
+C
+      SUBROUTINE RANU2A(IX,A,N,ICON)
+C
+C--------
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+C
+      INCLUDE (MAXSIZE)
+CTTN  INCLUDE '/labo/qclib/inspidas/common/maxsize'
+C
+      INTEGER*4 IX
+      REAL*8 A(MAXVAR+1)
+C
+C--------
+C
+      DO 10 I=1,N
+        A(I)=RANDOM(IX)
+  10  CONTINUE
+C
+      ICON=0
+C
+C--------
+C
+      RETURN
+      END
+C
+C SUBROUTINE CUTOFF <- from FEDRTEMP
+C
+      SUBROUTINE CUTOFF(VAR)
+      PARAMETER (MAXVAR=160)
+      REAL*8 VAR(MAXVAR)
+      RETURN
+      END
+C
+C
+C
+C*MODULE MTHLIB *DECK RANDOM
+C ROUTINE:   REAL*8 FUNCTION RANDOM
+C DATE:      28-MAR-88 J. WESBROOK
+C FUNCTION:  LINEAR CONGRUENTIAL RANDOM NUMBER GENERATOR ADAPTED FROM
+C            ROUTINES DESCRIBED IN D. E. KNUTH, "SEMINUMERICAL ALGOITHMS
+C            2ND. ED., VOL 2. ADDISON WESLEY, 1981.  RANDOM NUMBERS ARE
+C            GENERATED IN TWO PARTS.  ONE GENERATOR CONTROLS MOST SIGNIF
+C            PORTION, AND ANOTHER THE LEAST SIGNIFICANT PORTION OF THE
+C            RETURNED NUMBER. A THIRD GENERATOR IS USED TO CONTROL A
+C            SHUFFLING ROUTINE TO REDUCE SEQUENTIAL CORRELATION.
+C            CONSTANTS IN PARAMETER STATEMENTS ARE TAKEN FROM A
+C            TABLE P198. OF PRESS ET. AL., NUMERICAL RECIPES, CAMBRIDGE
+C            UNIVERSITY PRESS, 1987.
+C
+CFH   REAL*8 FUNCTION RANDOM(IDUM)
+      DOUBLE PRECISION FUNCTION RANDOM(IDUM)
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER (M1=259200,IA1=7141,IC1=54773,RM1=1.0D+00/M1)
+      PARAMETER (M2=134456,IA2=8121,IC2=28411,RM2=1.0D+00/M2)
+      PARAMETER (M3=243000,IA3=4561,IC3=51349,NTAB=100)
+      DIMENSION R(NTAB)
+C
+C            LINEAR CONGRUENTIAL RANDOM NUMBER GENERATOR
+C
+      DATA IFF /0/
+C
+C               INITIALIZE ON THE FIRST CALL OR IF IDUM .LT. 0
+C
+      IF (IDUM.LT.0 .OR. IFF.EQ.0)  THEN
+         IFF=1
+C
+C                     SEED THE FIRST ROUTINE
+C
+         IX1=MOD(IC1-IDUM,M1)
+         IX1=MOD(IA1*IX1+IC1,M1)
+C
+C          USE THE FIRST SEED TO SEED THE SECOND ROUTINE
+C
+         IX2=MOD(IX1,M2)
+         IX1=MOD(IA1*IX1+IC1,M1)
+         IX3=MOD(IX1,M3)
+C
+C             FILL TABLE OF SEQUEWNTIAL UNIFORM DEVIATES GENERATED
+C                    BY THE FIRST TWO ROUTINES..
+C
+          DO  100 J=1,NTAB
+              IX1=MOD(IA1*IX1+IC1,M1)
+              IX2=MOD(IA2*IX2+IC2,M2)
+              R(J)=(DFLOAT(IX1)+DFLOAT(IX2)*RM2)*RM1
+ 100      CONTINUE
+          IDUM=1
+      ENDIF
+C
+C              GENERATE THE NEXT NUMBER IN EACH SEQUENCE
+C
+      IX1=MOD(IA1*IX1+IC1,M1)
+      IX2=MOD(IA2*IX2+IC2,M2)
+      IX3=MOD(IA3*IX3+IC3,M3)
+C
+C         USE THE THIRD VALUE TO GET THE TABLE INDEX BETWEEN 1 AND NTAB
+C
+      J=1+(NTAB*IX3)/M3
+      IF (J.GT.NTAB .OR. J.LT.1) GO TO 200
+      RANDOM = R(J)
+C
+C                         REFILL THIS  TABLE ENTRY
+      R(J) = (DFLOAT(IX1)+DFLOAT(IX2)*RM2)*RM1
+      RETURN
+ 200  CONTINUE
+      STOP '%RAN-E, INDEX GENERATED OUTSIDE OF TABLE '
+      END

@@ -1,0 +1,52 @@
+8
+
+dir
+1797
+svn://172.16.165.94/yamamori/var/svn/assistMD/trunk
+svn://172.16.165.94
+
+
+
+2011-03-15T11:44:37.345527Z
+1726
+yamamori
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c8113bb6-d80e-0410-aa45-c078eb5207e6
+
+pickData.c
+file
+
+
+
+
+2011-03-22T08:36:55.000000Z
+0cd20438d2c2f397103cf0f115271ccf
+2011-03-15T11:44:37.345527Z
+1726
+yamamori
+
+ASMD.h
+file
+
+
+
+
+2011-03-22T08:36:55.000000Z
+facef7ad3b5487b8f6751ca857414443
+2011-03-15T11:44:37.345527Z
+1726
+yamamori
+

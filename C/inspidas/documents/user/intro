@@ -1,0 +1,157 @@
+       I N T R O D U C T I O N    TO    I N S P I D A S
+
+1. OVERVIEW
+     INSPIDAS (Integrated Simulation Program In Dihedral Angle Space)
+is a versatile molecular simulation program which enables us to
+perform various types of simulations in the dihedral angle space
+including the energy minimization and the normal mode analysis.
+The main ingredients of INSPIDAS are the programs developed by
+Go and coworkers, which features the rapid calculation of the first
+and the second derivatives of the interaction energy with respect
+to the dihedral angle.
+     A speciall attenttion has been paid for making the program to be
+user friendly. The main input that controls the program flow plays
+a similar role with a command language such as UNIX: for instance,
+reading a file
+into the program is carried out by issuing a command 'READ' followed
+by a name of a file from which data are read in as illustrated in the
+example bellow. Such a structured input is made possible by the
+use of an input processor called 'PARSER' which has been originally
+written by M. Karplus and his coworkers and has been implemented in
+CHARMM.
+     INSPIDAS performs a 'TASK' or a series of TASKs each of which
+corresponds to a particular portion of the integrated program
+such as the minimization.
+The TASKs which are included in the current version of the program
+are following:
+
+     PREIN    ---  prepares a PRECEP input given dihedral angles.
+     PRECEP   ---  builds the primary structure of a protein and
+                   reads in energy parameters.
+     MINIM    ---  performes the energy minimization and calculates
+                   the first and second derivatives of the energy.
+     NMA      ---  diagonalizes the second derivative matrix
+
+Further explanation of each task is given in the separate documents.
+
+2. USER INPUT
+
+     In order to run INSPIDAS, a user must supply an input data
+which includes a series of TASKs described above.  A typical input
+of INSPIDAS has a form illustrated bellow:
+
+-------------------------------------------------------------------
+  WRITE <name of the main output file> TITLE <title of the simulation>
+  TASK1 SUBTASK1 -
+        SUBTASK2 KEYWORD PARAMETER1 <value2> PARAMETER2 <value2>
+  QUIT
+  TASK2 SUBTASK1 -
+        SUBTASK2 -
+        SUBTASK3
+  QUIT
+  ] TASK3 SUBTASK1 -
+  ]         KEYWORD PARAMETERS
+  ] QUIT
+  END
+-------------------------------------------------------------------
+
+General rules to be followed to make the input are:
+
+1. An INSPIDAS input data consists of command lines.
+2. A command line is made of TASKs, SUBTASKs, KEYWORDs and PARAMETERs.
+   PARAMETERs are associated with their values.
+3. A command line which begins with ']' is interpreted as a comment.
+4. A command line can include as many as 2000 characters (blanks are
+   counted as a character), and continuation of a line is
+   specified by '-'.
+5. The first command line must includes 'WRITE' followed by a
+   name of a main output file and 'TITLE' followed by a title of
+   the run. The line must be terminated by a '*' at the end.
+
+(example)
+--------------------------------------------------------------------
+  WRITE D52362.INSPIDA3.DECAALA.OUT TITLE TEST OF PREIN *
+  PREIN
+]    BUILD READ  D52362.INSPIDA3.EXAMPLE.DATA(DECAABE)
+     BUILD PRIM  ALA ALA ALA ALA ALA ALA ALA ALA ALA ALA END
+     BUILD END   NEND 1 CEND 11
+     READ  ANGL  D52362.INSPIDA3.EXAMPLE.DATA(DECAANGL)
+]    WRITE PREIN D52362.INSPIDA3.EXAMPLE.PREIN.DATA
+  QUIT
+  PRECEP
+     READ  PARM  STANDARD -
+            D52362.INSPIDA3.DATA.DATA(SDATX)
+     READ  PARM UNIT -
+            D52362.INSPIDA3.DATA.DATA(UNITX)
+     READ  PREIN -
+            D52362.INSPIDA3.EXAMPLE.PREIN.DATA
+     RUN
+     WRITE PREOUT -
+            D52362.INSPIDA3.EXAMPLE.PREOUT.DATA
+     QUIT
+  MINIM
+    INPUT CNTL -
+      TLIMIT 600 LOUT 50 NUMRNG 1 -
+      LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -
+      CONV0 1.D-12 LOMEGA 0
+    READ PRECEP -
+      D52362.INSPIDA3.EXAMPLE.PREOUT.DATA
+    READ PARM -
+      D52362.INSPIDA3.DATA.DATA(BD8)
+    READ ANGLE -
+      D52362.INSPIDA3.EXAMPLE.DATA(DECAANGL)
+    RUN
+    WRITE ANGLE -
+      D52362.INSPIDA3.TEST.MINANG.DATA
+    WRITE COORD FLEX -
+      D52362.INSPIDA3.TEST.MINCOO.DATA
+    PUT FMATRIX -
+      D52362.INSPIDA3.TEST.DRVTV.DATA
+    QUIT
+  NMA
+   HMAT
+   DIAG
+   WRIT -
+     D52362.INSPIDA3.TEST.EIGEN.DATA
+   PUT  -
+     D52362.INSPIDA3.TEST.EIGEN.BIN
+   KMAT -
+     D52362.INSPIDA3.TEST.KMAT.BIN
+  QUIT
+  END
+-------------------------------------------------------------------
+The example is concerned with the minimization and the normal mode
+analysis for a decaalanine molecule.
+
+3. Manuals
+
+     The INSPIDAS manuals are classified into the three categories:
+       1) users manual
+       2) programers manual
+       3) manual for residue data
+
+- user's manual -
+
+     The users manual helps users to make the INSPIDAS
+input data for each TASK. The organization of the users manual is:
+       1) Overview of the TASK
+       2) Explanation of each TASK, SUBTASK, KEYWORD, and PARAMTERS
+       3) EXAMPLE
+Following manuals are currently available:
+       PREIN, PRECEP, MINIM, NMA
+
+- programers manual -
+
+     The programers manual is intended to supply the information of
+subroutines in each TASK to a person who is going to change the
+program. The manual includes:
+
+     1) a program tree of subroutines in the TASK
+     2) a list and a brief explanation of subroutines
+     3) a detailed explanation of each subroutine
+        (i)   purpose
+        (ii)  calling arguments
+        (iii) algorithm
+        (iv)  definitions of arrays and variables
+        (v)   subroutine structure
+     4) update notes

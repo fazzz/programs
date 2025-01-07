@@ -1,0 +1,6 @@
+#QSUB -q diag
+#QSUB -s /bin/sh
+#QSUB -r fortjob
+#QSUB -eo 
+cd /home3/kitao/inspidas/load
+env NPROC=6 make

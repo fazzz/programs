@@ -1,0 +1,41 @@
+  WRITE ala.out TITLE TEST OF INSPIDAS *
+  PREIN
+     BUILD PRIM  ALA ALA ALA ALA END
+     BUILD END   NEND 1 CEND 11
+    !BUILD END   NEND 3 CEND 13
+    !BUILD END   NEND 3 CEND 15
+    WRITE PREIN ala.prein
+  QUIT
+  PRECEP
+     READ  PARM  STANDARD -
+            ../data/sdatx 
+     READ  PARM UNIT -
+            ../data/unitx 
+     RUN
+     WRITE PREO ala.preo
+  QUIT
+  MINIM
+   !INPUT CNTL -
+   !  TLIMIT 6000000 LOUT 50 NUMRNG 1 -
+   !  LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 1000 -
+   !  CONV0 1.D-12 LOMEGA 0
+    READ  PARM  ../data/bd8
+    READ  ANGL  ../check/ext.ang
+    RUN
+    WRITE ANGLE -
+      ala.ang
+    WRITE COORD FLEX -
+      ala.coo
+  QUIT
+  NMA
+ HMAT
+   DIAG
+   WRIT -
+     ala.eig 
+   PUT  -
+     ala.eigb 
+   KMAT -
+     ala.kmat 
+   GRPH
+  QUIT
+  END

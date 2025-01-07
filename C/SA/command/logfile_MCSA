@@ -1,0 +1,1 @@
+/home/yamamori/mybin/MC_simulated_annealing -a -n 10000000 -i 10000 -j 10000 -k 10000 -d 0.01 -X 1000 -F 10 -O 100 /home/yamamori/calspa/input/ADv.crd /home/yamamori/calspa/input/ADv.top ../ADv_out_C7eq.nc /home/yamamori/work/programs/MC/AD_C7eq.drst 

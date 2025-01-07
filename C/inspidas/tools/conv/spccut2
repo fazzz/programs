@@ -1,0 +1,18 @@
+#! /bin/csh
+# 
+# Remove blanks at the end of each line
+# =====================================
+#
+#
+# the file needed = files, mkcmd.awk
+#
+#    files
+#       list of the target file
+#
+#    mkcmd2.awk (awk script)
+#       remove spaces at the end of the each sentence
+# 
+awk -f mkcmd2.awk <files >out
+chmod a+x out
+/bin/csh out
+rm out

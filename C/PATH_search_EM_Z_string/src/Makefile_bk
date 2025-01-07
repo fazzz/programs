@@ -1,0 +1,67 @@
+#
+# Makefile for PATH_search_EM_Z_string program
+#
+
+HOME=../
+SRC=.
+BIN=../bin
+LIBDIR=-L/home/yamamori/work/programs/ABAMD_2014_05_01/lib #-L~/mylib -L~/lib
+INCDIR=-I/home/yamamori/work/programs/ABAMD_2014_05_01/include #-I~/myinclude -I~/include
+
+# definitions
+#CC    = icc -pg -O3 -tpp6 -ipo
+#CC    = icc -check=conversion,stack,uninit
+#CC    = icc
+CC     = gcc
+
+CFLAG = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -O2
+
+OBJS =  main.o EMalg.o EMalg_non_square_range.o  \
+	Gaussian.o K_means.o K_means_non_square_range.o \
+	STRING.o STRING_CV.o CSI.o \
+	FF.o PT.o TOPO.o MB.o mymath.o LA.o \
+ 	EF.o IO.o
+
+LIBS =  EMalg.h EMalg_non_square_range.h  \
+	Gaussian.h K_means.h K_means_non_square_range.h \
+	STRING.h STRING_CV.h CSI.h \
+	FF.h PT.h TOPO.h MB.h mymath.h LA.h \
+ 	EF.h IO.h
+
+EXLIBS=-llapack -lblas -lf2c -lm -lgc -lnetcdf
+
+TARGET =PATH_search_EM_Z_string
+
+.c.o:
+	$(CC) $(INCDIR) -c $(CFLAG) $<;
+
+all: PATH_search_EM_Z_string install
+
+# rules of generations
+PATH_search_EM_Z_string:  $(OBJS) $(LIBS)
+		$(CC) $(CFLAG) -o $@ $(OBJS) $(LIBDIR) $(INCDIR) $(EXLIBS) ;
+
+install: 
+	cp $(TARGET) $(BIN) ; 
+
+main.o:	EMalg.h EMalg_non_square_range.h K_means.h K_means_non_square_range.h Gaussian.h
+EMalg.o: EMalg.h Gaussian.h EF.h
+EMalg_non_square_range.o: EMalg_non_square_range.h Gaussian.h EF.h
+Gaussian.o: Gaussian.h EF.h
+K_means.o: K_means.h EF.h
+K_means_non_square_range.o: K_means_non_square_range.h EF.h
+STRING.o: STRING.h CSI.h TOPO.h PT.h MB.h LA.h FF.h EF.h
+STRING_CV.o: STRING_CV.h STRING.h EF.h
+CSI.o: CSI.h EF.h IO.h
+FF.o: FF.h MB.h
+PT.o: PT.h
+MB.o: MB.h
+mymath.o: mymath.h
+TOPO.o: TOPO.h
+LA.o: LA.h EF.h
+EF.o: EF.h
+IO.o: IO.h
+
+clean: 
+	rm $(OBJS); \
+	rm $(TARGET);

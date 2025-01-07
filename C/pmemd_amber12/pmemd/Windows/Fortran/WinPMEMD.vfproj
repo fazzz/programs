@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{1424013F-2664-42F9-96A4-74D20BBC2E1D}">
+	<Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;BINTRAJ;CLINK_CAPS" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRTD;LIBCMT" GenerateDebugInformation="true" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;BINTRAJ;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CLINK_CAPS" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRTD" GenerateDebugInformation="true" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseCUDA|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;BINTRAJ;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseCUDA|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot;  &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="DebugCUDA|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;BINTRAJ;CLINK_CAPS" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRTD;LIBCMT" GenerateDebugInformation="true" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="DebugCUDA|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/align" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;CLINK_CAPS" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRTD" GenerateDebugInformation="true" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot;  &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot;"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseMPI|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;$(MPI_INC32);..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;MPI;BINTRAJ;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot; $(MPI_LIBS32)"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseMPI|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;$(MPI_INC64);..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;MPI;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot; $(MPI_LIBS64)"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseMPICUDA|Win32" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;$(MPI_INC32);..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;BINTRAJ;MPI;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\ia32\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_c.lib&quot; &quot;mkl_sequential.lib&quot; &quot;mkl_core.lib&quot; &quot;netcdf.lib&quot; &quot;netcdf_f90.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot; $(MPI_LIBS32)"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="ReleaseMPICUDA|x64" OutputDirectory="..\bin\$(PlatformName)" IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)" WholeProgramOptimization="true">
+				<Tool Name="VFFortranCompilerTool" AdditionalOptions="/QaxSSE2,SSE3,SSSE3,SSE4.1,SSE4.2,AVX" SuppressStartupBanner="true" Optimization="optimizeFull" HeapArrays="0" AdditionalIncludeDirectories="..\..\src;..\..\src\cuda;$(MPI_INC64);..\netcdf\$(PlatformName)" PreprocessorDefinitions="DIRFRC_COMTRANS;DIRFRC_EFS;DIRFRC_NOVEC;PUBFFT;FFTLOADBAL_2PROC;MKL;CUDA;MPI;CLINK_CAPS" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OutDir)\$(ProjectName).$(ConfigurationName).exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="&quot;..\netcdf\$(PlatformName)&quot;; $(CUDA_PATH)\lib\$(PlatformName); $(IFORT_COMPILER12)mkl\lib\intel64\;" IgnoreDefaultLibraryNames="MSVCRT" GenerateMapFile="true" SubSystem="subSystemConsole" StackReserveSize="1000000000" AdditionalDependencies="&quot;curand.lib&quot; &quot;cuda.lib&quot; &quot;cudart.lib&quot; &quot;cufft.lib&quot; &quot;mkl_intel_lp64.lib&quot; &quot;mkl_sequential.lib&quot;  &quot;mkl_core.lib&quot; &quot;..\C Code\bin\$(PlatformName)\$(ConfigurationName)\C Code.lib&quot; $(MPI_LIBS64)"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy ..\netcdf\$(PlatformName)\netcdf.dll ..\bin\$(PlatformName)" Description="Copy working netcdf.dll to output directory" ExcludedFromBuild="true"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Header Files" Filter="fi;fd">
+		<Filter Name="CUDA"/></Filter>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<Filter Name="CUDA">
+		<File RelativePath="..\..\src\cuda\cuda_info.fpp">
+			<FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true"/>
+			<FileConfiguration Name="Release|x64" ExcludedFromBuild="true"/>
+			<FileConfiguration Name="Debug|x64" ExcludedFromBuild="true"/>
+			<FileConfiguration Name="ReleaseMPI|x64" ExcludedFromBuild="true"/>
+			<FileConfiguration Name="Release|Win32" ExcludedFromBuild="true"/>
+			<FileConfiguration Name="ReleaseMPI|Win32" ExcludedFromBuild="true"/></File></Filter>
+		<File RelativePath="..\..\src\angles.fpp"/>
+		<File RelativePath="..\..\src\angles_ub.fpp"/>
+		<File RelativePath="..\..\src\axis_optimize.fpp"/>
+		<File RelativePath="..\..\src\binrestart.fpp"/>
+		<File RelativePath="..\..\src\bintraj.fpp"/>
+		<File RelativePath="..\..\src\bonds.fpp"/>
+		<File RelativePath="..\..\src\bspline.fpp"/>
+		<File RelativePath="..\..\src\charmm.fpp"/>
+		<File RelativePath="..\..\src\charmm_gold.fpp"/>
+		<File RelativePath="..\..\src\cit.fpp"/>
+		<File RelativePath="..\..\src\cmap.fpp"/>
+		<File RelativePath="..\..\src\constraints.fpp"/>
+		<File RelativePath="..\..\src\degcnt.fpp"/>
+		<File RelativePath="..\..\src\dihedrals.fpp"/>
+		<File RelativePath="..\..\src\dihedrals_imp.fpp"/>
+		<File RelativePath="..\..\src\dynamics.fpp"/>
+		<File RelativePath="..\..\src\dynamics_dat.fpp"/>
+		<File RelativePath="..\..\src\ene_frc_splines.fpp"/>
+		<File RelativePath="..\..\src\erfcfun.fpp"/>
+		<File RelativePath="..\..\src\extra_pnts_nb14.fpp"/>
+		<File RelativePath="..\..\src\fft1d.fpp"/>
+		<File RelativePath="..\..\src\file_io.fpp"/>
+		<File RelativePath="..\..\src\file_io_dat.fpp"/>
+		<File RelativePath="..\..\src\findmask.fpp"/>
+		<File RelativePath="..\..\src\gb_alltasks_setup.fpp"/>
+		<File RelativePath="..\..\src\gb_ene.fpp"/>
+		<File RelativePath="..\..\src\gb_force.fpp"/>
+		<File RelativePath="..\..\src\gb_parallel.fpp"/>
+		<File RelativePath="..\..\src\gbl_constants.fpp"/>
+		<File RelativePath="..\..\src\gbl_datatypes.fpp"/>
+		<File RelativePath="..\..\src\get_cmdline.fpp"/>
+		<File RelativePath="..\..\src\img.fpp"/>
+		<File RelativePath="..\..\src\inpcrd_dat.fpp"/>
+		<File RelativePath="..\..\src\loadbal.fpp"/>
+		<File RelativePath="..\..\src\master_setup.fpp"/>
+		<File RelativePath="..\..\src\mdin_ctrl_dat.fpp"/>
+		<File RelativePath="..\..\src\mdin_debugf_dat.fpp"/>
+		<File RelativePath="..\..\src\mdin_ewald_dat.fpp"/>
+		<File RelativePath="..\..\src\mol_list.fpp"/>
+		<File RelativePath="..\..\src\multipmemd.fpp"/>
+		<File RelativePath="..\..\src\nb_exclusions.fpp"/>
+		<File RelativePath="..\..\src\nb_pairlist.fpp"/>
+		<File RelativePath="..\..\src\nbips.fpp"/>
+		<File RelativePath="..\..\src\nextprmtop_section.fpp"/>
+		<File RelativePath="..\..\src\nmr_calls.fpp"/>
+		<File RelativePath="..\..\src\nmr_lib.fpp"/>
+		<File RelativePath="..\..\src\parallel.fpp"/>
+		<File RelativePath="..\..\src\parallel_dat.fpp"/>
+		<File RelativePath="..\..\src\pbc.fpp"/>
+		<File RelativePath="..\..\src\pme_alltasks_setup.fpp"/>
+		<File RelativePath="..\..\src\pme_blk_fft.fpp"/>
+		<File RelativePath="..\..\src\pme_blk_recip.fpp"/>
+		<File RelativePath="..\..\src\pme_direct.fpp"/>
+		<File RelativePath="..\..\src\pme_fft_dat.fpp"/>
+		<File RelativePath="..\..\src\pme_force.fpp"/>
+		<File RelativePath="..\..\src\pme_recip_dat.fpp"/>
+		<File RelativePath="..\..\src\pme_setup.fpp"/>
+		<File RelativePath="..\..\src\pme_slab_fft.fpp"/>
+		<File RelativePath="..\..\src\pme_slab_recip.fpp"/>
+		<File RelativePath="..\..\src\pmemd.fpp"/>
+		<File RelativePath="..\..\src\pmemd_lib.fpp"/>
+		<File RelativePath="..\..\src\prfs.fpp"/>
+		<File RelativePath="..\..\src\prmtop_dat.fpp"/>
+		<File RelativePath="..\..\src\random.fpp"/>
+		<File RelativePath="..\..\src\remd.fpp"/>
+		<File RelativePath="..\..\src\remd_exchg.fpp"/>
+		<File RelativePath="..\..\src\runfiles.fpp"/>
+		<File RelativePath="..\..\src\runmd.fpp"/>
+		<File RelativePath="..\..\src\runmin.fpp"/>
+		<File RelativePath="..\..\src\shake.fpp"/>
+		<File RelativePath="..\..\src\state_info.fpp"/>
+		<File RelativePath="..\..\src\timers.fpp"/>
+		<File RelativePath="..\..\src\veclib.fpp"/></Filter></Files>
+	<Globals/></VisualStudioProject>

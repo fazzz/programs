@@ -1,0 +1,5 @@
+
+
+double *pmf_2dmap(double *data, int numdata,double width,double *maxx,double *maxy,double *minx,double *miny, int *framex,int *framey );
+
+double *pmf_2dmap_rew(double *data,double *w, int numdata,double width,double *maxx,double *maxy,double *minx,double *miny,int *framex,int *framey,double temp);

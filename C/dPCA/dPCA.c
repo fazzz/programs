@@ -1,0 +1,144 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "EF.h"
+#include "LA.h"
+#include "dPCA.h"
+#include "f2c.h"
+#include "clapack.h"
+
+void mtrans(double *m1, double *m2, int n);
+
+double kb=1.98723e-3*4.18407*100.0;
+
+int dpca_diag(double *cov,double *eigenval,int numdihed) {
+  int i,j;
+  char jobz='V';
+  char uplo='U';
+  double *w,*work,*covm;
+  long int n,lda,lwork,info;
+  double var;
+
+  n     = numdihed*2;
+  lda   = n;
+  lwork = numdihed*2*3;
+  w     = (double *)gcemalloc(sizeof(double)*numdihed*2);
+  work  = (double *)gcemalloc(sizeof(double)*numdihed*2*3);
+  covm  = (double *)gcemalloc(sizeof(double)*numdihed*2*numdihed*2);
+  for (i=0;i<numdihed*2;++i) {
+    w[i]=0.0;
+    for (j=0;j<numdihed*2;++j)
+      covm[i*numdihed*2+j]=0.0;
+  }
+  for (i=0;i<numdihed*2*3;++i)
+    work[i]=0.0;
+  mtrans(cov,covm,numdihed*2);
+  dsyev_(&jobz,&uplo,&n,covm,&lda,w,work,&lwork,&info);
+  if (info!=0){
+    printf("error; eigen vector calculation!!\n info=%d\n",info);
+    exit(1);
+  }
+  for (i=0;i<numdihed*2;++i)
+    eigenval[numdihed*2-1-i]=w[i];
+  for (i=0;i<numdihed*2;++i)
+    for (j=0;j<numdihed*2;++j)
+      cov[i*numdihed*2+j]=covm[i*numdihed*2+j];
+
+  return 1;
+}
+
+/***************************************************************************************/
+/* int dpca_proj(double *sctraj_n,double *vec ,int numstep, int numdihed) {	       */
+/*   int i,j,k;									       */
+/*   double *trajv;								       */
+/* 										       */
+/*   trajv=(double *)gcemalloc(sizeof(double)*numdihed*2*numstep);		       */
+/*   for (i=0;i<numstep;++i)							       */
+/*     for (j=0;j<numdihed*2;++j)						       */
+/*       for (k=0;k<numdihed*2;++k)						       */
+/* 	trajv[i*numdihed*2+j]+=vec[j*numdihed*2+k]*sctraj_n[i*numdihed*2+k];	       */
+/* 										       */
+/*   for (i=0;i<numdihed*2;++i)							       */
+/*     for (j=0;j<numdihed*2;++j)						       */
+/*       sctraj_n[i*numdihed*2+j]=trajv[i*numdihed*2+j];			       */
+/* 										       */
+/*   return 1;									       */
+/* }										       */
+/***************************************************************************************/
+
+void dpca_proj(double *sctraj_n,double *dpca,double *U,int numstep, int numdihed) {
+  int i,j,k;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed*2;++j)
+      dpca[i*numdihed*2+j]=0.0;
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed*2;++j)
+      for (k=0;k<numdihed*2;++k)
+	dpca[i*numdihed*2+j]+=U[k*numdihed*2+j]*sctraj_n[i*numdihed*2+k];
+
+}
+
+int dpca_covm(double *sctrj_n, int numstep, int numdihed, double *cov){
+  int i,j,k;
+
+  for (i=0;i<numdihed*2;++i)
+    for (j=0;j<numdihed*2;++j)
+      cov[i*numdihed*2+j]=0.0;
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed*2;++j)
+      for (k=0;k<numdihed*2;++k)
+	cov[j*numdihed*2+k]=(i*cov[j*numdihed*2+k]+sctrj_n[i*numdihed*2+j]*sctrj_n[i*numdihed*2+k])/(i+1);
+
+  return 1;
+}
+
+int dpca_norm(double *dtrj, double *sctrj, int numstep, int numdihed){
+  int i,j;
+  double *ave,pi;
+
+  pi=acos(-1.0);
+
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numdihed;++j) {
+      sctrj[i*numdihed*2+j*2]=cos(dtrj[i*numdihed+j]*pi/180.0);
+      sctrj[i*numdihed*2+j*2+1]=sin(dtrj[i*numdihed+j]*pi/180.0);
+    }
+  }
+
+  ave  = (double *)gcemalloc(sizeof(double)*numdihed*2);
+  for (i=0;i<numdihed*2;++i)
+    ave[i]=0.0;
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed*2;++j)
+      ave[j]=(i*ave[j]+sctrj[i*numdihed*2+j])/(i+1);
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed*2;++j)
+      sctrj[i*numdihed*2+j]=sctrj[i*numdihed*2+j]-ave[j];
+
+  return 0.0;
+}
+
+void mtrans(double *m1, double *m2, int n){
+  int i,j;
+
+  for (i=0;i<n;++i)
+    for (j=0;j<n;++j)
+      m2[i*n+j] = m1[j*n+i];
+
+}
+
+int dpca_proj_wdim(double *sctrj, double *dtrjv,double *vec ,int numstep, int numdihed,int numdim) {
+  int i,j,k;
+
+  for (i=0;i<numstep*numdim;++i) dtrjv[i]=0.0;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdim;++j)
+      for (k=0;k<numdihed*2;++k)
+	dtrjv[i*numdim+j]+=vec[k*numdim+j]*sctrj[i*numdihed*2+k];
+
+  return 1;
+}

@@ -1,0 +1,5 @@
+
+FILE *efopen(char *filename,char *flag);
+void *emalloc(size_t n);
+void *ecalloc(size_t n,size_t size);
+void *egcmalloc(size_t n);

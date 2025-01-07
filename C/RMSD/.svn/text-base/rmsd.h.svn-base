@@ -1,0 +1,9 @@
+double rmsd_qcp(double *coordA,double *coordB,int numatom);
+void mmult(double *coordA, double *coordB, double matrix[3][3], int numatom);
+void fomKmat(double Kmat[4][4], double mat[3][3]);
+void fomPolynominal(/*double C0, double C1, double C2,*/ double mat[3][3], double Kmat[4][4]);
+double Newton_Rapson(/*double C0, double C1, double C2,*/ double det);
+double CalcG(double *coordA,int numatom);
+void transCentroid(double *coordA, double *coordB, int numatom);
+
+

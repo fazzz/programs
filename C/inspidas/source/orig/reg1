@@ -1,0 +1,539 @@
+C ** CONNECTING OF ATOMS IN PROTEINS
+C -WHEN WITH    FORMAT==>  EX CONNECT1.CLIST LIST -------------------
+C*********** COMAND OF INPUT DATA *********************************
+C*  ALLOC DA(AC.DATA) F(FT01F001) SH ;READ CONNECTING DATA        *
+C****************CHANGE OF ATOM NAME OF X-RAY.DATA; ***************
+C*                       7  HIS(11 ND1 <=11 AD1)                  *
+C*                       7  HIS(12 CD2 <=12 AD2)                  *
+C*                       7  HIS(14 CE1 <=14 AE1)                  *
+C*                       7  HIS(15 NE2 <=15 AE2)                  *
+C*                      12  ASN(11 ND2 =>11 AD2)                  *
+C*                      12  ASN(12 OD1 <=12 AD1)                  *
+C*                      14  GLN(14 NE2 <=14 AE2)                  *
+C*                      14  GLN(15 OE1 <=15 AE1)                  *
+C*                                         L-> FROM DATA-BANK     *
+C*  ATTR I INPUT                                                  *
+C*  ALLOC DA('F0033.BNL.DATA(#3PTI)') F(FT02F001) SH US(I)        *
+C*     =======>  READ ATOMIC-COORDINATES OF PROTEIN DATA BANK     *
+C*********** COMAND OF OUTPUT DATA ********************************
+C*  ATTR N LR(80) BL(3200) REC(F B) DS(PS)                        *
+C*  ALLOC DA(PTI3C.DATA) F(FT10F001) NEW CA TR SP(5 5) REL US(N)   *
+C******************************************************************
+      COMMON /CONEC0/ RENAM1(21),ATNAM1(21,24)
+      COMMON /CONEC1/ NUMAT(21),NO(21,24),NOBOND(21,24),ICON(21,24,4)
+      COMMON /TITL/TITLE(15),RELIST(500)
+      COMMON /SSBND/LAST,NC,NCYS,NPAIR(15,2)
+*
+      DIMENSION NUM(5000),
+     * CHAIN(5000),NUMRES(5000),COORD(3,5000),OCUP(5000),TF(5000)
+C
+      DIMENSION LBOND(5000),LCON(5000,6)
+      DIMENSION NPOINT(500),JC(5),JN(5)
+      DIMENSION NUMRE2(5000),CO2(3,5000),OCUP2(5000),TF2(5000)
+      CHARACTER*4 RENAM1,ATNAM1,AMJ1,DC,DN,TITLE,RELIST
+      CHARACTER*4 ATNAM2(5000),RENAM2(5000),RNAM
+      CHARACTER*4 NAMAT2(5000),NAMRE2(5000)
+C
+      DATA  ND,MD,NRES /2,10,21/
+*
+C *** INPUT CONNECTING DATA
+C
+      CALL CONNEC(NRES)
+C *** INPUT COORDINATES DATA
+C
+      CALL INPUT(ND,NATOM,ATNAM2,RENAM2,NUMRES,COORD,OCUP,TF)
+      WRITE(6, 5) NATOM
+    5 FORMAT(' NATOM =',I4)
+* REGULAR NUMBERING OF AMINO ACID NUMBER
+      CALL CONVR2(NATOM,NUMRES)
+*
+** CONVERT TO BNL FORMAT
+**
+      CALL CONVR(NATOM,ATNAM2,RENAM2,NUMRES,COORD,OCUP,TF,NAMAT2,
+     *  NAMRE2,NUMRE2,CO2,OCUP2,TF2 )
+C
+** CONNECTING OF BNL DATA
+*
+      CALL COBNL(NATOM,NAMAT2,NAMRE2,NUMRE2,LBOND,LCON,NPOINT,
+     *    JN,JC,NRES)
+* OUTPUT
+      CALL OUTPUT(MD,NATOM,NAMAT2,NAMRE2,NUMRE2,CO2,OCUP2,TF2,
+     *       LBOND,LCON)
+C
+      END
+C
+C ** INPUT CONNECTING DATA
+C
+      SUBROUTINE CONNEC(NRES)
+      COMMON /CONEC0/ RENAM1(21),ATNAM1(21,24)
+      COMMON /CONEC1/ NUMAT(21),NO(21,24),NOBOND(21,24),ICON(21,24,4)
+      CHARACTER*4 RENAM1,ATNAM1
+      DO 100 I=1,NRES
+      READ(1,10) RENAM1(I)
+      READ(1,20) NUMAT(I)
+      DO 200 J=1,NUMAT(I)
+  200 READ(1,30) NO(I,J),ATNAM1(I,J),NOBOND(I,J),(ICON(I,J,K),K=1,4)
+  100 CONTINUE
+C
+   10 FORMAT(A4)
+   20 FORMAT(I5)
+   30 FORMAT(I4,1X,A4,8X,I1,1X,4I4)
+C
+CC    DO 120 I=1,NRES
+C     DO 120 I=1,2
+C     WRITE(6,12) RENAM1(I)
+C     WRITE(6,20) NUMAT(I)
+C     DO 220 J=1,NUMAT(I)
+C 220 WRITE(6,30) NO(I,J),ATNAM1(I,J),NOBOND(I,J),(ICON(I,J,K),K=1,4)
+C 120 CONTINUE
+C  12 FORMAT(1X,A4)
+      RETURN
+      END
+C
+C ** READ COORDINATES DATA
+C
+      SUBROUTINE INPUT(ND,NATOM,ATNAM2,RENAM2,NUMRES,COORD,OCUP,TF)
+      CHARACTER*4 ATNAM2(5000),RENAM2(5000),TITLE,RELIST
+      COMMON /TITL/  TITLE(15),RELIST(500)
+      COMMON /SSBND/LAST,NC,NCYS,NPAIR(15,2)
+      DIMENSION NUM(5000),
+     * CHAIN(5000),NUMRES(5000),COORD(3,5000),OCUP(5000),TF(5000)
+      DIMENSION C(3)
+      CHARACTER*4 NCOMP,NSEQR,NSSBO,DATOM,DD,ATN2,WORK(15)
+      CHARACTER*4 RNAM,RAMFUL(20)
+      DATA NCOMP/'COMP'/,NSEQR/'SEQR'/,NSSBO/'SSBO'/,DATOM/'ATOM'/
+      DATA RAMFUL/'ALA ','ASP ','CYS ','GLU ','PHE ',
+     1           'GLY ','HIS ','ILE ','LYS ','LEU ',
+     2           'MET ','ASN ','PRO ','GLN ','ARG ',
+     3           'SER ','THR ','VAL ','TRP ','TYR '/
+C
+        DATA           NST,NED/1,13/
+          NC=  0
+          NCYS=0
+C ****** READ REMARK & ATOMIC COORDINATES *************************
+    1        READ(ND,200) DD,(WORK(I),I=1,15)
+  200   FORMAT(A4,6X,15A4)
+C  ---- READ 'COMP'ND  --- NAME OF PROTEIN  ----
+           IF (DD.NE. NCOMP ) GO TO 555
+        DO 10 I=1,15
+        TITLE(I)=WORK(I)
+   10    CONTINUE
+      WRITE(6,610) (TITLE(I),I=1,10)
+  610 FORMAT(' **** DATA OF  ',10A4,'*****')
+                 GO TO 1
+C
+  555      IF (DD.NE. NSEQR ) GO TO 556
+C  ----- READ  'SEQR'ES  --- SEQUENCE OF RESIDUES --------
+              BACKSPACE ND
+       READ(ND,300) DD,LAST,(RELIST(I),I=NST,NED)
+      WRITE( 6,301) DD,LAST,(RELIST(I),I=NST,NED)
+  300 FORMAT(A4,9X,I4,2X,13A4)
+  301 FORMAT(5X,A4,9X,I4,1X,13A4)
+            NST=NED+1
+            NED=NST+12
+                 GO TO 1
+C ---- READ 'SSBO'ND ------ INFORMATION OF SSBOND -----
+  556  IF(DD.NE.NSSBO ) GO TO 557
+        BACKSPACE ND
+       READ(ND,500) IDD,NP,N1,N2
+  500  FORMAT(A4,3X,I3,7X,I4,10X,I4)
+          NPAIR(NP,1)=N1
+          NPAIR(NP,2)=N2
+            NC=-1
+            NCYS=NCYS+1
+                 GO TO 1
+C ---- READ 'ATOM'   ------COORDNATES OF ATOMS---------
+  557  IF(DD.NE.DATOM ) GO TO 1
+              NA=0
+            BACKSPACE ND
+   55  READ(ND,660) DD,ID,ATN2,RNAM,NUMR,(C(I),I=1,3),OCU,T
+C     WRITE( 6,669) DD,ID,ATN2,RNAM,NUMR,(C(I),I=1,3),OCU,T
+C*                      14  GLN(15 OE1 =>12 AE1)                  *
+  660 FORMAT(A4,2X,I5,2X,A4,   A4,1X,I4,4X,3F8.3,2F6.2)
+  669 FORMAT(2X,A4,2X,I5,1X,A4,   A4,2X,I4,4X,3F8.3,2F6.2)
+             IF(DD.NE.DATOM ) GO TO 999
+             IF(NUMR.EQ.0) GO TO 55
+      NA=NA+1
+            NUM(NA)   =NA
+            ATNAM2(NA)=ATN2
+            RENAM2(NA)=RNAM
+            NUMRES(NA)=NUMR
+            OCUP(NA)  =OCU
+            TF(NA)    =T
+                DO 66 J=1,3
+   66               COORD(J,NA)=C(J)
+                                GO TO 55
+C -----------    DEBUG -------------------------------------
+C
+C
+C 999     NATOM=NA-1
+  999     CONTINUE
+          NATOM=NA
+C
+C****************CHANGE OF ATOM NAME OF X-RAY.DATA; ***************
+C*                       7  HIS(11 ND1 <=11 AD1)                  *
+C*                       7  HIS(12 CD2 <=12 AD2)                  *
+C*                       7  HIS(14 CE1 <=14 AE1)                  *
+C*                       7  HIS(15 NE2 <=15 AE2)                  *
+C*                      12  ASN(11 ND2 =>11 AD2)                  *
+C*                      12  ASN(12 OD1 <=12 AD1)                  *
+C*                      14  GLN(14 NE2 <=14 AE2)                  *
+C*                      14  GLN(15 OE1 <=15 AE1)                  *
+C***********  FOR  ECEPP ***************   L-> FROM DATA-BANK *****
+         DO 4990 J=1,NATOM
+            IF(RENAM2(J).NE.'HIS ') GO TO 4910
+               IF(ATNAM2(J).EQ.'AD1 ') ATNAM2(J)='ND1 '
+               IF(ATNAM2(J).EQ.'AD2 ') ATNAM2(J)='CD2 '
+               IF(ATNAM2(J).EQ.'AE1 ') ATNAM2(J)='CE1 '
+               IF(ATNAM2(J).EQ.'AE2 ') ATNAM2(J)='NE2 '
+ 4910       IF(RENAM2(J).NE.'ASN ') GO TO 4920
+               IF(ATNAM2(J).EQ.'AD1 ') ATNAM2(J)='OD1 '
+               IF(ATNAM2(J).EQ.'AD2 ') ATNAM2(J)='ND2 '
+ 4920       IF(RENAM2(J).NE.'GLN ') GO TO 4990
+               IF(ATNAM2(J).EQ.'AE1 ') ATNAM2(J)='OE1 '
+               IF(ATNAM2(J).EQ.'AE2 ') ATNAM2(J)='NE2 '
+ 4990    CONTINUE
+C ========================= END OF CHECK OF ATOM NAME ===============
+      WRITE(6,620) LAST
+      WRITE(6,621) (RELIST(I),I=1,LAST)
+  620 FORMAT(' NO. OF RESIDUE=',I5, '  SEQUENCE OF RESIDUE;RELIST(I)=')
+  621 FORMAT(13(1X,A4))
+      WRITE(6,630) NC,NCYS
+  630 FORMAT('  SSBOND ===> NC=',I4,'  NCYS=',I5)
+           DO 635 I=1,NCYS
+      WRITE(6,1640) (NPAIR(I,J),J=1,2)
+  635   CONTINUE
+ 1640  FORMAT('        PAIR OF SSBOND=', I5,' <===>',I5)
+C
+             DO 645 I=1,20
+               IF(RELIST(1).EQ.RAMFUL(I) ) GO TO 649
+  645       CONTINUE
+            RELIST(1)='H3N '
+              LAST=LAST+1
+            RELIST(LAST)='COO '
+C
+           GO TO 659
+  649 CONTINUE
+         DO 651 JJ=LAST,1,-1
+            RELIST(JJ+1)=RELIST(JJ)
+  651       CONTINUE
+          RELIST(1)='H3N '
+          LAST=LAST+2
+             RELIST(LAST)='COO '
+  659 WRITE(6,3660) NA
+ 3660 FORMAT(' NUMBER OF ATOMS=', I7)
+            IF(NC) 1600,1699,1699
+ 1600     DO 1646 I=1,NCYS
+               NPAIR(I,1)=NPAIR(I,1) +1
+ 1646          NPAIR(I,2)=NPAIR(I,2) +1
+          WRITE(6,1647)
+ 1647  FORMAT( ' ****** AS N-TERMINAL, SHIFT S-S BOND*******')
+           DO 1648 I=1,NCYS
+      WRITE(6,1640) (NPAIR(I,J),J=1,2)
+ 1648   CONTINUE
+ 1699   CONTINUE
+CCC        DO 6669 J=1,NA
+           DO 6669 J=1,20
+      WRITE(6,690) NUM(J),ATNAM2(J),RENAM2(J),NUMRES(J),
+     *           (COORD(K,J),K=1,3),OCUP(J),TF(J)
+ 6669  CONTINUE
+  690 FORMAT(2X,I5,1X,A4,1X,A4,2X,I4,4X,3F8.3,2F6.2)
+C     J=NATOM
+C     WRITE(6,660) NUM(J),ATNAM2(J),RENAM2(J),CHAIN(J),NUMRES(J),
+C    *           (COORD(K,J),K=1,3),OCUP(J),TF(J)
+      RETURN
+      END
+*
+      SUBROUTINE CONVR(NATOM,NAMAT,NAMRE,NUMRE,CO,OCUP,TF,NAMAT2,
+     *  NAMRE2,NUMRE2,CO2,OCUP2,TF2 )
+      DIMENSION NUMRE(NATOM),NUMRE2(NATOM),CO(3,NATOM),CO2(3,NATOM),
+     * CO1(3,5000),IRES(5000),OCUP(NATOM),OCUP1(5000),OCUP2(NATOM),
+     * TF(NATOM),TF1(5000),TF2(NATOM)
+      DIMENSION NOATM(20),JATORO(16,200),ISEQ(200),JMAX(200),IODR(36)
+      CHARACTER*4 AMINO(20),RESNAM(5000),ATMTYP(5000),ATYPE(36)
+      CHARACTER*4 NAMAT(NATOM),NAMRE(NATOM),NAMAT2(NATOM),NAMRE2(NATOM)
+        DATA AMINO/'ALA ','ASP ','CYS ','GLU ','PHE ','GLY ','HIS '
+     *            ,'ILE ','LYS ','LEU ','MET ','ASN ','PRO ','GLN '
+     *            ,'ARG ','SER ','THR ','VAL ','TRP ','TYR '/
+        DATA NOATM / 5, 8, 6, 9,11, 4,10, 8, 9, 8,
+     *               8, 8, 7, 9,11, 6, 7, 7,14,12 /
+        DATA ATYPE/'N   ','CA  ','C   ','O   ','CB  ',
+     *             'CG  ','CG1 ','CG2 ',
+     *             'CD  ','CD1 ','CD2 ',
+     *             'CE  ','CE1 ','CE2 ','CE3 ',
+     *             'CZ  ','CZ2 ','CZ3 ','CH2 ',
+     *      'ND1 ','ND2 ','NE  ','NE1 ','NE2 ','NZ  ','NH1 ','NH2 ',
+     *             'OG  ','OG1 ','OD1 ','OD2 ','OE1 ','OE2 ','OH  ',
+     *             'SG  ','SD  '/
+        DATA IODR/  1, 2, 3, 4, 5,
+     *              6, 6, 7,      7, 7, 8,
+     *              8, 9,10,11,  11,12,13,14,
+     *              7, 8, 8, 9,10, 9,10,11,
+     *              6, 6, 7, 8, 8, 9,12,    6, 7 /
+** PICK UP PROPER ATOMS
+         INUMRS=0
+         IA=0
+      DO 100 J=1,NATOM
+      IF(NAMAT(J)(1:1).EQ.'H' )  THEN
+          WRITE(6,'(''NAMAT'',A)') NAMAT(J)
+          GOTO 100
+      END IF
+                 II=0
+              DO 20 I=1,20
+                   IF(NAMRE(J).EQ.AMINO(I)) II=1
+20            CONTINUE
+      IF (II.NE.1) GOTO 100
+      IRS = NUMRE(J)
+C     WRITE(6,'('' NUMRE ='',I4)') NUMRE(J)
+      INUMRS=MAX( IRS    ,INUMRS)
+         IA=IA+1
+            ATMTYP(IA)= NAMAT(J)
+            RESNAM(IRS)= NAMRE(J)
+            IRES(IA)=IRS
+            OCUP1(IA) = OCUP(J)
+            TF1(IA)   = TF(J)
+            CO1(1,IA)= CO(1,J)
+            CO1(2,IA)= CO(2,J)
+            CO1(3,IA)= CO(3,J)
+C     IF(J.LE.15.OR.J.EQ.NATOM)
+C     WRITE(6,'('' IRS ='',I4,''  RESNAM ='',A)') IRS,RESNAM(IRS)
+C     WRITE(6,3000)IA,ATMTYP(IA),RESNAM(IRS),IRES(IA),(CO1(K,IA),K=1,3)
+100   CONTINUE
+ 3000 FORMAT(I5,1X,A4,A4,I4,3F8.3)
+      NATM=IA
+      WRITE(6,'( '' INUMRS = '',I4)') INUMRS
+      WRITE(6,'( '' NATM   = '',I4)') NATM
+*
+      DO 1 L=1,INUMRS
+      DO 1 J=1,16
+1           JATORO(J ,L      )= 0
+*
+      DO 30 J=1,INUMRS
+      DO 30 I=1,20
+          IF (RESNAM(J).EQ.AMINO(I)) THEN
+               ISEQ(J)=I
+               JMAX(J)=NOATM(I)
+          ENDIF
+ 30   CONTINUE
+      DO 50 J=1,NATM
+        IO=0
+        DO 40 I=1,36
+           IF (ATMTYP(J).EQ.ATYPE(I)) IO=IODR(I)
+ 40     CONTINUE
+      IF((RESNAM(IRES(J)).EQ.'ILE ').AND.(ATMTYP(J).EQ.'CD1 ')) IO=8
+      IF((RESNAM(IRES(J)).EQ.'GLN ').AND.(ATMTYP(J).EQ.'NE2 ')) IO=9
+      IF((RESNAM(IRES(J)).EQ.'ARG ').AND.(ATMTYP(J).EQ.'CZ  ')) IO=9
+      IF((RESNAM(IRES(J)).EQ.'TYR ').AND.(ATMTYP(J).EQ.'NH2 ')) IO=16
+        IF(IO.NE.0) JATORO(IO,IRES(J))=J
+ 50   CONTINUE
+*
+      IA = 0
+      DO 60 K=1,INUMRS
+      DO 60 J=1,JMAX(K)
+          IB=JATORO(J,K)
+      IF(IB.EQ.0) GOTO 60
+         IA = IA + 1
+           NAMAT2(IA) = ATMTYP(IB)
+           NUMRE2(IA) = IRES(IB)
+           NAMRE2(IA) = RESNAM( NUMRE2(IA) )
+           OCUP2(IA)  = OCUP1(IB)
+           TF2(IA)    = TF1(IB)
+           CO2(1,IA) = CO1(1,IB)
+           CO2(2,IA) = CO1(2,IB)
+           CO2(3,IA) = CO1(3,IB)
+ 60   CONTINUE
+      PRINT *,' NATM=', IA
+           NATOM=IA
+C     DO  7666 J=1,NATOM
+      DO  7666 J=1,10
+          WRITE(6 ,4000) J,NAMAT2(J),NAMRE2(J),NUMRE2(J),
+     *   (CO2(K,J),K=1,3)
+ 7666      CONTINUE
+C         WRITE(6 ,4000) NATM,NAMAT2(NATM),NAMRE2(NATM),
+C    *                   NUMRE2(NATM),( CO2(K,NATM),K=1,3)
+ 4000 FORMAT(6X,I5,2X,A4,A4,1X,I4,4X,3F8.3)
+      RETURN
+      END
+*
+      SUBROUTINE CONVR2(N1,NUMRE1)
+*
+      DIMENSION NUMRE1(5000)
+*
+      NUM1 = NUMRE1(1)
+*
+      IF(NUM1.GE.2) THEN
+            DO 710 I=1,N1
+            IF( ABS(NUMRE1(I+1) - NUMRE1(I)).LE.1 ) THEN
+                              NUMRE1(I) = NUMRE1(I) - NUM1 + 1
+            ELSE
+            NUMRE1(I) = NUMRE1(I) - NUM1 + 1
+            NUM1 = NUMRE1(I+1) - NUMRE1(I)
+            ENDIF
+710   CONTINUE
+        ELSE
+            NUM1 = 1
+            DO 720 I=1,N1
+            IF( ABS(NUMRE1(I+1) - NUMRE1(I)).LE.1 ) THEN
+                              NUMRE1(I) = NUMRE1(I) - NUM1 + 1
+            ELSE
+            NUMRE1(I) = NUMRE1(I) - NUM1 + 1
+            NUM1 = NUMRE1(I+1) - NUMRE1(I)
+            ENDIF
+720   CONTINUE
+        ENDIF
+*       DO 790 I=1,N1
+*790     PRINT *,'NUMRE1 =',NUMRE1(I)
+*
+      RETURN
+      END
+C
+** CONNECTING OF BNL DATA
+*
+      SUBROUTINE COBNL(NATOM,ATNAM2,RENAM2,NUMRES,LBOND,LCON,NPOINT,
+     *    JN,JC,NRES)
+*
+      CHARACTER*4 ATNAM1,RENAM1,ATNAM2(5000),RENAM2(5000)
+      CHARACTER*4 AMJ1,DC,DN,RNAM
+      COMMON /CONEC0/ RENAM1(21),ATNAM1(21,24)
+      COMMON /CONEC1/ NUMAT(21),NO(21,24),NOBOND(21,24),ICON(21,24,4)
+      DIMENSION NUMRES(5000),LBOND(5000),LCON(5000,6)
+      DIMENSION NPOINT(500),JC(5),JN(5)
+      DATA DC/'C   '/,DN/'N   '/
+*
+      DO 6 J=1,NATOM
+      LBOND(J)=0
+      DO 6 K=1,6
+    6 LCON(J,K) = 0
+C
+C
+      NR=1
+      NPOINT(1)=1
+      NCURR=NUMRES(1)
+      DO 105 J=2,NATOM
+        IF(NUMRES(J).EQ.NCURR)GOTO 105
+        NR=NR+1
+        NPOINT(NR)=J
+C          WRITE(6,*) NR,NPOINT(NR)
+        NCURR=NUMRES(J)
+ 105  CONTINUE
+      NPOINT(NR+1)=NATOM+1
+C
+          WRITE(6,*) NATOM,NR
+C
+      DO 200 JR=1,NR
+        JBEG=NPOINT(JR)
+        JEND=NPOINT(JR+1)-1
+        IF(JR.EQ.NR)GOTO 215
+C CONNECT C WITH N OF NEXT RESIDUE
+        JBEGN=JEND+1
+        IF(NUMRES(JBEG).NE.(NUMRES(JBEGN)-1))GOTO 215
+        JENDN=NPOINT(JR+2)-1
+C
+        LC=0
+        DO 202 J=JBEG,JEND
+C              WRITE(6,6202) JR,J,ATNAM2(J),DC,LC
+ 6202    FORMAT('  JR =',I5,' J=',I5,' ATNAM2=',A4,2X A4,'  LC=',I4)
+           IF(ATNAM2(J).NE.DC )GO TO 202
+           LC=LC+1
+           JC(LC)=J
+ 202    CONTINUE
+        LN=0
+        DO 204 J=JBEGN,JENDN
+           IF(ATNAM2(J).NE.DN )GOTO 204
+           LN=LN+1
+           JN(LN)=J
+ 204    CONTINUE
+C
+C
+C          WRITE(6,6215) JR,LC,LN
+      IF(LC.EQ.0.OR.LN.EQ.0)GOTO 215
+ 6215  FORMAT('  JR=',I5,' LC=', I5,'  LN=',I5)
+      DO 206 L1=1,LC
+         JC1=JC(L1)
+         DO 206 L2=1,LN
+           JN1=JN(L2)
+           LBOND(JC1)=LBOND(JC1)+1
+           LBOND(JN1)=LBOND(JN1)+1
+           LCON(JC1,LBOND(JC1))=JN1
+           LCON(JN1,LBOND(JN1))=JC1
+C          WRITE(6,*)JR,L1,L2, LBOND(JC1),LBOND(JN1),JN1,JC1
+  206   CONTINUE
+C
+C CONNECT WITHIN RESIDUES
+  215  RNAM=RENAM2(JBEG)
+       DO 220 IC=1,NRES
+         IF(RNAM.EQ.RENAM1(IC))GOTO 221
+ 220   CONTINUE
+       GOTO 199
+ 221   DO 230 J=JBEG,JEND-1
+          DO 240 K=1,NUMAT(IC)
+          IF(ATNAM2(J).EQ.ATNAM1(IC,K))GOTO 241
+ 240      CONTINUE
+          GOTO 230
+ 241      NB=NOBOND(IC,K)
+          DO 250 L=1,NB
+            AMJ1=ATNAM1(IC,ICON(IC,K,L))
+            DO 260 J1=J+1,JEND
+              IF(AMJ1.EQ.ATNAM2(J1))GOTO 261
+  260       CONTINUE
+            GOTO 250
+  261       LBOND(J)=LBOND(J)+1
+            LCON(J,LBOND(J))=J1
+                    LD1=LCON(J,LBOND(J))
+            LBOND(J1)=LBOND(J1)+1
+            LCON(J1,LBOND(J1))=J
+                    LD2=LCON(J1,LBOND(J1))
+C ****** DEBUG *************************
+C         WRITE(6,*) JR,J,J1,LBOND(J),LD1,LBOND(J1),LD2
+  250     CONTINUE
+  230     CONTINUE
+  199     CONTINUE
+  200     CONTINUE
+C              DO  6665 J=1,NATOM
+C         WRITE(6 ,1640)     J ,ATNAM2(J),RENAM2(J),NUMRES(J),
+C    *                                    LBOND(J),(LCON(J,K),K=1,4)
+ 6665      CONTINUE
+ 1640  FORMAT(I5,1X,A4,A4,I4,            I2,4I5)
+C
+      RETURN
+            END
+*
+* OUTPUT
+      SUBROUTINE OUTPUT(MD,NATOM,ATNAM2,RENAM2,NUMRES,COORD,OCUP,TF,
+     *       LBOND,LCON)
+C
+      CHARACTER*4 ATNAM2(5000),RENAM2(5000)
+      COMMON /TITL/TITLE(15),RELIST(500)
+      COMMON /SSBND/LAST,NC,NCYS,NPAIR(15,2)
+      DIMENSION NUMRES(5000),COORD(3,5000),OCUP(5000),TF(5000)
+     *         ,LBOND(5000),LCON(5000,6)
+          WRITE(6,1610) (TITLE(I),I=1,15)
+          WRITE(6,1620) LAST,NATOM,NC,NCYS
+          WRITE(6,1630) (RELIST(I),I=1,LAST)
+              IF(NC)  1641,1645,1645
+ 1641     WRITE(6,1640) ((NPAIR(I,J),J=1,2),I=1,NCYS)
+ 1645    CONTINUE
+C              DO  1665 J=1,NATOM
+               DO  1665 J=1,10
+          WRITE(6,1650)     J ,ATNAM2(J),RENAM2(J),NUMRES(J),
+     *   (COORD(K,J),K=1,3),OCUP(J),TF(J),LBOND(J),(LCON(J,K),K=1,4)
+ 1665      CONTINUE
+C *******************************************************************
+C ********** OUTPUT TO DISK ****************************************
+          WRITE(MD,1610) (TITLE(I),I=1,15)
+          WRITE(MD,1620) LAST,NATOM,NC,NCYS
+          WRITE(MD,1630) (RELIST(I),I=1,LAST)
+              IF(NC)  6641,6645,6645
+ 6641     WRITE(MD,1640) ((NPAIR(I,J),J=1,2),I=1,NCYS)
+ 6645    CONTINUE
+               DO  6665 J=1,NATOM
+          WRITE(MD,1650)     J ,ATNAM2(J),RENAM2(J),NUMRES(J),
+     *   (COORD(K,J),K=1,3),OCUP(J),TF(J),LBOND(J),(LCON(J,K),K=1,4)
+ 6665      CONTINUE
+ 1610  FORMAT(5X,15A4)
+ 1620  FORMAT(4I5)
+ 1630  FORMAT(5X,10A4)
+ 1640  FORMAT(20I4)
+ 1650  FORMAT(I5,1X,A4,A4,I4,3F8.3,2F6.2,I2,4I5)
+       RETURN
+             END

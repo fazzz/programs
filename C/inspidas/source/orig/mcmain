@@ -1,0 +1,395 @@
+C***********************************************************************
+C MONTE.FORT77(MONTE)
+C
+C MONTE CALRO SIMULATION IN ECEPP WITH OR WITHOUT CUTOFF
+C BASED ON 'PERI.PMSGO.MC.FORT(MONTE)'
+C
+C THIS PROGRAM IS LINKED WITH
+C      MINIMA.FORT77(FEDERCS) FOR THE CUTOFF OPERATION
+C      MINIMA.FORT77(FEDERNS) FOR  NO-CUTOFF OPERATION
+C
+C INPUT
+C     5      : CONTROL PARAMETERS
+C     IOINIT : THE INITIAL ANGLES IN ECEPP FORMAT
+C     IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     20     : PRECEP OUTPUT
+C     21     : ECEPP ENERGY PARAMETERS
+C OUTPUT
+C     6      : SYSOUT DATA
+C     IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     IOERG  : OUTPUT OF ENERGY
+C     IOANG  : OUTPUT OF ANGLES
+C
+C CONTROL PARAMETERS
+C     ISTART : = 0 FOR FRESH START; OTHERWISE CONTINUING JOB
+C     IECEPP : = 1 FOR ECEPP FORMAT OF INITIAL ANGLES;
+C                  OTHERWISE NO FORMAT
+C     ICUT   : = 1 FOR CUTOFF; OTHERWISE NO CUTOFF
+C     IXS    : A SEED FOR RANDOM NUMBER GENERATOR
+C     TEMP   : TEMPERATURE
+C     ESMALL : THE LOWEST LIMIT OF EIGENVALUE (USUALLY = 10.0)
+C     FLUC   : THE COEFFICIENT OF THE STEP LENGTH (USUALLY =1.3)
+C     LOUTE  : OUTPUT OF ENERGY EVERY LOUTE STEPS
+C     LOUTA  : OUTPUT OF ANGLES EVERY LOUTA STEPS
+C     LLIST  : REVISION OF INTERACTION TABLE EVERY LLIST STEPS
+C     LMTR   : ACCEPTANCE RATIO IS AVERAGED FOR EACH LMTR STEPS
+C     LLTR   : REVISION OF HESSIAN EVERY LLTR STEPS
+C     ACPL   : IF ACP < ACPL, HESSIAN IS REVISED
+C     ITIMEL : CPU TIME LIMIT IN SECOND
+C     LTR    : LIMIT OF STEP
+C
+C ARRAY SIZE
+C     MAXRES=28
+C     MAXVAR=160
+C     MAXMTR=2000
+C**********************************************************************
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER (MAXRES=28 ,MAXVAR=160,MAXMTR=2000)
+      PARAMETER (MAXATM=436)
+      PARAMETER (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+      COMMON/NUMBER/ NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/VARANG/ ANGLES(10,MAXRES),INDXV(MAXVAR),NUMRES
+      COMMON/COORD/ CO(MAXATM,3)
+      COMMON/ENE000/ FT(5)
+      DIMENSION ANG(MAXVAR),ANGT(MAXVAR),F(6),
+     &          IACP(MAXMTR),EV(MAXVAR,MAXVAR)
+      REAL*4 ANGS(MAXVAR)
+      REAL*4 XYZ(MAXATM,3)
+      INTEGER*4 IX,IXS
+C-----------------------------------------------------------------------
+C INPUT OF THE INFORMATION FOR THE SIMULATION
+C-----------------------------------------------------------------------
+C
+C READ CONTROL PARAMETERS
+C
+      READ(5,*) ISTART,IECEPP,ICUT,IXS
+      READ(5,*) TEMP,ESMALL,FLUC
+      READ(5,*) LOUTE,LOUTA,LLIST,LMTR
+      READ(5,*) ITIMEL,LTR,LLTR,ACPL
+      READ(5,*) IOINIT,IOREST,IOERG,IOANG
+      WRITE(6,*) 'ISTART  ',ISTART
+      WRITE(6,*) 'IECEPP  ',IECEPP
+      WRITE(6,*) 'ICUT  ',ICUT
+      WRITE(6,*) 'IXS  ',IXS
+      WRITE(6,*) 'TEMP  ',TEMP
+      WRITE(6,*) 'ESMALL  ',ESMALL
+      WRITE(6,*) 'FLUC  ',FLUC
+      WRITE(6,*) 'LOUTE  ',LOUTE
+      WRITE(6,*) 'LOUTA  ',LOUTA
+      WRITE(6,*) 'LLIST  ',LLIST
+      WRITE(6,*) 'LMTR  ',LMTR
+      WRITE(6,*) 'ITIMEL  ',ITIMEL
+      WRITE(6,*) 'LTR  ',LTR
+      WRITE(6,*) 'LLTR  ',LLTR
+      WRITE(6,*) 'ACPL  ',ACPL
+      WRITE(6,*) 'IOINIT  ',IOINIT
+      WRITE(6,*) 'IOREST  ',IOREST
+      WRITE(6,*) 'IOERG  ',IOERG
+      WRITE(6,*) 'IOANG  ',IOANG
+      BETA=1.0D0/(1.987D-3*TEMP)
+C
+C READ PRECEP OUTPUT AND ENERGY PARAMETERS
+C
+      CALL  INPUT
+C
+C PREPAIR THE BOND INFORMATION
+C
+      CALL  PRESET
+C-----------------------------------------------------------------------
+C FOR A FRESH START (ISTART=0)
+C-----------------------------------------------------------------------
+      IF(ISTART.EQ.0) THEN
+        IX=IXS
+        NTR=0
+        MTR=0
+        NOUTE=0
+        NOUTA=0
+        NLIST=0
+        NLTR=0
+        IF(IECEPP .EQ. 1) THEN
+C READ A STARTING CONFORMAION (ECEPP FORMAT)
+          DO 100 I = 1,NUMRES
+            READ(IOINIT,'(10F8.3)')(ANGLES(J,I),J=1,10)
+  100     CONTINUE
+          DO 110 I = 1,NUMVAR
+            J = INDXV(I)/100
+            K = INDXV(I) - 100*J
+            ANG(I) = ANGLES(K,J)*RAD
+  110     CONTINUE
+        ELSE
+C NO FORMAT
+          READ(IOINIT) NNN
+          READ(IOINIT)(ANG(I),I=1,NUMVAR)
+        ENDIF
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(ANG)
+          ICALC = 1
+        ELSE
+          CALL PAIR14
+          ICALC = 2
+        ENDIF
+C     THE INITIAL ENERGY
+        CALL ENERGY(ANG,ETOTAL)
+        DO 120 I=1,5
+          F(I+1) = FT(I)
+  120   CONTINUE
+        F(1) = ETOTAL
+C     THE INITIAL IACP IS ALL 'ACCEPTED'
+        DO 130 I=1,LMTR
+          IACP(I)=1
+  130   CONTINUE
+        NACP=LMTR
+        ACP=1.0D0
+C-----------------------------------------------------------------------
+C FOR A CONTINUATION JOB (ISTART OTHER THAN 0)
+C-----------------------------------------------------------------------
+      ELSE
+        READ(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &               ICALC
+        READ(IOREST) ANG,F,EV
+        WRITE(6,*)' IX NTR MTR NOUTE NOUTA NLIST NLTR NACP',
+     &            ' ACP  ICALC'
+        WRITE(6,*) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,NACP,ACP,
+     &             ICALC
+        REWIND IOREST
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(ANG)
+        ELSE
+          CALL PAIR14
+        ENDIF
+      ENDIF
+C-----------------------------------------------------------------------
+C TRIAL ANGLE AND TRIAL ENERGY ARE NOW CALCULATED
+C ACCORDING TO ICALC
+C-----------------------------------------------------------------------
+  140 IF(ICALC .EQ. 1) THEN
+        CALL SAMPL1(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+        ICALC = 3
+      ENDIF
+      IF(ICALC .EQ. 2) THEN
+        CALL SAMPL2(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+        ICALC = 3
+      ENDIF
+      IF(ICALC .EQ. 3) THEN
+        CALL SAMPL3(ANG,ANGT,CR,IX,EV,ETOTAL)
+      ENDIF
+C
+C  UPDATE THE COUNT PARAMETERS
+C
+      NTR=NTR+1
+      NLIST=NLIST+1
+      NOUTE=NOUTE+1
+      NOUTA=NOUTA+1
+      NLTR=NLTR+1
+      MTR=MOD(MTR,LMTR) + 1
+C-----------------------------------------------------------------------
+C  CHECK WHTHER THE TRIAL STEP IS ACCEPTED
+C-----------------------------------------------------------------------
+C
+C WHEN ACCEPTED
+C
+      CRT = DEXP(BETA*(F(1)-ETOTAL))
+      IF(CR .LT. CRT) THEN
+C
+C     UPDATE ANGLES AND ENERGY
+C
+        DO 150 I=1,NUMVAR
+          ANG(I)=ANGT(I)
+  150   CONTINUE
+        DO 160 I=1,5
+          F(I+1) = FT(I)
+  160   CONTINUE
+        F(1) = ETOTAL
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+        IF(IACP(MTR).EQ.0) THEN
+            NACP=NACP+1
+            ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+            IACP(MTR)=1
+        ENDIF
+C
+C WHEN REJECTED
+C
+      ELSE
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+        IF(IACP(MTR).EQ.1) THEN
+          NACP=NACP-1
+          ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+          IACP(MTR)=0
+        ENDIF
+      ENDIF
+C-----------------------------------------------------------------------
+C  CHECK PRINT OPTION
+C-----------------------------------------------------------------------
+C
+C     OUTPUT OF ENERGY
+C
+      IF(NOUTE .GE. LOUTE) THEN
+        WRITE(IOERG) NTR,ACP,(F(I),I=1,6)
+        IF(NTR .EQ. (NTR/100)*100) THEN
+          WRITE(6,'(I8,F8.3,3X,6D12.5)') NTR,ACP,(F(I),I=1,6)
+        ENDIF
+        NOUTE = 0
+      ENDIF
+C
+C     OUTPUT OF ANGLES IN SINGLE PRECISION
+C
+      IF(NOUTA .GE. LOUTA) THEN
+        DO 170 I = 1,NUMVAR
+          ANGS(I) = SNGL(ANG(I))
+  170   CONTINUE
+        WRITE(IOANG) NTR
+        WRITE(IOANG) (ANGS(I),I=1,NUMVAR)
+        NOUTA = 0
+      ENDIF
+C
+C     OUTPUT OF COORDINATE IN SINGLE PRECISION
+C
+      IF(NTR .EQ. (NTR/100)*100 ) THEN
+        DO 171 I = 1,NUMATM
+          XYZ(I,1) = SNGL(CO(I,1))
+          XYZ(I,2) = SNGL(CO(I,2))
+          XYZ(I,3) = SNGL(CO(I,3))
+  171   CONTINUE
+        WRITE(15) ( (XYZ(I,J),J=1,3), I=1,NUMATM )
+      ENDIF
+C-----------------------------------------------------------------------
+C WHAT SHOULD BE NEXT STEP?
+C-----------------------------------------------------------------------
+C
+C     CHECK CPU TIME LIMIT
+C
+      CALL CLOCK(ICPU)
+      IF(ICPU .GE. ITIMEL) THEN
+        WRITE(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                ICALC
+        WRITE(IOREST) ANG,F,EV
+        WRITE(6,*) ' END BY CPU TIME LIMIT'
+        WRITE(6,*) 'NTR  ',NTR,'ACP  ',ACP
+        STOP
+      ENDIF
+C
+C     CHECK THE TOTAL NUMBER OF TRIAL STEPS
+C
+      IF(NTR .GE. LTR) THEN
+        WRITE(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                ICALC
+        WRITE(IOREST) ANG,F,EV
+        WRITE(6,*) ' END BY STEP NUMBER LIMIT'
+        WRITE(6,*) 'NTR  ',NTR,'ACP  ',ACP
+        STOP
+      ENDIF
+C
+C     FIND ICALC (UPDATE PAIR TABLE? UPDATE SECOND DERIVATIVE?)
+C
+C     PAIR TABLE IS UPDATED
+      IF(ICUT .EQ. 1) THEN
+        IF(NLIST .GE. LLIST) THEN
+          ICALC = 1
+          NLIST = 0
+        ENDIF
+      ENDIF
+C     SECOND DERIVATIVE IS UPDATED
+      IF(ACP .LT. ACPL .OR. NLTR .GE. LLTR) THEN
+        ICALC = 2
+        NLTR = 0
+      ENDIF
+      GO TO 140
+      END
+C***********************************************************************
+C SAMPLING ROUTINE
+C***********************************************************************
+      SUBROUTINE SAMPL1(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER (MAXVAR=160,MAXNN2=MAXVAR*(MAXVAR+1)/2)
+      COMMON/NUMBER/ NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/ENE000/ FT(5)
+      INTEGER*4 IX
+      REAL*4 A(MAXVAR+1)
+      DIMENSION EV(MAXVAR,MAXVAR),G(MAXNN2),
+     &          ANG(MAXVAR),ANGT(MAXVAR),
+     &          E(MAXVAR),VW(MAXVAR*15),IVW(MAXVAR*7)
+C
+C UPDATE THE PAIR INTERACTION TABLE
+C
+      CALL CUTOFF(ANG)
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL2
+C-----------------------------------------------------------------------
+      ENTRY SAMPL2(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+C
+C UPDATE THE SECOND DERIVATIVE MATRIX
+C
+CCCCC
+C     CALL CLOCK(I1)
+      CALL DERVTV(ANG,ETOTAL,E,G)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR DERVTV ',I3
+CCCCC
+C
+C EIGENVALUE AND EIGENVECTOR FOR G
+C
+CCCCC
+C     CALL CLOCK(I1)
+      CALL DVSEG2(G,NUMVAR,-NUMVAR,-1.0D0,E,EV,MAXVAR,VW,IVW,ICON)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR DVSEG2 ',I3
+CCCCC
+      IF(ICON .NE. 0) THEN
+        WRITE(6,*) ' STOPPED AT DVSEG2 BECAUSE ICON=', ICON
+        STOP
+      ENDIF
+C
+C STEP SIZE
+C
+      RVAR = DFLOAT(NUMVAR)
+      SIG=2.0D0*FLUC*DSQRT(3.0D0/BETA/RVAR)
+      SQRE = DSQRT(ESMALL)
+      DO 100 I=1,NUMVAR
+        IF(DABS(E(I)).GE.ESMALL) THEN
+          E(I)=DSQRT(DABS(E(I)))
+        ELSE
+          E(I)=SQRE
+        ENDIF
+  100 CONTINUE
+      DO 110 I=1,NUMVAR
+        DO 110 J=1,NUMVAR
+          EV(I,J)=SIG*EV(I,J)/E(J)
+  110 CONTINUE
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL3
+C-----------------------------------------------------------------------
+      ENTRY SAMPL3(ANG,ANGT,CR,IX,EV,ETOTAL)
+C
+C RANDOM NUMBER
+C
+      CALL RANU2(IX,A,NUMVAR+1,ICON)
+      CR=DBLE(A(NUMVAR+1))
+C
+C TRIAL ANGLES
+C
+      DO 120 I=1,NUMVAR
+        ANGT(I)=ANG(I)
+        DO 120 J=1,NUMVAR
+          ANGT(I)=ANGT(I)+(DBLE(A(J))-0.5D0)*EV(I,J)
+  120 CONTINUE
+C
+C ENERGY
+C
+CCCCCC
+C     CALL CLOCK(I1)
+      CALL ENERGY(ANGT,ETOTAL)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR ENERGY ',I3
+CCCCCCC
+C
+      RETURN
+      END

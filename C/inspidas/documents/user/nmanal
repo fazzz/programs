@@ -1,0 +1,461 @@
+C
+$! File:          NMANAL.MANUAL
+$! Date:          Nov. 1991
+$! Author:        Kenji Mizuguchi
+$! Update:
+$! Last update:   Oct.28 1992
+$! Function:      A Brief description of the subtasks in NMA
+
+
+                            T A S K     N M A
+                            S U B T A S K     A N A L
+
+
+TABLE OF CONTENTS:
+
+I.   ANAL OVERVIEW
+          1. PURPOSE
+          2. SYNTAX
+          3. SUBSUBTASKS
+          4. TREE STRUCTURE
+
+II.  SUBSUBTASK INPUT
+          1. INPUT CNTL
+
+III. SUBSUBTASK READ
+          1. READ PREC
+
+IV.  SUBSUBTASK GET
+          1. GET EIGEN
+          2. GET KMAT
+          3. GET KVMAT
+
+V.   SUBSUBTASK PUT
+          1. PUT KVMAT
+
+VI.  SUBSUBTASK COM1
+
+VII.  SUBSUBTASK COM2
+
+VIII.  SUBSUBTASK COM3
+
+IX.  SUBSUBTASK COM4
+
+X.  SUBSUBTASK COM5
+
+XI.  SUBSUBTASK COM6
+
+XII.  SUBSUBTASK COM7
+
+XIII.  SUBSUBTASK COM8
+
+XIV.  SUBSUBTASK COM9
+
+XV.  SUBSUBTASK END
+
+XVI.  EXAMPLES
+
+
+ I. ANAL OVERVIEW
+
+   PURPOSE: The object of this SUBTASK to calculate various quantities
+            from normal mode eigenvalues and eigenvectors.
+
+   SYNTAX:  ANAL
+
+   SUBSUBTASKS:
+            INPUt
+            READ
+            GET
+            PUT
+            COM1
+            COM2
+            COM3
+            COM4
+            COM5
+            COM6
+            COM7
+            COM8
+            COM9
+            END
+
+   TREE STRUCTURE:
+
+   SUBSUBTASK    KEYWORD
+
+   INPUt -----CNTL ------TEMP
+                      !
+                      !--THRESH
+                      !
+                      !--NZX
+                      !
+                      !--IZONEX
+                      !
+                      !--IFRMX
+                      !
+                      !--NBMOD
+                      !
+                      !--MODSTR
+                      !
+                      !--NMOD
+
+   READ  -----PRECep
+
+   GET   -----EIGEn
+           !
+           !--KMAT
+           !
+           !--KVMAt
+
+   PUT   -----KVMAt
+
+   COM1
+
+   COM2
+
+   COM3
+
+   COM4
+
+   COM5
+
+   COM6
+
+   COM7
+
+   COM8
+
+   COM9
+
+   END
+
+
+
+ II. SUBSUBTASK INPUT
+
+   PURPOSE: Read in control parameters for analysis.
+
+   SYNTAX:
+
+    INPUt CNTL  TEMP         { NUM real }
+
+                THRESH       { NUM inte }
+
+                NZX          { NUM inte }
+
+                IZONEX       { NUM inte }
+
+                IFRMX        { NUM inte }
+
+                NBMOD        { NUM inte }
+
+                MODSTR       { NUM inte }
+
+                NMOD         { NUM inte }
+
+   GLOSSARY :
+
+    TEMP       TEMPERATURE IN K
+
+    THRESH     FREQUENCY IN CM-1
+               This parameter is used in 'COM3', where the mean square
+               fluctuations of Ca atoms by frequencies below this
+               threshold value is calculated.
+
+    NZX        NUMBER OF ELEMENTS OF SEC. STRUCTURE X IN THE PROTEIN
+               X = H (helix), X = E (beta), or X = T (turn).
+               These parameters are used in 'COM4'.
+
+    IZONEX     THIS ARRAY CONTAINS THE FIRST AND LAST RESIDUES OF EACH
+               ELEMENT OF SECONDARY STRUCTURE X IN THE PROTEIN.
+               These parameters are used in 'COM4'.
+
+    IFRMX      NUMBER OF FREQUENCIES
+               This parameter is used in 'COM5' where the contributions
+               of each normal mode from the 1st to the IFRMX-th to the
+               m.s. fluctuations of the Ca atoms are calculated.
+
+    NBMOD      NUMBER OF NORMAL MODES
+               This parameter is used in 'COM7', where the atomic
+               displacement vectors of given NBMOD modes are
+               calculated.
+
+    MODSTR     AN ARRAY (MODSTR(I),I=1,NBMOD) CONTAINING NORMAL MODE
+               NUMBERS
+               This parameter is used in 'COM7'. The NBMOD numbers
+               specifies the normal mode numbers of which the
+               atomic displacement vectors are calculated.
+
+    NMOD       NUMBER OF NORMAL MODES
+               This parameter is used in 'COM8', where the contributions
+               of the NMOD lowest normal modes to the m.s.
+               fluctuations of phi,psi,and omega angles are calculated.
+
+
+
+   EXAMPLE: INPUT CNTL -
+              TEMP  300. THRESH 200 NMOD 3 IFRMX 3
+
+   NOTE: Without this subtask, default values shown in the EXAMPLE are
+         used.
+
+
+ III. SUBSUBTASK :  READ
+
+  PURPOSE : Read in PRECEP output data.
+
+  SYNTAX :
+
+   READ  PREC       { FILENAME char }
+
+  EXAMPLE: READ PRECEP D52362.INSPIDA3.PREOUT.DATA
+
+
+
+ IV. SUBSUBTASK :  GET
+
+  PURPOSE : Read in eigenvalues and eigenvectors, K-matrix
+            and KV-matrix (unformatted).
+
+  SYNTAX :
+
+   GET  EIGEn      { FILENAME char }
+
+   GET  KMAT       { FILENAME char }
+
+   GET  KVMAt      { FILENAME char }
+
+
+  EXAMPLE: GET EIGEN  D52362.INSPIDA3.EIGEN.BIN
+           GET KMAT   D52362.INSPIDA3.KMAT.BIN
+           GET KMAT   D52362.INSPIDA3.KVMAT.BIN
+
+
+
+ V. SUBSUBTASK :  PUT
+
+  PURPOSE : Calculate and  print out KV-matrix in the form of
+			row vectors (unformatted).
+
+  SYNTAX :
+
+   PUT  KVMAt      { FILENAME char }
+
+
+  EXAMPLE: PUT KVMAT   D52362.INSPIDA3.KVMAT.BIN
+
+  NOTE : This subsubtask must be carried out after the eigenvectors
+		 and K-matrix are read in.
+
+
+
+ VI. SUBSUBTASK :  COM1
+
+  PURPOSE : Calculate the fluctuations of phi, psi, omega and khi,
+            and print out the results(formatted).
+
+  SYNTAX :
+
+   COM1 { FILENAME char }
+
+  EXAMPLE: COM1 D52362.INSPIDA3.COM1.DATA
+
+  NOTE : Output format
+
+         DO 200 I=1,NUMRES
+           WRITE(IOUT48,'(1X,3F10.3)') FLUPHI(I),FLUPSI(I),FLUOME(I)
+     200 CONTINUE
+         WRITE(IOUT48,'(1X,I5)') IK
+         WRITE(IOUT48,'(10F8.3)') (FLUKHI(I),I=1,IK)
+
+
+
+ VII. SUBSUBTASK :  COM2
+
+  PURPOSE : Calculate the peak frequency in the fluctuations of the
+            backbone angles, and print out the results(formatted).
+
+  SYNTAX :
+
+   COM2 { FILENAME char }
+
+  EXAMPLE: COM2 D52362.INSPIDA3.COM1.DATA
+
+  NOTE : Output format
+
+         DO 420 I=1,NUMRES
+           WRITE(IOUT50,'(1X,3I8)') NPK1(I),NPK2(I),NPK3(I)
+     420 CONTINUE
+
+
+ VIII. SBSUBTASK :  COM3
+
+  PURPOSE : Calculate the contribution of frequencies below a given
+            threshold to the mean square fluctuations of Ca.
+
+  SYNTAX :
+
+   COM3 { FILENAME char }
+
+  EXAMPLE: COM3 D52362.INSPIDA3.COM3.DATA
+
+  NOTE : Output format
+
+         DO 510 I=1,NUMRES
+           WRITE(IOUT52,'(1X,2F10.4)') FLUCA(1,I),FLUCA(2,I)
+    510  CONTINUE
+
+
+ IX. SUBSUBTASK :  COM4
+
+  PURPOSE : Calculate the characteristic normal modes of secondary
+            structure.
+
+  SYNTAX :
+
+   COM4 { FILENAME char }
+
+  EXAMPLE: COM4 D52362.INSPIDA3.COM4.DATA
+
+  NOTE : Output format
+
+         DO 620 I=1,NUMVAR
+           WRITE(IOUT54,'(3F10.3)') FLCM(I),FLCMH(I),FLCME(I),FLCMT(I)
+    620  CONTINUE
+
+
+ X. SUBSUBTASK :  COM5
+
+  PURPOSE : Calculate the mean square fluctuations of Ca by low
+            frequency modes.
+
+  SYNTAX :
+
+   COM5 { FILENAME char }
+
+  EXAMPLE: COM5 D52362.INSPIDA3.COM5.DATA
+
+  NOTE : Output format
+
+         WRITE(IOUT56,*) IFRMX
+         DO 710 I=1,NUMRES
+           WRITE(IOUT56,'(10F8.4)') (FLFRQ(I,J),J=1,IFRMX)
+    710  CONTINUE
+
+
+ XI. SUBSUBTASK :  COM6
+
+  PURPOSE : Calculate the mean square fluctuations of Ca and of
+            dihedral angles as a function of normal mode frequency.
+
+  SYNTAX :
+
+   COM6 { FILENAME char }
+
+  EXAMPLE: COM6 D52362.INSPIDA3.COM6.DATA
+
+  NOTE : Output format
+
+         DO 820 I=1,NUMVAR
+           WRITE(IOUT58,'(F10.4,F10.3)') ACAFRQ(I),AANFRQ(I)
+    820  CONTINUE
+
+
+ XII. SUBSUBTASK :  COM7
+
+  PURPOSE : Calculate and output the displacement vectors of atoms.
+            (unformatted)
+
+  SYNTAX :
+
+   COM7 { FILENAME char }
+
+  EXAMPLE: COM7 D52362.INSPIDA3.COM7.BIN
+
+  NOTE : Output format
+
+         WRITE(IOUT60) ((DX(I,J),I=1,NUMATM),J=1,NBMOD),
+        &              ((DY(I,J),I=1,NUMATM),J=1,NBMOD),
+        &              ((DY(I,J),I=1,NUMATM),J=1,NBMOD)
+
+
+ XIII. SUBSUBTASK :  COM8
+
+  PURPOSE : Calculate the mean square fluctuations of phi, psi, and
+            omega angles  by low frequency modes.
+
+  SYNTAX :
+
+   COM8 { FILENAME char }
+
+  EXAMPLE: COM8 D52362.INSPIDA3.COM8.DATA
+
+  NOTE : Output format
+
+         DO 1004 I=1,NMOD
+           DO 1005 J=1,NUMRES
+           WRITE(IOUT62,'(1X,3F10.3)') PHINM(J,I),PSINM(J,I),OMENM(J,I)
+    1005   CONTINUE
+           WRITE(IOUT62,'(/)')
+    1004 CONTINUE
+
+
+ XIV. SUBSUBTASK :  COM9
+
+  PURPOSE : Calculate the mean square fluctuations of N, CA, CB, C, and
+            O atoms. This command is used for comparison with x-ray
+            B-factors.
+
+  SYNTAX :
+
+   COM9 { FILENAME char }
+
+  EXAMPLE: COM9 D52362.INSPIDA3.COM9.DATA
+
+  NOTE : Output format
+
+         DO 1200 I=1,NUMRES
+           WRITE(IOUT64,'(1X,F10.4)') BFACTR(I)
+    1200 CONTINUE
+
+
+ XV. SUBSUBTASK :  END
+
+  PURPOSE : Quit the analysis.
+
+  SYNTAX :
+
+   END
+
+  EXAMPLE: END
+
+
+ XVI. EXAMPLES
+
+  (example 1)
+
+      NMA
+        ANAL
+          READ PRECEP   D52362.INSPIDA3.PREOUT.DATA
+          GET  EIGEN    D52362.INSPIDA3.EIGEN.BIN
+          GET  KMAT     D52362.INSPIDA3.KMAT.BIN
+		  PUT  KVMAT    D52362.INSPIDA3.KVMAT.BIN
+		END
+      QUIT
+
+  (example 2)
+
+	  NMA
+		ANAL
+          READ PRECEP   D52362.INSPIDA3.PREOUT.DATA
+          GET  EIGEN    D52362.INSPIDA3.EIGEN.BIN
+		  GET  KVMAT    D52362.INSPIDA3.KVMAT.BIN
+          INPUT CNTL -
+              TEMP 300. THRESH 200 NMOD 3 IFRMX 3
+          COM1 D52362.INSPIDA3.COM1.DATA
+          COM2 D52362.INSPIDA3.COM2.DATA
+          COM3 D52362.INSPIDA3.COM3.DATA
+          COM5 D52362.INSPIDA3.COM5.DATA
+          COM9 D52362.INSPIDA3.COM9.DATA
+        END
+      QUIT

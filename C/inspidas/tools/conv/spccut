@@ -1,0 +1,23 @@
+#! /bin/csh
+# 
+# Convert source file from MSP to TITAN
+# =====================================
+#
+#
+# the file needed = files, mkcmd.awk
+#
+#    files
+#       list of the target file
+#       MSP filename must be written in Capital letters
+#
+#    mkcmd.awk (awk script)
+#       cut from c1 to c72
+#       remove spaces at the end of the each sentence
+#       add 'CMSP' to the head of INCLUDE sentence
+# 
+sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/' <files >out
+paste -d" " files out >out2
+awk -f mkcmd.awk <out2 >out3
+chmod a+x out3
+/bin/csh out3
+rm out out2 out3

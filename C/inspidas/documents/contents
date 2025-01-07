@@ -1,0 +1,16 @@
+A brief discription of the directories on /labo/qclib/inspidas.
+
+      91/11/22
+
+source : original source files. These contain both CMSP and CTTN lines.
+load   : source files which can be immediately compiled on WS.
+msp    : source files which contain only CTTN lines and can be
+		 transferred to msp.
+common : include files.
+data   : energy parameters and residue data.
+tools  : useful tools for transplant.
+nishigaki : tools developed by S. Nishigaki, who used to be working on
+			this project. These tools are not currently in use.
+documents : manuals and notes for both users and developers.
+
+For more information, look at the 'subjects' file on each directory.

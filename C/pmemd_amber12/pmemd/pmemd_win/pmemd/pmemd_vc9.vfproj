@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{5753F3CB-1F44-42CD-A883-F6E7B02CD3F5}">
+	<Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" AdditionalIncludeDirectories="..\..\src" PreprocessorDefinitions="NO_RLIMIT_STACK_CTRL;NO_C_UNDERSCORE;PUBFFT;DIRFRC_COMTRANS;DIRFRC_NOVEC;FFTLOADBAL_2PROC" OpenMPConditionalCompilation="false" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" AdditionalOptions="/NODEFAULTLIB:msvcrtd.lib /stack:1500000000 " LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" GenAlternateCodePaths="codeForSSE42" UseProcessorExtensions="codeExclusivelyHost" PrefetchInsertionOpt="prefetchAggressive" InterproceduralOptimizations="ipoMultiFile" AdditionalIncludeDirectories="..\..\src" PreprocessorDefinitions="NO_RLIMIT_STACK_CTRL;NO_C_UNDERSCORE;PUBFFT;DIRFRC_COMTRANS;DIRFRC_NOVEC;FFTLOADBAL_2PROC" OpenMPConditionalCompilation="false" EnableEnhancedInstructionSet="codeArchSSE3" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" AdditionalOptions=" /stack:1500000000 " LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" AdditionalIncludeDirectories="..\..\src" PreprocessorDefinitions="NO_RLIMIT_STACK_CTRL;NO_C_UNDERSCORE;PUBFFT;DIRFRC_COMTRANS;DIRFRC_NOVEC;FFTLOADBAL_2PROC" OpenMPConditionalCompilation="false" Interfaces="true" SourceFileFormat="fileFormatFree" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" AdditionalOptions="/NODEFAULTLIB:msvcrtd.lib  /stack:1500000000 
+" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" GenAlternateCodePaths="codeForSSE42" UseProcessorExtensions="codeExclusivelyHost" PrefetchInsertionOpt="prefetchAggressive" InterproceduralOptimizations="ipoMultiFile" Preprocess="preprocessYes" AdditionalIncludeDirectories="..\..\src" PreprocessorDefinitions="NO_RLIMIT_STACK_CTRL;NO_C_UNDERSCORE;PUBFFT;DIRFRC_COMTRANS;DIRFRC_NOVEC;FFTLOADBAL_2PROC" OpenMPConditionalCompilation="false" EnableEnhancedInstructionSet="codeArchSSE3" SourceFileFormat="fileFormatFree"/>
+				<Tool Name="VFLinkerTool" AdditionalOptions=" /stack:1500000000  " LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Header Files" Filter="fi;fd"/>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="..\..\src\angles.fpp"/>
+		<File RelativePath="..\..\src\angles_ub.fpp"/>
+		<File RelativePath="..\..\src\axis_optimize.fpp"/>
+		<File RelativePath="..\..\src\bintraj.fpp"/>
+		<File RelativePath="..\..\src\bonds.fpp"/>
+		<File RelativePath="..\..\src\bspline.fpp"/>
+		<File RelativePath="..\..\src\charmm.fpp"/>
+		<File RelativePath="..\..\src\charmm_gold.fpp"/>
+		<File RelativePath="..\..\src\cit.fpp"/>
+		<File RelativePath="..\..\src\cmap.fpp"/>
+		<File RelativePath="..\..\src\constraints.fpp"/>
+		<File RelativePath="..\..\src\copyright.i"/>
+		<File RelativePath="..\..\src\degcnt.fpp"/>
+		<File RelativePath="..\..\src\dihedrals.fpp"/>
+		<File RelativePath="..\..\src\dihedrals_imp.fpp"/>
+		<File RelativePath="..\..\src\dynamics.fpp"/>
+		<File RelativePath="..\..\src\dynamics_dat.fpp"/>
+		<File RelativePath="..\..\src\ene_frc_splines.fpp"/>
+		<File RelativePath="..\..\src\erfcfun.fpp"/>
+		<File RelativePath="..\..\src\extra_pnts_nb14.fpp"/>
+		<File RelativePath="..\..\src\fft1d.fpp"/>
+		<File RelativePath="..\..\src\file_io.fpp"/>
+		<File RelativePath="..\..\src\file_io_dat.fpp"/>
+		<File RelativePath="..\..\src\gb_alltasks_setup.fpp"/>
+		<File RelativePath="..\..\src\gb_ene.fpp"/>
+		<File RelativePath="..\..\src\gb_force.fpp"/>
+		<File RelativePath="..\..\src\gb_parallel.fpp"/>
+		<File RelativePath="..\..\src\gbl_constants.fpp"/>
+		<File RelativePath="..\..\src\gbl_datatypes.fpp"/>
+		<File RelativePath="..\..\src\get_cmdline.fpp"/>
+		<File RelativePath="..\..\src\img.fpp"/>
+		<File RelativePath="..\..\src\inpcrd_dat.fpp"/>
+		<File RelativePath="..\..\src\loadbal.fpp"/>
+		<File RelativePath="..\..\src\master_setup.fpp"/>
+		<File RelativePath="..\..\src\mdin_ctrl_dat.fpp"/>
+		<File RelativePath="..\..\src\mdin_debugf_dat.fpp"/>
+		<File RelativePath="..\..\src\mdin_ewald_dat.fpp"/>
+		<File RelativePath="..\..\src\mol_list.fpp"/>
+		<File RelativePath="..\..\src\nb_exclusions.fpp"/>
+		<File RelativePath="..\..\src\nb_pairlist.fpp"/>
+		<File RelativePath="..\..\src\nextprmtop_section.fpp"/>
+		<File RelativePath="..\..\src\nmr_calls.fpp"/>
+		<File RelativePath="..\..\src\nmr_lib.fpp"/>
+		<File RelativePath="..\..\src\pack_nb_list_dflt.i"/>
+		<File RelativePath="..\..\src\pairs_calc_novec.i"/>
+		<File RelativePath="..\..\src\pairs_calc_vec.i"/>
+		<File RelativePath="..\..\src\parallel.fpp"/>
+		<File RelativePath="..\..\src\parallel_dat.fpp"/>
+		<File RelativePath="..\..\src\pbc.fpp"/>
+		<File RelativePath="..\..\src\pme_alltasks_setup.fpp"/>
+		<File RelativePath="..\..\src\pme_blk_fft.fpp"/>
+		<File RelativePath="..\..\src\pme_blk_recip.fpp"/>
+		<File RelativePath="..\..\src\pme_direct.fpp"/>
+		<File RelativePath="..\..\src\pme_fft_dat.fpp"/>
+		<File RelativePath="..\..\src\pme_force.fpp"/>
+		<File RelativePath="..\..\src\pme_recip_dat.fpp"/>
+		<File RelativePath="..\..\src\pme_setup.fpp"/>
+		<File RelativePath="..\..\src\pme_slab_fft.fpp"/>
+		<File RelativePath="..\..\src\pme_slab_recip.fpp"/>
+		<File RelativePath="..\..\src\pmemd.fpp"/>
+		<File RelativePath="..\..\src\pmemd_clib.c"/>
+		<File RelativePath="..\..\src\pmemd_lib.fpp"/>
+		<File RelativePath="..\..\src\prfs.fpp"/>
+		<File RelativePath="..\..\src\prmtop_dat.fpp"/>
+		<File RelativePath="..\..\src\random.fpp"/>
+		<File RelativePath="..\..\src\runfiles.fpp"/>
+		<File RelativePath="..\..\src\runmd.fpp"/>
+		<File RelativePath="..\..\src\runmin.fpp"/>
+		<File RelativePath="..\..\src\shake.fpp"/>
+		<File RelativePath="..\..\src\state_info.fpp"/>
+		<File RelativePath="..\..\src\timers.fpp"/>
+		<File RelativePath="..\..\src\veclib.fpp"/></Filter></Files>
+	<Globals/></VisualStudioProject>

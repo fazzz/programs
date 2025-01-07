@@ -1,0 +1,10 @@
+#
+#
+#
+set savedir=qc514:~/inspidas
+
+rcp *.c $savedir
+rcp tbl* $savedir
+rcp test2 $savedir
+rcp list $savedir
+

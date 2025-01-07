@@ -1,0 +1,52 @@
+8
+
+dir
+1797
+svn://172.16.165.94/yamamori/var/svn/QUA/trunk
+svn://172.16.165.94
+
+
+
+2011-03-15T10:22:49.314845Z
+1696
+yamamori
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c8113bb6-d80e-0410-aa45-c078eb5207e6
+
+quaternion.c
+file
+
+
+
+
+2011-03-22T08:36:39.000000Z
+f443a1ddad654e97979745ed186e649e
+2011-03-15T10:22:49.314845Z
+1696
+yamamori
+
+QUA.h
+file
+
+
+
+
+2011-03-22T08:36:39.000000Z
+50f741a18e91a7bfcca342ed8c64ff40
+2011-03-15T10:22:49.314845Z
+1696
+yamamori
+

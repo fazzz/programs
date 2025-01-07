@@ -1,0 +1,92 @@
+*Foreground:			sienna
+*Background:			darkolivegreen
+*borderWidth: 			1
+*borderColor: 			darkgreen
+*ScrollBar:			on
+*Scrollbar*foreground:		tan
+*Scrollbar*background:		yellow
+
+XTerm*Font:			ardentm
+XTerm*iconFont:			ardentm
+XTerm*iconPixmap:		/usr/include/X11/bitmaps/xterm.b
+XTerm*Foreground:		tan
+XTerm*Background:		salmon
+XTerm*borderColor:		darkgreen
+XTerm*borderWidth:		3
+XTerm*pointerColor:		wheat
+XTerm*cursorColor:		red
+XTerm*showTitle:		on
+XTerm*saveLines:		1000
+XTerm*ScrollBar:		on
+XTerm.wm_option.title:		off
+XTerm.wm_option.borderContext:	on
+XTerm*tekGeometry:		=660x548+620+0
+
+demo_xterm.wm_option.title:	off
+demo_xterm*Font:		ardents
+demo_xterm.wm_option.borderContext:	off
+
+xemacs.BodyFont:		9x15
+xemacs.BorderWidth:		2
+
+xclock*showTitle:		off
+xclock.Foreground:		White
+xclock.Background:		NavyBlue
+xclock.borderColor:		Red
+xclock.Highlight:		White
+xclock.Hands:			White
+xclock.Mode:			analog
+xclock.wm_option.borderContext:	on
+
+xload*showTitle:		off
+xload.borderColor:		Red
+xload.Highlight:		White
+xload.wm_option.borderContext:	on
+
+awm.path:			/usr/include/X11/bitmaps
+awm.border.hilite:		on
+awm.borderContext.pixmap:	dot.b
+awm.borderContext.boldPixmap:	hatch.b
+awm.borderContext.width:	1
+awm.borderContext.foreground:	Red
+awm.borderContext.background:	IndianRed
+awm.autoselect:			on
+awm.icon.font:			9x15
+awm.icon.pixmap:		icon.b
+awm.popup.font:			vbee-36
+awm.menu.pad:			3
+awm.menu.delta:			25
+awm.menu.font:			vtsingle
+awm.menu.boldFont:		vtbold
+awm.menu.itemBorder:		1
+awm.title.font:			vtsingle
+awm.title.foreground:		black
+awm.title.background:		tan
+awm.title.boldFont:		vtbold
+awm.title.pixmap:		titlepix.b
+awm.gadget.font:		vtsingle
+awm.title.boldPixmap:		titlebold.b
+awm.autoselect:			off
+awm.delta:			5
+awm.freeze:			on
+awm.grid:			on
+awm.zap:			on
+awm.autoraise:			off
+awm.hilite:			on
+awm.titles:			off
+awm.title.push:			on
+awm.gadgets:			on
+awm.push:			1
+awm.icon.hPad:			5
+awm.icon.vPad:			5
+awm.volume:			4
+awm.wall:			on
+awm.installColormap:		on
+awm.frameFocus:			on
+
+
+cmenu.SelectionFont:		8x13
+cmenu.PaneFont:			vtbold
+cwm.SelectionFont:		8x13
+cwm.PaneFont:			vtbold
+

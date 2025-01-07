@@ -1,0 +1,197 @@
+
+This is a private computer facility.   Access for any reason must be
+specifically authorized by the owner.  Unless you are so authorized,
+your continued  access and any other use may  expose you to criminal
+and/or civil proceedings.
+
+	f90 -O3 -dp -s cf77types -b flxsub.o flxsub.f
+	f90 -O3 -dp -s cf77types -b graph.o graph.f
+	f90 -O3 -dp -s cf77types -b iolibdas.o iolibdas.f
+	f90 -O3 -dp -s cf77types -b ioroutn.o ioroutn.f
+	f90 -O3 -dp -s cf77types -b mathlib.o mathlib.f
+	f90 -O3 -dp -s cf77types -b minim.o minim.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:15
+cf90: COMPILE TIME 4.383740 SECONDS
+cf90: MAXIMUM FIELD LENGTH 605235 DECIMAL WORDS
+cf90: 103 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 1153 WORDS, DATA: 30 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b mc.o mc.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+      IF (XFRAC.LE.0) THEN
+cf90-7212 f90: WARNING GRAPH, File = graph.f, Line = 97 
+  Variable "XFRAC" is used before it is defined.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:15
+cf90: COMPILE TIME 4.964016 SECONDS
+cf90: MAXIMUM FIELD LENGTH 575204 DECIMAL WORDS
+cf90: 224 SOURCE LINES
+cf90: 0 ERRORS, 2 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 669 WORDS, DATA: 131 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b nma.o nma.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:16
+cf90: COMPILE TIME 10.627976 SECONDS
+cf90: MAXIMUM FIELD LENGTH 674295 DECIMAL WORDS
+cf90: 499 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 2317 WORDS, DATA: 511 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b nmanal.o nmanal.f
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:15
+cf90: COMPILE TIME 10.389622 SECONDS
+cf90: MAXIMUM FIELD LENGTH 725355 DECIMAL WORDS
+cf90: 957 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 1774 WORDS, DATA: 511 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b precep.o precep.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:22
+cf90: COMPILE TIME 22.098573 SECONDS
+cf90: MAXIMUM FIELD LENGTH 731315 DECIMAL WORDS
+cf90: 1339 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 3639 WORDS, DATA: 1654 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b prein.o prein.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:46
+cf90: COMPILE TIME 6.819541 SECONDS
+cf90: MAXIMUM FIELD LENGTH 635264 DECIMAL WORDS
+cf90: 961 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 1335 WORDS, DATA: 811 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b utilitydas.o utilitydas.f
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:24
+cf90: COMPILE TIME 33.953573 SECONDS
+cf90: MAXIMUM FIELD LENGTH 709098 DECIMAL WORDS
+cf90: 1913 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 3431 WORDS, DATA: 503 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+	f90 -O3 -dp -s cf77types -b main.o main.f
+cmd-2419 make: Too many command lines for 'inspidas'. 
+cf90-1172 f90: WARNING in command line
+  -s cf77types is for FORTRAN 77 programs only.  If used with Fortran 90/95 programs, unexpected behavior may result.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:51:00
+cf90: COMPILE TIME 5.917960 SECONDS
+cf90: MAXIMUM FIELD LENGTH 635264 DECIMAL WORDS
+cf90: 767 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 1183 WORDS, DATA: 777 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+
+          FLUPHI(IR)=FLUPHI(IR)+RT*(EIGVEC(IV,NM)*DEG)**2/EIGVAL(NM)
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 345 
+  Variable "FLUPHI()" is used before it is defined.
+
+          FLUPSI(IR)=FLUPSI(IR)+RT*(EIGVEC(IV,NM)*DEG)**2/EIGVAL(NM)
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 352 
+  Variable "FLUPSI()" is used before it is defined.
+
+          FLUOME(IR)=FLUOME(IR)+RT*(EIGVEC(IV,NM)*DEG)**2/EIGVAL(NM)
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 359 
+  Variable "FLUOME()" is used before it is defined.
+
+          FLUKHI(IK)=FLUKHI(IK)+RT*(EIGVEC(IV,NM)*DEG)**2/EIGVAL(NM)
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 366 
+  Variable "FLUKHI()" is used before it is defined.
+
+           FLCM(NM)=FLCM(NM)+RT*(EIGVEC(IV,NM)*DEG)**2/EIGVAL(NM)
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 612 
+  Variable "FLCM()" is used before it is defined.
+
+           FLFRQ(IR,NM)=FLFRQ(IR,NM)+FLTERM
+cf90-7212 f90: WARNING ANALYS, File = nmanal.f, Line = 707 
+  Variable "FLFRQ()" is used before it is defined.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:29
+cf90: COMPILE TIME 46.388248 SECONDS
+cf90: MAXIMUM FIELD LENGTH 874843 DECIMAL WORDS
+cf90: 1408 SOURCE LINES
+cf90: 0 ERRORS, 7 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 5556 WORDS, DATA: 3141 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:55
+cf90: COMPILE TIME 25.136139 SECONDS
+cf90: MAXIMUM FIELD LENGTH 665297 DECIMAL WORDS
+cf90: 1660 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 4854 WORDS, DATA: 726 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+
+  50  INTATM(1,LEN) = IOFF
+cf90-7212 f90: WARNING PREP, File = precep.f, Line = 3426 
+  Variable "IOFF" is used before it is defined.
+
+      INTATM(2,LEN) = I4RUN
+cf90-7212 f90: WARNING PREP, File = precep.f, Line = 3427 
+  Variable "I4RUN" is used before it is defined.
+
+      I5RUN = I5RUN + JRUN
+cf90-7212 f90: WARNING PREP, File = precep.f, Line = 3461 
+  Variable "I5RUN" is used before it is defined.
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:29
+cf90: COMPILE TIME 86.737732 SECONDS
+cf90: MAXIMUM FIELD LENGTH 717312 DECIMAL WORDS
+cf90: 8332 SOURCE LINES
+cf90: 0 ERRORS, 4 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 7866 WORDS, DATA: 3505 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:16
+cf90: COMPILE TIME 209.186693 SECONDS
+cf90: MAXIMUM FIELD LENGTH 739811 DECIMAL WORDS
+cf90: 8212 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 20591 WORDS, DATA: 3067 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+
+cf90: Cray CF90 Version 3.2.1.0 (f55p32g33113a49) Tue Sep 12, 2000  16:50:16
+cf90: COMPILE TIME 221.884536 SECONDS
+cf90: MAXIMUM FIELD LENGTH 737624 DECIMAL WORDS
+cf90: 1823 SOURCE LINES
+cf90: 0 ERRORS, 1 WARNINGS, 0 OTHER MESSAGES, 0 ANSI
+cf90: CODE: 12476 WORDS, DATA: 202 WORDS
+cf90: "explain cf90-message number" gives more information about each message
+cmd-2419 make: Too many command lines for 'inspidas'. 
+	f90  -o inspidas flxsub.o graph.o iolibdas.o ioroutn.o mathlib.o minim.o  mc.o nma.o nmanal.o precep.o prein.o utilitydas.o main.o	 

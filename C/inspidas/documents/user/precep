@@ -1,0 +1,126 @@
+C
+$! File:          PRECEP.MANUAL
+$! Date:          Apl. 1990
+$! Author:        Takahisa Yamato
+$! Update:
+$! function:      A brief description of the tasks in PRECEP
+
+
+                            T A S K     P R E C E P
+
+
+TABLE OF CONTENTS:
+
+I.   PRECEP OVERVIEW
+          1. PURPOSE
+          2. SYNTAX
+          3. SUBTASKS
+          4. TREE STRUCTURE
+
+II.  SUBTASK READ
+          1. READ PARM STANDARD
+          2. READ PARM UNIT
+          3. READ PREIN
+
+III. SUBTASK RUN
+
+VI.  SUBTASK WRITE
+          1. WRITE PREOUT
+
+V.   EXAMPLES
+
+
+I. PRECEP OVERVIEW
+
+
+  PURPOSE: The object of this task is to set up input data for MINIM.
+
+  SYNTAX:  PRECEP
+
+  SUBTASKS:
+           READ
+           RUN
+           WRITE
+
+  TREE STRUCTURE
+
+  SUBTASK    KEYWORD
+
+  READ  -----PARM-----STANDARD
+              !        !
+              !        !-UNIT
+              !--PREIN
+
+  RUN
+
+  WRITE -----PREOUT
+
+ II.   SUBTASK READ
+
+
+  PURPOSE: Reads Standard Residue, Unit Parameters and Prein Output.
+
+  SYNTAX :
+
+  READ PARM STANdard       { FILENAME char }
+
+  READ PARM UNIT           { FILENAME char }
+
+  READ PREIn               { FILENAME char }
+
+
+  GLOSSARY :
+      PARAMETER :
+         STANdard
+            FILENAME - Standard residue data file name.
+         UNIT
+            FILENAME - Unit data file name.
+         PREIn
+            FILENAME - Prein output file name.
+
+  EXAMPLE : READ PARM STANDARD -
+                 D52362.INSPIDA2.DATA.DATA(SDATX)
+            READ PAAM UNIT     -
+                 D52362.INSPIDA2.DATA.DATA(UNITX)
+            READ PREIN         -
+                 D52362.INSPIAD2.EXAMPLE.DATA(PREIN)
+
+III.  SUBTASK RUN
+
+
+  PURPOSE : Executing precep.
+
+  SYNTAX :
+
+  RUN
+
+  EXAMPLE : RUN
+
+IV.  SUBTASK WRITE
+
+
+  PURPOSE: Writes input data for FEDER.
+
+  SYNTAX :
+
+  WRITE PREOut                { FILENAME char }
+
+  GLOSSARY:
+      PARAMETER:
+         PREOut
+          FILENAME - filename for MINIM input data.
+
+  EXAMPLES: WRITE PREOUT D52362.EXAMPLE.DATA(PREOUT)
+
+
+V.   EXAMPLES
+      PRECEP
+        READ PARM STANDARD -
+          D52362.INSPIDA2.DATA.DATA(SDATX)
+        READ PARM UNIT     -
+          D52362.INSPIDA2.DATA.DATA(UNITX)
+        READ PREIN         -
+          D52362.INSPIDA2.EXAMPLE.DATA(PREIN)
+        RUN
+        WRITE PREOUT -
+          D52362.INSPIDA2.EXAMPLE.DATA(PREOUT)

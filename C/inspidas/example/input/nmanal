@@ -1,0 +1,18 @@
+  WRITE DECAALA.NMANAL.OUT TITLE TEST OF NMANAL *
+  NMA
+    ANAL
+      READ PREC    /labo/qclib/inspidas/example/data/decaala/PREOUT
+      READ EIGEN   /labo/qclib/inspidas/example/data/decaala/TEST.EIGEN.BIN
+      READ KMAT    /labo/qclib/inspidas/example/data/decaala/TEST.KMAT.BIN
+      INPU CNTL -
+        TEMP 300. THRESH 200 NMOD 3 IFRMX 3
+      COM1 /labo/qclib/inspidas/example/data/decaala/COM1.DATA
+      COM2 /labo/qclib/inspidas/example/data/decaala/COM2.DATA
+      COM3 /labo/qclib/inspidas/example/data/decaala/COM3.DATA
+      COM5 /labo/qclib/inspidas/example/data/decaala/COM5.DATA
+      COM6 /labo/qclib/inspidas/example/data/decaala/COM6.DATA
+      COM8 /labo/qclib/inspidas/example/data/decaala/COM8.DATA
+      COM9 /labo/qclib/inspidas/example/data/decaala/COM9.DATA
+    END
+  QUIT
+  END

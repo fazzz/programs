@@ -1,0 +1,89 @@
+0. Basic Principles
+
+	The original source files must be located on the directory
+	'source', and they contain both CMSP and CTTN lines.
+
+1. How to transfer source files from msp to WS
+	1-1. File transfer
+		You can transfer files from msp to WS by using ftp.
+		#ftp host(130.54.50.60) ------genesis
+		login inspidas
+		%cd source
+		#msend in('d52362.inspida3.source.fort')
+
+	1-2. Proceesing the files
+		The files from msp contain line numbers and blanks 
+		at the end of each line, and you have to remove them as follows.
+		a. Make a list of files you want to process.
+		   %unalias ls 
+		   %ls > files
+			then edit the file 'files'.
+		b. Execute a shellscript which removes the blanks and the line numbers.
+		   Make sure that there exist a file named 'mkcmd.awk' as well as 
+		   'spccut'. These scripts are on the directory 'tools/conv'.
+		   %spccut
+
+2. How to compile the source files on WS
+	2-1. 
+		The CTTN must be replaced with blanks in the source files before
+		compilation.
+		There are two tools available:
+
+		cut.cttn : replace CTTNs in the specified file with blanks.		
+		 (Usage cut.cttn < filename > output.filename)
+		mkttn.all : relpace CTTNs with blanks in all the files on the directory
+					'source' and copy them to the directory 'load'.
+
+	2-2. Compilation
+		 There is a makefile on the directory 'load'. You can just execute it
+		 or modify it.
+
+3. How to transfer source files from WS to msp
+	3-1. 
+		The CMSP must be replaced with blanks in the source files before
+		transfer.
+		There are two tools available:
+
+		cut.cmsp : replace CMSPs in the specified file with blanks.		
+		 (Usage cut.cmsp < filename > output.filename)
+		mkmsp.all : relpace CMSPs with blanks in all the files on the directory
+					'source' and copy them to the directory 'msp'.
+
+	3-2. File transfer
+		You can transfer files from WS to msp by using ftp.
+		#ftp host(130.54.50.60) ------genesis
+		login inspidas
+		#mrecv in(msp) out('d52362.inspida3.source.fort')
+
+		All the files on the directory 'msp' will be copied to msp as the
+		members of the partitioned data set.
+
+	3-3. Proceesing the files
+		The files from WS does not have line numbers and you should renumber
+		them. 
+		a. edit each member and use the editor command 'renum'.
+		b. save the member.
+
+4. How to compile the source files on msp
+
+		There is a command precedure 'inspida3.utility.clist' which compiles,
+		links, and makes an executable load module.
+		It has the following members:
+		CMPSPALL : compiles multiple members of source.fort. The file 
+				   'inspida3.temp.load' will be created.
+		CMPSP    : compiles a specified member of source.fort.
+		LOADSP   : makes an executable load module. The file 'inspida3.load'
+				   will be created.
+		CMPVPALL : VP version of CMPSPALL.
+		CMPVP    : VP version of CMPSP.
+		LOADVP   : VP version of LOADSP.
+
+5. Bugs
+	5-1. NMANAL
+		In the subroutine RDPREC, precep output data are read in.
+		The local array ATWK is defined as CHARACTER*2, whereas ATNAME
+		is CHARACTER*4.
+	5-2. VP
+		 When compiled for VP, the following warning appeared:
+		 'line 54100 in utility. MXCMSZ will not be initialized except in a
+		  block data statement'

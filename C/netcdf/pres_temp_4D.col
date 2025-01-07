@@ -1,0 +1,16 @@
+netcdf pres_temp_4D {
+dimensions:
+	level = 2 ;
+	latitude = 6 ;
+	longitude = 12 ;
+	time = UNLIMITED ; // (2 currently)
+variables:
+	float latitude(latitude) ;
+		latitude:units = "degrees_north" ;
+	float longitude(longitude) ;
+		longitude:units = "degrees_east" ;
+	float pressure(time, level, latitude, longitude) ;
+		pressure:units = "hPa" ;
+	float temperature(time, level, latitude, longitude) ;
+		temperature:units = "celsius" ;
+}

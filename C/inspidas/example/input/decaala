@@ -1,0 +1,50 @@
+  WRITE DECAALA.OUT TITLE TEST OF INSPIDAS *
+  PREIN
+!    BUILD READ  /labo/qclib/inspidas/example/data/abe 
+     BUILD PRIM  ALA ALA ALA ALA ALA ALA ALA ALA ALA ALA END
+     BUILD END   NEND 1 CEND 11
+     READ  ANGL  /labo/qclib/inspidas/example/data/minin
+     WRITE PREIN /labo/qclib/inspidas/example/data/decaala/PREIN
+  QUIT
+  PRECEP
+     READ  PARM  STANDARD -
+            /labo/qclib/inspidas/data/sdatx 
+     READ  PARM UNIT -
+            /labo/qclib/inspidas/data/unitx 
+     READ  PREIN -
+            /labo/qclib/inspidas/example/data/decaala/PREIN
+     RUN
+     WRITE PREOUT -
+            /labo/qclib/inspidas/example/data/decaala/PREOUT
+     QUIT
+  MINIM
+    INPUT CNTL -
+      TLIMIT 600 LOUT 50 NUMRNG 1 -
+      LRANGE 400 WVLTN0 0.0 LFUNC0 -1 NITRTN 200 -
+      CONV0 1.D-12 LOMEGA 0
+    READ PRECEP -
+      /labo/qclib/inspidas/example/data/decaala/PREOUT
+    READ PARM -
+      /labo/qclib/inspidas/data/bd8 
+    READ ANGLE -
+      /labo/qclib/inspidas/example/data/minin 
+    RUN
+    WRITE ANGLE -
+      /labo/qclib/inspidas/example/data/decaala/MINANG.DATA
+    WRITE COORD FLEX -
+      /labo/qclib/inspidas/example/data/decaala/MINCOO.DATA
+    PUT FMATRIX -
+      /labo/qclib/inspidas/example/data/decaala/DRVTV.DATA
+    QUIT
+  NMA
+   HMAT
+   DIAG
+   WRIT -
+     /labo/qclib/inspidas/example/data/decaala/EIGEN.DATA
+   PUT  -
+     /labo/qclib/inspidas/example/data/decaala/EIGEN.BIN
+   KMAT -
+     /labo/qclib/inspidas/example/data/decaala/KMAT.BIN
+   GRPH
+  QUIT
+  END

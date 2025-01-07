@@ -1,0 +1,636 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#define pi 3.14159265
+
+double calc_gfunc(double u[3], double cospsi1, double sinpsi1, double cospsi2, double sinpsi2, double cosphi1, double sinphi1, double cosphi2, double sinphi2, double alpha, double beta);
+void calc_r(double alpha, double beta, double psi1, double s[3], double rou, double eta, double r[3]);
+void mmult(double m1[3][3], double m2[3][3], double m1m2[3][3]);
+void fomTmat(double cos, double sin, double mat[3][3]);
+void fomRmat(double cos, double sin, double mat[3][3]);
+int calc_phi1(double r[3], double w, double rou, double eta, double cosphi1[2], double sinphi1[2],double qz[2][3]);
+int calc_phi2(double x,double w,double rou,double eta,double alpha,double beta,double cosphi2[2],double sinphi2[2]);
+void calc_psi2(double w,double rou,double eta,double alpha,double beta,double qz[2][3],double cosphi2[2],double sinphi2[2], double cospsi2[2][2], double sinpsi2[2][2]);
+void det(double r[3], double rou, double eta, double alpha, double beta, double f[4]);
+void get_initial_values(double pep1[4][3], double pep2[3][3], double alpha,double beta,double rou,double eta);
+
+int main(int argc, char *argv[])
+{
+	char outname[100];
+	int i,j,k,l,m,n,test1,test2,len,numans;
+	double x,y,z;
+	double alpha,beta,rou,eta;
+	double u[3],s[3];
+	double f[4000][4];
+	double psi1,r[3],w;
+	double cospsi2[2][2],sinpsi2[2][2],cosphi1[2],sinphi1[2],cosphi2[2],sinphi2[2];
+	double qz[2][3];
+	double test3[4000];
+	double ra[4000];
+	double psi1ans[4000],psi2ans[4000],phi1ans[4000],phi2ans[4000];
+	double rans[4000],xans[4000];
+	double pep1[4][3],pep2[4][3];
+
+	double g[4000][4];
+
+	FILE *in,*data1,*data2,*out;
+
+	if ((data1 = fopen("pep1.dat","r")) == NULL)
+	{
+		printf("cannot open %s\n",argv[1]);
+		exit(0);
+	}
+
+	for (i=0;i<4;++i)
+	{
+		fscanf(data1,"%lf %lf %lf",&x,&y,&z);
+		pep1[i][0] = x;
+		pep1[i][1] = y;
+		pep1[i][2] = z;
+	}
+
+	fclose(data1);
+
+	if ((data2 = fopen("pep2.dat","r")) == NULL)
+	{
+		printf("cannot open %s\n",argv[1]);
+		exit(0);
+	}
+
+	for (i=0;i<3;++i)
+	{
+		fscanf(data2,"%lf %lf %lf",&x,&y,&z);
+		pep2[i][0] = x;
+		pep2[i][1] = y;
+		pep2[i][2] = z;
+	}
+
+	fclose(data2);
+
+//  caluculation of alpha , beta
+//	get_initial_values(pep1, pep2,alpha,beta,rou,eta);
+	double Ni_1_Ca_i_1[3],Ca_i_C_i[3],l_Ni_1_Ca_i_1=0.0,l_Ca_i_C_i=0.0;
+	double Ni_Cai[3],Ca_i_C_i2[3],l_Ni_Cai=0.0,l_Ca_i_C_i2=0.0;
+	double cosalpha=0.0,cosbeta=0.0,sinalpha,sinbeta,cosgamma=0.0,singamma;
+	double Talpha[3][3];
+	double qz2[3];
+	double p1[3],p2[3];
+
+	for (i=0;i<3;++i)
+	{
+		Ni_1_Ca_i_1[i] = pep1[3][i]-pep1[2][i];
+		Ca_i_C_i[i] = pep1[1][i]-pep1[0][i];
+		l_Ni_1_Ca_i_1 += Ni_1_Ca_i_1[i]*Ni_1_Ca_i_1[i];
+		l_Ca_i_C_i += Ca_i_C_i[i]*Ca_i_C_i[i];
+
+		Ni_Cai[i] = pep2[1][i]-pep2[0][i];
+		Ca_i_C_i2[i] = pep2[2][i]-pep2[1][i];
+		l_Ni_Cai += Ni_Cai[i]*Ni_Cai[i];
+		l_Ca_i_C_i2 += Ca_i_C_i2[i]*Ca_i_C_i2[i];
+
+		p2[i] = pep1[2][i]-pep1[0][i];
+		p1[i] = pep2[1][i]-pep2[0][i];
+	}
+
+	l_Ni_1_Ca_i_1 = sqrt(l_Ni_1_Ca_i_1);
+	l_Ca_i_C_i = sqrt(l_Ca_i_C_i);
+	l_Ni_Cai = sqrt(l_Ni_Cai);
+	l_Ca_i_C_i2 = sqrt(l_Ca_i_C_i2);
+
+	for (i=0;i<3;++i)
+	{
+		cosalpha +=  (Ni_1_Ca_i_1[i]/l_Ni_1_Ca_i_1)*(Ca_i_C_i[i]/l_Ca_i_C_i);
+		cosbeta +=  (Ni_Cai[i]/l_Ni_Cai)*(Ca_i_C_i2[i]/l_Ca_i_C_i2);
+	}
+
+	alpha = acos(cosalpha);
+	beta = acos(cosbeta);
+	sinalpha = sin(alpha);
+	sinbeta = sin(beta);
+	singamma = -sin(alpha);
+
+	fomTmat(cosalpha, sinalpha, Talpha);
+//	fomTmat(cosbeta, sinbeta, Talpha);
+
+	for (i=0;i<3;++i)
+	{
+		qz2[i] = 0.;
+	}
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			qz2[i] += Talpha[i][j]*p1[j];
+//			qz2[i] += Talpha[i][j]*p2[j];
+		}
+	}
+
+	for (i=0;i<3;++i)
+	{
+		qz2[i] += p2[i];
+//		qz2[i] += p1[i];
+	}
+
+	rou = qz2[0];
+	eta = qz2[1];
+
+//	alpha = 9.0*pi/180.0;
+//	beta = 70.5*pi/180.0;
+
+//	alpha = -9.0*pi/180.0;
+//	beta = -70.5*pi/180.0;
+
+//	rou = 3.519;
+//	eta = 1.436;
+//	eta = 1.242;
+//	rou = 2.700;
+//	eta = sqrt(3.8*3.8-rou*rou);
+
+	if (argc == 0)
+	{
+		exit(1);
+	}
+
+	if ((in = fopen(argv[1],"r")) == NULL)
+	{
+		printf("cannot open %s\n",argv[1]);
+		exit(0);
+	}
+
+	fscanf(in,"%lf %lf %lf",&x,&y,&z);
+	u[0] = x;
+	u[1] = y;
+	u[2] = z;
+	fscanf(in,"%lf %lf %lf",&x,&y,&z);
+	s[0] = x;
+	s[1] = y;
+	s[2] = z;
+
+	fclose(in);
+
+	for (i=0;i<3600;++i)
+	{
+		test3[i] = 0;
+		for (j=0;j<4;++j)
+			g[i][j] = 0.0;
+	}
+
+	m = 0;
+	n = 0;
+	for (i=0;i<3600;++i)
+	{
+		psi1 = (double)i*pi/1800.0;
+
+		// equ 21
+		calc_r(alpha, beta, psi1, s, rou, eta, r);
+		// equ 30
+		w = (r[0]*r[0]+r[1]*r[1]+r[2]*r[2]-2.0*rou*r[0])/(2.0*eta);
+//		w = (r[0]*r[0]+r[1]*r[1]+r[2]*r[2]+2.0*rou*r[0])/(2.0*eta);
+		// equ 46,47,50,51
+		det(r, rou, eta, alpha, beta, f[i]);
+		ra[i] = sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]);
+
+		if (1.9069*(sqrt(rou*rou+eta*eta)) >= sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]) &&
+		    sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]) >= 1.2051*(sqrt(rou*rou+eta*eta)))
+		{
+			printf("%lf \n",psi1*180.0/pi);
+		}
+
+		// equ 29,31
+		test1 = calc_phi1(r,w,rou,eta,cosphi1,sinphi1,qz);
+		// equ 35
+		test2 = calc_phi2(r[0],w,rou,eta,alpha,beta,cosphi2,sinphi2);
+		if (test1 == 1 && test2 == 1)
+		{
+			test3[i] = 1;
+			// equ 36
+			calc_psi2(w,rou,eta,alpha,beta,qz,cosphi2,sinphi2,cospsi2,sinpsi2);
+
+			rans[n] = sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]);
+			xans[n] = r[0];
+			++n;
+			l=0;
+			for (j=0;j<2;++j)
+			{
+				for (k=0;k<2;++k)
+				{
+					g[i][l] = calc_gfunc(u,cos(psi1),sin(psi1),cospsi2[j][k],sinpsi2[j][k],cosphi1[j],sinphi1[j],cosphi2[k],sinphi2[k],alpha,beta);
+					++l;
+					if (-0.001 <= g[i][l] && 0.001 >= g[i][l])
+					{
+						psi1ans[m] = psi1;
+						psi2ans[m] = acos(cospsi2[j][k]);
+						phi1ans[m] = acos(cosphi1[j]);
+						phi2ans[m] = acos(cosphi2[k]);
+					}
+				}
+			}
+		}
+	}
+	numans = m;
+
+	for (i=0;i<3600;++i)
+	{
+//		if (test3[i] == 1)
+//			printf("%-5d %5.3lf %5.3lf %5.3lf %5.3lf\n",i,g[i][0],g[i][1],g[i][2],g[i][3]);
+	}
+
+	len = strlen(argv[1])+6;
+	sprintf(outname,"g%s.txt",argv[1]);
+	outname[len] = '\0';
+
+
+	if ((out = fopen(outname,"w")) == NULL)
+	{
+		printf("cannot open g.txt\n");
+		exit(0);
+	}
+
+	fprintf(out,"psi1      g1      g2     g3     g4\n",i,g[i][0],g[i][1],g[i][2],g[i][3]);
+	for (i=0;i<3600;++i)
+	{
+		psi1 = (double)i*pi/1800.0;
+		if (test3[i] == 1)
+			fprintf(out,"%-5.3lf %5.3lf %5.3lf %5.3lf %5.3lf\n",psi1*180.0/pi,g[i][0],g[i][1],g[i][2],g[i][3]);
+	}
+
+	fclose(out);
+
+	sprintf(outname,"a%s.txt",argv[1]);
+	outname[len] = '\0';
+
+	if ((out = fopen(outname,"w")) == NULL)
+	{
+		printf("cannot open g.txt\n");
+		exit(0);
+	}
+
+	for (i=0;i<numans;++i)
+	{
+		fprintf(out,"%-d: %5.1lf %5.1lf %5.1lf %5,1lf\n",i,psi1ans[i]*180.0/pi,psi2ans[i]*180.0/pi,phi1ans[i]*180.0/pi,phi2ans[i]*180.0/pi);
+	}
+
+	fclose(out);
+
+	sprintf(outname,"x%s.txt",argv[1]);
+	outname[len] = '\0';
+
+	if ((out = fopen(outname,"w")) == NULL)
+	{
+		printf("cannot open g.txt\n");
+		exit(0);
+	}
+
+	for (i=0;i<n;++i)
+	{
+		fprintf(out,"%5.4lf %5.4lf\n",xans[i],rans[i]);
+	}
+
+	fclose(out);
+
+	sprintf(outname,"f%s.txt",argv[1]);
+
+	if ((out = fopen(outname,"w")) == NULL)
+	{
+		printf("cannot open g.txt\n");
+		exit(0);
+	}
+
+	for (i=0;i<3600;++i)
+	{
+		psi1 = (double)i*pi/1800.0;
+		fprintf(out,"%-5.4lf %5.4lf %5.4lf %5.4lf %5.4lf %5.4lf\n",ra[i],f[0],f[1],f[2],f[3],psi1);
+	}
+
+	fclose(out);
+
+	return 0;
+}
+
+double calc_gfunc(double u[3], double cospsi1, double sinpsi1, double cospsi2, double sinpsi2, double cosphi1, double sinphi1, double cosphi2, double sinphi2, double alpha, double beta)
+{
+	double g;
+	double Talpha[3][3],Tbeta[3][3],Rpsi1[3][3],Rphi1[3][3],Rpsi2[3][3],Rphi2[3][3];
+	double TaRs1[3][3],TaRs1Tb[3][3],TaRs1TbRh1[3][3],TaRs1TbRh1Ta[3][3],TaRs1TbRh1TaRs2[3][3],TaRs1TbRh1TaRs2Tb[3][3],TaRs1TbRh1TaRs2TbRh2[3][3],TaRs1TbRh1TaRs2TbRh2Ta[3][3];
+	double cosalpha,sinalpha,cosbeta,sinbeta;
+
+	cosalpha = cos(alpha);
+	sinalpha = sin(alpha);
+	cosbeta = cos(beta);
+	sinbeta = sin(beta);
+
+	fomTmat(cosalpha, sinalpha, Talpha);
+	fomTmat(cosbeta, sinbeta, Tbeta);
+	fomRmat(cospsi1, sinpsi1, Rpsi1);
+	fomRmat(cospsi2, sinpsi2, Rpsi2);
+	fomRmat(cosphi1, sinphi1, Rphi1);
+	fomRmat(cosphi2, sinphi2, Rphi2);
+
+	mmult(Talpha,Rpsi1,TaRs1);
+	mmult(TaRs1,Tbeta,TaRs1Tb);
+	mmult(TaRs1Tb,Rphi1,TaRs1TbRh1);
+	mmult(TaRs1TbRh1,Talpha,TaRs1TbRh1Ta);
+	mmult(TaRs1TbRh1Ta,Rpsi2,TaRs1TbRh1TaRs2);
+	mmult(TaRs1TbRh1TaRs2,Tbeta,TaRs1TbRh1TaRs2Tb);
+	mmult(TaRs1TbRh1TaRs2Tb,Rphi2,TaRs1TbRh1TaRs2TbRh2);
+	mmult(TaRs1TbRh1TaRs2TbRh2,Talpha,TaRs1TbRh1TaRs2TbRh2Ta);
+
+	g = u[0]*TaRs1TbRh1TaRs2TbRh2Ta[0][0]+u[1]*TaRs1TbRh1TaRs2TbRh2Ta[1][0]+u[2]*TaRs1TbRh1TaRs2TbRh2Ta[2][0]-cos(beta);
+
+	return g;
+}
+
+void calc_r(double alpha, double beta, double psi1, double s[3], double rou, double eta, double r[3])
+{
+	int i,j;
+	double TalphaInv[3][3],TbetaInv[3][3],Rpsi1Inv[3][3],TbR1[3][3],TbR1Ta[3][3];
+	double r_dummy[3];
+
+	for (i=0;i<3;++i)
+	{
+		r[i] = 0.0;
+		for (j=0;j<3;++j)
+		{
+			TalphaInv[i][j] = 0.0;
+			TbetaInv[i][j] = 0.0;
+			Rpsi1Inv[i][j] = 0.0;
+		}
+	}
+
+	TalphaInv[0][0] = cos(alpha);
+	TalphaInv[0][1] = sin(alpha);
+	TalphaInv[1][0] = -sin(alpha);
+	TalphaInv[1][1] = cos(alpha);
+	TalphaInv[2][2] = 1.0;
+
+	TbetaInv[0][0] = cos(beta);
+	TbetaInv[0][1] = sin(beta);
+	TbetaInv[1][0] = -sin(beta);
+	TbetaInv[1][1] = cos(beta);
+	TbetaInv[2][2] = 1.0;
+
+	Rpsi1Inv[0][0] = 1.0;
+	Rpsi1Inv[1][1] = cos(psi1);
+	Rpsi1Inv[1][2] = sin(psi1);
+	Rpsi1Inv[2][1] = -sin(psi1);
+	Rpsi1Inv[2][2] = cos(psi1);
+
+//	TalphaInv[0][0] = cos(alpha);
+//	TalphaInv[0][1] = -sin(alpha);
+//	TalphaInv[1][0] = sin(alpha);
+//	TalphaInv[1][1] = cos(alpha);
+//	TalphaInv[2][2] = 1.0;
+//
+//	TbetaInv[0][0] = cos(beta);
+//	TbetaInv[0][1] = -sin(beta);
+//	TbetaInv[1][0] = sin(beta);
+//	TbetaInv[1][1] = cos(beta);
+//	TbetaInv[2][2] = 1.0;
+//
+//	Rpsi1Inv[0][0] = 1.0;
+//	Rpsi1Inv[1][1] = cos(psi1);
+//	Rpsi1Inv[1][2] = -sin(psi1);
+//	Rpsi1Inv[2][1] = sin(psi1);
+//	Rpsi1Inv[2][2] = cos(psi1);
+
+	mmult(TbetaInv,Rpsi1Inv,TbR1);
+	mmult(TbR1,TalphaInv,TbR1Ta);
+
+	r_dummy[0] = s[0]-rou;
+	r_dummy[1] = s[1]-eta;
+	r_dummy[2] = s[2];
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			r[i] += TbR1Ta[i][j]*r_dummy[j];
+		}
+	}
+}
+
+void mmult(double m1[3][3], double m2[3][3], double m1m2[3][3])
+{
+	int i,j,k;
+
+	for (i=0;i<3;++i)
+		for (j=0;j<3;++j)
+			m1m2[i][j] = 0.0;
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			for (k=0;k<3;++k)
+			{
+				m1m2[i][j] += m1[i][k]*m2[k][j];
+			}
+		}
+	}
+}
+
+void fomTmat(double cos, double sin, double mat[3][3])
+{
+	int i,j;
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			mat[i][j] = 0.0;
+		}
+	}
+
+	
+	mat[0][0] = cos;
+	mat[0][1] = -sin;
+	mat[1][0] = sin;
+	mat[1][1] = cos;
+	mat[2][2] = 1.0;
+
+//	mat[0][0] = cos;
+//	mat[0][1] = sin;
+//	mat[1][0] = -sin;
+//	mat[1][1] = cos;
+//	mat[2][2] = 1.0;
+
+}
+
+void fomRmat(double cos, double sin, double mat[3][3])
+{
+	int i,j;
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			mat[i][j] = 0.0;
+		}
+	}
+	mat[0][0] = 1.0;
+	mat[1][1] = cos;
+	mat[1][2] = -sin;
+	mat[2][1] = sin;
+	mat[2][2] = cos;
+
+//	mat[0][0] = 1.0;
+//	mat[1][1] = cos;
+//	mat[1][2] = sin;
+//	mat[2][1] = -sin;
+//	mat[2][2] = cos;
+
+}
+
+int calc_phi1(double r[3], double w, double rou, double eta, double cosphi1[2], double sinphi1[2],double qz[2][3])
+{
+	double D;
+
+	D = r[1]*r[1]+r[2]*r[2]-w*w;
+	if (D >= 0.0)
+	{
+		cosphi1[0] = (r[1]*w+r[2]*sqrt(D))/(r[1]*r[1]+r[2]*r[2]);
+		sinphi1[0] = (r[2]*w-r[1]*sqrt(D))/(r[1]*r[1]+r[2]*r[2]);
+//		sinphi1[0] = sqrt(1-cosphi1[0]*cosphi1[0]);
+		cosphi1[1] = (r[1]*w-r[2]*sqrt(D))/(r[1]*r[1]+r[2]*r[2]);
+		sinphi1[1] = (r[2]*w+r[1]*sqrt(D))/(r[1]*r[1]+r[2]*r[2]);
+//		sinphi1[1] = sqrt(1-cosphi1[1]*cosphi1[1]);
+		qz[0][0] = r[0]-rou;
+		qz[0][1] = r[0]-eta;
+		qz[0][2] = D;
+		qz[1][0] = r[0]-rou;
+		qz[1][1] = r[0]-eta;
+		qz[1][2] = -D;
+	}
+	else
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+int calc_phi2(double x,double w,double rou,double eta,double alpha,double beta,double cosphi2[2],double sinphi2[2])
+{
+	cosphi2[0] = (rou*cos(beta)-(x-rou)*cos(alpha)-(w-eta)*sin(alpha))/(eta*sin(beta));
+//	cosphi2[0] = (rou*cos(beta)-(x-rou)*cos(alpha)+(w-eta)*sin(alpha))/(eta*sin(beta));
+	cosphi2[1] = cosphi2[0];
+	if (-1.0 <= cosphi2[0] && cosphi2[0] <= 1.0)
+	{
+		sinphi2[0] =  sqrt(1-cosphi2[0]*cosphi2[0]);
+		sinphi2[1] = -sqrt(1-cosphi2[0]*cosphi2[0]);
+	}
+	else
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+void calc_psi2(double w,double rou,double eta,double alpha,double beta,double qz[2][3],double cosphi2[2],double sinphi2[2], double cospsi2[2][2], double sinpsi2[2][2])
+{
+	int i,j;
+
+	for (i=0;i<2;++i)
+	{
+		for (j=0;j<2;++j)
+		{
+			cospsi2[i][j] = (
+				             (rou*sin(beta)+eta*cosphi2[j]*cos(beta))*(-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))
+				            +eta*qz[i][2]*sinphi2[j]
+				            )
+				            /(
+				            (-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))*(-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))+qz[i][2]*qz[i][2]
+				             );
+			sinpsi2[i][j] = (
+				             (rou*sin(beta)+eta*cosphi2[j]*cos(beta))*qz[i][2]
+				            +eta*(-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))*sinphi2[j]
+				            )
+				            /(
+				            (-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))*(-qz[i][0]*sin(alpha)+qz[i][1]*cos(alpha))+qz[i][2]*qz[i][2]
+				             );
+		}
+	}
+}
+
+void det(double r[3], double rou, double eta, double alpha, double beta, double f[4])
+{
+	f[0] = (rou*(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])+eta*sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])*sqrt(4.0*(rou*rou+eta*eta)-r[0]*r[0]+r[1]*r[1]+r[2]*r[2]))/(2.0*(rou*rou+eta*eta));
+	f[1] = (rou*(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])-eta*sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])*sqrt(4.0*(rou*rou+eta*eta)-r[0]*r[0]+r[1]*r[1]+r[2]*r[2]))/(2.0*(rou*rou+eta*eta));
+
+	f[2] = (2.0*eta*eta*(sin(alpha)+sin(beta))+2.0*eta*rou*(cos(alpha)+cos(beta))-(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])*sin(alpha))/(2.0*(eta*cos(alpha)-rou*sin(alpha)));
+	f[3] = (2.0*eta*eta*(sin(alpha)-sin(beta))+2.0*eta*rou*(cos(alpha)+cos(beta))-(r[0]*r[0]+r[1]*r[1]+r[2]*r[2])*sin(alpha))/(2.0*(eta*cos(alpha)-rou*sin(alpha)));
+
+}
+
+void get_initial_values(double pep1[4][3], double pep2[3][3], double alpha,double beta,double rou,double eta)
+{
+	int i,j;
+	double Ni_1_Ca_i_1[3],Ca_i_C_i[3],l_Ni_1_Ca_i_1=0.0,l_Ca_i_C_i=0.0;
+	double Ni_Cai[3],Ca_i_C_i2[3],l_Ni_Cai=0.0,l_Ca_i_C_i2=0.0;
+	double cosalpha=0.0,cosbeta=0.0,sinalpha,sinbeta;
+	double Talpha[3][3];
+	double qz[3];
+	double p1[3],p2[3];
+
+	for (i=0;i<3;++i)
+	{
+		Ni_1_Ca_i_1[i] = pep1[3][i]-pep1[2][i];
+		Ca_i_C_i[i] = pep1[1][i]-pep1[0][i];
+		l_Ni_1_Ca_i_1 += Ni_1_Ca_i_1[i]*Ni_1_Ca_i_1[i];
+		l_Ca_i_C_i += Ca_i_C_i[i]*Ca_i_C_i[i];
+
+		Ni_Cai[i] = pep2[1][i]-pep2[0][i];
+		Ca_i_C_i2[i] = pep2[2][i]-pep2[1][i];
+		l_Ni_Cai += Ni_Cai[i]*Ni_Cai[i];
+		l_Ca_i_C_i2 += Ca_i_C_i2[i]*Ca_i_C_i2[i];
+
+		p1[i] = pep1[2][i]-pep1[0][i];
+		p2[i] = pep2[1][i]-pep2[0][i];
+	}
+
+	l_Ni_1_Ca_i_1 = sqrt(l_Ni_1_Ca_i_1);
+	l_Ca_i_C_i = sqrt(l_Ca_i_C_i);
+	l_Ni_Cai = sqrt(l_Ni_Cai);
+	l_Ca_i_C_i2 = sqrt(l_Ca_i_C_i2);
+
+	for (i=0;i<3;++i)
+	{
+		cosalpha +=  (Ni_1_Ca_i_1[i]/l_Ni_1_Ca_i_1)*(Ca_i_C_i[i]/l_Ca_i_C_i);
+		cosbeta +=  (Ni_Cai[i]/l_Ni_Cai)*(Ca_i_C_i2[i]/l_Ca_i_C_i2);
+	}
+
+	alpha = acos(cosalpha);
+	beta = acos(cosbeta);
+	sinalpha = sin(alpha);
+	sinbeta = sin(beta);
+
+	fomTmat(cosalpha, sinalpha, Talpha);
+//	fomTmat(cosbeta, sinbeta, Talpha);
+
+	for (i=0;i<3;++i)
+	{
+		qz[i] = 0.;
+	}
+
+	for (i=0;i<3;++i)
+	{
+		for (j=0;j<3;++j)
+		{
+			qz[i] += Talpha[i][j]*p1[j];
+		}
+	}
+
+	for (i=0;i<3;++i)
+	{
+		qz[i] += p2[i];
+	}
+
+	rou = qz[0];
+	eta = qz[1];
+}
+
+
+

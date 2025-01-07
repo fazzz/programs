@@ -1,0 +1,13 @@
+cut.cttn ../source/flxsub >../ld/flxsub.f
+cut.cttn ../source/graph >../ld/graph.f
+cut.cttn ../source/iolibdas >../ld/iolibdas.f
+cut.cttn ../source/ioroutn >../ld/ioroutn.f
+cut.cttn ../source/main >../ld/main.f
+cut.cttn ../source/mathlib >../ld/mathlib.f
+cut.cttn ../source/mc >../ld/mc.f
+cut.cttn ../source/minim >../ld/minim.f
+cut.cttn ../source/nma >../ld/nma.f
+cut.cttn ../source/nmanal >../ld/nmanal.f
+cut.cttn ../source/precep >../ld/precep.f
+cut.cttn ../source/prein >../ld/prein.f
+cut.cttn ../source/utilitydas >../ld/utilitydas.f

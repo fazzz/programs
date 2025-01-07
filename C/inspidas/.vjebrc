@@ -1,0 +1,41 @@
+#
+#	Control Key Bindings for VJEbeta
+#	- sample -
+#
+# Default Modes
+mode=1
+henkan=b
+learn
+jis
+stopper
+#autoe
+#auton
+#redraw
+verbose
+#
+cxfer=^K
+sxfer=^V
+xfer=\s
+esc=\e
+sesc=^d
+del=^G
+bs=^H
+f1=^Y
+f2=^U
+f3=^I
+f4=^O
+f5=^L
+f10=^M
+cf1=^W
+cf2=^W
+cf3=^R
+cf4=^T
+cf5=^C
+right=^F
+left=^B
+up=^P
+down=^N
+sright=^X
+sleft=^Z
+rup=^A
+rdown=^E

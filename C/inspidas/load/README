@@ -1,0 +1,8 @@
+1995.6.16
+	precep.f was changed. CHARACTER*4 AANAME(36)/..... wo
+	CHARACTER*4 AANAME(36)
+	DATA AANAME / ....
+	ni henkou.
+c
+	minim.f and utilitydas.f was minor changed.
+

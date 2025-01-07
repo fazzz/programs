@@ -1,0 +1,1855 @@
+C***********************************************************************
+C     MINIMA.FORT77(FEDERN)
+C
+C     BASED ON 'PERI.FEDER.FORT(FEDERLB)'
+C
+C     1989.9.13
+C
+C     ENERGY MINIMIZATION WITH FAST COMPUTATION OF THE SECOND DERIVATIVE
+C     WITHOUT CUTOFF OPERATION
+C     PROGRAM PACKAGE VERSION
+C
+C ARRAY SIZE
+C     MAXATM=436
+C     MAXVAR=160
+C     MAXRES=28
+C     MAXSS =10
+C     MAXPER=2399
+C     MAXINT=2740
+C***********************************************************************
+      SUBROUTINE  INPUT
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160,MAXRES=28,MAXSS=10)
+      PARAMETER  (MXATM1=MAXATM+1,MVAR1=MAXVAR+1,MAXSS2=2*MAXSS)
+      PARAMETER  (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+      CHARACTER  TITLE*80
+      CHARACTER*4  SEQATM,SEQAA
+      COMMON/TITLE/   TITLE
+      COMMON/AASEQ/   SEQATM(MAXATM),SEQAA(MAXATM)
+      COMMON/IASEQ/   ISEQRS(MAXATM)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      COMMON/EPARAM/  PNB(28,56),CHARGE(MAXATM),NBTYPE(MAXATM)
+      COMMON/ATOM00/  KUNIT(MAXATM),KATOM(MXATM1),JATOM(MAXATM)
+      COMMON/ATOM01/  LATOM0(0:MAXVAR),LATOM1(MAXATM)
+      COMMON/BOND00/  DIRCOS(MAXVAR,3),IBND1(MAXVAR),IBND2(0:MVAR1)
+      COMMON/BOND01/  IBCHAR(3,MAXVAR)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/REFRNC/  REFCRD(MAXATM,3),REFANG(MAXVAR)
+      COMMON/INTER0/  INTER(MAXATM),INTATM(3,3000)
+      COMMON/TORSN0/  A(MAXVAR),NB(MAXVAR),NS(MAXVAR),IFTOR(MAXVAR)
+      COMMON/DISULF/  RSS(4),ASS(4),BSS(9)
+      COMMON/SSPAIR/  KSSPER(6,2,MAXSS),JSS(3,MAXSS),KSS(MAXSS2),
+     &                LSS(MAXSS2)
+      COMMON/VARANG/  ANGLES(10,MAXRES),INDXV(MAXVAR),NUMRES
+      DATA  IREAD,JREAD/20,21/
+C*******************************
+C          IREAD
+C*******************************
+      READ(IREAD,100)  TITLE
+      READ(IREAD,110)  NUMATM,NUMVAR,NUMRES,NUMINT,NSS
+      NN2 = NUMVAR*(NUMVAR+1)/2
+      DO  10  I = 1, NUMRES
+  10  READ(IREAD,120)  (ANGLES(J,I),J=1,10)
+      READ(IREAD,131)  NBACK(0),IBACK(0,1),IBACK(0,2)
+      DO  20  I = 1, NUMVAR
+  20  READ(IREAD,130)  INDXV(I),IBND1(I),IBND2(I),IFRONT(I),
+     &     (IBCHAR(J,I),J=1,3),A(I),NB(I),NS(I),IFTOR(I),
+     &     NBACK(I),IBACK(I,1),IBACK(I,2)
+      IBND2(0) = 1
+      IBND2(NUMVAR+1) = NUMATM+1
+      DO  30  I = 1, NUMATM
+  30  READ(IREAD,140)  (REFCRD(I,L),L=1,3),CHARGE(I),NBTYPE(I),
+     &      KUNIT(I),KATOM(I),JATOM(KATOM(I))
+     &      ,SEQATM(I),SEQAA(I),ISEQRS(I)
+      READ(IREAD,110)  (INTER(I),I=1,NUMATM)
+      READ(IREAD,150)  ((INTATM(J,I),J=1,3),I=1,NUMINT)
+      KATOM(NUMATM+1) = NUMATM+1
+      IF (NSS.EQ.0)  GOTO  50
+      DO  40  I = 1, NSS
+  40  READ(IREAD,110)  (KSSPER(J,1,I),J=1,6)
+  100 FORMAT(A80)
+  110 FORMAT(16I5)
+  120 FORMAT(10F8.3)
+  130 FORMAT(I6,2X,2I5,2X,2I5,2I2,F10.4,3I3,5X,I5,2I5)
+  131 FORMAT(53X,5X,I5,1X,2I3)
+  140 FORMAT(3F10.4,4X,F10.3,4I5,2X,A4,1X,A4,I5)
+  150 FORMAT(5(1X,3I5))
+C********************************************************************
+C  SET THE REFERENCE ANGLES IN REFANG AND THE REFERENCE COORDINATES
+C  IN CO FOR UNIT 0 AND IN REFCRD FOR UNITS 1 TO NUMVAR.
+C********************************************************************
+C
+C  REFERENCE ANGLES
+C
+  50  DO  70  I = 1, NUMVAR
+        J = INDXV(I)/100
+        K = INDXV(I) - 100*J
+        REFANG(I) = ANGLES(K,J)*RAD
+  70  CONTINUE
+C
+C  REFERENCE COORDINATES
+C
+C          UNIT 0
+C
+      J2 = KATOM(IBND2(1))-1
+      DO  80  J = 1, J2
+        K = JATOM(J)
+        CO(K,1) = REFCRD(K,1)
+        CO(K,2) = REFCRD(K,2)
+        CO(K,3) = REFCRD(K,3)
+  80  CONTINUE
+      IF (NBACK(0).GT.0)  THEN
+        DO  82  I = 1, NBACK(0)
+          K = IBND2(IBACK(0,I))
+          CO(K,1) = REFCRD(K,1)
+          CO(K,2) = REFCRD(K,2)
+          CO(K,3) = REFCRD(K,3)
+  82    CONTINUE
+      ENDIF
+C
+C          UNITS 1 TO NUMVAR
+C
+      NAT = 0
+      LATOM0(NUMVAR) = 1
+      DO  94  I = NUMVAR, 1, -1
+        IU = IBND2(I)
+        REFX0 = REFCRD(IU,1)
+        REFY0 = REFCRD(IU,2)
+        REFZ0 = REFCRD(IU,3)
+        J1 = KATOM(IU) + 1
+        J2 = KATOM(IBND2(I+1)) - 1
+        IF (J1.LE.J2)  THEN
+          DO  90  J = J1, J2
+            K = JATOM(J)
+            NAT = NAT + 1
+            LATOM1(NAT) = K
+            REFCRD(K,1) = REFCRD(K,1) - REFX0
+            REFCRD(K,2) = REFCRD(K,2) - REFY0
+            REFCRD(K,3) = REFCRD(K,3) - REFZ0
+  90      CONTINUE
+        ENDIF
+        IF (NBACK(I).GT.0)  THEN
+          DO  92  J = 1, NBACK(I)
+            K = IBND2(IBACK(I,J))
+            NAT = NAT + 1
+            LATOM1(NAT) = K
+            REFCRD(K,1) = REFCRD(K,1) - REFX0
+            REFCRD(K,2) = REFCRD(K,2) - REFY0
+            REFCRD(K,3) = REFCRD(K,3) - REFZ0
+  92      CONTINUE
+        ENDIF
+        LATOM0(I-1) = NAT + 1
+  94  CONTINUE
+C*******************************
+C          JREAD
+C*******************************
+      DO  200  J = 1, 56, 2
+      READ(JREAD,210)  (PNB(I,J),I=1,28)
+      READ(JREAD,210)  (PNB(I,J+1),I=1,28)
+  200 CONTINUE
+      READ(JREAD,220)  (RSS(I),I=1,4)
+      READ(JREAD,220)  (ASS(I),I=1,4)
+      READ(JREAD,230)  (BSS(I),I=1,9)
+  210 FORMAT(8F10.6)
+  220 FORMAT(10F8.3)
+  230 FORMAT(3D25.0)
+C
+      RETURN
+      END
+      SUBROUTINE  PRESET
+      PARAMETER  (MAXATM=436,MAXVAR=160,MAXSS=10)
+      PARAMETER  (MXPAIR=MAXVAR*(MAXVAR+1)/2,MXATM1=MAXATM+1)
+      PARAMETER  (MAXSS2=2*MAXSS)
+      COMMON/TABLE4/  KMAX,LISTK(-1:MAXVAR),JANGLE(MXPAIR),
+     &                KANGLE(MXPAIR)
+      COMMON/ATOM00/  KUNIT(MAXATM),KATOM(MXATM1),JATOM(MAXATM)
+      COMMON/BOND01/  IBCHAR(3,MAXVAR)
+      COMMON/SSPAIR/  KSSPER(6,2,MAXSS),JSS(3,MAXSS),KSS(MAXSS2),
+     &                LSS(MAXSS2)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      DIMENSION  LSSPER(6,2)
+C************************************************
+C  THIS SECTION MAKES THE LISTS OF BOND PAIRS.
+C************************************************
+C
+C  LIST:     JANGLE
+C
+      KMAX = 0
+      KMIN = NUMVAR
+      LISTK(KMIN-1) = 1
+      DO  30  KK = NUMVAR-1, 0, -1
+      DO  30  IB = 1, NUMVAR-KK
+        IA = IB + KK
+        NAB = IA*(IA-1)/2 + IB
+        KAB = KDIST(IA,IB,NUMVAR,IBCHAR)
+        KMAX = MAX (KMAX,KAB)
+        IF (KAB.LT.KMIN)  THEN
+          LISTK0 = LISTK(KMIN-1)
+          DO  10  I = KAB-1, KMIN-2
+  10      LISTK(I) = LISTK0
+          KMIN = KAB
+        ENDIF
+        DO  20  I = KMIN-1, KAB-1
+  20    LISTK(I) = LISTK(I) + 1
+        JANGLE(NAB) = LISTK(KAB-1) - LISTK(KAB)
+  30  CONTINUE
+C
+C  LIST:     KANGLE
+C
+      DO  70  KK = NUMVAR-1, 0, -1
+      DO  70  IB = 1, NUMVAR-KK
+        IA = IB + KK
+        NAB = IA*(IA-1)/2 + IB
+        KAB = KDIST(IA,IB,NUMVAR,IBCHAR)
+        KNC = IA*10000 + IB
+        IF (IBCHAR(2,IB).EQ.0)   GOTO  50
+        IF (IBCHAR(1,IA).NE.IBCHAR(1,IB))  GOTO  60
+        IF (IBCHAR(3,IA).LT.IBCHAR(3,IB))  GOTO  60
+  50    KNC = - KNC
+  60    L = LISTK(KAB) - 1 + JANGLE(NAB)
+        KANGLE(L) = KNC
+  70  CONTINUE
+C*******************************************************
+C  THIS SECTION MAKES THE LIST OF DISULFIDE BONDS.
+C*******************************************************
+      IF (NSS.EQ.0)  RETURN
+      DO  140  I = 1, NSS
+        IA = KUNIT(KSSPER(6,1,I))
+        IB = KUNIT(KSSPER(3,1,I))
+        I2 = 2*I
+        I1 = I2 - 1
+        LSS(I1) = I1
+        LSS(I2) = I2
+        KSS(I1) = KDIST(IA,IB,NUMVAR,IBCHAR)
+        NAB = IA*(IA-1)/2 + IB
+        JSS(1,I) = JANGLE(NAB)
+        LSSPER(1,1) = KSSPER(6,1,I)
+        LSSPER(1,2) = KSSPER(3,1,I)
+        LSSPER(2,1) = KSSPER(6,1,I)
+        LSSPER(2,2) = KSSPER(2,1,I)
+        LSSPER(3,1) = KSSPER(5,1,I)
+        LSSPER(3,2) = KSSPER(3,1,I)
+        LSSPER(4,1) = KSSPER(5,1,I)
+        LSSPER(4,2) = KSSPER(2,1,I)
+        KSS(I2) = KSS(I1) - 1
+        NAB = NAB+1
+        JSS(2,I) = JANGLE(NAB)
+        LSSPER(5,1) = KSSPER(6,1,I)
+        LSSPER(5,2) = KSSPER(1,1,I)
+        NAB = NAB - IA
+        JSS(3,I) = JANGLE(NAB)
+        LSSPER(6,1) = KSSPER(4,1,I)
+        LSSPER(6,2) = KSSPER(3,1,I)
+        DO  100  J = 1, 6
+        KSSPER(J,1,I) = LSSPER(J,1)
+  100   KSSPER(J,2,I) = LSSPER(J,2)
+        IF (I.EQ.1)  GOTO  140
+        MSS = I1
+  110   MSS = MSS-1
+        IF (KSS(LSS(MSS)).GE.KSS(LSS(MSS+1)))  GOTO  120
+          LS = LSS(MSS)
+          LSS(MSS) = LSS(MSS+1)
+          LSS(MSS+1) = LS
+        IF (MSS.GT.1)  GOTO  110
+  120   MSS = I2
+  130   MSS = MSS-1
+        IF (KSS(LSS(MSS)).GE.KSS(LSS(MSS+1)))  GOTO  140
+          LS = LSS(MSS)
+          LSS(MSS) = LSS(MSS+1)
+          LSS(MSS+1) = LS
+        IF (MSS.GT.1)  GOTO  130
+  140 CONTINUE
+      RETURN
+      END
+      FUNCTION  KDIST (IA,IB,NUMVAR,IBCHAR)
+C
+C  THIS FUNCTION SUBPROGRAM COMPUTES THE DISTANCE BETWEEN TWO BONDS
+C  IA AND IB ALONG THE CHAIN.
+C
+      DIMENSION  IBCHAR(3,NUMVAR)
+      IF (IBCHAR(1,IA).NE.IBCHAR(1,IB))  THEN
+        KDIST=IABS(IBCHAR(1,IA)-IBCHAR(1,IB))+IBCHAR(2,IA)+IBCHAR(2,IB)
+     &                                       +IBCHAR(3,IA)+IBCHAR(3,IB)
+        KDIST = KDIST/2
+      ELSE IF (IBCHAR(2,IA).NE.IBCHAR(2,IB))  THEN
+        KDIST=IABS(IBCHAR(2,IA)-IBCHAR(2,IB))+IBCHAR(3,IA)+IBCHAR(3,IB)
+        KDIST = KDIST/2
+      ELSE
+        KDIST=IABS(IBCHAR(3,IA)-IBCHAR(3,IB))/2
+      ENDIF
+      RETURN
+      END
+      SUBROUTINE  REGENR (ANGLES)
+C
+C  THIS SUBROUTINE GENERATES THE ATOMIC COORDINATES.
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160,MAXSTC=3)
+      PARAMETER  (MXATM1=MAXATM+1,MVAR1=MAXVAR+1)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/REFRNC/  REFCRD(MAXATM,3),REFANG(MAXVAR)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/ATOM00/  KUNIT(MAXATM),KATOM(MXATM1),JATOM(MAXATM)
+      COMMON/ATOM01/  LATOM0(0:MAXVAR),LATOM1(MAXATM)
+      COMMON/BOND00/  DIRCOS(MAXVAR,3),IBND1(MAXVAR),IBND2(0:MVAR1)
+      COMMON/EPARAM/  PNB(28,56),CHARGE(MAXATM),NBTYPE(MAXATM)
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      DIMENSION  ANGLES(MAXVAR),LCYCL(3,3)
+      DIMENSION  R(3,3),WR(3,3),WRR(9),RRST(9,MAXSTC),EMATRX(9)
+      DIMENSION  CS(MAXVAR),SN(MAXVAR),CS1(MAXVAR)
+      EQUIVALENCE  (WR,WRR)
+      DATA  ZERO, ONE /0.D0, 1.D0/
+      DATA  LCYCL /1,3,2,2,1,3,3,2,1/
+      DATA  EMATRX /1.D0, 3*0.D0, 1.D0, 3*0.D0, 1.D0/
+C***************************
+C     UNIT 0
+C***************************
+      IMAXST = NBACK(0)
+      DO  12  K = 1, IMAXST
+        DO  10  I = 1, 9
+  10      RRST(I,K) = EMATRX(I)
+  12  CONTINUE
+C***************************
+C     UNITS 1 TO NUMVAR
+C***************************
+      DO  20  I = 1, NUMVAR
+        ANG = ANGLES(I) - REFANG(I)
+        CS(I) = DCOS(ANG)
+        SN(I) = DSIN(ANG)
+        CS1(I) = ONE - CS(I)
+  20  CONTINUE
+      DO  100  I = 1, NUMVAR
+        L1 = IBND1(I)
+        L2 = IBND2(I)
+        AB = ZERO
+        DO  30  L = 1, 3
+        DIRCOS(I,L) = CO(L2,L) - CO(L1,L)
+  30    AB = AB + DIRCOS(I,L)*DIRCOS(I,L)
+          AB = ONE / DSQRT(AB)
+        DO  35  L = 1, 3
+  35    DIRCOS(I,L) = DIRCOS(I,L)*AB
+*VOPTION VEC
+        DO  40  L = 1, 3
+          LC1 = LCYCL(L,1)
+          LC2 = LCYCL(L,2)
+          U1 = CS1(I) * DIRCOS(I,LC1) * DIRCOS(I,LC2)
+          U2 = SN(I)  * DIRCOS(I,LCYCL(L,3))
+          R(LC1,LC2) = U1 - U2
+          R(LC2,LC1) = U1 + U2
+          R(L,L) = CS(I) + CS1(I)*DIRCOS(I,L)*DIRCOS(I,L)
+  40    CONTINUE
+        DO  50  L = 1, 3
+          WR(L,1) = R(L,1)*RRST(1,IMAXST) + R(L,2)*RRST(2,IMAXST)
+     &                 + R(L,3)*RRST(3,IMAXST)
+          WR(L,2) = R(L,1)*RRST(4,IMAXST) + R(L,2)*RRST(5,IMAXST)
+     &                 + R(L,3)*RRST(6,IMAXST)
+          WR(L,3) = R(L,1)*RRST(7,IMAXST) + R(L,2)*RRST(8,IMAXST)
+     &                 + R(L,3)*RRST(9,IMAXST)
+  50    CONTINUE
+        Q1 = CO(L2,1)
+        Q2 = CO(L2,2)
+        Q3 = CO(L2,3)
+        JI = LATOM0(I)
+        JE = LATOM0(I-1)-1
+*VOPTION VEC
+          DO  55  J = JI, JE
+            K = LATOM1(J)
+            CO(K,1)=WRR(1)*REFCRD(K,1)+WRR(4)*REFCRD(K,2)
+     &                + WRR(7)*REFCRD(K,3) + Q1
+            CO(K,2)=WRR(2)*REFCRD(K,1)+WRR(5)*REFCRD(K,2)
+     &                + WRR(8)*REFCRD(K,3) + Q2
+            CO(K,3)=WRR(3)*REFCRD(K,1)+WRR(6)*REFCRD(K,2)
+     &                + WRR(9)*REFCRD(K,3) + Q3
+  55      CONTINUE
+        IF (NBACK(I)-1)  80, 60, 70
+  60      DO  65  L = 1, 9
+  65      RRST(L,IMAXST) = WRR(L)
+            GOTO  80
+  70      DO  75  L = 1, 9
+          RRST(L,IMAXST) = WRR(L)
+  75      RRST(L,IMAXST+1) = WRR(L)
+  80        IMAXST = IMAXST + NBACK(I) - 1
+ 100  CONTINUE
+      RETURN
+      END
+      SUBROUTINE ENERGY(VAR,ETOTAL)
+C
+C  THIS SUBROUTINE COMPUTES THE CONFORMATIONAL ENERGY.
+C
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXVAR=160,MAXINT=2740,MAXSS=10)
+      PARAMETER  (MXPAIR=MAXVAR*(MAXVAR+1)/2,MAXJ=2*MAXVAR)
+      PARAMETER  (MAXSS2=MAXSS*2)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      COMMON/TABLE3/  NINT,IPAIR1(MAXINT),IPAIR2(MAXINT),LINT(-1:MAXVAR)
+      COMMON/TABLE4/  KMAX,LISTK(-1:MAXVAR),NOPAIR(MXPAIR),
+     &                 KANGLE(MXPAIR)
+      COMMON/TORSN0/  A(MAXVAR),NB(MAXVAR),NS(MAXVAR),IFTOR(MAXVAR)
+      COMMON/SSPAIR/  KSSPER(6,2,MAXSS),JSS(3,MAXSS),KSS(MAXSS2),
+     &                LSS(MAXSS2)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      DIMENSION  VAR(MAXVAR)
+      DATA  ZERO,ONE /0.D0,1.D0/
+      CALL  CLOCK(TIME0,0,2)
+C
+C  GENERATE THE ATOMIC COORDINATES.
+C
+      CALL  REGENR (VAR)
+C
+C  INITIALIZE THE FOLLOWING PARAMETERS.
+C
+      ETOR   = ZERO
+      ENB    = ZERO
+      EES    = ZERO
+      ELOOP  = ZERO
+      ECYSTR = ZERO
+C
+C  COMPUTE THE ENERGIES.
+C
+C  ENB & EES
+C
+      CALL  ECAL
+C
+C  ETOR
+C
+      DO  140  I = 1, NUMVAR
+        IF (IFTOR(I).NE.1)  GOTO  140
+          ETOR = ETOR + A(I)*(ONE+NS(I)*DCOS(NB(I)*VAR(I)))
+  140 CONTINUE
+C
+C  ELOOP & ECYSTR
+C
+      IF (NSS.NE.0)  THEN
+        DO  160  I = 1, NSS
+          CALL  ECALSS (KSSPER(1,1,I),KSSPER(1,2,I))
+  160   CONTINUE
+      ENDIF
+C
+C  ETOTAL
+C
+      ETOTAL = ETOR + EES + ENB + ELOOP + ECYSTR
+C
+      RETURN
+      END
+      SUBROUTINE  ECAL
+C
+C  THIS SUBROUTINE COMPUTES THE NONBONDED AND ELECTROSTATIC ENERGIES.
+C
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436)
+      COMMON/NUMBER/  NUMATM,JUMVAR,NN2,NUMINT,NSS
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/EPARAM/  PNB(28,56),CHARGE(MAXATM),NBTYPE(MAXATM)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      COMMON/INTER0/  INTER(MAXATM),INTATM(3,3000)
+      DATA  HALF,ONE,TWO /0.5D0,1.D0,2.D0/
+      MA = 1
+      DO  100  L = 1, NUMINT
+        QA = CHARGE(MA)
+        NBA = NBTYPE(MA)
+        IATMI = MA + INTATM(1,L)
+        NUM4 = INTATM(2,L)
+        IATMF = IATMI + NUM4 - 1
+        IF (NUM4.EQ.0)  GOTO  20
+C
+C  1-4 INTERACTION
+C
+        DO  10  MB = IATMI, IATMF
+          RI2 = ONE / ((CO(MA,1)-CO(MB,1))**2 + (CO(MA,2)-CO(MB,2))**2
+     &                  + (CO(MA,3)-CO(MB,3))**2)
+          EES = EES + QA*CHARGE(MB)*DSQRT(RI2)
+          NBB = NBTYPE(MB)
+          K = NBB + NBB
+          RO2 = PNB(NBA,K)*RI2
+          RO4 = RO2*RO2
+          RO6 = RO2*RO4
+          U1 = PNB(NBA,K-1)*RO6
+          IF (U1.GE.0)  THEN
+            ENB = ENB + U1*(HALF*RO6 - TWO)
+          ELSE
+            ENB = ENB - U1*(RO6 - TWO*RO4)
+          ENDIF
+  10    CONTINUE
+C
+  20    KEY = INTATM(3,L)
+        IF (KEY.EQ.0)  GOTO  40
+        IATMI = IATMF + 1
+        IATMF = NUMATM
+        IF (KEY.GT.0)  IATMF = IATMI + KEY - 1
+C
+C  1-5 INTERACTION
+C
+
+COMMENT BY NOGUTI
+* TUNING FOR VP100
+        ENB1=0.
+        ENB2=0.
+* ENB IN THE FOLLOWING LOOP ARE CHANGED TO ENB1 AND ENB2
+        DO  30  MB = IATMI, IATMF
+          RI2 = ONE / ((CO(MA,1)-CO(MB,1))**2 + (CO(MA,2)-CO(MB,2))**2
+     &                     + (CO(MA,3)-CO(MB,3))**2)
+          EES = EES + QA*CHARGE(MB)*DSQRT(RI2)
+          NBB = NBTYPE(MB)
+          K = NBB + NBB
+          RO2 = PNB(NBA,K)*RI2
+          RO4 = RO2*RO2
+          RO6 = RO2*RO4
+          U1 = PNB(NBA,K-1)*RO6
+          IF (U1.GE.0)  THEN
+            ENB1 = ENB1 + U1*(RO6 - TWO)
+          ELSE
+            ENB2 = ENB2 - U1*(RO6 - TWO*RO4)
+          ENDIF
+  30    CONTINUE
+        ENB=ENB+ENB1+ENB2
+*TUNING END
+COMMENT END
+
+C
+  40    IF (NUM4.EQ.0.AND.KEY.EQ.0)  MA = MA + 1
+        IF (KEY.LT.0)  MA = MA + 1
+  100 CONTINUE
+      RETURN
+      END
+      SUBROUTINE  ECALSS (IPAIR1,IPAIR2)
+C
+C  THIS SUBROUTINE COMPUTES THE ENERGIES OF DISULFIDE BRIDGES
+C
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      COMMON/DISULF/  RSS(4),ASS(4),BSS(9)
+      DIMENSION  IPAIR1(6),IPAIR2(6),RMAG(6),RI1(6)
+      DO  10  L = 1, 6
+        JPA = IPAIR1(L)
+        JPB = IPAIR2(L)
+        RMAG(L) = (CO(JPA,1)-CO(JPB,1))**2 + (CO(JPA,2)-CO(JPB,2))**2
+     &               + (CO(JPA,3)-CO(JPB,3))**2
+        RI1(L) = DSQRT(RMAG(L))
+  10  CONTINUE
+        DO  20  L = 1, 3
+          ELOOP = ELOOP + ASS(L)*(RI1(L)-RSS(L))**2
+  20    CONTINUE
+        ECYSTR = ECYSTR + ASS(4)*(RI1(4)-RSS(4))**2
+          RETURN
+C 21    DO  22  L = 5, 6
+C         IF (RI1(L).LT.BSS(8))  THEN
+C         ECYSTR = ECYSTR + ((BSS(1)*RMAG(L) + BSS(3))*RMAG(L) + BSS(5))
+C    &           *RMAG(L) + ((BSS(2)*RMAG(L) + BSS(4))*RMAG(L) + BSS(6))
+C    &            *RI1(L) + BSS(7)
+C         ELSE
+C         ECYSTR = ECYSTR + BSS(9)*(RI1(L)-BSS(8))**2
+C         ENDIF
+C 22    CONTINUE
+C     RETURN
+      END
+      SUBROUTINE DERVTV(VAR,ETOTAL,F,G)
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160,MAXINT=2740,MAXSS=10)
+      PARAMETER  (MXPAIR=MAXVAR*(MAXVAR+1)/2,MVAR1=MAXVAR+1)
+      PARAMETER  (MAXJ=2*MAXVAR,MAXSS2=MAXSS*2)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/BOND00/  DIRCOS(MAXVAR,3),IBND1(MAXVAR),IBND2(0:MVAR1)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      COMMON/TABLE3/  NINT,IPAIR1(MAXINT),IPAIR2(MAXINT),LINT(-1:MAXVAR)
+      COMMON/TABLE4/  KMAX,LISTK(-1:MAXVAR),JANGLE(MXPAIR),
+     &                 KANGLE(MXPAIR)
+      COMMON/DCAL00/  LFIN,JFIN
+      COMMON/TORSN0/  A(MAXVAR),NB(MAXVAR),NS(MAXVAR),IFTOR(MAXVAR)
+      COMMON/SSPAIR/  KSSPER(6,2,MAXSS),JSS(3,MAXSS),KSS(MAXSS2),
+     &                LSS(MAXSS2)
+      COMMON/RAB/     R(30,MAXJ,3)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      DIMENSION  VAR(MAXVAR),F(MAXVAR),G(NN2),EF(MAXVAR,6)
+      DIMENSION  JPAIR1(20000),JPAIR2(20000),VECPRD(MAXVAR,3)
+      DIMENSION  JAA(MAXJ),JBB(MAXJ),JBF(MAXJ)
+      DIMENSION  LIST(30)
+      DATA  LIST /1,7,13,4,24,28,2,8,14,19,11,29,3,9,15,20,25,18,10,
+     &            16,21,22,23,5,17,26,27,6,12,30/
+      DATA  ZERO /0.D0/
+      CALL  CLOCK(TIME0,0,2)
+C
+C  GENERATES THE ATOMIC COORDINATES.
+C
+      CALL  REGENR (VAR)
+C
+      DO  1001  I = 1, NUMVAR
+        JBND2 = IBND2(I)
+        VECPRD(I,1) = DIRCOS(I,2)*CO(JBND2,3)-DIRCOS(I,3)*CO(JBND2,2)
+        VECPRD(I,2) = DIRCOS(I,3)*CO(JBND2,1)-DIRCOS(I,1)*CO(JBND2,3)
+        VECPRD(I,3) = DIRCOS(I,1)*CO(JBND2,2)-DIRCOS(I,2)*CO(JBND2,1)
+ 1001 CONTINUE
+C
+C  INITIALIZE THE FOLLOWING PARAMETERS.
+C
+      KADD1 = 1
+      KADD2 = 2
+      KADD3 = 3
+C
+      ETOR   = ZERO
+      ENB    = ZERO
+      EES    = ZERO
+      ELOOP  = ZERO
+      ECYSTR = ZERO
+C
+      DO  1002  J = 1, NUMVAR
+        EF(J,1) = ZERO
+        EF(J,2) = ZERO
+        EF(J,3) = ZERO
+        EF(J,4) = ZERO
+        EF(J,5) = ZERO
+        EF(J,6) = ZERO
+ 1002 CONTINUE
+C
+      DO  1003  I = 1, NN2
+ 1003 G(I) = ZERO
+C************************************************************
+C  THIS SECTION CAICULATES THE FIRST AND SECOND DERIVATIVES.
+C************************************************************
+      MSS = 1
+      DO  100  K = KMAX, 0, -1
+        JK = LISTK(K)
+        JFIN = LISTK(K-1) - LISTK(K)
+C
+        DO  1  J = JK, JK+JFIN-1
+          I = J-JK+1
+          KA = IABS(KANGLE(J))
+          JAA(I) = KA/10000
+          JBB(I) = KA - JAA(I)*10000
+          JBF(I) = JBB(I)
+          IF (KANGLE(J).LT.0)  JBF(I) = IFRONT(JBB(I))
+   1    CONTINUE
+C
+         LFIN = LINT(K-1) - LINT(K)
+C
+         DO  1000  J01 = 1, 30, 5
+         DO  1000  J02 = 1, JFIN
+           R(J01  ,J02,KADD1) = ZERO
+           R(J01+1,J02,KADD1) = ZERO
+           R(J01+2,J02,KADD1) = ZERO
+           R(J01+3,J02,KADD1) = ZERO
+ 1000      R(J01+4,J02,KADD1) = ZERO
+C
+         IF (LFIN.EQ.0)  GOTO  5
+C
+        IF (K.LE.2)  THEN
+          LI = LINT(K) - LINT(2) + 1
+          CALL  DCAL (K,IPAIR1(LI),IPAIR2(LI),R(1,1,KADD1),JANGLE(JK),
+     &                JAA,JBF,EF)
+          IF (NSS.EQ.0)  GOTO  5
+          IF (MSS.LT.0)  GOTO  5
+  20      IF (KSS(LSS(MSS)).NE.K)  GOTO  5
+            LS = (LSS(MSS)+1)/2
+            CALL  DCALSS (KSSPER(1,1,LS),KSSPER(1,2,LS),R(1,1,KADD1),
+     &                    JSS(1,LS),KANGLE(JK),EF,MOD(LSS(MSS)+1,2)+1)
+            MSS = MSS+1
+            IF (MSS.LE.2*NSS)  GOTO  20
+            MSS = -MSS
+        ELSE
+          MFLAG = -1
+          IF (NSS.EQ.0)  GOTO   40
+          IF (MSS.LT.0)  GOTO   40
+   30     IF (KSS(LSS(MSS)).NE.K)  GOTO   40
+            LS = (LSS(MSS)+1)/2
+            CALL  DCALSS (KSSPER(1,1,LS),KSSPER(1,2,LS),R(1,1,KADD1),
+     &                    JSS(1,LS),KANGLE(JK),EF,MOD(LSS(MSS)+1,2)+1)
+            MSS = MSS + 1
+            MFLAG = 1
+            IF (MSS.LE.2*NSS)  GOTO   30
+              MSS = - MSS
+   40     CALL  PAIR15 (JPAIR1,JPAIR2,JAA,JBF,JFIN,MFLAG)
+          CALL  DCAL (MFLAG,JPAIR1,JPAIR2,R(1,1,KADD1),JANGLE(JK),
+     &                JAA,JBF,EF)
+        ENDIF
+C
+   5    IF (K.EQ.KMAX)  GOTO  60
+      DO  600  J = JK, JK+JFIN-1
+        JJ = J-JK+1
+        IA = JAA(JJ)
+        IB = JBB(JJ)
+        IFLAG = NBACK(IA)-1
+        IF (KANGLE(J))  300, 600, 200
+  200     IF (NBACK(IB)-1)  210, 220, 230
+  210       IF(IFLAG)  600, 212, 212
+  212         IA1 = IBACK(IA,1)
+              MA = (IA1*(IA1-1))/2
+              J1 = MOD(JANGLE(MA+IB),10000)
+              IF(IFLAG)  600, 410, 214
+  214           IA2 = IBACK(IA,2)
+                MA = (IA2*(IA2-1))/2
+                J2 = MOD(JANGLE(MA+IB),10000)
+                  GOTO  420
+  220     IB1 = IBACK(IB,1)
+  222     MA = (IA*(IA-1))/2
+          J1 = MOD(JANGLE(MA+IB1),10000)
+          IF(IFLAG)  410, 224, 224
+  224       IA1 = IBACK(IA,1)
+            MA = (IA1*(IA1-1))/2
+            J2 = MOD(JANGLE(MA+IB),10000)
+            J5 = MOD(JANGLE(MA+IB1),10000)
+            IF(IFLAG)  600, 430, 226
+  226         IA2 = IBACK(IA,2)
+              MA = (IA2*(IA2-1))/2
+              J3 = MOD(JANGLE(MA+IB),10000)
+              J6 = MOD(JANGLE(MA+IB1),10000)
+                GOTO  440
+  230     IB1 = IBACK(IB,1)
+          IB2 = IBACK(IB,2)
+  232     MA = (IA*(IA-1))/2
+          J1 = MOD(JANGLE(MA+IB1),10000)
+          J2 = MOD(JANGLE(MA+IB2),10000)
+          IF(IFLAG)  420, 234, 234
+  234       IA1 = IBACK(IA,1)
+            MA = (IA1*(IA1-1))/2
+            J3 = MOD(JANGLE(MA+IB),10000)
+            J5 = MOD(JANGLE(MA+IB1),10000)
+            J6 = MOD(JANGLE(MA+IB2),10000)
+            IF(IFLAG)  600, 440, 236
+  236         IA2 = IBACK(IA,2)
+              MA = (IA2*(IA2-1))/2
+              J4 = MOD(JANGLE(MA+IB),10000)
+              J7 = MOD(JANGLE(MA+IB1),10000)
+              J8 = MOD(JANGLE(MA+IB2),10000)
+                GOTO  450
+  300   IFRB = IFRONT(IB)
+        IF(IFRB)  600, 310, 330
+  310     IF(NBACK(IFRB)-1)  600, 210, 320
+  320       IB1 = IBACK(IFRB,1)
+            IF(IB1.EQ.IB)  IB1 = IBACK(IFRB,2)
+            IF(IB1.LT.IA)  GOTO  222
+            MB = (IB1*(IB1-1))/2
+            J2 = MOD(JANGLE(MB+IA),10000)
+            IF(IFLAG)  460, 322, 322
+  322         IA1 = IBACK(IA,1)
+              MA = (IA1*(IA1-1))/2
+              J1 = MOD(JANGLE(MA+IB),10000)
+              J5 = MOD(JANGLE(MB+IA1),10000)
+              IF(IFLAG)  600, 480, 324
+  324           IA2 = IBACK(IA,2)
+                MA = (IA2*(IA2-1))/2
+                J3 = MOD(JANGLE(MA+IB),10000)
+                J6 = MOD(JANGLE(MB+IA2),10000)
+                  GOTO  490
+  330     IB1 = IFRB
+          IF(NBACK(IFRB)-1)  600, 222, 332
+  332       IB2 = IBACK(IFRB,1)
+            IF(IB2.EQ.IB)  IB2 = IBACK(IFRB,2)
+            IF(IB2.LT.IA)  GOTO  232
+            MA = (IA*(IA-1))/2
+            J1 = MOD(JANGLE(MA+IB1),10000)
+            MB = (IB2*(IB2-1))/2
+            J2 = MOD(JANGLE(MB+IA),10000)
+            IF(IFLAG)  470, 334, 334
+  334         IA1 = IBACK(IA,1)
+              MA = (IA1*(IA1-1))/2
+              J3 = MOD(JANGLE(MA+IB),10000)
+              J5 = MOD(JANGLE(MA+IB1),10000)
+              J6 = MOD(JANGLE(MB+IA1),10000)
+              IF(IFLAG)  600, 500, 336
+  336           IA2 = IBACK(IA,2)
+                MA = (IA2*(IA2-1))/2
+                J4 = MOD(JANGLE(MA+IB),10000)
+                J7 = MOD(JANGLE(MA+IB1),10000)
+                J8 = MOD(JANGLE(MB+IA2),10000)
+                  GOTO  510
+  410 DO  412  I = 1, 30
+  412 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2)
+        GOTO  600
+  420 DO  422  I = 1, 30
+  422 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(I,J2,KADD2)
+        GOTO  600
+  430 DO  432  I = 1, 30
+  432 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(I,J2,KADD2)
+     &              - R(I,J5,KADD3)
+        GOTO  600
+  440 DO  442  I = 1, 30
+  442 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(I,J2,KADD2)
+     &            + R(I,J3,KADD2) - R(I,J5,KADD3) - R(I,J6,KADD3)
+        GOTO  600
+  450 DO  452  I = 1, 30
+  452 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(I,J2,KADD2)
+     &            + R(I,J3,KADD2) + R(I,J4,KADD2) - R(I,J5,KADD3)
+     &            - R(I,J6,KADD3) - R(I,J7,KADD3) - R(I,J8,KADD3)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  460 DO  462  I = 1, 30
+  462 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(LIST(I),J2,KADD2)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  470 DO  472  I = 1, 30
+  472 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(LIST(I),J2,KADD2)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  480 DO  482  I = 1, 30
+  482 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(LIST(I),J2,KADD2)
+     &            - R(LIST(I),J5,KADD3)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  490 DO  492  I = 1, 30
+  492 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(LIST(I),J2,KADD2)
+     &     + R(I,J3,KADD2) - R(LIST(I),J5,KADD3) - R(LIST(I),J6,KADD3)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  500 DO  502  I = 1, 30
+  502 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(LIST(I),J2,KADD2)
+     &            + R(I,J3,KADD2) - R(I,J5,KADD3) - R(LIST(I),J6,KADD3)
+        GOTO  600
+*VOPTION VEC
+*VOCL LOOP,NOVREC(R)
+  510 DO  512  I = 1, 30
+  512 R(I,JJ,KADD1)=R(I,JJ,KADD1) + R(I,J1,KADD2) + R(LIST(I),J2,KADD2)
+     &              + R(I,J3,KADD2) + R(I,J4,KADD2) - R(I,J5,KADD3)
+     &      - R(LIST(I),J6,KADD3) - R(I,J7,KADD3) - R(LIST(I),J8,KADD3)
+  600 CONTINUE
+C
+*VOPTION VEC,NOFVAL
+*VOCL LOOP,TEMP(I,IA,IB,G0,NADD)
+  60  DO  70  J = JK, JK+JFIN-1
+      I = J - JK + 1
+        IA = JAA(I)
+        IB = JBB(I)
+      G0 =     DIRCOS(IA,1)*(R(1,I,KADD1)*DIRCOS(IB,1)+R(7,I,KADD1)*
+     &DIRCOS(IB,2)+R(13,I,KADD1)*DIRCOS(IB,3)+R(4,I,KADD1)*VECPRD(IB,1)
+     &+R(24,I,KADD1)*VECPRD(IB,2)+R(28,I,KADD1)*VECPRD(IB,3))
+      G0 = G0 + DIRCOS(IA,2)*(R(2,I,KADD1)*DIRCOS(IB,1)+R(8,I,KADD1)*
+     &DIRCOS(IB,2)+R(14,I,KADD1)*DIRCOS(IB,3)+R(19,I,KADD1)*VECPRD(IB,1)
+     &+R(11,I,KADD1)*VECPRD(IB,2)+R(29,I,KADD1)*VECPRD(IB,3))
+      G0 = G0 + DIRCOS(IA,3)*(R(3,I,KADD1)*DIRCOS(IB,1)+R(9,I,KADD1)*
+     &DIRCOS(IB,2)+R(15,I,KADD1)*DIRCOS(IB,3)+R(20,I,KADD1)*VECPRD(IB,1)
+     &+R(25,I,KADD1)*VECPRD(IB,2)+R(18,I,KADD1)*VECPRD(IB,3))
+      G0 = G0 + VECPRD(IA,1)*(R(4,I,KADD1)*DIRCOS(IB,1)+R(10,I,KADD1)*
+     &DIRCOS(IB,2)+R(16,I,KADD1)*DIRCOS(IB,3)+R(21,I,KADD1)*VECPRD(IB,1)
+     &+R(22,I,KADD1)*VECPRD(IB,2)+R(23,I,KADD1)*VECPRD(IB,3))
+      G0 = G0 + VECPRD(IA,2)*(R(5,I,KADD1)*DIRCOS(IB,1)+R(11,I,KADD1)*
+     &DIRCOS(IB,2)+R(17,I,KADD1)*DIRCOS(IB,3)+R(22,I,KADD1)*VECPRD(IB,1)
+     &+R(26,I,KADD1)*VECPRD(IB,2)+R(27,I,KADD1)*VECPRD(IB,3))
+      G0 = G0 + VECPRD(IA,3)*(R(6,I,KADD1)*DIRCOS(IB,1)+R(12,I,KADD1)*
+     &DIRCOS(IB,2)+R(18,I,KADD1)*DIRCOS(IB,3)+R(23,I,KADD1)*VECPRD(IB,1)
+     &+R(27,I,KADD1)*VECPRD(IB,2)+R(30,I,KADD1)*VECPRD(IB,3))
+      NADD = IA*(IA-1)/2 + IB
+      IF (KANGLE(J).GT.0)  THEN
+        G(NADD) = -G0
+      ELSE
+        G(NADD) = G0
+      ENDIF
+  70  CONTINUE
+C
+      KA1 = KADD1
+      KADD1 = KADD3
+      KADD3 = KADD2
+      KADD2 = KA1
+  100 CONTINUE
+C
+C***********************************************************
+C
+      DO  130  I = NUMVAR-1, 1, -1
+        IF (NBACK(I)-1)  130, 110, 120
+*VOPTION VEC
+*VOCL LOOP,NOVREC(EF)
+  110     DO  112  J = 1, 6
+  112     EF(I,J) = EF(I,J) + EF(IBACK(I,1),J)
+            GOTO  130
+*VOPTION VEC
+*VOCL LOOP,NOVREC(EF)
+  120     DO  122  J = 1, 6
+  122     EF(I,J) = EF(I,J) + EF(IBACK(I,1),J) + EF(IBACK(I,2),J)
+  130 CONTINUE
+C
+*VOPTION VEC
+*VOCL LOOP,NOVREC(G)
+      DO  140  I = 1, NUMVAR
+      F(I)=-DIRCOS(I,1)*EF(I,1)-DIRCOS(I,2)*EF(I,2)-DIRCOS(I,3)*EF(I,3)
+     &     -VECPRD(I,1)*EF(I,4)-VECPRD(I,2)*EF(I,5)-VECPRD(I,3)*EF(I,6)
+        IF (IFTOR(I).EQ.1)  THEN
+          COSV = A(I)*NS(I)*DCOS(NB(I)*VAR(I))
+          ETOR = ETOR + A(I) + COSV
+          F(I) = F(I) - A(I)*NS(I)*NB(I)*DSIN(NB(I)*VAR(I))
+          NADD = I*(I+1)/2
+          G(NADD) = G(NADD) - NB(I)*NB(I)*COSV
+        ENDIF
+  140 CONTINUE
+C
+      ETOTAL = ETOR + EES + ENB + ELOOP + ECYSTR
+C
+ 2000 FORMAT(' DERVTV:'/' ',10X,'ETOR',10X,'EES',10X,'ENB',9X,
+     &       'ELOOP',7X,'ECYSTR'/' ',5X,1P5D13.5/)
+      RETURN
+      END
+      SUBROUTINE  DCAL (KFLAG,IPAIR1,IPAIR2,EL,NOPAIR,JAA,JBF,EF)
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160)
+C     PARAMETER  (MAXPER=20*MAXVAR)
+      PARAMETER  (MAXPER=200*MAXVAR)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/EPARAM/  PNB(1568),CHARGE(MAXATM),NBTYPE(MAXATM)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      COMMON/DCAL00/  LFIN,JFIN
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      DIMENSION  EL(30,JFIN),NOPAIR(JFIN),JAA(JFIN),JBF(JFIN)
+      DIMENSION  EF(MAXVAR,6)
+      DIMENSION  IPAIR1(LFIN),IPAIR2(LFIN),CAB(MAXPER),DAB(MAXPER)
+      DIMENSION  IPA(MAXPER),IPB(MAXPER)
+      DIMENSION  XA(MAXPER)  ,YA(MAXPER)  ,ZA(MAXPER)
+      DIMENSION  XB(MAXPER)  ,YB(MAXPER)  ,ZB(MAXPER)
+      DIMENSION  XAB(MAXPER) ,YAB(MAXPER) ,ZAB(MAXPER)
+      DIMENSION  XAXB(MAXPER),YAXB(MAXPER),ZAXB(MAXPER)
+      DIMENSION  RI2(MAXPER)
+      DATA  HALF,ONE,TWO /0.5D0,1.D0,2.D0/
+      DO  10  L = 1, LFIN
+        JPA = IABS(IPAIR1(L))
+        JPB = IPAIR2(L)
+        XA(L) = CO(JPA,1)
+        YA(L) = CO(JPA,2)
+        ZA(L) = CO(JPA,3)
+        XB(L) = CO(JPB,1)
+        YB(L) = CO(JPB,2)
+        ZB(L) = CO(JPB,3)
+        CAB(L) = CHARGE(JPA)*CHARGE(JPB)
+        IPB(L) = (NBTYPE(JPB)-1)*56 + NBTYPE(JPA)
+  10  CONTINUE
+      DO  11  L = 1, LFIN
+        XAB(L) = XA(L)-XB(L)
+        YAB(L) = YA(L)-YB(L)
+        ZAB(L) = ZA(L)-ZB(L)
+        XAXB(L) = YA(L)*ZB(L) - ZA(L)*YB(L)
+        YAXB(L) = ZA(L)*XB(L) - XA(L)*ZB(L)
+        ZAXB(L) = XA(L)*YB(L) - YA(L)*XB(L)
+        RI2(L) = ONE / (XAB(L)*XAB(L)+YAB(L)*YAB(L)+ZAB(L)*ZAB(L))
+        Q = CAB(L)*DSQRT(RI2(L))
+        EES = EES + Q
+        CAB(L) = - Q*RI2(L)
+        DAB(L) = 3*(Q*RI2(L)*RI2(L))
+        IPA(L) = IPB(L)+28
+  11  CONTINUE
+
+COMMENT BY NOGUTI
+* TUNING FOR VP100
+        ENB1=0.
+        ENB2=0.
+        ENB3=0.
+* ENB IN THE FOLLOWING LOOP ARE CHANGE TO ENB1 ENB2 AND ENB3
+      IF (KFLAG.GE.0)  THEN
+        DO  20  L = 1, LFIN
+          RO2 = PNB(IPA(L))*RI2(L)
+          RO4 = RO2*RO2
+          RO6 = RO2*RO4
+          U1 = PNB(IPB(L))*RO6
+          U2 = U1*RI2(L)
+          IF (U1.GE.0)  THEN
+            IF (IPAIR1(L).LT.0)  THEN
+              ENB1 = ENB1 + U1*(HALF*RO6 - TWO)
+              CAB(L) = CAB(L) - U2*(6*RO6 - 12.D0)
+              DAB(L) = DAB(L) + U2*RI2(L)*(84.D0*RO6 - 96.D0)
+            ELSE
+              ENB2 = ENB2 + U1*(RO6-TWO)
+              CAB(L) = CAB(L) - U2*(12.D0*RO6 - 12.D0)
+              DAB(L) = DAB(L) + U2*RI2(L)*(168.D0*RO6 - 96.D0)
+            ENDIF
+          ELSE
+            ENB3 = ENB3 - U1*(RO6 - TWO*RO4)
+            CAB(L) = CAB(L) + U2*(12.D0*RO6 - 20.D0*RO4)
+            DAB(L) = DAB(L) - U2*RI2(L)*(168.D0*RO6 - 240.D0*RO4)
+          ENDIF
+  20    CONTINUE
+      ELSE
+        DO  22  L = 1, LFIN
+          RO2 = PNB(IPA(L))*RI2(L)
+          RO4 = RO2*RO2
+          RO6 = RO2*RO4
+          U1 = PNB(IPB(L))*RO6
+          U2 = U1*RI2(L)
+          IF (U1.GE.0)  THEN
+            ENB2 = ENB2 + U1*(RO6-TWO)
+            CAB(L) = CAB(L) - U2*(12.D0*RO6 - 12.D0)
+            DAB(L) = DAB(L) + U2*RI2(L)*(168.D0*RO6 - 96.D0)
+          ELSE
+            ENB3 = ENB3 - U1*(RO6 - TWO*RO4)
+            CAB(L) = CAB(L) + U2*(12.D0*RO6 - 20.D0*RO4)
+            DAB(L) = DAB(L) - U2*RI2(L)*(168.D0*RO6 - 240.D0*RO4)
+          ENDIF
+  22    CONTINUE
+      ENDIF
+      ENB=ENB+ENB1+ENB2+ENB3
+C
+      LMAX = NOPAIR(JFIN)/10000
+      IPB(JFIN) = LMAX
+      IPA(1) = 0
+      IF (JFIN.GT.1)  THEN
+        DO  30  J = 1, JFIN-1
+        IPB(J) = NOPAIR(J)/10000
+        IPA(J+1) = IPA(J) + IPB(J)
+  30    LMAX = MAX(LMAX,IPB(J))
+      ENDIF
+        LMIN = MIN(LMAX,6)
+C
+      DO  50  I = 1, LMIN
+      I10000=10000*I
+
+COMMENT BY NOGUTI: THIS LOOP IS BLOCKED BY 500.
+*   TO AVOID ABNOMAL PROCESSING CAUSED BY SOME BUG IN S810 COMPILER
+      DO 422 JJ=1,JFIN,500
+      JS=JJ
+      JE=JJ+499
+      IF(JE.GT.JFIN) JE=JFIN
+COMMENT END
+*VOPTION NOFVAL
+*VOCL LOOP,TEMP(L,TX,TY,TZ)
+      DO  42  J =JS,JE
+      IF (NOPAIR(J).LT.I10000)  GOTO  42
+      L = IPA(J) + I
+      TX = DAB(L)*XAXB(L)
+       EL(1,J) = EL(1,J) + CAB(L)*(YA(L)*YB(L)+ZA(L)*ZB(L))
+     &                                          +TX*XAXB(L)
+       EL(2,J) = EL(2,J) + CAB(L)*(-XA(L)*YB(L))+TX*YAXB(L)
+       EL(3,J) = EL(3,J) + CAB(L)*(-XA(L)*ZB(L))+TX*ZAXB(L)
+       EL(4,J) = EL(4,J)                        +TX*XAB(L)
+       EL(5,J) = EL(5,J) + CAB(L)*ZB(L)         +TX*YAB(L)
+       EL(6,J) = EL(6,J) + CAB(L)*(-YB(L))      +TX*ZAB(L)
+      TY = DAB(L)*YAXB(L)
+       EL(7,J) = EL(7,J) + CAB(L)*(-YA(L)*XB(L))+TY*XAXB(L)
+       EL(8,J) = EL(8,J) + CAB(L)*(XA(L)*XB(L)+ZA(L)*ZB(L))
+     &                                          +TY*YAXB(L)
+       EL(9,J) = EL(9,J) + CAB(L)*(-YA(L)*ZB(L))+TY*ZAXB(L)
+       EL(10,J)= EL(10,J)+ CAB(L)*(-ZB(L))      +TY*XAB(L)
+       EL(11,J)= EL(11,J)                       +TY*YAB(L)
+       EL(12,J)= EL(12,J)+ CAB(L)*XB(L)         +TY*ZAB(L)
+      TZ = DAB(L)*ZAXB(L)
+       EL(13,J)= EL(13,J)+ CAB(L)*(-ZA(L)*XB(L))+TZ*XAXB(L)
+       EL(14,J)= EL(14,J)+ CAB(L)*(-ZA(L)*YB(L))+TZ*YAXB(L)
+       EL(15,J)= EL(15,J)+ CAB(L)*(XA(L)*XB(L)+YA(L)*YB(L))
+     &                                          +TZ*ZAXB(L)
+       EL(16,J)= EL(16,J)+ CAB(L)*YB(L)         +TZ*XAB(L)
+       EL(17,J)= EL(17,J)+ CAB(L)*(-XB(L))      +TZ*YAB(L)
+       EL(18,J)= EL(18,J)                       +TZ*ZAB(L)
+  42  CONTINUE
+ 422  CONTINUE
+*VOPTION NOFVAL
+*VOCL LOOP,TEMP(L,TX,TY,TZ)
+      DO  43  J = 1, JFIN
+      IF (NOPAIR(J).LT.I10000)  GOTO  43
+      L = IPA(J) + I
+      TX = DAB(L)*XAB(L)
+       EL(19,J)= EL(19,J)+ CAB(L)*(-ZA(L))      +TX*YAXB(L)
+       EL(20,J)= EL(20,J)+ CAB(L)*YA(L)         +TX*ZAXB(L)
+       EL(21,J)= EL(21,J)+ CAB(L)               +TX*XAB(L)
+       EL(22,J)= EL(22,J)                       +TX*YAB(L)
+       EL(23,J)= EL(23,J)                       +TX*ZAB(L)
+      TY = DAB(L)*YAB(L)
+       EL(24,J)= EL(24,J)+ CAB(L)*ZA(L)         +TY*XAXB(L)
+       EL(25,J)= EL(25,J)+ CAB(L)*(-XA(L))      +TY*ZAXB(L)
+       EL(26,J)= EL(26,J)+ CAB(L)               +TY*YAB(L)
+       EL(27,J)= EL(27,J)                       +TY*ZAB(L)
+      TZ = DAB(L)*ZAB(L)
+       EL(28,J)= EL(28,J)+ CAB(L)*(-YA(L))      +TZ*XAXB(L)
+       EL(29,J)= EL(29,J)+ CAB(L)*XA(L)         +TZ*YAXB(L)
+       EL(30,J)= EL(30,J)+ CAB(L)               +TZ*ZAB(L)
+  43  CONTINUE
+ 50   CONTINUE
+C
+      IF (LMAX.EQ.LMIN)  GOTO  80
+      IFIN=0
+      DO  70  J = 1, JFIN
+      ISTRT = IFIN + 7
+      IFIN = IFIN + IPB(J)
+      IF(ISTRT.GT.IFIN)  GOTO  70
+*VOPTION NOFVAL
+*VOCL LOOP,TEMP(TX,TY,TZ)
+      DO  60  L = ISTRT, IFIN
+      TX = DAB(L)*XAXB(L)
+       EL(1,J) = EL(1,J) + CAB(L)*(YA(L)*YB(L)+ZA(L)*ZB(L))
+     &                                          +TX*XAXB(L)
+       EL(2,J) = EL(2,J) + CAB(L)*(-XA(L)*YB(L))+TX*YAXB(L)
+       EL(3,J) = EL(3,J) + CAB(L)*(-XA(L)*ZB(L))+TX*ZAXB(L)
+       EL(4,J) = EL(4,J)                        +TX*XAB(L)
+       EL(5,J) = EL(5,J) + CAB(L)*ZB(L)         +TX*YAB(L)
+       EL(6,J) = EL(6,J) + CAB(L)*(-YB(L))      +TX*ZAB(L)
+      TY = DAB(L)*YAXB(L)
+       EL(7,J) = EL(7,J) + CAB(L)*(-YA(L)*XB(L))+TY*XAXB(L)
+       EL(8,J) = EL(8,J) + CAB(L)*(XA(L)*XB(L)+ZA(L)*ZB(L))
+     &                                          +TY*YAXB(L)
+       EL(9,J) = EL(9,J) + CAB(L)*(-YA(L)*ZB(L))+TY*ZAXB(L)
+       EL(10,J)= EL(10,J)+ CAB(L)*(-ZB(L))      +TY*XAB(L)
+       EL(11,J)= EL(11,J)                       +TY*YAB(L)
+       EL(12,J)= EL(12,J)+ CAB(L)*XB(L)         +TY*ZAB(L)
+      TZ = DAB(L)*ZAXB(L)
+       EL(13,J)= EL(13,J)+ CAB(L)*(-ZA(L)*XB(L))+TZ*XAXB(L)
+       EL(14,J)= EL(14,J)+ CAB(L)*(-ZA(L)*YB(L))+TZ*YAXB(L)
+       EL(15,J)= EL(15,J)+ CAB(L)*(XA(L)*XB(L)+YA(L)*YB(L))
+     &                                          +TZ*ZAXB(L)
+       EL(16,J)= EL(16,J)+ CAB(L)*YB(L)         +TZ*XAB(L)
+       EL(17,J)= EL(17,J)+ CAB(L)*(-XB(L))      +TZ*YAB(L)
+       EL(18,J)= EL(18,J)                       +TZ*ZAB(L)
+      TX = DAB(L)*XAB(L)
+       EL(19,J)= EL(19,J)+ CAB(L)*(-ZA(L))      +TX*YAXB(L)
+       EL(20,J)= EL(20,J)+ CAB(L)*YA(L)         +TX*ZAXB(L)
+       EL(21,J)= EL(21,J)+ CAB(L)               +TX*XAB(L)
+       EL(22,J)= EL(22,J)                       +TX*YAB(L)
+       EL(23,J)= EL(23,J)                       +TX*ZAB(L)
+      TY = DAB(L)*YAB(L)
+       EL(24,J)= EL(24,J)+ CAB(L)*ZA(L)         +TY*XAXB(L)
+       EL(25,J)= EL(25,J)+ CAB(L)*(-XA(L))      +TY*ZAXB(L)
+       EL(26,J)= EL(26,J)+ CAB(L)               +TY*YAB(L)
+       EL(27,J)= EL(27,J)                       +TY*ZAB(L)
+      TZ = DAB(L)*ZAB(L)
+       EL(28,J)= EL(28,J)+ CAB(L)*(-YA(L))      +TZ*XAXB(L)
+       EL(29,J)= EL(29,J)+ CAB(L)*XA(L)         +TZ*YAXB(L)
+       EL(30,J)= EL(30,J)+ CAB(L)               +TZ*ZAB(L)
+  60  CONTINUE
+  70  CONTINUE
+  80  IFIN=0
+      DO  90  J = 1, JFIN
+      IF (IPB(J).LE.0)  GOTO  90
+      ISTRT = IFIN + 1
+      IFIN = IFIN + IPB(J)
+      IA = JAA(J)
+      DO  84  L = ISTRT, IFIN
+      EF(IA,1) = EF(IA,1) + CAB(L)*XAXB(L)
+      EF(IA,2) = EF(IA,2) + CAB(L)*YAXB(L)
+      EF(IA,3) = EF(IA,3) + CAB(L)*ZAXB(L)
+      EF(IA,4) = EF(IA,4) + CAB(L)*XAB(L)
+      EF(IA,5) = EF(IA,5) + CAB(L)*YAB(L)
+      EF(IA,6) = EF(IA,6) + CAB(L)*ZAB(L)
+  84  CONTINUE
+      IB = JBF(J)
+      IF (IB.EQ.0)  GOTO  90
+      DO  86  L = ISTRT, IFIN
+      EF(IB,1) = EF(IB,1) - CAB(L)*XAXB(L)
+      EF(IB,2) = EF(IB,2) - CAB(L)*YAXB(L)
+      EF(IB,3) = EF(IB,3) - CAB(L)*ZAXB(L)
+      EF(IB,4) = EF(IB,4) - CAB(L)*XAB(L)
+      EF(IB,5) = EF(IB,5) - CAB(L)*YAB(L)
+      EF(IB,6) = EF(IB,6) - CAB(L)*ZAB(L)
+  86  CONTINUE
+  90  CONTINUE
+      RETURN
+      END
+      SUBROUTINE  DCALSS (IPAIR1,IPAIR2,EL,JJ,KANGLE,EF,IFLAG)
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160)
+      COMMON/COORD/   CO(MAXATM,3)
+      COMMON/ENE000/  ETOR,EES,ENB,ELOOP,ECYSTR
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      COMMON/DCAL00/  LDUMMY,JFIN
+      COMMON/DISULF/  RSS(4),ASS(4),BSS(9)
+      DIMENSION  EF(MAXVAR,6),EL(30,JFIN),KANGLE(JFIN)
+      DIMENSION  IPAIR1(6),IPAIR2(6),CAB(6),DAB(6)
+      DIMENSION  XA(6),YA(6),ZA(6),XB(6),YB(6),ZB(6)
+      DIMENSION  XAB(6) ,YAB(6) ,ZAB(6)
+      DIMENSION  XAXB(6),YAXB(6),ZAXB(6)
+      DIMENSION  RMAG(6),RI1(6),RI2(6)
+      DIMENSION  KSTRT(2),KFIN(2),LSTRT(2),LFIN(2),MSTRT(3),MFIN(3)
+      DIMENSION  JJ(3)
+      DATA  KSTRT /1,2/, LSTRT/1,5/, MSTRT/1,5,6/
+      DATA  KFIN  /1,3/, LFIN /4,6/, MFIN /4,5,6/
+      DATA  ONE,TWO /1.D0,2.D0/
+       IF (IFLAG.EQ.2)  RETURN
+      DO  10  L = LSTRT(IFLAG), LFIN(IFLAG)
+        JPA = IPAIR1(L)
+        JPB = IPAIR2(L)
+        XA(L) = CO(JPA,1)
+        YA(L) = CO(JPA,2)
+        ZA(L) = CO(JPA,3)
+        XB(L) = CO(JPB,1)
+        YB(L) = CO(JPB,2)
+        ZB(L) = CO(JPB,3)
+        XAB(L) = XA(L)-XB(L)
+        YAB(L) = YA(L)-YB(L)
+        ZAB(L) = ZA(L)-ZB(L)
+        XAXB(L) = YA(L)*ZB(L) - ZA(L)*YB(L)
+        YAXB(L) = ZA(L)*XB(L) - XA(L)*ZB(L)
+        ZAXB(L) = XA(L)*YB(L) - YA(L)*XB(L)
+        RMAG(L) = XAB(L)*XAB(L) + YAB(L)*YAB(L) + ZAB(L)*ZAB(L)
+        RI2(L) = ONE / RMAG(L)
+        RI1(L) = DSQRT(RMAG(L))
+  10  CONTINUE
+C     IF (IFLAG.EQ.1)  THEN
+        DO  20  L = 1, 4
+          IF(L.LE.3) ELOOP = ELOOP + ASS(L)*(RI1(L)-RSS(L))**2
+          RI = RSS(L)/RI1(L)
+          CAB(L) = TWO*ASS(L)*(ONE-RI)
+          DAB(L) = TWO*ASS(L)*RI*RI2(L)
+  20    CONTINUE
+        ECYSTR = ECYSTR + ASS(4)*(RI1(4)-RSS(4))**2
+      DO  40  K = KSTRT(IFLAG), KFIN(IFLAG)
+        J = JJ(K)
+        KA = IABS(KANGLE(J))
+        IA = KA/10000
+      DO  30  L = MSTRT(K), MFIN(K)
+      EF(IA,1) = EF(IA,1) + CAB(L)*XAXB(L)
+      EF(IA,2) = EF(IA,2) + CAB(L)*YAXB(L)
+      EF(IA,3) = EF(IA,3) + CAB(L)*ZAXB(L)
+      EF(IA,4) = EF(IA,4) + CAB(L)*XAB(L)
+      EF(IA,5) = EF(IA,5) + CAB(L)*YAB(L)
+      EF(IA,6) = EF(IA,6) + CAB(L)*ZAB(L)
+      TX = DAB(L)*XAXB(L)
+       EL(1,J) = EL(1,J) + CAB(L)*(YA(L)*YB(L)+ZA(L)*ZB(L))
+     &                                          +TX*XAXB(L)
+       EL(2,J) = EL(2,J) + CAB(L)*(-XA(L)*YB(L))+TX*YAXB(L)
+       EL(3,J) = EL(3,J) + CAB(L)*(-XA(L)*ZB(L))+TX*ZAXB(L)
+       EL(4,J) = EL(4,J)                        +TX*XAB(L)
+       EL(5,J) = EL(5,J) + CAB(L)*ZB(L)         +TX*YAB(L)
+       EL(6,J) = EL(6,J) + CAB(L)*(-YB(L))      +TX*ZAB(L)
+      TY = DAB(L)*YAXB(L)
+       EL(7,J) = EL(7,J) + CAB(L)*(-YA(L)*XB(L))+TY*XAXB(L)
+       EL(8,J) = EL(8,J) + CAB(L)*(XA(L)*XB(L)+ZA(L)*ZB(L))
+     &                                          +TY*YAXB(L)
+       EL(9,J) = EL(9,J) + CAB(L)*(-YA(L)*ZB(L))+TY*ZAXB(L)
+       EL(10,J)= EL(10,J)+ CAB(L)*(-ZB(L))      +TY*XAB(L)
+       EL(11,J)= EL(11,J)                       +TY*YAB(L)
+       EL(12,J)= EL(12,J)+ CAB(L)*XB(L)         +TY*ZAB(L)
+      TZ = DAB(L)*ZAXB(L)
+       EL(13,J)= EL(13,J)+ CAB(L)*(-ZA(L)*XB(L))+TZ*XAXB(L)
+       EL(14,J)= EL(14,J)+ CAB(L)*(-ZA(L)*YB(L))+TZ*YAXB(L)
+       EL(15,J)= EL(15,J)+ CAB(L)*(XA(L)*XB(L)+YA(L)*YB(L))
+     &                                          +TZ*ZAXB(L)
+       EL(16,J)= EL(16,J)+ CAB(L)*YB(L)         +TZ*XAB(L)
+       EL(17,J)= EL(17,J)+ CAB(L)*(-XB(L))      +TZ*YAB(L)
+       EL(18,J)= EL(18,J)                       +TZ*ZAB(L)
+      TX = DAB(L)*XAB(L)
+       EL(19,J)= EL(19,J)+ CAB(L)*(-ZA(L))      +TX*YAXB(L)
+       EL(20,J)= EL(20,J)+ CAB(L)*YA(L)         +TX*ZAXB(L)
+       EL(21,J)= EL(21,J)+ CAB(L)               +TX*XAB(L)
+       EL(22,J)= EL(22,J)                       +TX*YAB(L)
+       EL(23,J)= EL(23,J)                       +TX*ZAB(L)
+      TY = DAB(L)*YAB(L)
+       EL(24,J)= EL(24,J)+ CAB(L)*ZA(L)         +TY*XAXB(L)
+       EL(25,J)= EL(25,J)+ CAB(L)*(-XA(L))      +TY*ZAXB(L)
+       EL(26,J)= EL(26,J)+ CAB(L)               +TY*YAB(L)
+       EL(27,J)= EL(27,J)                       +TY*ZAB(L)
+      TZ = DAB(L)*ZAB(L)
+       EL(28,J)= EL(28,J)+ CAB(L)*(-YA(L))      +TZ*XAXB(L)
+       EL(29,J)= EL(29,J)+ CAB(L)*XA(L)         +TZ*YAXB(L)
+       EL(30,J)= EL(30,J)+ CAB(L)               +TZ*ZAB(L)
+  30  CONTINUE
+        IB = MOD(KA,10000)
+        IF (KANGLE(J).LT.0)  IB = IFRONT(IB)
+      IF (IB.EQ.0)  GOTO  40
+      DO  34  L = MSTRT(K), MFIN(K)
+      EF(IB,1) = EF(IB,1) - CAB(L)*XAXB(L)
+      EF(IB,2) = EF(IB,2) - CAB(L)*YAXB(L)
+      EF(IB,3) = EF(IB,3) - CAB(L)*ZAXB(L)
+      EF(IB,4) = EF(IB,4) - CAB(L)*XAB(L)
+      EF(IB,5) = EF(IB,5) - CAB(L)*YAB(L)
+      EF(IB,6) = EF(IB,6) - CAB(L)*ZAB(L)
+  34  CONTINUE
+  40  CONTINUE
+      RETURN
+      END
+      SUBROUTINE  PAIR14
+C
+C  THIS SUBROUTINE MAKES THE LISTS OF INTERACTABLE ATOM PAIRS IPAIR1
+C  AND IPAIR2.  IN THIS SUBROUTINE ALL THE ATOM PAIRS ARE TREATED, BUT
+C  ONLY THE ATOM PAIRS THAT BELONG TO THE UNIT PAIRS OF DISTACES K=0,
+C  1 AND 2 ARE STORED IN THESE LISTS, WHERE THE DISTANCE BETWEEN TWO
+C  UNITS IS DEFINED AS THE DISTANCE BETWEEN TWO BONDS IN-SIDE OF THESE
+C  UNITS.
+C  THIS SUBROUTINE IS CALLED ONLY ONCE.
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160,MAXINT=2740)
+      PARAMETER  (MXATM1=MAXATM+1,MVAR1=MAXVAR+1)
+      PARAMETER  (MXPAIR=MAXVAR*(MAXVAR+1)/2)
+      COMMON/ATOM00/  KUNIT(MAXATM),KATOM(MXATM1),JATOM(MAXATM)
+      COMMON/BOND00/  DIRCOS(MAXVAR,3),IBND1(MAXVAR),IBND2(0:MVAR1)
+      COMMON/TABLE1/  IFRONT(MAXVAR),NBACK(0:MAXVAR),IBACK(0:MAXVAR,2)
+      COMMON/TABLE3/  NINT,IPAIR1(MAXINT),IPAIR2(MAXINT),LINT(-1:MAXVAR)
+      COMMON/TABLE4/  KMAX,LISTK(-1:MAXVAR),JANGLE(MXPAIR),
+     &                 KANGLE(MXPAIR)
+      NINT = 0
+      DO  30  KAB = KMAX, 0, -1
+        LINI = LISTK(KAB)
+        LFIN = LISTK(KAB-1) - 1
+        LINT0 = 0
+        MFLAG = -1
+        IF (KAB.LE.2)  MFLAG = 1
+        DO  20  LKJ = LINI, LFIN
+          KA = IABS(KANGLE(LKJ))
+          IA = KA/10000
+          IB = KA - 10000*IA
+          IF (KANGLE(LKJ).LT.0)  IB = IFRONT(IB)
+          JA1 = KATOM(IBND2(IA))
+          JA2 = KATOM(IBND2(IA+1)) - 1
+          JB1 = KATOM(IBND2(IB))
+          JB2 = KATOM(IBND2(IB+1)) - 1
+          NOPAIR = 0
+          DO  10  JA = JA1, JA2
+          DO  10  JB = JB1, JB2
+            JJA = JATOM(JA)
+            JJB = JATOM(JB)
+            NINT1 = NINT + 1
+  10        CALL  TYPCHK (JJA,JJB,NINT,NINT1,IPAIR1,IPAIR2,NOPAIR,
+     &                    LINT0,MFLAG)
+          JANGLE(LKJ) = JANGLE(LKJ) + NOPAIR
+  20    CONTINUE
+        LINT(KAB) = LINT0
+  30  CONTINUE
+C
+      LM1 = 0
+      DO  40  K = 0, KMAX
+  40  LM1 = LM1 + LINT(K)
+      LINT(-1) = LM1 + 1
+      DO  50  K = 0, KMAX
+  50  LINT(K) = LINT(K-1) - LINT(K)
+      RETURN
+      END
+      SUBROUTINE  PAIR15 (JPAIR1,JPAIR2,JAA,JBF,JFIN,MFLAG)
+C
+C  THIS SUBROUTINE MAKES THE LISTS OF INTERACTABLE ATOM PAIRS JPAIR1
+C  AND JPAIR2.  IN THIS SUBROUTINE ONLY THE ATOM PAIRS THAT BELONGS TO
+C  THE UNIT PAIRS OF A GIVEN DISTANCE K (K>2) ARE LISTED UP.
+C  THIS SUBROUTINE IS CALLED KMAX TIMES EVERY TIME THE SUBROUTINE
+C  DERVTV IS CALLED IN ORDER TO SAVE THE MEMORY SPACE FOR JPAIR1 AND
+C  JPAIR2.
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER  (MAXATM=436,MAXVAR=160)
+      PARAMETER  (MXATM1=MAXATM+1,MVAR1=MAXVAR+1)
+      COMMON/ATOM00/  KUNIT(MAXATM),KATOM(MXATM1),JATOM(MAXATM)
+      COMMON/BOND00/  DIRCOS(MAXVAR,3),IBND1(MAXVAR),IBND2(0:MVAR1)
+      DIMENSION  JPAIR1(20000),JPAIR2(20000),JAA(JFIN),JBF(JFIN)
+      LFIN = 0
+      IF (MFLAG.GT.0)  GOTO  50
+C
+C  MFLAG.LT.0   INDICATES THAT ALL THE INTERACTIONS OF ATOM PAIRS
+C  CONSIDERED NOW ARE OF 1-5 TYPE.
+C
+      DO  20  LKJ = 1, JFIN
+        IA = JAA(LKJ)
+        IB = JBF(LKJ)
+        JA1 = KATOM(IBND2(IA))
+        JA2 = KATOM(IBND2(IA+1)) - 1
+        JB1 = KATOM(IBND2(IB))
+        JB2 = KATOM(IBND2(IB+1)) - 1
+        IF (JB2-JB1-3)  1, 5, 6
+   1    IF (JB2-JB1-1)  2, 3, 4
+C  JB2-JB1=0
+   2    JATJB1 = JATOM(JB1)
+        DO  12  JA = JA1, JA2
+          LFIN = LFIN + 1
+          JPAIR1(LFIN) = JATOM(JA)
+  12      JPAIR2(LFIN) = JATJB1
+            GOTO  20
+C  JB2-JB1=1
+   3    JATJB1 = JATOM(JB1)
+        JATJB2 = JATOM(JB2)
+        DO  13  JA = JA1, JA2
+          JPAIR1(LFIN+1) = JATOM(JA)
+          JPAIR1(LFIN+2) = JATOM(JA)
+          JPAIR2(LFIN+1) = JATJB1
+          JPAIR2(LFIN+2) = JATJB2
+  13      LFIN = LFIN + 2
+            GOTO  20
+C  JB2-JB1=2
+   4    JATJB1 = JATOM(JB1)
+        JATJB2 = JATOM(JB1+1)
+        JATJB3 = JATOM(JB2)
+        DO  14  JA = JA1, JA2
+          JPAIR1(LFIN+1) = JATOM(JA)
+          JPAIR1(LFIN+2) = JATOM(JA)
+          JPAIR1(LFIN+3) = JATOM(JA)
+          JPAIR2(LFIN+1) = JATJB1
+          JPAIR2(LFIN+2) = JATJB2
+          JPAIR2(LFIN+3) = JATJB3
+  14      LFIN = LFIN + 3
+            GOTO  20
+C  JB2-JB1=3
+   5    JATJB1 = JATOM(JB1)
+        JATJB2 = JATOM(JB1+1)
+        JATJB3 = JATOM(JB1+2)
+        JATJB4 = JATOM(JB2)
+        DO  15  JA = JA1, JA2
+          JPAIR1(LFIN+1) = JATOM(JA)
+          JPAIR1(LFIN+2) = JATOM(JA)
+          JPAIR1(LFIN+3) = JATOM(JA)
+          JPAIR1(LFIN+4) = JATOM(JA)
+          JPAIR2(LFIN+1) = JATJB1
+          JPAIR2(LFIN+2) = JATJB2
+          JPAIR2(LFIN+3) = JATJB3
+          JPAIR2(LFIN+4) = JATJB4
+  15      LFIN = LFIN + 4
+            GOTO  20
+C  JB2-JB1>3
+   6    DO  16  JA = JA1, JA2
+          JPA = JATOM(JA)
+          DO  16  JB = JB1, JB2
+            LFIN = LFIN + 1
+            JPAIR1(LFIN) = JPA
+            JPAIR2(LFIN) = JATOM(JB)
+  16    CONTINUE
+  20  CONTINUE
+      RETURN
+C
+C  MFLAG.GT.0   INDICATES THAT THE INTERACTIONS OF ATOM PAIRS CONSIDERED
+C  NOW ARE OF EITHER 1-4 OR 1-5 TYPE.
+C
+  50  LINT0 = 0
+      NOPAIR = 0
+      DO  70  LKJ = 1, JFIN
+        IA = JAA(LKJ)
+        IB = JBF(LKJ)
+        JA1 = KATOM(IBND2(IA))
+        JA2 = KATOM(IBND2(IA+1)) - 1
+        JB1 = KATOM(IBND2(IB))
+        JB2 = KATOM(IBND2(IB+1)) - 1
+        DO  60  JA = JA1, JA2
+          JJA = JATOM(JA)
+        DO  60  JB = JB1, JB2
+          JJB = JATOM(JB)
+          LFIN1 = LFIN + 1
+          CALL  TYPCHK (JJA,JJB,LFIN,LFIN1,JPAIR1,JPAIR2,NOPAIR,
+     &                  LINT0,MFLAG)
+  60    CONTINUE
+  70  CONTINUE
+      RETURN
+      END
+      SUBROUTINE  TYPCHK(II,JJ,NINT,NINT1,IPAIR1,IPAIR2,NOPAIR,LINT,
+     &                   MFLAG)
+C
+C  THIS SUBROUTINE CHECKS THE INTERACTION TYPE OF THE PAIR OF ATOMS
+C  II AND JJ.  IF THE INTERACTION IS OF 1-4 TYPE, THEN SET IPAIR1<0.
+C
+      PARAMETER  (MAXATM=436)
+      COMMON/NUMBER/  NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/INTER0/  INTER(MAXATM),INTATM(3,3000)
+      DIMENSION  IPAIR1(NINT1),IPAIR2(NINT1)
+      M1 = MIN(II,JJ)
+      M2 = MAX(II,JJ)
+      INTM1 = INTER (M1)
+  10  IATMI = M1 + INTATM(1,INTM1)
+      NUM4 = INTATM(2,INTM1)
+      IATMF = IATMI + NUM4 - 1
+      IF (NUM4.EQ.0)  GOTO  20
+      IF (M2.GE.IATMI.AND.M2.LE.IATMF)  THEN
+        IF (MFLAG.LT.0)  GOTO  120
+        NINT = NINT + 1
+        IPAIR1(NINT) = -II
+        IPAIR2(NINT) = JJ
+        GOTO  120
+      ENDIF
+  20  KEY = INTATM(3,INTM1)
+      IF (KEY.EQ.0)  GOTO  30
+      IATMI = IATMF + 1
+      IATMF = NUMATM
+      IF (KEY.GT.0)  IATMF = IATMI + KEY - 1
+      IF (M2.GE.IATMI.AND.M2.LE.IATMF)  GOTO  100
+  30  IF (NUM4.EQ.0.AND.KEY.EQ.0)  RETURN
+      IF (KEY.LT.0)  RETURN
+      INTM1 = INTM1 + 1
+         GOTO  10
+  100 IF (MFLAG.LT.0)  GOTO  120
+      NINT = NINT + 1
+      IPAIR1(NINT) = II
+      IPAIR2(NINT) = JJ
+  120 NOPAIR = NOPAIR + 10000
+      LINT = LINT + 1
+      RETURN
+      END
+      SUBROUTINE CUTOFF(VAR)
+      PARAMETER (MAXVAR=160)
+      REAL*8 VAR(MAXVAR)
+      RETURN
+      END
+C***********************************************************************
+C MONTE.FORT77(MONTE)
+C
+C MONTE CALRO SIMULATION IN ECEPP WITH OR WITHOUT CUTOFF
+C BASED ON 'PERI.PMSGO.MC.FORT(MONTE)'
+C
+C THIS PROGRAM IS LINKED WITH
+C      MINIMA.FORT77(FEDERCS) FOR THE CUTOFF OPERATION
+C      MINIMA.FORT77(FEDERNS) FOR  NO-CUTOFF OPERATION
+C
+C INPUT
+C     5      : CONTROL PARAMETERS
+C     IOINIT : THE INITIAL ANGLES IN ECEPP FORMAT
+C     IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     20     : PRECEP OUTPUT
+C     21     : ECEPP ENERGY PARAMETERS
+C OUTPUT
+C     6      : SYSOUT DATA
+C     IOREST : THE DATA FOR CONTINUING A PREVIOUS JOB
+C     IOERG  : OUTPUT OF ENERGY
+C     IOANG  : OUTPUT OF ANGLES
+C
+C CONTROL PARAMETERS
+C     ISTART : = 0 FOR FRESH START; OTHERWISE CONTINUING JOB
+C     IECEPP : = 1 FOR ECEPP FORMAT OF INITIAL ANGLES;
+C                  OTHERWISE NO FORMAT
+C     ICUT   : = 1 FOR CUTOFF; OTHERWISE NO CUTOFF
+C     IXS    : A SEED FOR RANDOM NUMBER GENERATOR
+C     TEMP   : TEMPERATURE
+C     ESMALL : THE LOWEST LIMIT OF EIGENVALUE (USUALLY = 10.0)
+C     FLUC   : THE COEFFICIENT OF THE STEP LENGTH (USUALLY =1.3)
+C     LOUTE  : OUTPUT OF ENERGY EVERY LOUTE STEPS
+C     LOUTA  : OUTPUT OF ANGLES EVERY LOUTA STEPS
+C     LLIST  : REVISION OF INTERACTION TABLE EVERY LLIST STEPS
+C     LMTR   : ACCEPTANCE RATIO IS AVERAGED FOR EACH LMTR STEPS
+C     LLTR   : REVISION OF HESSIAN EVERY LLTR STEPS
+C     ACPL   : IF ACP < ACPL, HESSIAN IS REVISED
+C     ITIMEL : CPU TIME LIMIT IN SECOND
+C     LTR    : LIMIT OF STEP
+C
+C ARRAY SIZE
+C     MAXRES=28
+C     MAXVAR=160
+C     MAXMTR=2000
+C**********************************************************************
+      IMPLICIT REAL*8(A-H,O-Z)
+      PARAMETER (MAXRES=28 ,MAXVAR=160,MAXMTR=2000)
+      PARAMETER (MAXATM=436)
+      PARAMETER (PI=3.141 592 653 589 793D0,RAD=PI/180.D0)
+      COMMON/NUMBER/ NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/VARANG/ ANGLES(10,MAXRES),INDXV(MAXVAR),NUMRES
+      COMMON/COORD/ CO(MAXATM,3)
+      COMMON/ENE000/ FT(5)
+      DIMENSION ANG(MAXVAR),ANGT(MAXVAR),F(6),
+     &          IACP(MAXMTR),EV(MAXVAR,MAXVAR)
+      REAL*4 ANGS(MAXVAR)
+      REAL*4 XYZ(MAXATM,3)
+      INTEGER*4 IX,IXS
+C-----------------------------------------------------------------------
+C INPUT OF THE INFORMATION FOR THE SIMULATION
+C-----------------------------------------------------------------------
+C
+C READ CONTROL PARAMETERS
+C
+      READ(5,*) ISTART,IECEPP,ICUT,IXS
+      READ(5,*) TEMP,ESMALL,FLUC
+      READ(5,*) LOUTE,LOUTA,LLIST,LMTR
+      READ(5,*) ITIMEL,LTR,LLTR,ACPL
+      READ(5,*) IOINIT,IOREST,IOERG,IOANG
+      WRITE(6,*) 'ISTART  ',ISTART
+      WRITE(6,*) 'IECEPP  ',IECEPP
+      WRITE(6,*) 'ICUT  ',ICUT
+      WRITE(6,*) 'IXS  ',IXS
+      WRITE(6,*) 'TEMP  ',TEMP
+      WRITE(6,*) 'ESMALL  ',ESMALL
+      WRITE(6,*) 'FLUC  ',FLUC
+      WRITE(6,*) 'LOUTE  ',LOUTE
+      WRITE(6,*) 'LOUTA  ',LOUTA
+      WRITE(6,*) 'LLIST  ',LLIST
+      WRITE(6,*) 'LMTR  ',LMTR
+      WRITE(6,*) 'ITIMEL  ',ITIMEL
+      WRITE(6,*) 'LTR  ',LTR
+      WRITE(6,*) 'LLTR  ',LLTR
+      WRITE(6,*) 'ACPL  ',ACPL
+      WRITE(6,*) 'IOINIT  ',IOINIT
+      WRITE(6,*) 'IOREST  ',IOREST
+      WRITE(6,*) 'IOERG  ',IOERG
+      WRITE(6,*) 'IOANG  ',IOANG
+      BETA=1.0D0/(1.987D-3*TEMP)
+C
+C READ PRECEP OUTPUT AND ENERGY PARAMETERS
+C
+      CALL  INPUT
+C
+C PREPAIR THE BOND INFORMATION
+C
+      CALL  PRESET
+C-----------------------------------------------------------------------
+C FOR A FRESH START (ISTART=0)
+C-----------------------------------------------------------------------
+      IF(ISTART.EQ.0) THEN
+        IX=IXS
+        NTR=0
+        MTR=0
+        NOUTE=0
+        NOUTA=0
+        NLIST=0
+        NLTR=0
+        IF(IECEPP .EQ. 1) THEN
+C READ A STARTING CONFORMAION (ECEPP FORMAT)
+          DO 100 I = 1,NUMRES
+            READ(IOINIT,'(10F8.3)')(ANGLES(J,I),J=1,10)
+  100     CONTINUE
+          DO 110 I = 1,NUMVAR
+            J = INDXV(I)/100
+            K = INDXV(I) - 100*J
+            ANG(I) = ANGLES(K,J)*RAD
+  110     CONTINUE
+        ELSE
+C NO FORMAT
+          READ(IOINIT) NNN
+          READ(IOINIT)(ANG(I),I=1,NUMVAR)
+        ENDIF
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(ANG)
+          ICALC = 1
+        ELSE
+          CALL PAIR14
+          ICALC = 2
+        ENDIF
+C     THE INITIAL ENERGY
+        CALL ENERGY(ANG,ETOTAL)
+        DO 120 I=1,5
+          F(I+1) = FT(I)
+  120   CONTINUE
+        F(1) = ETOTAL
+C     THE INITIAL IACP IS ALL 'ACCEPTED'
+        DO 130 I=1,LMTR
+          IACP(I)=1
+  130   CONTINUE
+        NACP=LMTR
+        ACP=1.0D0
+C-----------------------------------------------------------------------
+C FOR A CONTINUATION JOB (ISTART OTHER THAN 0)
+C-----------------------------------------------------------------------
+      ELSE
+        READ(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &               ICALC
+        READ(IOREST) ANG,F,EV
+        WRITE(6,*)' IX NTR MTR NOUTE NOUTA NLIST NLTR NACP',
+     &            ' ACP  ICALC'
+        WRITE(6,*) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,NACP,ACP,
+     &             ICALC
+        REWIND IOREST
+C     PAIR LIST
+        IF(ICUT .EQ. 1) THEN
+          CALL CUTOFF(ANG)
+        ELSE
+          CALL PAIR14
+        ENDIF
+      ENDIF
+C-----------------------------------------------------------------------
+C TRIAL ANGLE AND TRIAL ENERGY ARE NOW CALCULATED
+C ACCORDING TO ICALC
+C-----------------------------------------------------------------------
+  140 IF(ICALC .EQ. 1) THEN
+        CALL SAMPL1(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+        ICALC = 3
+      ENDIF
+      IF(ICALC .EQ. 2) THEN
+        CALL SAMPL2(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+        ICALC = 3
+      ENDIF
+      IF(ICALC .EQ. 3) THEN
+        CALL SAMPL3(ANG,ANGT,CR,IX,EV,ETOTAL)
+      ENDIF
+C
+C  UPDATE THE COUNT PARAMETERS
+C
+      NTR=NTR+1
+      NLIST=NLIST+1
+      NOUTE=NOUTE+1
+      NOUTA=NOUTA+1
+      NLTR=NLTR+1
+      MTR=MOD(MTR,LMTR) + 1
+C-----------------------------------------------------------------------
+C  CHECK WHTHER THE TRIAL STEP IS ACCEPTED
+C-----------------------------------------------------------------------
+C
+C WHEN ACCEPTED
+C
+      CRT = DEXP(BETA*(F(1)-ETOTAL))
+      IF(CR .LT. CRT) THEN
+C
+C     UPDATE ANGLES AND ENERGY
+C
+        DO 150 I=1,NUMVAR
+          ANG(I)=ANGT(I)
+  150   CONTINUE
+        DO 160 I=1,5
+          F(I+1) = FT(I)
+  160   CONTINUE
+        F(1) = ETOTAL
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+        IF(IACP(MTR).EQ.0) THEN
+            NACP=NACP+1
+            ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+            IACP(MTR)=1
+        ENDIF
+C
+C WHEN REJECTED
+C
+      ELSE
+C
+C     UPDATE THE ACCEPTANCE RATIO
+C
+        IF(IACP(MTR).EQ.1) THEN
+          NACP=NACP-1
+          ACP=DFLOAT(NACP)/DFLOAT(LMTR)
+          IACP(MTR)=0
+        ENDIF
+      ENDIF
+C-----------------------------------------------------------------------
+C  CHECK PRINT OPTION
+C-----------------------------------------------------------------------
+C
+C     OUTPUT OF ENERGY
+C
+      IF(NOUTE .GE. LOUTE) THEN
+        WRITE(IOERG) NTR,ACP,(F(I),I=1,6)
+        IF(NTR .EQ. (NTR/100)*100) THEN
+          WRITE(6,'(I8,F8.3,3X,6D12.5)') NTR,ACP,(F(I),I=1,6)
+        ENDIF
+        NOUTE = 0
+      ENDIF
+C
+C     OUTPUT OF ANGLES IN SINGLE PRECISION
+C
+      IF(NOUTA .GE. LOUTA) THEN
+        DO 170 I = 1,NUMVAR
+          ANGS(I) = SNGL(ANG(I))
+  170   CONTINUE
+        WRITE(IOANG) NTR
+        WRITE(IOANG) (ANGS(I),I=1,NUMVAR)
+        NOUTA = 0
+      ENDIF
+C
+C     OUTPUT OF COORDINATE IN SINGLE PRECISION
+C
+      IF(NTR .EQ. (NTR/100)*100 ) THEN
+        DO 171 I = 1,NUMATM
+          XYZ(I,1) = SNGL(CO(I,1))
+          XYZ(I,2) = SNGL(CO(I,2))
+          XYZ(I,3) = SNGL(CO(I,3))
+  171   CONTINUE
+        WRITE(15) ( (XYZ(I,J),J=1,3), I=1,NUMATM )
+      ENDIF
+C-----------------------------------------------------------------------
+C WHAT SHOULD BE NEXT STEP?
+C-----------------------------------------------------------------------
+C
+C     CHECK CPU TIME LIMIT
+C
+      CALL CLOCK(ICPU)
+      IF(ICPU .GE. ITIMEL) THEN
+        WRITE(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                ICALC
+        WRITE(IOREST) ANG,F,EV
+        WRITE(6,*) ' END BY CPU TIME LIMIT'
+        WRITE(6,*) 'NTR  ',NTR,'ACP  ',ACP
+        STOP
+      ENDIF
+C
+C     CHECK THE TOTAL NUMBER OF TRIAL STEPS
+C
+      IF(NTR .GE. LTR) THEN
+        WRITE(IOREST) IX,NTR,MTR,NOUTE,NOUTA,NLIST,NLTR,IACP,NACP,ACP,
+     &                ICALC
+        WRITE(IOREST) ANG,F,EV
+        WRITE(6,*) ' END BY STEP NUMBER LIMIT'
+        WRITE(6,*) 'NTR  ',NTR,'ACP  ',ACP
+        STOP
+      ENDIF
+C
+C     FIND ICALC (UPDATE PAIR TABLE? UPDATE SECOND DERIVATIVE?)
+C
+C     PAIR TABLE IS UPDATED
+      IF(ICUT .EQ. 1) THEN
+        IF(NLIST .GE. LLIST) THEN
+          ICALC = 1
+          NLIST = 0
+        ENDIF
+      ENDIF
+C     SECOND DERIVATIVE IS UPDATED
+      IF(ACP .LT. ACPL .OR. NLTR .GE. LLTR) THEN
+        ICALC = 2
+        NLTR = 0
+      ENDIF
+      GO TO 140
+      END
+C***********************************************************************
+C SAMPLING ROUTINE
+C***********************************************************************
+      SUBROUTINE SAMPL1(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER (MAXVAR=160,MAXNN2=MAXVAR*(MAXVAR+1)/2)
+      COMMON/NUMBER/ NUMATM,NUMVAR,NN2,NUMINT,NSS
+      COMMON/ENE000/ FT(5)
+      INTEGER*4 IX
+      REAL*4 A(MAXVAR+1)
+      DIMENSION EV(MAXVAR,MAXVAR),G(MAXNN2),
+     &          ANG(MAXVAR),ANGT(MAXVAR),
+     &          E(MAXVAR),VW(MAXVAR*15),IVW(MAXVAR*7)
+C
+C UPDATE THE PAIR INTERACTION TABLE
+C
+      CALL CUTOFF(ANG)
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL2
+C-----------------------------------------------------------------------
+      ENTRY SAMPL2(ANG,ANGT,CR,IX,BETA,ESMALL,FLUC,EV,ETOTAL)
+C
+C UPDATE THE SECOND DERIVATIVE MATRIX
+C
+CCCCC
+C     CALL CLOCK(I1)
+      CALL DERVTV(ANG,ETOTAL,E,G)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR DERVTV ',I3
+CCCCC
+C
+C EIGENVALUE AND EIGENVECTOR FOR G
+C
+CCCCC
+C     CALL CLOCK(I1)
+      CALL DVSEG2(G,NUMVAR,-NUMVAR,-1.0D0,E,EV,MAXVAR,VW,IVW,ICON)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR DVSEG2 ',I3
+CCCCC
+      IF(ICON .NE. 0) THEN
+        WRITE(6,*) ' STOPPED AT DVSEG2 BECAUSE ICON=', ICON
+        STOP
+      ENDIF
+C
+C STEP SIZE
+C
+      RVAR = DFLOAT(NUMVAR)
+      SIG=2.0D0*FLUC*DSQRT(3.0D0/BETA/RVAR)
+      SQRE = DSQRT(ESMALL)
+      DO 100 I=1,NUMVAR
+        IF(DABS(E(I)).GE.ESMALL) THEN
+          E(I)=DSQRT(DABS(E(I)))
+        ELSE
+          E(I)=SQRE
+        ENDIF
+  100 CONTINUE
+      DO 110 I=1,NUMVAR
+        DO 110 J=1,NUMVAR
+          EV(I,J)=SIG*EV(I,J)/E(J)
+  110 CONTINUE
+C-----------------------------------------------------------------------
+C ENTRY OF SAMPL3
+C-----------------------------------------------------------------------
+      ENTRY SAMPL3(ANG,ANGT,CR,IX,EV,ETOTAL)
+C
+C RANDOM NUMBER
+C
+      CALL RANU2(IX,A,NUMVAR+1,ICON)
+      CR=DBLE(A(NUMVAR+1))
+C
+C TRIAL ANGLES
+C
+      DO 120 I=1,NUMVAR
+        ANGT(I)=ANG(I)
+        DO 120 J=1,NUMVAR
+          ANGT(I)=ANGT(I)+(DBLE(A(J))-0.5D0)*EV(I,J)
+  120 CONTINUE
+C
+C ENERGY
+C
+CCCCCC
+C     CALL CLOCK(I1)
+      CALL ENERGY(ANGT,ETOTAL)
+C     CALL CLOCK(I2)
+C     I3=I2-I1
+C     WRITE(6,*) 'TIME FOR ENERGY ',I3
+CCCCCCC
+C
+      RETURN
+      END

@@ -1,0 +1,354 @@
+1OTSEND   PAGE 1      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 12:20:46      PAGE 1
+  
+   2231      6.       CHARACTER IDENT*8/' '/,ATTRIB*8/' '/
+                                       ^
+ cft77-323 cf77: ERROR OTSEND, Line = 6, File = minim.f, Line = 2231
+   Input symbol is "/", but ", or end of statement or FUNCTION or identifier or ( or RECURSIVE" was expected.
+                                                     ^
+ cft77-323 cf77: ERROR OTSEND, Line = 6, File = minim.f, Line = 2231
+   Input symbol is "/", but ", or end of statement or FUNCTION or identifier or ( or RECURSIVE" was expected.
+   2279     10.         CHARACTER*8 METHOD,ECEPP/'ECEPP'/
+                                                ^
+ cft77-323 cf77: ERROR HDLV0, Line = 10, File = minim.f, Line = 2279
+   Input symbol is "/", but ", or end of statement or *" was expected.
+   2280     11.         CHARACTER*8 MODIFY/'MODIFIED'/
+                                          ^
+ cft77-323 cf77: ERROR HDLV0, Line = 11, File = minim.f, Line = 2280
+   Input symbol is "/", but ", or end of statement or *" was expected.
+   2316     47.         METHOD=ECEPP
+                               ^
+ cft77-104 cf77: ERROR HDLV0, Line = 47, File = minim.f, Line = 2316
+   Data type REAL is incompatible with CHARACTER in this operation.
+ cft77-42 cf77: Cray CFT77 Version 6.0.3.0  (001698) 06/16/95 12:20:46
+ cft77-2  cf77: COMPILE TIME  144.320 SECONDS
+ cft77-6  cf77: MAXIMUM FIELD LENGTH   501992 DECIMAL WORDS
+ cft77-3  cf77: 8200 SOURCE LINES
+ cft77-4  cf77: 5 ERROR, 0 WARNING, 0 CAUTION, 0 COMMENT, 0 NOTE, 0 ANSI
+ cft77-5  cf77: CODE: 18441 WORDS, DATA: 3805 WORDS
+1PRECEP   PAGE 1      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 1
+  
+     61    224.       CHARACTER*4  AANAME(36) /'ALA','ASP','CYS','GLU','PHE','GLY',
+                                              ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "/", but ", or end of statement or *" was expected.
+                                                     ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "character constant", but "identifier" was expected.
+                                                           ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                 ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                       ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                             ^
+ cft77-323 cf77: ERROR PRECEP, Line = 224, File = precep.f, Line = 61
+   Input symbol is "character constant", but "identifier" was expected.
+     62    225.      &  'HIS','ILE','LYS','LEU','MET','ASN','PRO','GLN','ARG','SER',
+                        ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                            ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                              ^
+ cft77-323 cf77: ERROR PRECEP, Line = 225, File = precep.f, Line = 62
+   Input symbol is "character constant", but "identifier" was expected.
+     63    226.      &  'THR','VAL','TRP','TYR','CYS','HPR','NLE','ORN','ORN+','HIS2',
+                        ^
+1PRECEP   PAGE 2      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 2
+  
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                            ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                               ^
+ cft77-323 cf77: ERROR PRECEP, Line = 226, File = precep.f, Line = 63
+   Input symbol is "character constant", but "identifier" was expected.
+     64    227.      &  'HIS+','LYS+','ARG+','ASB','ASP-','GLU-',
+                        ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+                               ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+                                      ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+                                             ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+                                                   ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+                                                          ^
+ cft77-323 cf77: ERROR PRECEP, Line = 227, File = precep.f, Line = 64
+   Input symbol is "character constant", but "identifier" was expected.
+     65    228.      &  'PROU','PROF','HPRU','HPRF'/
+                        ^
+ cft77-323 cf77: ERROR PRECEP, Line = 228, File = precep.f, Line = 65
+   Input symbol is "character constant", but "identifier" was expected.
+                               ^
+1PRECEP   PAGE 3      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 3
+  
+ cft77-323 cf77: ERROR PRECEP, Line = 228, File = precep.f, Line = 65
+   Input symbol is "character constant", but "identifier" was expected.
+                                      ^
+ cft77-323 cf77: ERROR PRECEP, Line = 228, File = precep.f, Line = 65
+   Input symbol is "character constant", but "identifier" was expected.
+                                             ^
+ cft77-323 cf77: ERROR PRECEP, Line = 228, File = precep.f, Line = 65
+   Input symbol is "character constant", but "identifier" was expected.
+    305    173.       CHARACTER*4  AANAME(36) /'ALA','ASP','CYS','GLU','PHE','GLY',
+                                              ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "/", but ", or end of statement or *" was expected.
+                                                     ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "character constant", but "identifier" was expected.
+                                                           ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                 ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                       ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                             ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 173, File = precep.f, Line = 305
+   Input symbol is "character constant", but "identifier" was expected.
+    306    174.      &  'HIS','ILE','LYS','LEU','MET','ASN','PRO','GLN','ARG','SER',
+                        ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                            ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+1FMPRIN   PAGE 4      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 4
+  
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                              ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 174, File = precep.f, Line = 306
+   Input symbol is "character constant", but "identifier" was expected.
+    307    175.      &  'THR','VAL','TRP','TYR','CYS','HPR','NLE','ORN','ORN+','HIS2',
+                        ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                            ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                               ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 175, File = precep.f, Line = 307
+   Input symbol is "character constant", but "identifier" was expected.
+    308    176.      &  'HIS+','LYS+','ARG+','ASB','ASP-','GLU-',
+                        ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+                               ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+                                      ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+                                             ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+                                                   ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+                                                          ^
+1FMPRIN   PAGE 5      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 5
+  
+ cft77-323 cf77: ERROR FMPRIN, Line = 176, File = precep.f, Line = 308
+   Input symbol is "character constant", but "identifier" was expected.
+    309    177.      &  'PROU','PROF','HPRU','HPRF'/
+                        ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 177, File = precep.f, Line = 309
+   Input symbol is "character constant", but "identifier" was expected.
+                               ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 177, File = precep.f, Line = 309
+   Input symbol is "character constant", but "identifier" was expected.
+                                      ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 177, File = precep.f, Line = 309
+   Input symbol is "character constant", but "identifier" was expected.
+                                             ^
+ cft77-323 cf77: ERROR FMPRIN, Line = 177, File = precep.f, Line = 309
+   Input symbol is "character constant", but "identifier" was expected.
+   3765    281.       CHARACTER*4  AANAME(36) /'ALA','ASP','CYS','GLU','PHE','GLY',
+                                              ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "/", but ", or end of statement or *" was expected.
+                                                     ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "character constant", but "identifier" was expected.
+                                                           ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                 ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                       ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                             ^
+ cft77-323 cf77: ERROR OUT1, Line = 281, File = precep.f, Line = 3765
+   Input symbol is "character constant", but "identifier" was expected.
+   3766    282.      &  'HIS','ILE','LYS','LEU','MET','ASN','PRO','GLN','ARG','SER',
+                        ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+1OUT1   PAGE 6      CRAY FORTRAN CFT77 6.0.3.0  02/11/94 15:12:12         06/16/95 16:08:09      PAGE 6
+  
+                                                            ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                              ^
+ cft77-323 cf77: ERROR OUT1, Line = 282, File = precep.f, Line = 3766
+   Input symbol is "character constant", but "identifier" was expected.
+   3767    283.      &  'THR','VAL','TRP','TYR','CYS','HPR','NLE','ORN','ORN+','HIS2',
+                        ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                              ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                    ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                          ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                      ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                            ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                  ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                        ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+                                                                               ^
+ cft77-323 cf77: ERROR OUT1, Line = 283, File = precep.f, Line = 3767
+   Input symbol is "character constant", but "identifier" was expected.
+   3768    284.      &  'HIS+','LYS+','ARG+','ASB','ASP-','GLU-',
+                        ^
+ cft77-323 cf77: ERROR OUT1, Line = 284, File = precep.f, Line = 3768
+   Input symbol is "character constant", but "identifier" was expected.
+                               ^
+ cft77-323 cf77: ERROR OUT1, Line = 284, File = precep.f, Line = 3768
+   Input symbol is "character constant", but "identifier" was expected.
+ cft77-8  cf77: 100 ERRORS, COMPILATION ABORTED

@@ -1,0 +1,7 @@
+#
+#
+#
+rsh qc515 -n mt -f /dev/rmt0 rewind
+dd if=PACKDAS ibs=20b conv=ebcdic cbs=80 obs=20b \
+    | rsh qc515 dd bs=20b of=/dev/rmt0
+

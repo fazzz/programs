@@ -1,0 +1,429 @@
+C//////////////////////////////////////////////////////////////////////
+C THIS PROGRAM IS THE CONTINUATION OF ANALYS BUT IT NEEDS LESS STORAGE
+C
+C INPUT FILES:  10 ==> EIGENVECTORS
+C               11 ==> EIGENVALUES
+C               14 ==> PRECEP OUTPUT (INFORMATION ABOUT THE MOLECULE)
+C
+C OUTPUT FILES: 34 ==> AVERAGE FLUCTUATION BACKBONE ANGLES AS A FUNCT.
+C                      OF THE FREQUENCIES
+C               36 ==> CONTRIBUTIONS OF THE VARIOUS VARIABLES.
+C               38 ==> MAJOR CONTRIBUTION TO THE NORMAL MODES AFTER 600
+C               40 ==> HISTOGRAM OF THE NUMBER OF VARIABLES NEEDED TO
+C                      AMOUNT 95% OF THE M.S. FLUCT. OF A NORMAL MODE.
+C
+C FILE 5 CONTAINS SOME CONTROL PARAMETERS
+C
+C/////////////////////////////////////////////////////////////////////
+C
+      PROGRAM ANABIS
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+C
+      PARAMETER(NUMVAR=771,NUMATM=2013,NUMRES=132)
+C
+      CHARACTER TITLE*80,DUMMY*80
+      CHARACTER COMAND*10,KOMAND(10)*10
+      CHARACTER ANGLE(10)*5,TAG(NUMATM)*3,SEQ(NUMRES)*3
+C
+      DIMENSION EVECT(NUMVAR,NUMVAR),EVAL(NUMVAR)
+      DIMENSION AANFRQ(NUMVAR),CFL(NUMVAR)
+      DIMENSION KFREQ(30),INDXV(NUMVAR),LRES(NUMATM)
+      DIMENSION KEEP(0:10),RKEEP(0:10)
+      DIMENSION CQ(2,NUMVAR),KNM(2)
+      DIMENSION KLASS(NUMVAR),ISTO(NUMVAR),ITYPE(10)
+C
+      DATA RKB/1.987D-3/
+      DATA PI/3.141592653589793D0/
+      DATA NBCMD/4/
+      DATA KOMAND/'STEP 1    ','STEP 2    ','STEP 3    ','END       ',
+     +          6*'          '/
+      DATA AANFRQ/NUMVAR*0.0/
+      DATA KEEP/11*0/
+      DATA RKEEP/1000000.,10*0./
+      DATA KNM/669,723/
+      DATA ANGLE/'PHI  ','PSI  ','OMEGA','KHI1 ','KHI2 ','KHI3 ',
+     + 'KHI4 ','KHI5 ','KHI6 ','KHI7 '/
+C
+      DEG=180.D0/PI
+C
+      DO 2 I=1,NUMVAR
+        CQ(1,I)=-1.
+        CQ(2,I)=-1.
+ 2    CONTINUE
+C
+C-----INPUT OF THE DATA NEEDED
+C
+C  EIGEN VECTORS
+      READ(10) EVECT
+C  EIGENVALUES
+      READ(11) EVAL
+C  INFORMATION ABOUT THE MOLECULE
+      READ(14,'(A80)') TITLE
+      READ(14,'(5I5)') NATM,NVAR,NRES,NUMUNT,NSS
+      IF(NATM.NE.NUMATM) THEN
+         PRINT *,'NUMATM=',NUMATM,' NATM=',NATM
+         STOP
+      ENDIF
+      IF(NVAR.NE.NUMVAR) THEN
+         PRINT *,'NUMVAR=',NUMVAR,' NVAR=',NVAR
+         STOP
+      ENDIF
+      IF(NRES.NE.NUMRES) THEN
+         PRINT *,'NUMRES=',NUMRES,' NRES=',NRES
+         STOP
+      ENDIF
+C
+      DO 10 I=1,NUMRES
+      READ(14,'(A80)') DUMMY
+ 10   CONTINUE
+C
+      READ(14,'(A80)') DUMMY
+C
+      DO 20 I=1,NUMVAR
+      READ(14,'(I6)') INDXV(I)
+ 20   CONTINUE
+C
+      DO 30 I=1,NUMATM
+      READ(14,'(71X,A3,2X,I4)') TAG(I),LRES(I)
+ 30   CONTINUE
+C
+      IQ=0
+      LKEEP=0
+      DO 40 I=1,NUMATM
+        IF(LRES(I).NE.LKEEP) THEN
+           LKEEP=LRES(I)
+           IQ=IQ+1
+           IF(IQ.GT.NUMRES) THEN
+              PRINT *,'IQ=',IQ
+              STOP
+           ENDIF
+           SEQ(IQ)=TAG(I)
+        ENDIF
+ 40   CONTINUE
+C
+C
+C
+C--------------- PARAMETERS ON FILE 5 ---------------------------------
+C
+C  TEMP   = TEMPERATURE IN K
+C  NFR    = NUMBER OF FREQUENCIES IN THE FOLLOWING ARRAY
+C  KFRQ   = ARRAY CONTAINING THE NUMBER OF THE FREQUENCIES FOR WHICH
+C           THE THE MEAN SQUARE DEVIATION ARE COMPUTED
+C
+C---------------------------------------------------------------------
+C
+      READ(5,*) TEMP
+      PRINT *,'TEMPERATURE: ',TEMP, 'K'
+      RT=TEMP*RKB
+C
+ 50   READ(5,'(A10)') COMAND
+      DO 55 KMD=1,NBCMD
+      IF(COMAND.EQ.KOMAND(KMD)) GOTO 56
+ 55   CONTINUE
+      PRINT *,'UNKNOWN COMMAND: ',COMAND
+      STOP
+ 56   GOTO (100,200,300,400),KMD
+C
+C---------------------------------------------------------------------
+C                    END OF COMMANDS INPUT SECTION
+C---------------------------------------------------------------------
+C
+C
+C*****STEP 1: AVERAGE M.S. FLUCT. BACKBONE TORSION ANGLES
+C             AS A FUNCTION OF NORMAL MODE FREQUENCIES.
+C
+ 100  READ(5,*) NFRQ
+      IF(NFRQ.GT.30) THEN
+        PRINT *,'YOU MUST CHANGE THE DIMENSION OF KFREQ'
+        STOP
+      ENDIF
+      READ(5,*) (KFREQ(I),I=1,NFRQ)
+C
+      IBB=0
+C
+      DO 120 IV=1,NUMVAR
+C
+C  TEST FOR THE ANGLE TYPE: K=1 ==> PHI, K=2 ==> PSI, K=3 ==> OMEGA
+      IR=INDXV(IV)/100
+      K=INDXV(IV)-100*IR
+C
+      IF(K.EQ.1.OR.K.EQ.2.OR.K.EQ.3) THEN
+      IBB=IBB+1
+      DO 110 NM=1,NUMVAR
+          CFM=RT*(EVECT(IV,NM)*DEG)**2/EVAL(NM)
+          AANFRQ(NM)=AANFRQ(NM)+CFM
+          IF(NM.EQ.669)THEN
+             CQ(1,IV)=CFM
+          ELSE IF(NM.EQ.723) THEN
+             CQ(2,IV)=CFM
+          ENDIF
+ 110  CONTINUE
+      ENDIF
+C
+ 120  CONTINUE
+C
+C-----KEEP THE TEN HIGHEST CONTRIBUTIONS
+C
+      DO 160 IZ=1,2
+        DO 141 J=1,10
+          KEEP(J)=0.
+          RKEEP(J)=-1.
+ 141    CONTINUE
+        DO 150 IV=1,NUMVAR
+          DO 146 KP=0,9
+            IF(CQ(IZ,IV).LT.RKEEP(KP).AND.CQ(IZ,IV).GT.RKEEP(KP+1))THEN
+               DO 144 KP1=9,KP+1,-1
+                 RKEEP(KP1+1)=RKEEP(KP1)
+                 KEEP(KP1+1)=KEEP(KP1)
+ 144           CONTINUE
+               RKEEP(KP+1)=CQ(IZ,IV)
+               KEEP(KP+1)=IV
+            ENDIF
+ 146      CONTINUE
+ 150    CONTINUE
+        NM=KNM(IZ)
+        WRITE(6,908) NM,AANFRQ(NM)
+        WRITE(6,910) (KEEP(J),RKEEP(J),J=1,10)
+ 160  CONTINUE
+C
+      PRINT *,'IBB=',IBB
+      FLNVAR=FLOAT(IBB)
+      DO 161 NM=1,NUMVAR
+        AANFRQ(NM)=AANFRQ(NM)/FLNVAR
+ 161  CONTINUE
+C
+      WRITE(34) AANFRQ
+C
+      DO 190 IF=1,NFRQ
+        CFLT=0.
+        NM=KFREQ(IF)
+        DO 168 J=1,10
+          KEEP(J)=0.
+          RKEEP(J)=-1.
+ 168    CONTINUE
+C
+        DO 170 IV=1,NUMVAR
+          CFL(IV)=RT*(EVECT(IV,NM)*DEG)**2/EVAL(NM)
+          CFLT=CFLT+CFL(IV)
+ 170    CONTINUE
+        WRITE(36,900) NM,CFLT
+        WRITE(36,901) (I,CFL(I),I=1,NUMVAR)
+C
+C-----KEEP THE TEN HIGHEST CONTRIBUTIONS
+C
+        DO 180 IV=1,NUMVAR
+          DO 176 KP=0,9
+            IF(CFL(IV).LT.RKEEP(KP).AND.CFL(IV).GT.RKEEP(KP+1)) THEN
+               DO 174 KP1=9,KP+1,-1
+                 RKEEP(KP1+1)=RKEEP(KP1)
+                 KEEP(KP1+1)=KEEP(KP1)
+ 174           CONTINUE
+               RKEEP(KP+1)=CFL(IV)
+               KEEP(KP+1)=IV
+            ENDIF
+ 176      CONTINUE
+ 180    CONTINUE
+        WRITE(6,909) NM,CFLT
+        WRITE(6,910) (KEEP(J),RKEEP(J),J=1,10)
+C
+ 190  CONTINUE
+C
+ 900  FORMAT(//'NORMAL MODE NUMBER:',I4,1X,'CFLT=',F9.3)
+ 901  FORMAT(4(I3,F9.4,1X))
+ 908  FORMAT(1X,'NORMAL MODE:',I4,1X,'AANFRQ=',F10.3)
+ 909  FORMAT(1X,'NORMAL MODE:',I4,1X,'CFLT=',F10.3)
+ 910  FORMAT(1X,I4,2X,F10.4)
+C
+      GOTO 50
+C---------------------------------------------------------------------
+C
+C*****STEP 2: LOOK FOR ANGLES WHICH CONTRIBUTE MOST TO THE AVERAGE
+C             MEAN SQUARE FLUCTUATIONS FOR THE NORMAL MODES AFTER 600.
+C
+ 200  READ(5,*) ISTART
+      NSING=0
+      NDOUB=0
+C
+      DO 280 NM=ISTART,NUMVAR
+C
+      TOTFL=0.
+      DO 201 I=1,10
+        RKEEP(I)=0.
+        KEEP(I)=0
+ 201  CONTINUE
+C
+      DO 210 IV=1,NUMVAR
+          CFL(IV)=RT*(EVECT(IV,NM)*DEG)**2/EVAL(NM)
+          TOTFL=TOTFL+CFL(IV)
+ 210  CONTINUE
+C
+C-----KEEP THE TEN HIGHEST CONTRIBUTIONS
+C
+        DO 240 IV=1,NUMVAR
+          DO 236 KP=0,9
+            IF(CFL(IV).LT.RKEEP(KP).AND.CFL(IV).GT.RKEEP(KP+1)) THEN
+               DO 234 KP1=9,KP+1,-1
+                 RKEEP(KP1+1)=RKEEP(KP1)
+                 KEEP(KP1+1)=KEEP(KP1)
+ 234           CONTINUE
+               RKEEP(KP+1)=CFL(IV)
+               KEEP(KP+1)=IV
+            ENDIF
+ 236      CONTINUE
+ 240    CONTINUE
+C
+        WRITE(38,940) NM,TOTFL
+        WRITE(38,941) (KEEP(I),RKEEP(I),I=1,10)
+C
+        RATIO1=RKEEP(1)/TOTFL
+        RATIO2=(RKEEP(1)+RKEEP(2))/TOTFL
+        IF(RATIO1.GT.0.9) THEN
+           NSING=NSING+1
+           WRITE(6,970) NM,TOTFL
+           IA=KEEP(1)
+           IR=INDXV(IA)/100
+           K=INDXV(IA)-100*IR
+           WRITE(6,975) SEQ(IR-1),IR-1,ANGLE(K),KEEP(1),
+     +                  RKEEP(1)/TOTFL*100.
+        ELSE IF(RATIO2.GT.0.9) THEN
+           NDOUB=NDOUB+1
+           WRITE(6,972) NM,TOTFL
+           DO 272 IW=1,2
+             IB=KEEP(IW)
+             IRB=INDXV(IB)/100
+             KB=INDXV(IB)-100*IRB
+             WRITE(6,975) SEQ(IRB-1),IRB-1,ANGLE(KB),KEEP(IW),
+     +                    RKEEP(IW)/TOTFL*100.
+ 272       CONTINUE
+        ELSE
+           WRITE(6,974) NM,TOTFL
+           DO 276 IW=1,10
+             IB=KEEP(IW)
+             IRB=INDXV(IB)/100
+             KB=INDXV(IB)-100*IRB
+             WRITE(6,975) SEQ(IRB-1),IRB-1,ANGLE(KB),KEEP(IW),
+     +                    RKEEP(IW)/TOTFL*100.
+ 276       CONTINUE
+        ENDIF
+C
+ 280  CONTINUE
+C
+      WRITE(6,945) NSING,NDOUB
+C
+ 940  FORMAT('NORMAL MODE:',I4,1X,'TOTFL:',F10.3)
+ 941  FORMAT(5(I3,1X,F10.3,2X))
+ 945  FORMAT(/1X,'THERE ARE:',I4,1X,'NORMAL MODES FOR WHICH ONLY ONE ',
+     +          'ANGLE CONTRIBUTES MORE THAN 90% OF THE M.S. FLUCT.'/
+     +        1X,'THERE ARE:',I3,1X,'NORMAL MODES FOR WHICH TWO ',
+     +          'ANGLES CONTRIBUTE MORE THAN 90% OF THE M.S. FLUCT.')
+ 970  FORMAT(1X,'ONE ANGLE CONTRIBUTION TO NORMAL MODE:',I4,1X,F10.3)
+ 972  FORMAT(1X,'TWO ANGLES CONTRIBUTION TO NORMAL MODE:',I4,1X,F10.3)
+ 974  FORMAT(1X,'MULTI CONTRIBUTIONS TO NORMAL MODE:',I4,1X,F10.3)
+ 975  FORMAT(9X,A3,1X,I3,5X,A5,1X,I3,5X,F6.0,1X,'%')
+C
+      GOTO 50
+C
+C---------------------------------------------------------------------
+C
+C*****STEP 3: LOOK FOR THE NUMBER OF ANGLES NECESSARY FOR AMOUNTING TO
+C             95% OF THE MEAN SQUARE FLUCTUATIONS OF A GIVEN NORMAL MODE
+C
+ 300  DO 380 NM=1,NUMVAR
+C
+      TOTFL=0.
+      DO 310 IV=1,NUMVAR
+          CFL(IV)=RT*(EVECT(IV,NM)*DEG)**2/EVAL(NM)
+          TOTFL=TOTFL+CFL(IV)
+ 310  CONTINUE
+C
+C-----SORT THE CONTRIBUTIONS OF ALL THE ANGLES
+C
+        CALL SORT(CFL,KLASS)
+C
+C-----LOOK FOR THE NUMBER OF VARIABLES NECESSARY FOR AMOUNTING 95%
+C     OF THE M.S. FLUCTUATIONS DUE TO THIS MODE
+C
+        SUBTOT=0.
+        DO 340 IV=1,NUMVAR
+          SUBTOT=SUBTOT+CFL(KLASS(IV))
+          FRACT=SUBTOT/TOTFL
+          IF(FRACT.GT.0.95) GOTO 341
+ 340    CONTINUE
+        PRINT *,'THE PROGRAM SHOULD NOT PASS HERE - CHECK WHY IT DOES'
+        STOP
+ 341    ISTO(NM)=IV
+C
+C-----CHECK FOR THE TYPE OF ANGLES INVOLVED.
+C
+        DO 345 I=1,10
+          ITYPE(I)=0
+ 345    CONTINUE
+C
+        DO 350 IV=1,ISTO(NM)
+          IB=KLASS(IV)
+          IRB=INDXV(IB)/100
+          KB=INDXV(IB)-100*IRB
+          ITYPE(KB)=ITYPE(KB)+1
+ 350    CONTINUE
+C
+        FLT=FLOAT(ISTO(NM))
+        FL1=FLOAT(ITYPE(1))/FLT*100.
+        FL2=FLOAT(ITYPE(2))/FLT*100.
+        FL3=FLOAT(ITYPE(3))/FLT*100.
+        FL4=0.
+        DO 352 K=4,10
+          FL4=FL4+FLOAT(ITYPE(K))
+ 352    CONTINUE
+        FL4=FL4/FLT*100.
+C
+        WRITE(6,991) NM,ISTO(NM),FL1,FL2,FL3,FL4
+C
+ 380  CONTINUE
+C
+      WRITE(40,'(20I4)') (ISTO(I),I=1,NUMVAR)
+C
+ 991  FORMAT(1X,'NORMAL MODE #:',I4,1X,'# OF VARIABLES:',I4,2X,
+     +'% PHI=',F5.0,1X,'%PSI=',F5.0,1X,'%OMEGA=',F5.0,1X,'%KHI=',F5.0)
+C
+      GOTO 50
+C
+ 400  STOP
+      END
+C
+C/////////////////////////////////////////////////////////////////////
+C
+C THIS SUBROUTINE SORTS THE CONTRIBUTIONS OF THE VARIOUS ANGLES IN
+C DECREASING ORDER.
+C
+C////////////////////////////////////////////////////////////////////
+C
+      SUBROUTINE SORT(CFL,KLASS)
+C
+      PARAMETER (NUMVAR=771)
+C
+      REAL*8 CFL(NUMVAR),RKEEP(0:NUMVAR)
+C
+      DIMENSION KLASS(NUMVAR)
+C
+      DO 10 I=1,NUMVAR
+        KLASS(I)=0
+        RKEEP(I)=-1.
+ 10   CONTINUE
+      RKEEP(0)=1.D+6
+C
+        DO 240 IV=1,NUMVAR
+          DO 236 KP=0,NUMVAR
+            IF(CFL(IV).LT.RKEEP(KP).AND.CFL(IV).GT.RKEEP(KP+1)) THEN
+               DO 234 KP1=NUMVAR-1,KP+1,-1
+                 RKEEP(KP1+1)=RKEEP(KP1)
+                 KLASS(KP1+1)=KLASS(KP1)
+ 234           CONTINUE
+               RKEEP(KP+1)=CFL(IV)
+               KLASS(KP+1)=IV
+            ENDIF
+ 236      CONTINUE
+ 240    CONTINUE
+C
+      RETURN
+      END
