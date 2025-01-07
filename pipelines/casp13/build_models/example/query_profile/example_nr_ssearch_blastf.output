@@ -1,0 +1,52 @@
+SSEARCH 36.3.8g Dec, 2017
+
+Reference: T. F. Smith and M. S. Waterman, (1981) J. Mol. Biol. 147:195-197; 
+ W.R. Pearson (1991) Genomics 11:635-650
+
+
+
+Database: /home/tsukasa/casp_database/nr/nr_removed_soh
+        163004038 sequences; 59531784894 total letters
+
+
+
+Query= T0955 gHEEE_02, , 41 residues| - 41 aa
+Length=41
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+5W9F_A Chain A, Solution structure of the de novo mini protein g      76.1    3e-12
+
+
+>5W9F_A Chain A, Solution structure of the de novo mini protein gHEEE_02         
+Length=41
+
+ Score = 76.1 bits (233),  Expect = 3e-12
+ Identities = 41/41 (100%), Positives = 41/41 (100%), Gaps = 0/41 (0%)
+
+Query  1    SQETRKKCTEMKKKFKNCEVRCDESNHCVEVRCSDTKYTLC 41
+            SQETRKKCTEMKKKFKNCEVRCDESNHCVEVRCSDTKYTLC
+Sbjct  1    SQETRKKCTEMKKKFKNCEVRCDESNHCVEVRCSDTKYTLC 41
+
+
+
+
+Lambda      K     H
+  0.199   0.083   0.195
+
+
+Gapped
+Lambda
+  0.199   0.083   0.195
+
+Effective search space used: 163004038
+
+
+  Database: /home/tsukasa/casp_database/nr/nr_removed_soh
+  Number of letters in database: 59531784894
+  Number of sequences in database: 163004038
+
+
+
+Matrix: /home/tsukasa/miqs.mat
+Gap Penalties: Existence: -10, Extension: -2

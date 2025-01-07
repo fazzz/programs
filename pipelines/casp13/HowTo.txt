@@ -1,0 +1,7 @@
+qrsh h001
+make_query_profiles.py
+python run_forte.py
+qrsh -b y -now n -cwd -V -l h='!(h002|gp001|gp002|griffin-l)' ' python run_forte_to_output_alignments.py '
+qrsh -b y -now n -cwd -V -l h='!(gp001|gp002|griffin-l)' ' python make_pir_from_forte_ali.py '
+mkdir pir
+qsub -l h='!(gp001|gp002|griffin-l)' -pe openmpi 100 -b y -cwd -V -j y -N "modeller" 'python -m scoop -vv qsub_modeller.py '

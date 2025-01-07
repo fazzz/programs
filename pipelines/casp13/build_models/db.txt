@@ -1,0 +1,8 @@
+配列リスト, profile リスト, 略称,　profile 拡張子, 作成 script
+pdb098_db.seq_list,pdb098_db.ascii_list,db, asciidb, make_pspm_from_deltablastresult.pl
+pdb098_pspmdb.seq_list,pdb098_pspmdb.ascii_list,dbx, pspmdb, make_pspm_from_deltablastresult.pl
+pdb098_pspmhh.seq_list,pdb098_pspmhh.ascii_list,hhpx, pspmhh_psi, make_pspm_from_hhblitsresult.pl
+pdp_ascii.seq_list,pdp_ascii.ascii_list, pdpp, asciipb, ?
+pdp_pspm.seq_list,pdp_pspm.ascii_list,pdppx, fas.asciipb, make_pspm_from_psiblastresult.pl
+ssp_pspm.seq_list,ssp_pspm.ascii_list,sspx, pspmpb, make_pspm_from_psiblastresult.pl
+ssp_ascii.seq_list,ssp_ascii.ascii_list,ssp, asciipb, ?

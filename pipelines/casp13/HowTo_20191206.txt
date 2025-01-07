@@ -1,0 +1,9 @@
+qrsh h001
+export PATH=${PATH}:/home/intel/impi/5.0.3.048/bin64
+~/opt2/anaconda3/bin/python make_query_profiles.py
+cd eachdirectry
+~/opt2/anaconda3/bin/python run_forte.py
+qrsh -b y -now n -cwd -V -l h='!(h002|gp001|gp002|griffin-l)' ' ~/opt2/anaconda3/bin/python run_forte_to_output_alignments.py '
+mkdir pir
+qrsh -b y -now n -cwd -V -l h='!(gp001|gp002|griffin-l)' ' ~/opt2/anaconda3/bin/python make_pir_from_forte_ali.py '
+qsub -l h='!(gp001|gp002|griffin-l)' -pe openmpi 100 -b y -cwd -V -j y -N "modeller" 'python -m scoop -vv qsub_modeller.py '
