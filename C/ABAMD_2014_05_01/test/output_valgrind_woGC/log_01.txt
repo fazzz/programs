@@ -1,0 +1,497 @@
+-*- mode: compilation; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/test/" -*-
+Compilation started at Fri Jul 18 15:42:47
+
+sh test_valgrind_woGC.sh
+==31764== Memcheck, a memory error detector
+==31764== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==31764== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==31764== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC/ABAMD_woGC --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 10 --intout 10 --intnc 10 --rst output_valgrind_woGC/ALADv.rst --rstv output_valgrind_woGC/ALADv.rve input/ALADv_min.rst input/ALADv.clt input/ALADv.top output_valgrind_woGC/ALADv.out output_valgrind_woGC/ALADv.out2 output_valgrind_woGC/ALADv.trj
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x338EA6253B: getdelim (in /lib64/libc-2.5.so)
+==31764==    by 0x41C623: readParmtopL (PTL.c:15)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53156: GC_push_all_eager (mark.c:1469)
+==31764==    by 0x4C5BDF5: GC_with_callee_saves_pushed (mach_dep.c:476)
+==31764==    by 0x4C54C97: GC_push_roots (mark_rts.c:631)
+==31764==    by 0x4C545D1: GC_mark_some (mark.c:326)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x4C49B10: ??? (in /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C5315B: GC_push_all_eager (mark.c:1469)
+==31764==    by 0x4C5BDF5: GC_with_callee_saves_pushed (mach_dep.c:476)
+==31764==    by 0x4C54C97: GC_push_roots (mark_rts.c:631)
+==31764==    by 0x4C545D1: GC_mark_some (mark.c:326)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x4C49B10: ??? (in /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53C82: GC_mark_from (mark.c:762)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E0: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53C89: GC_mark_from (mark.c:762)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E0: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53CA0: GC_mark_from (mark.c:772)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E0: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53CAB: GC_mark_from (mark.c:772)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E0: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53CC8: GC_mark_from (mark.c:787)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x4C49B10: ??? (in /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53CD3: GC_mark_from (mark.c:787)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x4C49B10: ??? (in /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53CF5: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53CF8: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53D14: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53D23: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53D4D: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53D76: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C50B36: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53DAC: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C50B45: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53DAC: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C50B74: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53DAC: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C4D378: GC_add_to_black_list_stack (blacklst.c:221)
+==31764==    by 0x4C53DAC: GC_mark_from (mark.c:791)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53DD9: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53DDC: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53DF8: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C53E07: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53E2F: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C53E58: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C50B36: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53E90: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Conditional jump or move depends on uninitialised value(s)
+==31764==    at 0x4C50B45: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53E90: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C50B74: GC_find_header (headers.c:41)
+==31764==    by 0x4C4D334: GC_add_to_black_list_stack (blacklst.c:211)
+==31764==    by 0x4C53E90: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Use of uninitialised value of size 8
+==31764==    at 0x4C4D378: GC_add_to_black_list_stack (blacklst.c:221)
+==31764==    by 0x4C53E90: GC_mark_from (mark.c:801)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Uninitialised value was created by a stack allocation
+==31764==    at 0x41C5E4: readParmtopL (PTL.c:8)
+==31764== 
+==31764== Invalid read of size 8
+==31764==    at 0x4C53C77: GC_mark_from (mark.c:759)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  Address 0x7ff001370 is not stack'd, malloc'd or (recently) free'd
+==31764== 
+==31764== 
+==31764== Process terminating with default action of signal 11 (SIGSEGV)
+==31764==  Access not within mapped region at address 0x7FF001370
+==31764==    at 0x4C53C77: GC_mark_from (mark.c:759)
+==31764==    by 0x4C546AD: GC_mark_some (mark.c:361)
+==31764==    by 0x4C4C5D4: GC_stopped_mark (alloc.c:531)
+==31764==    by 0x4C4C8DA: GC_try_to_collect_inner (alloc.c:378)
+==31764==    by 0x4C5611E: GC_init_inner (misc.c:787)
+==31764==    by 0x4C51834: GC_generic_malloc_inner (malloc.c:125)
+==31764==    by 0x4C51936: GC_generic_malloc (malloc.c:194)
+==31764==    by 0x4C51B9C: GC_malloc (malloc.c:333)
+==31764==    by 0x4162AD: gcemalloc (EF.c:34)
+==31764==    by 0x41CCBE: readParmtopL (PTL.c:87)
+==31764==    by 0x40292A: main (main.c:197)
+==31764==  If you believe this happened as a result of a stack
+==31764==  overflow in your program's main thread (unlikely but
+==31764==  possible), you can try to increase the size of the
+==31764==  main thread stack using the --main-stacksize= flag.
+==31764==  The main thread stack size used in this run was 10485760.
+==31764== 
+==31764== HEAP SUMMARY:
+==31764==     in use at exit: 864 bytes in 3 blocks
+==31764==   total heap usage: 4 allocs, 1 frees, 880 bytes allocated
+==31764== 
+==31764== LEAK SUMMARY:
+==31764==    definitely lost: 0 bytes in 0 blocks
+==31764==    indirectly lost: 0 bytes in 0 blocks
+==31764==      possibly lost: 0 bytes in 0 blocks
+==31764==    still reachable: 864 bytes in 3 blocks
+==31764==         suppressed: 0 bytes in 0 blocks
+==31764== Rerun with --leak-check=full to see details of leaked memory
+==31764== 
+==31764== For counts of detected and suppressed errors, rerun with: -v
+==31764== ERROR SUMMARY: 31243 errors from 30 contexts (suppressed: 4 from 4)
+test_valgrind_woGC.sh: line 13: 31764 Segmentation fault      valgrind --track-origins=yes /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC/ABAMD_woGC --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 10 --intout 10 --intnc 10 --rst output_valgrind_woGC/ALADv.rst --rstv output_valgrind_woGC/ALADv.rve input/ALADv_min.rst input/ALADv.clt input/ALADv.top output_valgrind_woGC/ALADv.out output_valgrind_woGC/ALADv.out2 output_valgrind_woGC/ALADv.trj > output_valgrind_woGC/log.txt
+
+Compilation exited abnormally with code 139 at Fri Jul 18 15:42:48

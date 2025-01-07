@@ -1,0 +1,258 @@
+
+1) list up main source code files
+ls ~/work/programs/ABA/*.[ch]
+
+# main files
+
+ABA.c ABA.h
+ABAb.c ABAb.h
+ABA_prepass.c ABA_prepass.h
+ABA_mainpass.c ABA_mainpass.h
+ABA_backpass.c ABA_backpass.h
+ABA_Nose-Hoover.c ABA_Nose-Hoover.h
+ABA_Nose-Hoover_chain.c ABA_Nose-Hoover_chain.h
+ABA_Nose-Hoover_new.c ABA_Nose-Hoover_new.h
+ABA_Nose-Hoover_new_mvV.c ABA_Nose-Hoover_new_mvV.h
+ABA_pick_data.c ABA_pick_data.h
+ABA_set_frc.c ABA_set_frc.h
+ABA_set_imat.c ABA_set_imat.h
+ABA_set_imatb.c ABA_set_imatb.h
+ABA_set_lref.c ABA_set_lref.h
+ABA_set_rst.c ABA_set_rst.h
+ABA_set_tmat.c ABA_set_tmat.h
+ABA_set_trans.c ABA_set_trans.h
+ABA_integ.c ABA_integ.h
+ABA_update.c ABA_update.h
+ABA_calcattfrc.c ABA_calcattfrc.h
+ABA_calcKineE.c ABA_calcKineE.h
+ABA_gtree.c ABA_gtree.h
+ABA_hosoku.c ABA_hosoku.h
+mainABAMD_NH_new_2014-01-09_force_checker_2014-01-29.c
+quaternion.c quaternion.h
+
+2) search source code files related to the main source code files
+grep include ~/work/programs/ABA/*.[ch]
+
+3) list up 1st order related files
+
+# 1st-order related files
+
+EF.h 
+LA.h
+PTL.h
+FFL.h 
+TOPO.h 
+RAND.h 
+BOXMULL.h
+quaternion.h 
+netcdf_mineL.h
+f2c.h 
+clapack.h 
+
+4) search original source codes of 1-st order related files
+ls  ../*/EF.h
+../ABA_makefile/EF.h  ../CGMD/EF.h  ../efunc/EF.h
+
+diff -c /home/yamamori/work/programs/efunc/EF.h /home/yamamori/work/programs/ABA_makefile/EF.h
+Diff finished (no differences).  Tue May 27 12:01:27 2014
+
+-----------------------------------------------------------------------------------------------
+
+ls  ../*/LA.h
+../ABA_makefile/LA.h  ../CGMD/LA.h  ../LA/LA.h	../SSL/LA.h  ../analtips/LA.h
+
+5) create script doing 4) process cicricly
+~/work/programs/ABAMD_2014_05_01/search_related_files.sh
+
+chmod +x search_related_files.sh
+./search_related_files.sh
+
+/home/yamamori/work/programs/ABA_makefile/EF.h  /home/yamamori/work/programs/CGMD/EF.h  /home/yamamori/work/programs/efunc/EF.h
+/home/yamamori/work/programs/ABA_makefile/LA.h  /home/yamamori/work/programs/LA/LA.h   /home/yamamori/work/programs/analtips/LA.h
+/home/yamamori/work/programs/CGMD/LA.h          /home/yamamori/work/programs/SSL/LA.h
+/home/yamamori/work/programs/ABA_makefile/PTL.h  /home/yamamori/work/programs/readParmtop/PTL.h
+/home/yamamori/work/programs/ABA_makefile/FFL.h  /home/yamamori/work/programs/CFF/FFL.h
+/home/yamamori/work/programs/ABA_makefile/TOPO.h  /home/yamamori/work/programs/TOPO/TOPO.h
+/home/yamamori/work/programs/RAND/RAND.h
+/home/yamamori/work/programs/RAND/BOXMULL.h
+/home/yamamori/work/programs/ABA/quaternion.h           /home/yamamori/work/programs/ABAb/quaternion.h  /home/yamamori/work/programs/PCA/quaternion.h
+/home/yamamori/work/programs/ABA_makefile/quaternion.h  /home/yamamori/work/programs/CGMD/quaternion.h
+/home/yamamori/work/programs/ABA_makefile/netcdf_mineL.h  /home/yamamori/work/programs/netcdf/netcdf_mineL.h
+
+no difference between the files whose names are same
+
+6) list of related files
+
+# 1-st order related files woth path
+
+~/work/programs/efunc/EF.h
+~/work/programs/LA/LA.h
+~/work/programs/readParmtop/PTL.h
+~/work/programs/CFF/FFL.h
+~/work/programs/TOPO/TOPO.h
+~/work/programs/RAND/RAND.h
+~/work/programs/RAND/BOXMULL.h
+~/work/programs/ABA/quaternion.h
+~/work/programs/netcdf/netcdf_mineL.h
+
+~/work/programs/efunc/efunc.c
+~/work/programs/LA/LA.c
+~/work/programs/readParmtop/readParmtopL.c
+~/work/programs/CFF/calcFFL.c
+~/work/programs/TOPO/TOPO.c
+~/work/programs/RAND/BOXMULL.c
+~/work/programs/ABA/quaternion.c
+~/work/programs/netcdf/netcdf_mineL.c
+
+7 ) search 2nd-order related files
+
+~/work/programs/ABAMD_2014_05_01/find_2nd-order_related_files.sh
+
+cat ~/work/programs/ABAMD_2014_05_01/find_2nd-order_related_files.sh
+#!/bin/sh
+
+files=( ~/work/programs/efunc/EF.h ~/work/programs/efunc/efunc.c \
+~/work/programs/LA/LA.h ~/work/programs/LA/LA.c \
+~/work/programs/readParmtop/PTL.h ~/work/programs/readParmtop/readParmtopL.c \
+~/work/programs/CFF/FFL.h ~/work/programs/CFF/calcFFL.c \
+~/work/programs/TOPO/TOPO.h ~/work/programs/TOPO/TOPO.c \
+~/work/programs/RAND/RAND.h \
+~/work/programs/RAND/BOXMULL.h ~/work/programs/RAND/BOXMULL.c \
+~/work/programs/ABA/quaternion.h ~/work/programs/ABA/quaternion.c \
+~/work/programs/netcdf/netcdf_mineL.h ~/work/programs/netcdf/netcdf_mineL.c )
+
+grep -nH -e include ${files[*]}
+
+list of relationship
+
+EF.h:  <netcdf.h>
+efunc.c:  "EF.h"
+efunc.c:  "gc.h"
+
+LA.c: "LA.h"
+LA.c: "f2c.h"
+LA.c: "clapack.h"
+LA.c: "EF.h"
+
+readParmtopL.c: "PTL.h"
+readParmtopL.c: "EF.h"
+
+TOPO.c: "TOPO.h"
+
+calcFFL.c: "FFL.h"
+calcFFL.c: "MB.h"
+calcFFL.c: "PTL.h"
+calcFFL.c: "LA.h"
+calcFFL.c: "TOPO.h"
+calcFFL.c: "mymath.h"
+calcFFL.c: "EF.h"
+
+BOXMULL.c: "EF.h"
+BOXMULL.c: "RAND.h"
+
+quaternion.c: "quaternion.h"
+
+netcdf_mineL.h: "FF.h"
+netcdf_mineL.c:  <netcdf.h>
+netcdf_mineL.c:  "PTL.h"
+netcdf_mineL.c:  "SBFF.h"
+netcdf_mineL.c: "netcdf_mine.h"
+
+8) search 2nd-order related files
+
+chmod +x search_2nd-order_related_files.sh
+
+/home/yamamori/work/programs/MuSTARMD_based-on_pmemd/netcdf.h
+ls: /home/yamamori/work/programs/*/gc.h: No such file or directory
+ls: /home/yamamori/work/programs/*/gc.h: No such file or directory
+/home/yamamori/work/programs/CGMD/f2c.h  /home/yamamori/work/programs/PCA/f2c.h
+/home/yamamori/work/programs/CGMD/clapack.h  /home/yamamori/work/programs/PCA/clapack.h
+/home/yamamori/work/programs/ABA_makefile/MB.h  /home/yamamori/work/programs/CD/MB.h  /home/yamamori/work/programs/MolBas/MB.h
+/home/yamamori/work/programs/ABA_makefile/mymath.h  /home/yamamori/work/programs/MYMATH/mymath.h
+/home/yamamori/work/programs/SBFF/SBFF.h
+
+9) list of 2nd-order related files
+
+# 2nd-order related files
+
+/home/yamamori/work/programs/MolBas/MB.h
+/home/yamamori/work/programs/MYMATH/mymath.h
+/home/yamamori/work/programs/SBFF/SBFF.h
+/home/yamamori/work/programs/MuSTARMD_based-on_pmemd/netcdf.h
+/home/yamamori/include/gc.h
+/home/yamamori/include/f2c.h
+/home/yamamori/include/CGMD/clapack.h
+
+10 ) find 3rd-order related files
+
+chmod +x find_3rd-order_related_files.sh
+./find_3rd-order_related_files.sh
+
+-*- mode: compilation; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/" -*-
+Compilation started at Wed May 28 12:32:44
+
+sh find_3rd-order_related_files.sh
+/home/yamamori/work/programs/MolBas/MB.c:2:#include <stdio.h>
+/home/yamamori/work/programs/MolBas/MB.c:3:#include <math.h>
+/home/yamamori/work/programs/MolBas/MB.c:5:#include "MB.h"
+/home/yamamori/work/programs/MYMATH/mymath.c:2:#include <math.h>
+/home/yamamori/work/programs/MYMATH/mymath.c:3:#include "mymath.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:4:#include <stdio.h>
+/home/yamamori/work/programs/SBFF/SBFF.c:5:#include <stdlib.h>
+/home/yamamori/work/programs/SBFF/SBFF.c:6:#include <math.h>
+/home/yamamori/work/programs/SBFF/SBFF.c:8:#include "SBFF.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:9:#include "FF.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:10:#include "MB.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:11:#include "PT.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:12:#include "LA.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:13:#include "TOPO.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:14:#include "mymath.h"
+/home/yamamori/work/programs/SBFF/SBFF.c:15:#include "EF.h"
+
+files
+
+MB.c: "MB.h"
+mymath.c: "mymath.h"
+SBFF.c: "SBFF.h"
+
+relationship
+
+MB.c: "MB.h"
+mymath.c: "mymath.h"
+SBFF.c: "SBFF.h"
+SBFF.c: "FF.h"
+SBFF.c: "MB.h"
+SBFF.c: "PT.h"
+SBFF.c: "LA.h"
+SBFF.c: "TOPO.h"
+SBFF.c: "mymath.h"
+SBFF.c: "EF.h"
+
+11) 4-th order related files.sh
+
+/home/yamamori/work/programs/ABA_makefile/FF.h	/home/yamamori/work/programs/CFF/FF.h
+/home/yamamori/work/programs/ABA_makefile/PT.h	/home/yamamori/work/programs/readParmtop/PT.h
+
+sh find_4th-order_related_files.sh
+
+calcFF.c: "FF.h"
+calcFF.c: "MB.h"
+calcFF.c: "PT.h"
+calcFF.c: "LA.h"
+calcFF.c: "TOPO.h"
+calcFF.c: "mymath.h"
+calcFF.c: "EF.h"
+readParmtop.c "PT.h"
+readParmtop.c "EF.h"
+
+12) external libraries
+
+~/software/netcdf-4.1.1   netcdf
+~/work/programs/RAND      RAND
+~/software/CLAPACK-3.2.1  f2c clapack
+~/software/gc6.7 gc (?)
+
+13) copy and rename files
+
+chmod +x copy_and_rename_files.sh
+./copy_and_rename_files.sh

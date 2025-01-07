@@ -1,0 +1,13 @@
+-*- mode: grep; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/log/" -*-
+Grep started at Fri Jun  6 18:04:33
+
+grep -nH -e multiple compilation.txt 
+compilation.txt:7:FFL.c:(.text+0x140): multiple definition of `which_calc_nb'
+compilation.txt:11:FFL.c:(.text+0x1c0): multiple definition of `which_calc_14_nb'
+compilation.txt:15:FFL.c:(.text+0x9090): multiple definition of `calcANGKE_force'
+compilation.txt:18:ABA_set_imat.c:(.text+0x0): multiple definition of `ABAs_Inertia_clust'
+compilation.txt:21:ABA_set_imat.c:(.text+0x120): multiple definition of `ABAs_InertiaMatrix'
+compilation.txt:24:ABA_set_imat.c:(.text+0x360): multiple definition of `ABA_setJoin'
+compilation.txt:28:ABA_set_imat.c:(.text+0x390): multiple definition of `ABAs_inertia_matrix'
+
+Grep finished (matches found) at Fri Jun  6 18:04:33

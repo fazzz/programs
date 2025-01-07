@@ -1,0 +1,53 @@
+Valgrind error: 2014-08-06
+
+error about getline
+
+readParmtopL (PTL.c:15) 
+main (main.c:210)
+
+
+error about ABA_set_lref.c
+
+ (ABA_set_lref.c:31)
+      sub_trans_A_to_CN(clt[nNumClut].trans_A_to_CN,clt[nNumClut].xoord,
+			0,clt[nNumClut].origin_atom_a,
+			-1,0,
+->			clt[nNumClutOfParent].origin_atom_a,
+			num_atom_all,num_atom_all,crd);
+
+(ABA_set_lref.c:34)
+    else if(clt[nNumClut].join > 0) {
+
+error about initialization of delta ?
+
+ (ABA_update.c:152)
+    q[i][0]=cos(delta[i]*0.5);
+    for(j=0;j<3;++j) q[i][j+1] = axis_of_rotation_unit[i][j]*sin(delta[i]*0.5);
+
+(ABA_update.c:185) (LA.c:174)
+    invm2(dbmat,invmat,3);
+    dgetri_(&n,mattemp,&lda,piv,work,&lwork,&info);
+    if (info!=0) return 0; ?
+
+error about FFL.c
+
+(FFL.c:2990)
+      if (atom_dihed_pair[k/*][*/*6+l]==terminal_atom_a[p] && atom_dihed_pair[k/*][*/*6+ll]==origin_atom_a[i]) {
+(FFL.c:2971)
+      inpindexH[(*inpnumH)]=k;
+FFL.c:2974
+      inpindexH=(int *)erealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22
+FFL.c:3049
+      if (atom_dihed_pair[(k+AP.NPHIH)/*][*/*6+l]==terminal_atom_a[p] && atom_dihed_pair[(k+AP.NPHIH)/*][*/*6+ll]==origin_atom_a[i]){
+FFL.c:3031
+      inpindexA[(*inpnumA)]=k;
+FFL.c:3034
+      inpindexA=(int *)erealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22
+FFL.c:2620
+      if (i == inpindex[j]) {
+
+error about emalloc
+
+main.c:259
+	terminal=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22
+

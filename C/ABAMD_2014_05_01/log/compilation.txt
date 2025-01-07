@@ -1,0 +1,143 @@
+-*- mode: compilation; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/src/" -*-
+Compilation started at Fri Jun  6 17:49:53
+
+make
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -O2 -lm -o ABAMD.exe main.o mt19937ar.o PT.o PTL.o FF.o FFL.o SBFF.o MB.o BOXMULL.o TOPO.o LA.o quaternion.o ABA_hosoku.o ABA_gtree.o ABA_Inverse_backpass.o ABA_Inverse_mainpass.o ABA_Inverse.o ABA_calcKineE.o ABA_calcattfrc.o ABA_update.o ABA_integ.o ABA_set_trans.o ABA_set_tmat.o ABA_set_rst.o ABA_set_lref.o ABA_set_imatb.o ABA_set_imat.o ABA_set_frc.o ABA_pick_data.o ABA_Nose-Hoover_new_mvV.o ABA_Nose-Hoover_new.o ABA_Nose-Hoover_chain.o ABA_Nose-Hoover.o ABA_backpass.o ABA_mainpass.o ABA_prepass.o ABA_b.o EF.o netcdf_mineL.o ;
+FFL.o: In function `which_calc_nb':
+FFL.c:(.text+0x140): multiple definition of `which_calc_nb'
+FF.o:FF.c:(.text+0xf0): first defined here
+/usr/bin/ld: Warning: size of symbol `which_calc_nb' changed from 85 in FF.o to 127 in FFL.o
+FFL.o: In function `which_calc_14_nb':
+FFL.c:(.text+0x1c0): multiple definition of `which_calc_14_nb'
+FF.o:FF.c:(.text+0x150): first defined here
+/usr/bin/ld: Warning: size of symbol `which_calc_14_nb' changed from 660 in FF.o to 581 in FFL.o
+FFL.o: In function `calcANGKE_force':
+FFL.c:(.text+0x9090): multiple definition of `calcANGKE_force'
+FF.o:FF.c:(.text+0x5840): first defined here
+ABA_set_imat.o: In function `ABAs_Inertia_clust':
+ABA_set_imat.c:(.text+0x0): multiple definition of `ABAs_Inertia_clust'
+ABA_set_imatb.o:ABA_set_imatb.c:(.text+0x0): first defined here
+ABA_set_imat.o: In function `ABAs_InertiaMatrix':
+ABA_set_imat.c:(.text+0x120): multiple definition of `ABAs_InertiaMatrix'
+ABA_set_imatb.o:ABA_set_imatb.c:(.text+0x120): first defined here
+ABA_set_imat.o: In function `ABA_setJoin':
+ABA_set_imat.c:(.text+0x360): multiple definition of `ABA_setJoin'
+ABA_set_imatb.o:ABA_set_imatb.c:(.text+0x360): first defined here
+/usr/bin/ld: Warning: size of symbol `ABA_setJoin' changed from 43 in ABA_set_imatb.o to 37 in ABA_set_imat.o
+ABA_set_imat.o: In function `ABAs_inertia_matrix':
+ABA_set_imat.c:(.text+0x390): multiple definition of `ABAs_inertia_matrix'
+ABA_set_imatb.o:ABA_set_imatb.c:(.text+0x390): first defined here
+/usr/bin/ld: Warning: size of symbol `ABAs_inertia_matrix' changed from 291 in ABA_set_imatb.o to 270 in ABA_set_imat.o
+main.o: In function `main':
+main.c:(.text+0x19c6): undefined reference to `nc_close'
+FF.o: In function `ff_calcANGLE_woH':
+FF.c:(.text+0x3352): undefined reference to `pick_angle'
+FF.o: In function `ff_calcANGLE':
+FF.c:(.text+0x3493): undefined reference to `pick_angle'
+FF.c:(.text+0x3562): undefined reference to `pick_angle'
+FFL.o: In function `ffL_calcANGLE_woH':
+FFL.c:(.text+0x6ff3): undefined reference to `pick_angle'
+FFL.o: In function `ffL_calcANGLE':
+FFL.c:(.text+0x7121): undefined reference to `pick_angle'
+FFL.o:FFL.c:(.text+0x71ec): more undefined references to `pick_angle' follow
+LA.o: In function `svd':
+LA.c:(.text+0x4b7): undefined reference to `dgesvd_'
+LA.o: In function `invm2':
+LA.c:(.text+0x5d5): undefined reference to `dgetrf_'
+LA.c:(.text+0x627): undefined reference to `dgetri_'
+LA.o: In function `invm':
+LA.c:(.text+0x6dd): undefined reference to `dgetrf_'
+LA.c:(.text+0x728): undefined reference to `dgetri_'
+EF.o: In function `encclose':
+EF.c:(.text+0x5): undefined reference to `ncclose'
+EF.c:(.text+0x15): undefined reference to `nc_strerror'
+EF.o: In function `encopen':
+EF.c:(.text+0x45): undefined reference to `ncopen'
+EF.c:(.text+0x55): undefined reference to `nc_strerror'
+EF.o: In function `enc_open':
+EF.c:(.text+0x85): undefined reference to `nc_open'
+EF.c:(.text+0x95): undefined reference to `nc_strerror'
+EF.o: In function `enc_inq_varid':
+EF.c:(.text+0xc5): undefined reference to `nc_inq_varid'
+EF.c:(.text+0xd5): undefined reference to `nc_strerror'
+EF.o: In function `enc_def_var':
+EF.c:(.text+0x105): undefined reference to `nc_def_var'
+EF.c:(.text+0x115): undefined reference to `nc_strerror'
+EF.o: In function `enc_def_dim':
+EF.c:(.text+0x145): undefined reference to `nc_def_dim'
+EF.c:(.text+0x155): undefined reference to `nc_strerror'
+EF.o: In function `enc_create':
+EF.c:(.text+0x185): undefined reference to `nc_create'
+EF.c:(.text+0x195): undefined reference to `nc_strerror'
+EF.o: In function `gcerealloc':
+EF.c:(.text+0x1f5): undefined reference to `GC_realloc'
+EF.o: In function `gcemalloc':
+EF.c:(.text+0x255): undefined reference to `GC_malloc'
+netcdf_mineL.o: In function `myncL_put_crd_AMBER':
+netcdf_mineL.c:(.text+0x25): undefined reference to `nc_put_vara_double'
+netcdf_mineL.c:(.text+0x35): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_put_crd_MCD':
+netcdf_mineL.c:(.text+0x85): undefined reference to `nc_put_vara_double'
+netcdf_mineL.c:(.text+0x95): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_open_inq_get_sh_AMBER':
+netcdf_mineL.c:(.text+0x16a): undefined reference to `nc_get_vara_double'
+netcdf_mineL.c:(.text+0x175): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_open_inq_get_ene_SBAAMCD':
+netcdf_mineL.c:(.text+0x242): undefined reference to `nc_get_vara_double'
+netcdf_mineL.c:(.text+0x24d): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_open_inq_get_ene_MCD':
+netcdf_mineL.c:(.text+0x32e): undefined reference to `nc_get_vara_double'
+netcdf_mineL.c:(.text+0x339): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_open_inq_get_sh_MCD':
+netcdf_mineL.c:(.text+0x42a): undefined reference to `nc_get_vara_double'
+netcdf_mineL.c:(.text+0x435): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_open_inq_get_trj_MCD':
+netcdf_mineL.c:(.text+0x548): undefined reference to `nc_get_vara_double'
+netcdf_mineL.o: In function `myncL_open_inq_get_MCD':
+netcdf_mineL.c:(.text+0x68c): undefined reference to `nc_get_vara_double'
+netcdf_mineL.c:(.text+0x6b2): undefined reference to `nc_get_vara_double'
+netcdf_mineL.o: In function `myncL_get_present_step_AMBER':
+netcdf_mineL.c:(.text+0x71b): undefined reference to `nc_inq_unlimdim'
+netcdf_mineL.c:(.text+0x72b): undefined reference to `nc_strerror'
+netcdf_mineL.c:(.text+0x753): undefined reference to `nc_inq_dimlen'
+netcdf_mineL.o: In function `myncL_get_present_step_SBAAMCD':
+netcdf_mineL.c:(.text+0x78b): undefined reference to `nc_inq_unlimdim'
+netcdf_mineL.c:(.text+0x79b): undefined reference to `nc_strerror'
+netcdf_mineL.c:(.text+0x7c3): undefined reference to `nc_inq_dimlen'
+netcdf_mineL.o: In function `myncL_get_present_step_MCD':
+netcdf_mineL.c:(.text+0x7fb): undefined reference to `nc_inq_unlimdim'
+netcdf_mineL.c:(.text+0x80b): undefined reference to `nc_strerror'
+netcdf_mineL.c:(.text+0x833): undefined reference to `nc_inq_dimlen'
+netcdf_mineL.o: In function `myncL_create_def_AMBER':
+netcdf_mineL.c:(.text+0xf58): undefined reference to `nc_put_att_text'
+netcdf_mineL.c:(.text+0xf5f): undefined reference to `nc_enddef'
+netcdf_mineL.o: In function `myncL_create_def_SBAAMCD':
+netcdf_mineL.c:(.text+0x102b): undefined reference to `nc_put_att_text'
+netcdf_mineL.c:(.text+0x1065): undefined reference to `nc_put_att_text'
+netcdf_mineL.c:(.text+0x106c): undefined reference to `nc_enddef'
+netcdf_mineL.o: In function `myncL_create_def_MCD':
+netcdf_mineL.c:(.text+0x1166): undefined reference to `nc_put_att_text'
+netcdf_mineL.c:(.text+0x11b1): undefined reference to `nc_put_att_text'
+netcdf_mineL.c:(.text+0x11bf): undefined reference to `nc_enddef'
+netcdf_mineL.o: In function `myncL_put_crd_ene_SBAAMCD':
+netcdf_mineL.c:(.text+0x122c): undefined reference to `nc_put_vara_double'
+netcdf_mineL.c:(.text+0x124e): undefined reference to `nc_put_var1_double'
+netcdf_mineL.c:(.text+0x1263): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_put_crd_ene_MCD':
+netcdf_mineL.c:(.text+0x12bc): undefined reference to `nc_put_vara_double'
+netcdf_mineL.c:(.text+0x12ee): undefined reference to `nc_put_var1_double'
+netcdf_mineL.c:(.text+0x130e): undefined reference to `nc_put_var1_double'
+netcdf_mineL.c:(.text+0x132e): undefined reference to `nc_put_var1_double'
+netcdf_mineL.c:(.text+0x134e): undefined reference to `nc_put_var1_double'
+netcdf_mineL.c:(.text+0x136e): undefined reference to `nc_put_var1_double'
+netcdf_mineL.o:netcdf_mineL.c:(.text+0x138a): more undefined references to `nc_put_var1_double' follow
+netcdf_mineL.o: In function `myncL_put_crd_ene_MCD':
+netcdf_mineL.c:(.text+0x13e8): undefined reference to `nc_strerror'
+netcdf_mineL.o: In function `myncL_get_numatom_MCD':
+netcdf_mineL.c:(.text+0x1430): undefined reference to `nc_inq_dimid'
+netcdf_mineL.c:(.text+0x1440): undefined reference to `nc_strerror'
+netcdf_mineL.c:(.text+0x1468): undefined reference to `nc_inq_dimlen'
+collect2: ld returned 1 exit status
+make: *** [ABAMD.exe] Error 1
+
+Compilation exited abnormally with code 2 at Fri Jun  6 17:49:54

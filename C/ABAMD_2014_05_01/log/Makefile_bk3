@@ -1,0 +1,138 @@
+#
+# Makefile for ABAMD program
+#
+
+# definitions
+# directories
+ABAMDHOME=/home/yamamori/work/programs/ABAMD_2014_05_01
+netcdfdir=$(ABAMDHOME)/lib/netcdf-4.3.0
+CLAPACKdir=$(ABAMDHOME)/lib/CLAPACK-3.2.1
+gcdir=$(ABAMDHOME)/lib/gc6.7
+#CC    = icc -pg -O3 -tpp6 -ipo
+CC     = gcc
+
+CFLAG = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -O2
+
+ABAMDHOME=/home/yamamori/work/programs/ABAMD_2014_05_01
+
+OBJS =  mainABAMD.o mt19937ar.o PT.o PTL.o FF.o FFL.o SBFF.o MB.o BOXMULL.o TOPO.o LA.o quaternion.o \
+	ABA_hosoku.o ABA_gtree.o ABA_Inverse_backpass.o ABA_Inverse_mainpass.o ABA_Inverse.o \
+	ABA_calcKineE.o ABA_calcattfrc.o ABA_update.o ABA_integ.o \
+	ABA_set_trans.o ABA_set_tmat.o ABA_set_rst.o ABA_set_lref.o ABA_set_imatb.o ABA_set_imat.o ABA_set_frc.o \
+	ABA_pick_data.o ABA_Nose-Hoover_new_mvV.o ABA_Nose-Hoover_new.o ABA_Nose-Hoover_chain.o ABA_Nose-Hoover.o \
+	ABA_backpass.o ABA_mainpass.o ABA_prepass.o ABA_b.o EF.o netcdf_mineL.o
+LIBS =  ABA.h ABAb.h ABA_prepass.h ABA_mainpass.h ABA_backpass.h \
+	ABA_Nose-Hoover.h ABA_Nose-Hoover_chain.h ABA_Nose-Hoover_new.h ABA_Nose-Hoover_new_mvV.h \
+	ABA_set_frc.h ABA_set_imat.h ABA_set_imatb.h ABA_set_lref.h ABA_set_rst.h ABA_set_tmat.h ABA_set_trans.h \
+	ABA_pick_data.h ABA_integ.h ABA_update.h ABA_calcattfrc.h ABA_calcKineE.h \
+	ABA_Inverse.h ABA_Inverse_mainpass.h ABA_Inverse_backpass.h ABA_gtree.h ABA_hosoku.h \
+	quaternion.h EF.h LA.h PTL.h FFL.h TOPO.h BOXMULL.h netcdf_mineL.h MB.h \
+	mymath.h SBFF.h FF.h PT.h RAND.h netcdf.h clapack.h gc.h f2c.h
+
+TARGET = ABAMD.exe
+
+# rules of generations
+$(TARGET): 
+	   cd $(netcdfdir); \
+	   ./configure --prefix=$(ABAMDHOME) --enable-shared --disable-netcdf-4 --disable-dap ; \
+	   make check install ; \
+	   cp $(netcdfdir)/liblib/libnetcdf.la ../; cp $(netcdfdir)/include/netcdf.h ../../src; \
+	   cd $(CLAPACKdir) ; \
+	   make ; \
+	   cp lapack_LINUX.a ../liblapack.a ; \
+	   cp libblas_LINUX.a ../libblas.a ; \
+	   cp F2CLIBS/libf2c.a ../ ; \
+	   cp INCLUDE/blaswrap.h INCLUDE/clapack.h INCLUDE/f2c.h  ../../src ;
+	   cd $(gcdir) ; \
+	   ./configure --prefix=$(ABAMDHOME) ; \
+	   make ; \
+	   cp libgc.la ../ ; \
+	   cp include/gc.h ../../src ;
+	   $(OBJS) $(LIBS)
+	   $(CC) $(CFLAG) -o $@ $(OBJS) -L$(ABAMDHOME)/lib -I$(ABAMDHOME)/include \
+	   -llapack -lblas -lf2c -lm -lgc -lnetcdf ;
+
+.c.o:
+	$(CC) -c $(CFLAG) $<;
+
+mainABAMD.o: netcdf.h ABA.h PTL.h FFL.h EF.h netcdf_mineL.h
+ABA_b.o: ABAb.h ABA_prepass.h ABA_mainpass.h ABA_backpass.h \
+	 ABA_Nose-Hoover.h ABA_Nose-Hoover_new.h ABA_Nose-Hoover_new_mvV.h ABA_Nose-Hoover_chain.h \
+	 ABA_pick_data.h ABA_set_frc.h ABA_set_imat.h ABA_set_lref.h ABA_set_rst.h ABA_set_tmat.h ABA_set_trans.h \
+	 ABA_update.h ABA_integ.h ABA_calcattfrc.h ABA_Inverse.h ABA_Inverse_backpass.h ABA_Inverse_mainpass.h \
+	 ABA_gtree.h EF.h
+ABA_Inverse.o: ABA.h EF.h
+ABA_Inverse_backpass.o: ABA.h EF.h LA.h
+ABA_Inverse_mainpass.o: ABA_Inverse_mainpass.h
+ABA_Nose-Hoover.o: ABA.h
+ABA_Nose-Hoover_chain.o: ABA.h
+ABA_Nose-Hoover_new.o: ABA.h
+ABA_Nose-Hoover_new_mvV.o: ABA.h
+ABA_backpass.o: ABA.h
+ABA_calcKineE.o: ABA.h  LA.h EF.h RAND.h BOXMULL.h
+ABA_calcattfrc.o: ABA.h EF.h TOPO.h PTL.h
+ABA_gtree.o: EF.h RAND.h ABA.h
+ABA_hosoku.o: ABA_hosoku.h
+ABA_integ.o: ABA.h
+ABA_mainpass.o: ABA.h LA.h
+ABA_pick_data.o: ABA.h
+ABA_prepass.o: ABA.h EF.h
+ABA_set_frc.o: ABA.h EF.h
+ABA_set_imat.o: ABA.h ABAb.h
+ABA_set_imatb.o: ABA_set_imatb.h EF.h
+ABA_set_lref.o: ABA.h EF.h
+ABA_set_rst.o: ABA.h
+ABA_set_tmat.o: ABA.h EF.h
+ABA_set_trans.o: ABA.h EF.h LA.h
+ABA_update.o: ABA_update.h quaternion.h EF.h
+EF.o: netcdf.h EF.h gc.h
+LA.o: LA.h f2c.h clapack.h EF.h
+PTL.o: PTL.h EF.h
+PT.o: PT.h
+TOPO.o: TOPO.h
+FFL.o: FFL.h MB.h PTL.h LA.h TOPO.h mymath.h EF.h
+FF.o: FF.h MB.h
+BOXMULL.o: EF.h RAND.h
+quaternion.o: quaternion.h
+netcdf_mineL.o: FF.h netcdf.h PTL.h SBFF.h netcdf_mineL.h
+MB.o: MB.h
+mymath.o: mymath.h
+SBFF.o: SBFF.h
+mt19937ar.o: RAND.h
+
+clean:
+	rm $(OBJS); \
+	rm $(TARGET); \
+	cd $(netcdfdir); \
+	make clean ; \
+	rm ../libnetcdf.la; rm ../../src/netcdf.h; \
+	cd $(CLAPACKdir) ; \
+	make clean; \
+        cp lapack_LINUX.a ../liblapack.a ; \
+        cp libblas_LINUX.a ../libblas.a ; \
+	rm ../libf2c.a ; \
+	rm ../../src/blaswrap.h ../../src/clapack.h ../../src/f2c.h \
+	cd $(gcdir) ; \
+	make clean ; \
+	rm ../libgc.la ; \
+	rm ../../src/gc.h ;
+
+netcdfclean:
+	cd $(netcdfdir); \
+	make clean ; \
+	rm ../libnetcdf.la; rm ../../src/netcdf.h; \
+	cd $(CLAPACKdir) ; \
+
+clapackclean:
+	cd $(CLAPACKdir) ; \
+	make clean; \
+        rm ../liblapack.a ; \
+        rm ../libblas.a ; \
+	rm ../libf2c.a ; \
+	rm ../../src/blaswrap.h ../../src/clapack.h ../../src/f2c.h \
+
+gcclean:
+	cd $(gcdir) ; \
+	make clean ; \
+	rm ../libgc.la ; \
+	rm ../../src/gc.h ;

@@ -1,0 +1,14 @@
+LA.o: In function `svd':
+LA.c:(.text+0x4b7): undefined reference to `dgesvd_'
+LA.o: In function `invm2':
+LA.c:(.text+0x5d5): undefined reference to `dgetrf_'
+LA.c:(.text+0x627): undefined reference to `dgetri_'
+LA.o: In function `invm':
+LA.c:(.text+0x6dd): undefined reference to `dgetrf_'
+LA.c:(.text+0x728): undefined reference to `dgetri_'
+EF.o: In function `gcerealloc':
+EF.c:(.text+0x1f5): undefined reference to `GC_realloc'
+EF.o: In function `gcemalloc':
+EF.c:(.text+0x255): undefined reference to `GC_malloc'
+collect2: ld returned 1 exit status
+make: *** [ABAMD.exe] Error 1

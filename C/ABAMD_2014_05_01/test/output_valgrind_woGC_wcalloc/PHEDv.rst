@@ -1,0 +1,34 @@
+ACE
+ 32 
+2.00000100 1.00000000 -0.00000130 
+2.00000100 2.09000000 0.00000010 
+1.48626400 2.45384900 0.88982400 
+1.48625900 2.45385200 -0.88982000 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 
+       nan        nan        nan 

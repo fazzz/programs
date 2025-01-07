@@ -1,0 +1,185 @@
+Valgrind error: 2014-08-06
+
+error about getline
+readParmtopL (PTL.c:15)
+  getline(&line,&len,parmfile);  <- debug by  char *line="line"; // 2014-08-13
+main (main.c:210)
+  getline(&line,&len,inputfile); <- debug by   char *line="line"; // 2014-08-13
+
+error about ABA_set_lref.c
+ (ABA_set_lref.c:31)
+      sub_trans_A_to_CN(clt[nNumClut].trans_A_to_CN,clt[nNumClut].xoord,
+			0,clt[nNumClut].origin_atom_a,
+			-1,0,
+->			clt[nNumClutOfParent].origin_atom_a,
+			num_atom_all,num_atom_all,crd);
+
+(ABA_set_lref.c:34)
+    else if(clt[nNumClut].join > 0) {
+
+error about initialization of delta ?
+ (ABA_update.c:152)
+    q[i][0]=cos(delta[i]*0.5);
+    for(j=0;j<3;++j) q[i][j+1] = axis_of_rotation_unit[i][j]*sin(delta[i]*0.5);
+
+(ABA_update.c:185) (LA.c:174)
+    invm2(dbmat,invmat,3);
+    dgetri_(&n,mattemp,&lda,piv,work,&lwork,&info);
+    if (info!=0) return 0; ?
+ABA_update.c:70 ABA_update.c:71
+  q[0]=cos(delta_dihed*0.5);
+  for(i=0;i<3;++i) q[i+1] = axis_of_rotation_unit[i]*sin(delta_dihed*0.5);
+ABA_update.c:67
+  length = sqrt(length);
+
+
+error about FFL.c
+(FFL.c:2990)
+      if (atom_dihed_pair[k/*][*/*6+l]==terminal_atom_a[p] && atom_dihed_pair[k/*][*/*6+ll]==origin_atom_a[i]) {
+(FFL.c:2971)
+      inpindexH[(*inpnumH)]=k;
+FFL.c:2974
+      inpindexH=(int *)erealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22
+FFL.c:3049
+      if (atom_dihed_pair[(k+AP.NPHIH)/*][*/*6+l]==terminal_atom_a[p] && atom_dihed_pair[(k+AP.NPHIH)/*][*/*6+ll]==origin_atom_a[i]){
+FFL.c:3031
+      inpindexA[(*inpnumA)]=k;
+FFL.c:3034
+      inpindexA=(int *)erealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22
+FFL.c:2620
+      if (i == inpindex[j]) {
+FFL.c:2974
+      inpindexH=(int *)erealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22
+FFL.c:2643
+      if (i == inpindex[j+inpnumH]) {
+FFL.c:3034
+      inpindexA=(int *)erealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22
+FFL.c:1340
+      (*ene).p_LJ=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1338
+      (*ene).p_e=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1340
+      (*ene).p_LJ=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:2632
+      Q[n] += -AP.PK[dtype]*(sin(AP.PN[dtype]*dihedang-AP.PHASE[dtype])*AP.PN[dtype]);
+FFL.c:2655
+      Q[n] += -AP.PK[dtype]*4.18407*100.0*(sin(AP.PN[dtype]*dihedang-AP.PHASE[dtype])*AP.PN[dtype]);
+FFL.c:809
+      p_d[i] = AP.PK[dtype]*(1.0+cos(AP.PN[dtype]*dihedang-AP.PHASE[dtype]));
+FFL.c:833
+      p_d[i+AP.NPHIH] = AP.PK[dtype]*(1.0+cos(AP.PN[dtype]*dihedang-AP.PHASE[dtype]));
+FFL.c:880
+      ln1=sqrt(inprod(n1,n1,3));
+FFL.c:881
+      ln2=sqrt(inprod(n2,n2,3));
+FFL.c:931
+      ln1=sqrt(inprod(n1,n1,3));
+FFL.c:932
+      ln2=sqrt(inprod(n2,n2,3));
+FF.c:778
+      angijk = acos(cosijk);
+FF.c:787
+      f1 = -2.0*kang*(angijk-ang_eq)/(lenij*sin(angijk))*(vkj[j]/lenkj-cosijk*vij[j]/lenij)*UNIT;
+FF.c:788
+      f2 = -2.0*kang*(angijk-ang_eq)/(lenkj*sin(angijk))*(vij[j]/lenij-cosijk*vkj[j]/lenkj)*UNIT;
+
+
+error about emalloc
+main.c:259
+	terminal=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22
+main.c:313
+	correct_Term[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+
+error about ABA_prepass.c
+ABA_prepass.c:66
+    ABA_Coacc(clt[i].Coacc,clt[i].Spvel,clt[nNumClutOfParent].Spvel,qvel[i],
+->	      clt[i].origin_atom_a,clt[nNumClutOfParent].origin_atom_a,nNumClutOfParent,
+	      crd,clt[nNumClutOfParent].trans_A_to_CN,clt[i].TM);
+
+ABA_prepass.c:215
+   vector2[alpha] += trans_A_to_CN_P[alpha][alpha2]*vector[alpha2];
+
+ABA_prepass.c:218 ABA_prepass.c:219 ABA_prepass.c:220 ABA_prepass.c:222 ABA_prepass.c:223 ABA_prepass.c:224
+   omegaproduct[0][1]=-Spvel_P[2];
+   omegaproduct[0][2]= Spvel_P[1];
+   omegaproduct[1][0]= Spvel_P[2];
+   omegaproduct[1][2]=-Spvel_P[0];
+   omegaproduct[2][0]=-Spvel_P[1];
+   omegaproduct[2][1]= Spvel_P[0];
+
+error about fclose
+main.c:213
+  fclose(inputfile);
+main.c:254
+  fclose(clustfile);
+
+error about fprintf
+main.c:404
+      fprintf(outputfile,"%d %24.20e %24.20e %24.20e %24.20e %24.20e %24.20e %24.20e\n",
+main.c:412
+      fprintf(outputfile2,"T_kelvin         = %24.20e K  \n",T);
+main.c:413
+      fprintf(outputfile2,"toal_energy      = %24.20e kcal/mol  \n",e.p_t+KE);
+main.c:414
+      fprintf(outputfile2,"toal_vertial_energy      = %24.20e kcal/mol  \n",e.p_t+KE+KEv+PEv);
+      main.c:417
+      fprintf(outputfile2,"potential_energy_real = %24.20e kcal/mol  \n",e.p_t);
+main.c:419
+      fprintf(outputfile2,"dihedral_energy  = %24.20e kcal/mol  \n",e.p_d_t);
+main.c:420
+      fprintf(outputfile2,"elect_energy     = %24.20e kcal/mol  \n",e.p_e_t);
+
+error about netcdf
+netcdf_mineL.c:528 <- main.c:434
+  if((c=nc_put_vara_double((nc_id_MD.ncid),(nc_id_MD.trj_varid),&nc_id_MD.start_trj[0],&nc_id_MD.count_trj[0],&crd_nc[0][0]))) <-       myncL_put_crd_AMBER(nc_id,l,crd_nc);
+
+netcdf_mineL.c:446
+  enc_create(outfilename,NC_SHARE,&(nc_id_MD->ncid)); <-   myncL_create_def_AMBER(trjfilename,numatom,&nc_id);
+
+error about MB
+MB.c:43 <- FFL.c:2630
+  d_ij_jk = sqrt(d_ij_jk); <- dihedang = pick_dihed(atom[0],atom[1],atom[2],atom[3],0,0.0);
+  d_jk_kl = sqrt(d_jk_kl); <- dihedang = pick_dihed(atom[0],atom[1],atom[2],atom[3],0,0.0);
+MB.c:69
+  d_ijkl_jkkl = sqrt(d_ijkl_jkkl);
+MB.c:71
+  d_jk = sqrt(d_jk);
+MB.c:55
+  if (cs < -1.0 ){
+MB.c:58
+  else if (cs > 1.0 ) {
+MB.c:74
+  if (det <0)
+MB.c:75
+  theta = -1.0*acos(cs);
+MB.c:81
+  if (det<0) {
+MB.c:77
+  theta = acos(cs);
+MB.c:260
+  v1[i]=v1[i]/sqrt(abv1);
+MB.c:266
+  theta=acos(theta);
+MB.c:111
+  len=sqrt(len);
+
+error about TOPO.c
+TOPO.c:161 <- FFL.c:883
+  d_ij_jk = sqrt(d_ij_jk); <- csdih(atom[0],atom[1],atom[2],atom[3],&cosdih,&sindih);
+  d_jk_kl = sqrt(d_jk_kl);
+TOPO.c:171
+  if (*cs < -1.0 ) *cs = -1.0;
+TOPO.c:172
+  else if (*cs > 1.0 ) *cs = 1.0;
+TOPO.c:181
+  d_ijkl_jkkl = sqrt(d_ijkl_jkkl);
+TOPO.c:183
+  d_jk = sqrt(d_jk);
+TOPO.c:186
+  if (det <0) {
+TOPO.c:188
+  *sn = -1.0*sqrt(*sn);
+TOPO.c:192
+  *sn = sqrt(*sn);
+TOPO.c:17
+   return sqrt(l);

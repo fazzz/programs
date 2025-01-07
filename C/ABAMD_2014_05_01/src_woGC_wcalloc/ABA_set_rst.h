@@ -1,0 +1,45 @@
+#ifndef INCLUDE_ABA_s_rst
+#define INCLUDE_ABA_s_rst
+
+void ABAs_restat_read(char *inputvelofilename,int numclut,
+		      double *correct,double **correctt_Term,double **correctt_Term2,double correct_s[6]
+		      ,int MODE,int TERMMODE);
+
+void ABAs_restat_write_vel(char *restatvelofilename,int numclut,
+			   double *correct,double **correctt_Term,double **correctt_Term2,double correct_s[6]
+			   ,int MODE,int TERMMODE);
+
+void ABAs_restat_read_new(char *inputvelofilename,int numclut, // 2014-08-13
+			  double *correct,double **correctt_Term,double **correctt_Term2,double correct_gzi[5], // 2014-008-13
+			  int MODE,int TERMMODE); // 2014-08-13
+//void ABAs_restat_read_new(char *inputvelofilename,int numclut, // 2014-08-13
+//			  double *correct,double correctt_Term[6][6],double **correctt_Term2,double correct_gzi[5], // 2014-08-13
+//			  int MODE,int TERMMODE); // 2014-08-13
+
+void ABAs_restat_write_vel_new(char *restatvelofilename,int numclut,
+			       double *correct,double **correctt_Term,double **correctt_Term2,double correct_gzi[5],
+			       int MODE,int TERMMODE);
+
+void ABAs_restat_read_new_mvV(char *inputvelofilename,int numclut,
+			      double *qvel_b1,double *qvel_b2,
+			      double *vel_Term_b1,double *vel_Term_b2,
+			      double zeta,
+			      int MODE,int TERMMODE);
+
+void ABAs_restat_write_vel_new_mvV(char *restatvelofilename,int numclut,
+				   double *qvel_b1,double *qvel_b2,
+				   double *vel_Term_b1,double *vel_Term_b2,
+				   double zeta,
+				   int MODE,int TERMMODE);
+
+void ABAs_restat_read_chain(char *inputvelofilename,int numclut,
+			    double *correct,double **correctt_Term,double **correctt_Term2,double **correct_gzi,
+			    int M,
+			    int MODE,int TERMMODE);
+
+void ABAs_restat_write_vel_chain(char *restatvelofilename,int numclut,
+				 double *correct,double **correctt_Term,double **correctt_Term2,double **correct_gzi,
+				 int M,
+				 int MODE,int TERMMODE);
+
+#endif

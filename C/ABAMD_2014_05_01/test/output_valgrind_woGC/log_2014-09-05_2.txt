@@ -1,0 +1,14 @@
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=0.000000e+00 0x7feffe408
+delta_dihed=1.727020e-06 0x7feffe408
+delta_dihed=9.322633e-07 0x7feffe408
+delta_dihed=-1.004867e-05 0x7feffe408
+delta_dihed=5.875252e-06 0x7feffe408
+delta_dihed=3.419852e-06 0x7feffe408
+delta_dihed=5.167763e-06 0x7feffe408
+delta_dihed=-6.042474e-06 0x7feffe408

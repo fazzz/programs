@@ -1,0 +1,648 @@
+#define _GNU_SOURCE  
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+#include "netcdf.h"
+#include <getopt.h>
+
+#include "ABAb.h"  // 2014-06-18
+
+#include "PTL.h"
+#include "FFL.h"
+#include "EF.h"
+
+#include "netcdf_mineL.h"
+
+#include "f2c.h"     // 2014-08-13
+#include "clapack.h" // 2014-08-13
+
+#define ON 1
+#define OFF 0
+
+void usage(char *progname);
+
+int main(int argc, char *argv[]) {
+  int i,j,k,l=0,d;
+  int numatom,numclut,numstep=100000;
+  int interval=1000,intervalout=1000,intervalnc=1000,intervalflag;
+  double dt=0.001; double pot_KE_KEv_PEv=0.0; // 2014-08-13
+  CLT *clt;
+  double *Q,*frc,pot;
+  double *q;
+  double *qacc,*qvel,*qrot;
+  double *predict,*correct;
+  double KE,KEv,PEv;
+  double dummy;
+
+  int MODE=NVT,MODEV=OFF,TERMMODE=OFF;
+  double Tobj=300,KEobj;
+  double k_B=1.98723e-3;
+
+  double s=1.0,s_vel=0.0,s_acc,gzi=0.0,gzi_vel,predict_gzi[5],correct_gzi[5],predict_s[5],correct_s[5];
+  double Q_NH,tau=0.1,tau2;
+  double T;
+  int DOF;
+
+  int dfalg=ON,efalg=ON,LJfalg=ON,e14falg=ON,LJ14falg=ON;
+  double coff=1.0;
+  int *numclutparent,*terminal,*origin;
+  double *trans_A_to_CN_terminal/*[3][3]*/,*l_Term/*[3]*/; // 2014-06-29
+
+  double /**delta_Term, 2014-08-13*/*vel_Term,*acc_Term,*acc_Term2,**predict_Term,**predict_Term2,/***correct_Term,2014-08-13*/**correct_Term2;
+  double **correct_Term_2014_08_13; // 2014-08-13
+  //  double delta_Term[6]; // 2014-08-13
+  double *delta_Term; // 2014-08-13
+  //  double correct_Term[6][6]; // 2014-08-13
+
+  double /***crd_nc,*/*energy;
+  double crd_nc[MAXATOM][3]; // 2014-08-13 CHECK
+  struct my_netcdf_out_id_AMBER nc_id;
+
+  double *crd,*mass,*crd_Term/*2014-06-30*/;
+  struct potential e;
+  struct force f;
+
+  char *line="line"; // 2014-08-13
+  size_t len=0;
+
+  int c;
+  extern char *optarg;
+  extern int optind,opterr,optopt;
+
+  double maxabs_force,maxabs_Q;
+  int index_atom,index_clust;
+  double maxabs_force_trj,maxabs_Q_trj;
+  int index_atom_trj,index_clust_trj;
+
+  char *inputfilename,*reffilename,*outputfilename,*outputfilename2,*parmfilename,*clustfilename,*inputvelofilename;
+  char *trjfilename;
+  char *rstfilename="rstfile",*rstvelfilename="rstvelfile";
+  FILE *inputfile,*reffile,*inputfilegoal,*outputfile,*outputfile2,*parmfile,*clustfile,*inputvelofile;
+  FILE *velfile,*rstfile,*rstvelfile;
+
+  int x;
+  int *IndexOfABICycle; // 2014-07-02
+
+  int joinflag; // 2014-08-13
+
+  char *progname;
+
+  int opt_idx=1;
+
+  struct option long_opt[] = {
+    {"f",0,NULL,'f'},
+    {"nve",0,NULL,'*'},
+    {"termon",0,NULL,'+'},
+    {"dih",0,NULL,'d'},
+    {"els",0,NULL,'e'},
+    {"lj",0,NULL,'l'},
+    {"e14",0,NULL,'1'},
+    {"l14",0,NULL,'4'},
+    {"h",0,NULL,'h'},
+    {"kc",1,NULL,'k'},
+    {"cof",1,NULL,'c'},
+    {"temp",1,NULL,'t'},
+    {"dt",1,NULL,'@'},
+    {"omg",1,NULL,'o'},
+    {"nums",1,NULL,'s'},
+    {"int",1,NULL,'i'},
+    {"intnc",1,NULL,'j'},
+    {"intout",1,NULL,'k'},
+    {"vel",1,NULL,'v'},
+    {"tau",1,NULL,'?'},
+    {"rst",1,NULL,'{'},
+    {"rstv",1,NULL,'}'},
+    {0,0,0,0}
+  };
+
+  /***************************************************************************/
+  /* static long int m=3,n=3,lda=3,info,piv[3],lwork=3; // 2014-08-13	     */
+  /* static double work[3];			     // 2014-08-13	     */
+  /* double A[9];                                       // 2014-08-13	     */
+  /* A[0]=1.;A[1]=2.;A[2]=3.;			     // 2014-08-13	     */
+  /* A[3]=4.;A[4]=9.;A[5]=14.;			     // 2014-08-13	     */
+  /* A[6]=6.;A[7]=14.;A[8]=23.;			     // 2014-08-13	     */
+  /* dgetrf_( &m, &n, A, &lda, piv, &info);	     // 2014-08-13	     */
+  /* dgetri_(&n, A, &lda, piv, work, &lwork, &info);    // 2014-08-13	     */
+  /* //  invm3(A,B);                                    // 2014-08-13	     */
+  /***************************************************************************/
+
+  while((c=getopt_long(argc,argv,"*+del14h@:t:k:c:t:o:s:i:j:k:v:?:{:}:",long_opt,&opt_idx))!=-1) {
+    switch(c) {
+    case '*':
+      MODE=NVE;
+      break;
+    case '+':
+      TERMMODE=ON;
+      break;
+    case 'd':
+      dfalg=OFF;
+      break;
+    case 'e':
+      efalg=OFF;
+      break;
+    case 'l':
+      LJfalg=OFF;
+      break;
+    case '1':
+      e14falg=OFF;
+      break;
+    case '4':
+      LJ14falg=OFF;
+      break;
+    case 't':
+      Tobj=atof(optarg);
+      break;
+    case 'o':
+      tau=atof(optarg);
+      break;
+    case '@':
+      dt=atof(optarg);
+      break;
+    case 'i':
+      interval=atoi(optarg);
+      break;
+    case 'j':
+      intervalnc=atoi(optarg);
+      break;
+    case 'k':
+      intervalout=atoi(optarg);
+      break;
+    case 's':
+      numstep=atoi(optarg);
+      break;
+    case 'c':
+      coff=atof(optarg);
+      break;
+    case 'v':
+      inputvelofilename=optarg;
+      MODEV=ON;
+      break;
+    case '?':
+      tau=atof(optarg);
+      break;
+    case '{':
+      rstfilename=optarg;
+      break;
+    case '}':
+      rstvelfilename=optarg;
+      break;
+    case 'h':
+      USAGE(progname);
+      exit(1);
+    default:
+      USAGE(progname);
+      exit(1);
+    }
+  }
+
+  progname=*argv;
+
+  argc-=optind;
+  argv+=optind;
+
+  if (argc < 6) {
+    USAGE(progname);
+    exit(1);
+  }
+  inputfilename     = *argv;
+  clustfilename     = *++argv;
+  parmfilename      = *++argv;
+  outputfilename    = *++argv;
+  outputfilename2   = *++argv;
+  trjfilename       = *++argv;
+
+  //  correct_Term_2014_08_13=(double **)emalloc(sizeof(double *)*6);   // 2014-08-13 // 2014-09-05
+  correct_Term_2014_08_13=(double **)calloc(6,sizeof(double *));   // 2014-09-05
+  //  correct_Term_2014_08_13[1]=(double *)emalloc(sizeof(double)*6);   // 2014-08-13
+  //  correct_Term_2014_08_13[0]=(double *)emalloc(sizeof(double)*6);   // 2014-08-13
+  for (i=0/*2*/;i<6;++i) {                                    // 2014-08-13
+    //    correct_Term_2014_08_13[i]=(double *)emalloc(sizeof(double)*6); // 2014-08-13 // 2014-09-05
+    correct_Term_2014_08_13[i]=(double *)calloc(6,sizeof(double)); // 2014-09-05
+  }                                             // 2014-08-13
+
+  parmfile=efopen(parmfilename,"r");
+  readParmtopL(parmfile);
+  fclose(parmfile); 
+  //  exit(1); // 2014-07-15
+  numatom=AP.NATOM;
+  //  mass=(double *)gcemalloc(sizeof(double)*numatom); // 2014-07-22
+  mass=(double *)emalloc(sizeof(double)*numatom); // 2014-07-22
+  for (i=0;i<numatom;++i) mass[i]=AP.AMASS[i];
+
+  //  crd=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+  crd=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+  //  crd_Term=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-06-30 // 2014-07-22
+  crd_Term=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+  inputfile=efopen(inputfilename,"r");
+  getline(&line,&len,inputfile);
+  fscanf(inputfile,"%d",&d);
+  for (i=0;i<numatom;++i) for (j=0;j<3;++j) fscanf(inputfile,"%lf",&crd[i*3+j]);
+  fclose(inputfile);
+
+  clustfile=efopen(clustfilename,"r");
+  //  clt=ABAp_clustscan(clustfile,&numclut); // 2014-06-20
+  //  ABAp_clustscan(clustfile,&numclut,clt); // 2014-06-19
+  // 2014-07-01
+  //  int i,j,x;
+  //  CLT *clt; // 2014-06-20
+
+  fscanf(clustfile,"%d",&numclut);
+
+  //  clt=(CLT *)gcemalloc(sizeof(CLT)*(numclut)); // 2014-07-22
+  clt=(CLT *)emalloc(sizeof(CLT)*(numclut)); // 2014-07-22
+
+  for(i=0;i<(numclut);++i) fscanf(clustfile,"%d",&clt[i].origin_atom_a);
+  for(i=0;i<(numclut);++i) fscanf(clustfile,"%d",&clt[i].terminal);
+  for(i=0;i<(numclut);++i) fscanf(clustfile,"%d",&clt[i].num_atom_clust);
+  for(i=0;i<(numclut);++i) fscanf(clustfile,"%d",&clt[i].num_branch);
+  for(i=0;i<(numclut);++i) fscanf(clustfile,"%d",&x);
+  for(i=0;i<(numclut);++i) 
+    for(j=0;j<clt[i].num_branch;++j)
+      fscanf(clustfile,"%d",&clt[i].terminal_atom_a[j]);
+  for (i=0;i<(numclut);++i) fscanf(clustfile, "%d", &clt[i].nNumClutOfParent);
+  for (i=0;i<(numclut);++i)
+    for(j=0;j<clt[i].num_branch;++j)
+      fscanf(clustfile, "%d", &clt[i].nNumClutOfChild[j]);
+  //  IndexOfABICycle=(int *)gcemalloc(sizeof(int)*(numclut)); // 2014-07-22
+  IndexOfABICycle=(int *)emalloc(sizeof(int)*(numclut)); // 2014-07-22
+  for (i=0;i<(numclut);++i) fscanf(clustfile, "%d", &IndexOfABICycle[i]);
+
+  for(i=0;i<(numclut);++i) {
+    //    clt[i].frc_e=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    clt[i].frc_e=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    //    clt[i].frc_LJ=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    clt[i].frc_LJ=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    //    clt[i].frc_1_4_e=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    clt[i].frc_1_4_e=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    //    clt[i].frc_1_4_LJ=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+    clt[i].frc_1_4_LJ=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+  }
+  // 2014-07-01
+  fclose(clustfile);
+
+  //  numclutparent=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+  numclutparent=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22
+  //  terminal=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+  terminal=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22
+  //  origin=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+  origin=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22
+  for (i=0;i<numclut;++i) {
+    numclutparent[i]=clt[i].nNumClutOfParent;
+    terminal[i]=clt[i].terminal_atom_a[0];
+    origin[i]=clt[i].origin_atom_a;
+  }
+
+  /********************************************************************/
+  /* ABAs_local_reference(clt,numclut,numatom,crd);     // 2014-08-13 */
+  /* ABAs_trans_Matrix(clt,numclut,numatom,crd);        // 2014-08-13 */
+  /* ABAs_inertia_matrix(clt,numclut,numatom,crd,mass); // 2014-08-13 */
+  /********************************************************************/
+
+  joinflag=0;                                            // 2014-08-13
+  for(i=0; i<numclut; ++i) {                             // 2014-08-13
+    joinflag=ABA_setJoin(clt,i,joinflag);                // 2014-08-13
+  }                                                      // 2014-08-13
+  ABAs_local_reference(clt,numclut,numatom,crd);         // 2014-08-13
+  ABAs_trans_Matrix(clt,numclut,numatom,crd);            // 2014-08-13
+  ABAs_inertia_matrix(clt,numclut,numatom,crd,mass);     // 2014-08-13
+
+  //  Q=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+  Q=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+  //  frc=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+  frc=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+  ffL_set_calcffandforce(&e,&f);
+
+  //  q=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+  //  q=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+  q=(double *)calloc(numclut,sizeof(double)); // 2014-09-05
+  //  qacc=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+  qacc=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+  //  qvel=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+  qvel=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+  //  qrot=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+  qrot=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+  //  predict=(double *)gcemalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+  predict=(double *)emalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+  //  correct=(double *)gcemalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+  correct=(double *)emalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+
+  //  delta_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+  delta_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-08-13
+  //  vel_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+  vel_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+  //  acc_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+  acc_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+  //  acc_Term2=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+  acc_Term2=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+  //  predict_Term=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+  predict_Term=(double **)emalloc(sizeof(double *)*6); // 2014-07-22
+  //  predict_Term2=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+  predict_Term2=(double **)emalloc(sizeof(double *)*6); // 2014-07-22
+  //  correct_Term=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+  //  correct_Term=(double **)emalloc(sizeof(double *)*6); // 2014-07-22 // 2014-08-13
+  //  correct_Term2=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+  correct_Term2=(double **)emalloc(sizeof(double *)*6); // 2014-07-22
+  for (i=0;i<6;++i) {
+    //    predict_Term[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+    predict_Term[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+    //    predict_Term2[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+    predict_Term2[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+    //    correct_Term[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+    //    correct_Term[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-08-13
+    //    correct_Term2[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+    correct_Term2[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22
+  }
+
+  for (i=0;i<6;++i) vel_Term[i]=0.0;
+  for (i=0;i<numclut;++i) qvel[i]=0.00/*1.00*/;
+
+  DOF=(numclut-1);
+  if (TERMMODE==ON) DOF+=6;
+  KEobj=0.5*DOF*k_B*Tobj;
+  //  KEobj=/*0.5**/DOF*k_B*Tobj;
+  ABANH_set_new(s,s_vel,gzi,predict_gzi,correct_gzi,predict_s,correct_s,tau,&tau2,&Q_NH,KEobj,dt);
+  //  trans_A_to_CN_terminal=(double *)gcemalloc(sizeof(double)*3*3); // 2014-06-29 // 2014-07-22
+  trans_A_to_CN_terminal=(double *)emalloc(sizeof(double)*3*3); // 2014-06-29 // 2014-07-22
+  //  l_Term=(double *)gcemalloc(sizeof(double)*3); // 2014-06-29 // 2014-07-22
+  l_Term=(double *)emalloc(sizeof(double)*3); // 2014-06-29 // 2014-07-22
+  for (i=0;i<3;++i) for (j=0;j<3;++j) trans_A_to_CN_terminal[i*3+j/*i][j*/]=0.0; // 2014-06-29
+  for (i=0;i<3;++i) trans_A_to_CN_terminal[i*3+i/*i][i*/]=1.0; // 2014-06-29
+  for (i=0;i<3;++i) l_Term[i]=0.0; // 2014-06-29
+
+  ABA_integ_set(q,qvel,predict,correct,numclut,dt);
+
+  if (MODEV==ON) ABAs_restat_read_new(inputvelofilename,numclut,correct,/*correct_Term 2014-08-13*/correct_Term_2014_08_13,correct_Term2,correct_gzi,MODE,TERMMODE);
+
+  myncL_create_def_AMBER(trjfilename,numatom,&nc_id);
+  outputfile=efopen(outputfilename,"w");
+  outputfile2=efopen(outputfilename2,"w");
+
+  //   i=2; // 2014-08-13
+  //  if (i==1){ // 2014-08-13
+
+  for (i=0;i<numstep;++i) {
+    ABA_integ_pret(qrot,qvel,q,predict,correct,dt,numclut);
+    if (TERMMODE==ON) ABA_integ_pret_Term(predict_Term,predict_Term2,/*correct_Term 2014-08-13*/correct_Term_2014_08_13,correct_Term2,vel_Term,delta_Term,dt);
+
+    if (MODE==NVT) ABANH_update_pret_new(&gzi,predict_gzi,correct_gzi,&s,&s_vel,predict_s,correct_s,dt);
+    if (TERMMODE==ON) ABA_update_Term(crd,delta_Term,numatom,clt,numclut,trans_A_to_CN_terminal,l_Term); // 2014-06-29 // 2014-08-13 CHECK
+
+    //    cos(qrot[0]); // 2014-08-13
+    ABA_update(clt,crd,qrot,numclut,numatom);
+    //    cos(qrot[0]); // 2014-08-13
+    //    if (TERMMODE==ON) ABA_update_Term(crd,delta_Term,numatom,clt,numclut); // 2014-06-19
+
+    for (j=0;j<numclut;++j) Q[j]=0.0;
+    intervalflag=i%interval;
+    if (dfalg==ON) {
+      ffL_calcTorque(Q,crd,numclut,numclutparent,terminal,origin);
+    }
+    ffL_calcffandforce(crd,numatom,&e,&f);
+    pot=0.0;
+    if (dfalg==ON)
+      pot=e.p_d_t;
+    for (j=0;j<numatom;++j) for (k=0;k<3;++k) frc[j*3+k]=0.0;
+    for (j=0;j<numatom;++j) {
+      if (efalg   == ON) {
+    	for (k=0;k<3;++k) frc[j*3+k]+=/*coff**/f.f_e[j*3+k];
+      }
+      if (LJfalg  == ON) {
+    	for (k=0;k<3;++k) frc[j*3+k]+=/*coff**/f.f_LJ[j*3+k];
+      }
+      if (e14falg == ON) {
+    	for (k=0;k<3;++k) frc[j*3+k]+=/*coff**/f.f_e_14[j*3+k];
+      }
+      if (LJ14falg== ON) {
+    	for (k=0;k<3;++k) frc[j*3+k]+=/*coff**/f.f_LJ_14[j*3+k];
+      }
+    }
+    if (efalg   == ON)  pot+=0.5*e.p_e_t;
+    if (LJfalg  == ON)  pot+=0.5*e.p_LJ_t;
+    if (e14falg == ON)  pot+=0.5*e.p_e_14_t;
+    if (LJ14falg== ON)  pot+=0.5*e.p_LJ_14_t;
+
+    ABA_calcKineE_TermOn(&KE,&KEv,&PEv,KEobj,clt,crd,qvel,s,s_vel,Q_NH,vel_Term,numclut,numatom,MODE,numclut+6);
+    T=KE/(DOF*k_B)*2.0;
+    //    T=KE/(DOF*k_B)/*/2.0*/;
+    //    for (j=0;j<6;++j) cos(clt[0].Spacc[j]); // 2014-08-13
+    //    for (j=0;j<6;++j) cos(acc_Term2[j]); // 2014-08-13
+    //    for (j=0;j<6;++j) cos(acc_Term[j]); // 2014-08-13
+    //    cos(qacc[1]); // 2014-08-13
+    //    cos(predict[1*6+2]); // 2014-08-13
+    if (TERMMODE==ON) 
+      solverABA_TermOn_NH_new(qacc,qvel,clt,Q,frc,crd,numclut,numatom,q,gzi,&gzi_vel,s,&s_vel,tau2,acc_Term,acc_Term2,vel_Term,T,Tobj);
+    else solverABA_NH_new(qacc,qvel,clt,Q,frc,crd,numclut,numatom,q,gzi,&gzi_vel,s,&s_vel,tau2,T,Tobj);
+    //    cos(qacc[1]); // 2014-08-13
+    //    cos(predict[1*6+2]); // 2014-08-13
+    //    cos(qrot[0]); // 2014-08-13
+    //    cos(qrot[1]); // 2014-08-13
+    ABA_integ_cort(qrot,qvel,q,qacc,predict,correct,dt,numclut);
+    //    cos(qrot[0]); // 2014-08-13
+    //    cos(qrot[1]); // 2014-08-13
+    if (TERMMODE==ON)
+      ABA_integ_cort_Term(predict_Term,predict_Term2,/*correct_Term 2014-08-13*/correct_Term_2014_08_13,correct_Term2,acc_Term,acc_Term2,vel_Term,delta_Term,dt);
+    if (MODE==NVT) ABANH_update_cort_new(&gzi,gzi_vel,&s,&s_vel,predict_gzi,correct_gzi,predict_s,correct_s,dt);
+
+    if (TERMMODE==ON) ABA_update_Term(crd,delta_Term,numatom,clt,numclut,trans_A_to_CN_terminal,l_Term); // 2014-06-29 // 2014-08-13 CHECK
+    //    cos(qrot[0]); // 2014-08-13
+    ABA_update(clt,crd,qrot,numclut,numatom); // 2014-08-13 CHECK
+
+    //    if (TERMMODE==ON) ABA_update_Term(crd,delta_Term,numatom,clt,numclut); // 2014-06-19
+    //    cos(qrot[0]); // 2014-08-13
+    if (TERMMODE==ON)
+      ABA_calcKineE_TermOn(&KE,&KEv,&PEv,KEobj,clt,crd,qvel,s,s_vel,Q_NH,vel_Term,numclut,numatom,MODE,numclut+6);
+    else
+      ABA_calcKineE(&KE,&KEv,&PEv,KEobj,clt,crd,qvel,s,s_vel,Q_NH,numclut,numatom,MODE);
+    if (MODE==NVT)
+      ABANH_calcKE_new(gzi,s,s_vel,Q_NH,KEobj,&PEv,&KEv);
+
+    //        if (i%interval==0)                                                            // 2014-08-13
+    //	  fprintf(outputfile,"%d %24.20e %24.20e %24.20e %24.20e %24.20e %24.20e %24.20e\n", // 2014-08-13
+    //		  i,pot,KE,KEv,PEv,pot+KE+PEv+KEv,s,T);                                      // 2014-08-13
+    //    if (i%interval==0) {                                                        // 2014-08-13
+    //      fprintf(outputfile,"%d %e %e %e %e\n",                                         // 2014-08-13
+    //    	      i,s,PEv,KEv,PEv+KEv/*,pot,KEv,PEv,pot+KE+PEv+KEv,s,T*/);                      // 2014-08-13
+    //    }                                                                           // 2014-08-13
+
+      /*****************************************************************/
+      /* pot_KE_KEv_PEv=pot+KE+PEv+KEv;				       */
+      /* fprintf(outputfile,"%d ",i); // 2014-08-13		       */
+      /* fprintf(outputfile,"%24.20lf ",pot); // 2014-08-13	       */
+      /* fprintf(outputfile,"%24.20lf ",KE); // 2014-08-13	       */
+      /* fprintf(outputfile,"%24.20lf ",KEv); // 2014-08-13	       */
+      /* fprintf(outputfile,"%24.20lf ",PEv); // 2014-08-13	       */
+      /* fprintf(outputfile,"%24.20lf ",pot_KE_KEv_PEv); // 2014-08-13 */
+      /* fprintf(outputfile,"%24.20lf ",s); // 2014-08-13	       */
+      /* fprintf(outputfile,"%24.20lf \n",T); // 2014-08-13	       */
+      /*****************************************************************/
+
+    // 2014-08-13
+	  //    if (i%intervalout==0) { 
+      //      ffL_out_formated(outputfile2,e,KE,KEv,PEv,T,i,dt);
+      //      fprintf(outputfile2,"/***********************************************/\n");
+      //      fprintf(outputfile2,"steps            = %d  \n",i);
+      //      fprintf(outputfile2,"total time       = %10.3lf ps  \n" ,dt*(double)i);
+      //      fprintf(outputfile2,"T_kelvin         = %24.20e K  \n",T);
+      //      fprintf(outputfile2,"toal_energy      = %24.20e kcal/mol  \n",e.p_t+KE);
+      //      fprintf(outputfile2,"toal_vertial_energy      = %24.20e kcal/mol  \n",e.p_t+KE+KEv+PEv);
+      //      fprintf(outputfile2,"kinetic_energy   = %24.20e kcal/mol  \n",KE);
+      //      fprintf(outputfile2,"kinetic_energy_vertial   = %24.20e kcal/mol  \n",KEv);
+      //      fprintf(outputfile2,"potential_energy_real = %24.20e kcal/mol  \n",e.p_t);
+      //      fprintf(outputfile2,"potential_energy_vertial   = %24.20e kcal/mol  \n",PEv);
+      //      fprintf(outputfile2,"dihedral_energy  = %24.20e kcal/mol  \n",e.p_d_t);
+      //      fprintf(outputfile2,"elect_energy     = %24.20e kcal/mol  \n",e.p_e_t);
+      //      fprintf(outputfile2,"VDW_energy       = %24.20e kcal/mol  \n",e.p_LJ_t);
+      //      fprintf(outputfile2,"1_4_elect_energy = %24.20e kcal/mol  \n",e.p_e_14_t);
+      //      fprintf(outputfile2,"1_4_VDW_energy   = %24.20e kcal/mol  \n",e.p_LJ_14_t);
+      //    }
+    // 2014-08-13
+
+    // 2014-08-13
+    //	  if (i%intervalnc==0) {
+    //	    if (TERMMODE==ON) {                                                       // 2014-06-30
+    //	      ABA_update_Term2(crd,crd_Term,numatom,trans_A_to_CN_terminal,l_Term);   // 2014-06-30 CHECK
+    //	      for (j=0;j<numatom;++j) for (k=0;k<3;++k) crd_nc[j][k]=crd_Term[j*3+k]; // 2014-06-30 CHECK
+    //	    }                                                                         // 2014-06-30
+    //	    else {                                                                    // 2014-06-30
+    //	      for (j=0;j<numatom;++j) for (k=0;k<3;++k) crd_nc[j][k]=crd[j*3+k]; // CHECK
+    //	    }                                                                         // 2014-06-30 CHECK
+    //	    myncL_put_crd_AMBER(nc_id,l,crd_nc);
+    //	    ++l;
+    //	  }
+    // 2014-08-13
+
+    //    i=2; // 2014-08-13
+    //    if (i==1){ // 2014-08-13
+    //      ; // 2014-08-13
+    //    } // 2014-08-13
+  }
+  fclose(outputfile);
+  fclose(outputfile2);
+
+  nc_close((nc_id.ncid));
+
+  // 2014-08-13
+  //  rstfile=efopen(rstfilename,"w");
+  //  fprintf(rstfile,"ACE\n ");
+  //  fprintf(rstfile,"%d \n",numatom);
+  //  for (i=0;i<numatom;++i) {
+  //    for (j=0;j<3;++j) {
+  //      fprintf(rstfile,"%10.8lf ",crd[i*3+j]);
+  //    }
+  //    fprintf(rstfile,"\n");
+  //  }
+  //  fclose(rstfile);
+  // 2014-08-13
+
+  //  ABAs_restat_write_vel_new(rstvelfilename,numclut,correct,correct_Term_2014_08_13,correct_Term2,correct_gzi,MODE,TERMMODE); // 2014-08-13
+
+  // 2014-07-22
+  free(AP.AMASS);
+  free(AP.IAC);
+  free(AP.NUMEX);
+  free(AP.ICO);
+  free(AP.IPRES);
+  free(AP.RK);
+  free(AP.REQ);
+  free(AP.TK);
+  free(AP.TEQ);
+  free(AP.PK);
+  free(AP.PN);
+  free(AP.PHASE);
+  free(AP.SOLTY);
+  free(AP.CN1);
+  free(AP.CN2);
+  free(AP.BH);
+  free(AP.BA);
+  free (AP.TH);
+  free(AP.TA);
+  free(AP.PH);
+  free(AP.PA);
+  free(AP.NATEX);
+  free(AP.ASOL);
+  free(AP.BSOL);
+  free(AP.HBCUT);
+  free(AP.JOIN);
+  free(AP.IROTAT);
+  free(AP.NSP);
+  free(AP.BPER);
+  free(AP.ICBPER);
+  free(AP.TPER);
+  free(AP.ICTPER);
+  free(AP.PPER);
+  free(AP.ICTPER);
+  free(AP.IAPER);
+  free(AP.IACPER);
+  free(AP.CGPER);
+  free(AP.LES_TYPE);
+  free(AP.LES_FAC);
+  free(AP.LES_CNUM);
+  free(AP.LES_ID);
+
+  free(mass);
+  free(crd);
+  free(crd_Term);
+  free(clt);
+  free(IndexOfABICycle);
+  free(numclutparent);
+  free(terminal);
+  free(origin);
+
+  free(Q); 
+  free(frc);
+
+  free(q);
+  free(qacc);
+  free(qvel);
+  free(qrot);
+  free(predict);
+  free(correct);
+
+  //  free(delta_Term); // 2014-08-13
+  free(vel_Term);
+  free(acc_Term);
+  free(acc_Term2);
+  free(predict_Term);
+  free(predict_Term2);
+  free(/*correct_Term 2014-08-13*/correct_Term_2014_08_13); // 2014-08-13
+  free(correct_Term2);
+  free(trans_A_to_CN_terminal);
+  free(l_Term);
+
+  // 2014-07-22
+
+  return 0;
+}
+
+int USAGE(char *progname) {                                                             
+  printf("USAGE:\n");                                                                   
+  printf("[-f]\n");
+  printf("[--nve]\n");
+  printf("[--termon]\n");
+  printf("[--dih]\n");
+  printf("[--els]\n");
+  printf("[--lj]\n");
+  printf("[--e14]\n");
+  printf("[--l14]\n");
+  printf("[-h]\n");
+  printf("[--kc]\n");
+  printf("[--cof]\n");
+  printf("[--temp]\n");
+  printf("[--dt]\n");
+  printf("[--omg]\n");
+  printf("[--nums]\n");
+  printf("[--int]\n");
+  printf("[--intnc]\n");
+  printf("[--intout]\n");
+  printf("[--vel]\n");
+  printf("[--tau]\n");
+  printf("[--rst]\n");
+  printf("[--rstv]\n");
+  printf("[-h] help \n");                                                               
+  printf("%s [-h] inputfilename clustfilename parmfilename outputfilename\n",progname); 
+  return 0; // 2014-07-04
+}                                                                                       
+// 2014-06-23

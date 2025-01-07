@@ -1,0 +1,248 @@
+-*- mode: compilation; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/" -*-
+Compilation started at Mon Sep 15 18:48:39
+
+make clean;make
+rm main.o ABAb.o ABA_mainpass.o ABA_backpass.o ABA_prepass.o ABA_Nose-Hoover.o ABA_Nose-Hoover_new.o ABA_Nose-Hoover_new_mvV.o ABA_Nose-Hoover_chain.o ABA_set_trans.o ABA_set_tmat.o ABA_set_imat.o ABA_set_imatb.o ABA_set_rst.o ABA_set_lref.o  ABA_set_frc.o ABA_update.o ABA_integ.o ABA_pick_data.o ABA_calcKineE.o EF.o PT.o PTL.o FF.o FFL.o SBFF.o MB.o BOXMULL.o TOPO.o LA.o quaternion.o netcdf_mineL.o mt19937ar.o ; \
+	rm ABAMD_woGC_wcalloc;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 main.c;
+main.c(234): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABAb.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_mainpass.c;
+ABA_mainpass.c(97): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(103): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(107): (col. 2) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(114): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(125): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(136): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(141): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(21): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(27): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(31): (col. 2) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(38): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(49): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(67): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_mainpass.c(75): (col. 7) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_backpass.c;
+ABA_backpass.c(54): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_backpass.c(63): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_backpass.c(68): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_backpass.c(21): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_backpass.c(30): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_backpass.c(35): (col. 5) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_prepass.c;
+ABA_prepass.c(189): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(234): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(250): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(114): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(146): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(151): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_prepass.c(151): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_prepass.c(151): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_prepass.c(156): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_prepass.c(21): (col. 7) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_Nose-Hoover.c;
+ABA_Nose-Hoover.c(177): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(187): (col. 2) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(205): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(216): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(116): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(125): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(129): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(72): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(81): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(92): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover.c(97): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_Nose-Hoover_new.c;
+ABA_Nose-Hoover_new.c(266): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(276): (col. 2) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(294): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(323): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(196): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(205): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(209): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(125): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(153): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(171): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(176): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new.c(87): (col. 3) remark: BLOCK WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_Nose-Hoover_new_mvV.c;
+ABA_Nose-Hoover_new_mvV.c(149): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(159): (col. 2) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(177): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(188): (col. 4) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(90): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(99): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(103): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(48): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(57): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(68): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_new_mvV.c(73): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_Nose-Hoover_chain.c;
+ABA_Nose-Hoover_chain.c(143): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(152): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(156): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(101): (col. 5) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(110): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(121): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(126): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(62): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(43): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_Nose-Hoover_chain.c(46): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_trans.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_tmat.c;
+ABA_set_tmat.c(43): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_set_tmat.c(49): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_set_tmat.c(58): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_set_tmat.c(23): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_set_tmat.c(23): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_set_tmat.c(23): (col. 7) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_imat.c;
+ABA_set_imat.c(90): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_set_imat.c(106): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_set_imat.c(28): (col. 5) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_imatb.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_rst.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_lref.c;
+ABA_set_lref.c(138): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_set_frc.c;
+ABA_set_frc.c(81): (col. 23) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_update.c;
+ABA_update.c(291): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_update.c(211): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_update.c(235): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_update.c(237): (col. 7) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_update.c(237): (col. 7) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_update.c(237): (col. 7) remark: PERMUTED LOOP WAS VECTORIZED.
+ABA_update.c(265): (col. 7) remark: LOOP WAS VECTORIZED.
+ABA_update.c(76): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_update.c(87): (col. 3) remark: LOOP WAS VECTORIZED.
+ABA_update.c(124): (col. 5) remark: LOOP WAS VECTORIZED.
+ABA_update.c(128): (col. 2) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_integ.c;
+ABA_integ.c(83): (col. 3) remark: BLOCK WAS VECTORIZED.
+ABA_integ.c(97): (col. 3) remark: BLOCK WAS VECTORIZED.
+ABA_integ.c(102): (col. 3) remark: BLOCK WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_pick_data.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 ABA_calcKineE.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 EF.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 PT.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 PTL.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 FF.c;
+FF.c(782): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1536): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(1448): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(1333): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1336): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1351): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1356): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1674): (col. 2) remark: PARTIAL LOOP WAS VECTORIZED.
+FF.c(1681): (col. 2) remark: LOOP WAS VECTORIZED.
+FF.c(1217): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1200): (col. 11) remark: LOOP WAS VECTORIZED.
+FF.c(1175): (col. 11) remark: LOOP WAS VECTORIZED.
+FF.c(1128): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1133): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(191): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FF.c(198): (col. 7) remark: LOOP WAS VECTORIZED.
+FF.c(206): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(497): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(545): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(739): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(752): (col. 5) remark: LOOP WAS VECTORIZED.
+FF.c(1064): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1069): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(85): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FF.c(92): (col. 7) remark: LOOP WAS VECTORIZED.
+FF.c(1006): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(1011): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(941): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(946): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(910): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(915): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(395): (col. 3) remark: LOOP WAS VECTORIZED.
+FF.c(297): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FF.c(304): (col. 7) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 FFL.c;
+FFL.c(2923): (col. 12) remark: LOOP WAS VECTORIZED.
+FFL.c(2923): (col. 12) remark: LOOP WAS VECTORIZED.
+FFL.c(2863): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2755): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2641): (col. 12) remark: LOOP WAS VECTORIZED.
+FFL.c(2641): (col. 12) remark: LOOP WAS VECTORIZED.
+FFL.c(2666): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2611): (col. 2) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(2270): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2100): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2105): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(2505): (col. 2) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(2512): (col. 2) remark: LOOP WAS VECTORIZED.
+FFL.c(2197): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(1876): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1881): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(559): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(566): (col. 7) remark: LOOP WAS VECTORIZED.
+FFL.c(574): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(869): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(896): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(897): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(920): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(947): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(948): (col. 5) remark: LOOP WAS VECTORIZED.
+FFL.c(1792): (col. 3) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(1812): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1752): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1700): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(343): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(350): (col. 7) remark: LOOP WAS VECTORIZED.
+FFL.c(1614): (col. 3) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(1637): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1642): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(206): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(213): (col. 7) remark: LOOP WAS VECTORIZED.
+FFL.c(1539): (col. 3) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(1564): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1569): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1489): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1494): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(85): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(92): (col. 7) remark: LOOP WAS VECTORIZED.
+FFL.c(1429): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(1434): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(763): (col. 3) remark: LOOP WAS VECTORIZED.
+FFL.c(665): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(672): (col. 7) remark: LOOP WAS VECTORIZED.
+FFL.c(453): (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+FFL.c(460): (col. 7) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 SBFF.c;
+SBFF.c(39): (col. 3) remark: PERMUTED LOOP WAS VECTORIZED.
+SBFF.c(43): (col. 3) remark: LOOP WAS VECTORIZED.
+SBFF.c(131): (col. 3) remark: LOOP WAS VECTORIZED.
+SBFF.c(94): (col. 3) remark: LOOP WAS VECTORIZED.
+SBFF.c(410): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 MB.c;
+MB.c(259): (col. 3) remark: LOOP WAS VECTORIZED.
+MB.c(46): (col. 3) remark: LOOP WAS VECTORIZED.
+MB.c(233): (col. 11) remark: LOOP WAS VECTORIZED.
+MB.c(233): (col. 11) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 BOXMULL.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 TOPO.c;
+TOPO.c(164): (col. 3) remark: LOOP WAS VECTORIZED.
+TOPO.c(85): (col. 3) remark: LOOP WAS VECTORIZED.
+TOPO.c(37): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 LA.c;
+LA.c(473): (col. 5) remark: LOOP WAS VECTORIZED.
+LA.c(473): (col. 5) remark: LOOP WAS VECTORIZED.
+LA.c(480): (col. 5) remark: LOOP WAS VECTORIZED.
+LA.c(383): (col. 3) remark: PERMUTED LOOP WAS VECTORIZED.
+LA.c(336): (col. 3) remark: PERMUTED LOOP WAS VECTORIZED.
+LA.c(26): (col. 3) remark: LOOP WAS VECTORIZED.
+LA.c(90): (col. 5) remark: LOOP WAS VECTORIZED.
+LA.c(216): (col. 3) remark: LOOP WAS VECTORIZED.
+LA.c(217): (col. 16) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 quaternion.c;
+quaternion.c(14): (col. 3) remark: LOOP WAS VECTORIZED.
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 netcdf_mineL.c;
+icc -O3 -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 mt19937ar.c;
+icc -O3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -o ABAMD_woGC_wcalloc main.o ABAb.o ABA_mainpass.o ABA_backpass.o ABA_prepass.o ABA_Nose-Hoover.o ABA_Nose-Hoover_new.o ABA_Nose-Hoover_new_mvV.o ABA_Nose-Hoover_chain.o ABA_set_trans.o ABA_set_tmat.o ABA_set_imat.o ABA_set_imatb.o ABA_set_rst.o ABA_set_lref.o  ABA_set_frc.o ABA_update.o ABA_integ.o ABA_pick_data.o ABA_calcKineE.o EF.o PT.o PTL.o FF.o FFL.o SBFF.o MB.o BOXMULL.o TOPO.o LA.o quaternion.o netcdf_mineL.o mt19937ar.o  -L/home/yamamori/work/programs/ABAMD_2014_05_01/lib -I/home/yamamori/work/programs/ABAMD_2014_05_01/include -llapack -lblas -lf2c -lm -lgc -lnetcdf ;
+
+Compilation finished at Mon Sep 15 18:49:33

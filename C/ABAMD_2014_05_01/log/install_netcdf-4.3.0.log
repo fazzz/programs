@@ -1,0 +1,5 @@
+wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf.tar.gz
+tar xvf netcdf.tar.gz
+./configure --prefix=/home/yamamori/works/programs/ABAMD_2014_05_01 --enable-shared --disable-netcdf-4 --disable-dap
+make check
+make install

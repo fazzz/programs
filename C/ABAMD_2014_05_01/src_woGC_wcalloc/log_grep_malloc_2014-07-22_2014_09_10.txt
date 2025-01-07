@@ -1,0 +1,313 @@
+ma-*- mode: grep; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/" -*-
+Grep started at Wed Sep 10 12:01:19
+
+grep -nH -e 2014-07-22 *.[ch]
+ABA_set_imat.c:18:    //    clt[nNumClut].mass=(double *)gcemalloc(sizeof(double)*clt[nNumClut].num_atom_clust); // 2014-07-22
+ABA_set_imat.c:19:    clt[nNumClut].mass=(double *)emalloc(sizeof(double)*clt[nNumClut].num_atom_clust); // 2014-07-22
+ABA_set_lref.c:27:      //      clt[nNumClut].xoord=(double *)gcemalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:28:      clt[nNumClut].xoord=(double *)emalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:40:      //      clt[nNumClut].xoord=(double *)gcemalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:41:      clt[nNumClut].xoord=(double *)emalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:50:      //      clt[nNumClut].xoord=(double *)gcemalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:51:      clt[nNumClut].xoord=(double *)emalloc(sizeof(double)*num_atom_all*3); // 2014-07-22
+ABA_set_lref.c:96:  //  mat=(double *)gcemalloc(sizeof(double)*num_atom*3); // 2014-07-22
+ABA_set_lref.c:97:  mat=(double *)emalloc(sizeof(double)*num_atom*3); // 2014-07-22
+ABA_set_lref.c:182:  free(mat); // 2014-07-22
+ABA_update.c:170:  //  dbmat=(double *)gcemalloc(sizeof(double)*3*3); // 2014-07-22
+ABA_update.c:171:  dbmat=(double *)emalloc(sizeof(double)*3*3); // 2014-07-22
+ABA_update.c:172:  //  invmat=(double *)gcemalloc(sizeof(double)*3*3); // 2014-07-22
+ABA_update.c:173:  invmat=(double *)emalloc(sizeof(double)*3*3); // 2014-07-22
+ABA_update.c:277:  free(dbmat);  // 2014-07-22
+ABA_update.c:278:  free(invmat); // 2014-07-22
+EF.c:66:// 2014-07-22
+EF.c:78:// 2014-07-22
+FFL.c:855:  //  n1=(double *)gcemalloc(sizeof(double)*3); // 2014-07-22
+FFL.c:856:  n1=(double *)emalloc(sizeof(double)*3); // 2014-07-22
+FFL.c:857:  //  n2=(double *)gcemalloc(sizeof(double)*3); // 2014-07-22
+FFL.c:858:  n2=(double *)emalloc(sizeof(double)*3); // 2014-07-22
+FFL.c:975:  free(n1); // 2014-07-22
+FFL.c:976:  free(n2); // 2014-07-22
+FFL.c:1111:  //  f_temp=(double *)gcemalloc(sizeof(double)*3*3); // 2014-07-22
+FFL.c:1112:  f_temp=(double *)emalloc(sizeof(double)*3*3); // 2014-07-22
+FFL.c:1140:  free(f_temp); // 2014-07-22
+FFL.c:1324:  //  (*ene).parm.indexnb=(int *)gcemalloc(sizeof(int)*numnb*2); // 2014-07-22
+FFL.c:1325:  (*ene).parm.indexnb=(int *)emalloc(sizeof(int)*numnb*2); // 2014-07-22
+FFL.c:1326:  //  (*ene).parm.index14=(int *)gcemalloc(sizeof(int)*num14*2); // 2014-07-22
+FFL.c:1327:  (*ene).parm.index14=(int *)emalloc(sizeof(int)*num14*2); // 2014-07-22
+FFL.c:1331:  //  (*ene).parm.ele=(double *)gcemalloc(sizeof(double)*numatom); // 2014-07-22
+FFL.c:1332:  (*ene).parm.ele=(double *)emalloc(sizeof(double)*numatom); // 2014-07-22
+FFL.c:1333:  //  (*ene).parm.ALJ=(double *)gcemalloc(sizeof(double)*numatom*numatom); // 2014-07-22
+FFL.c:1334:  (*ene).parm.ALJ=(double *)emalloc(sizeof(double)*numatom*numatom); // 2014-07-22
+FFL.c:1335:  //  (*ene).parm.BLJ=(double *)gcemalloc(sizeof(double)*numatom*numatom); // 2014-07-22
+FFL.c:1336:  (*ene).parm.BLJ=(double *)emalloc(sizeof(double)*numatom*numatom); // 2014-07-22
+FFL.c:1337:  //  (*ene).p_e=(double *)gcemalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1338:  (*ene).p_e=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1339:  //  (*ene).p_LJ=(double *)gcemalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1340:  (*ene).p_LJ=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1341:  //  (*ene).p_e_14=(double *)gcemalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1342:  (*ene).p_e_14=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1343:  //  (*ene).p_LJ_14=(double *)gcemalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1344:  (*ene).p_LJ_14=(double *)emalloc(sizeof(double)*numnb); // 2014-07-22
+FFL.c:1345:  //  (*ene).p_d=(double *)gcemalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:1346:  (*ene).p_d=(double *)emalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:1347:  //  (*ene).p_a=(double *)gcemalloc(sizeof(double)*(AP.NTHETH+AP.MTHETA)); // 2014-07-22
+FFL.c:1348:  (*ene).p_a=(double *)emalloc(sizeof(double)*(AP.NTHETH+AP.MTHETA)); // 2014-07-22
+FFL.c:1349:  //  (*ene).p_b=(double *)gcemalloc(sizeof(double)*(AP.NBONH+AP.MBONA)); // 2014-07-22
+FFL.c:1350:  (*ene).p_b=(double *)emalloc(sizeof(double)*(AP.NBONH+AP.MBONA)); // 2014-07-22
+FFL.c:1354:  //  (*f).f_t=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1355:  (*f).f_t=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1356:  //  (*f).f_e=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1357:  (*f).f_e=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1358:  //  (*f).f_LJ=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1359:  (*f).f_LJ=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1360:  //  (*f).f_e_14=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1361:  (*f).f_e_14=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1362:  //  (*f).f_LJ_14=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1363:  (*f).f_LJ_14=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1364:  //  (*f).f_d=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1365:  (*f).f_d=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1366:  //  (*f).f_a=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1367:  (*f).f_a=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1368:  //  (*f).f_b=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1369:  (*f).f_b=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22
+FFL.c:1443:  //  n_d=(double *)gcemalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-09 // 2014-07-22
+FFL.c:1444:  n_d=(double *)emalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:1501:  free(n_d); // 2014-07-22
+FFL.c:1517:  //  n_d=(double *)gcemalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-09 // 2014-07-22
+FFL.c:1518:  n_d=(double *)emalloc(sizeof(double)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:1575:  free(n_d); // 2014-07-22
+FFL.c:2612:  //  indexclut=(int *)gcemalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:2613:  indexclut=(int *)emalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:2659:  free(indexclut); // 2014-07-22
+FFL.c:2675:  //  indexclut=(int *)gcemalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:2676:  indexclut=(int *)emalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)); // 2014-07-22
+FFL.c:2926:  //  atom_dihed_pair=(int *)gcemalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)*6); // 2014-07-22
+FFL.c:2927:  atom_dihed_pair=(int *)emalloc(sizeof(int)*(AP.NPHIH+AP.MPHIA)*6); // 2014-07-22
+FFL.c:2928:  //  inpindexH=(int *)gcemalloc(sizeof(int)*1); // 2014-07-22
+FFL.c:2929:  inpindexH=(int *)emalloc(sizeof(int)*1); // 2014-07-22
+FFL.c:2930:  //  inpindexA=(int *)gcemalloc(sizeof(int)*1); // 2014-07-22
+FFL.c:2931:  inpindexA=(int *)emalloc(sizeof(int)*1); // 2014-07-22
+FFL.c:2973:      //      inpindexH=(int *)gcerealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22 // 2014-08-13
+FFL.c:2974:      //inpindexH=(int *)erealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22         // 2014-08-13
+FFL.c:2976:      //inpindexH=(int *)gcerealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22       // 2014-08-13
+FFL.c:2977:      inpindexH=(int *)erealloc(inpindexH,sizeof(int)*(*inpnumH)); // 2014-07-22           // 2014-08-13
+FFL.c:3039:      //      //      inpindexA=(int *)gcerealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22 // 2014-08-13
+FFL.c:3040:      //      inpindexA=(int *)erealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22	   // 2014-08-13
+FFL.c:3042:      //      inpindexA=(int *)gcerealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22	   // 2014-08-13
+FFL.c:3043:      inpindexA=(int *)erealloc(inpindexA,sizeof(int)*(*inpnumA)); // 2014-07-22		   // 2014-08-13
+FFL.c:3073:  //  inpindex=(int *)gcemalloc(sizeof(int)*((*inpnumH)+(*inpnumA))); // 2014-07-22
+FFL.c:3074:  inpindex=(int *)emalloc(sizeof(int)*((*inpnumH)+(*inpnumA))); // 2014-07-22
+FFL.c:3080:  free(atom_dihed_pair); // 2014-07-22
+FFL.c:3081:  free(inpindexH); // 2014-07-22
+FFL.c:3082:  free(inpindexA); // 2014-07-22
+LA.c:37:  //  mat=(double *)gcemalloc(sizeof(double)*3*3); // 2014-07-22
+LA.c:38:  mat=(double *)emalloc(sizeof(double)*3*3); // 2014-07-22
+LA.c:46:  free(mat); // 2014-07-22
+LA.c:186:  //  mattemp=(double *)gcemalloc(sizeof(double)*m*n); // 2014-07-22
+LA.c:187:  mattemp=(double *)emalloc(sizeof(double)*m*n); // 2014-07-22
+LA.c:201:  free(mattemp); // 2014-07-22
+LA.c:211:  //  matvec2=(double *)gcemalloc(sizeof(double)*num);   // 11_04_11 // 2014-07-22
+LA.c:212:  matvec2=(double *)emalloc(sizeof(double)*num);   // 2014-07-22
+LA.c:216:  free(matvec2); // 2014-07-22
+PTL.c:87:  // AP.AMASS=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:88:  AP.AMASS=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:96:  //  AP.IAC=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*AP.NATOM); // 0811 // 2014-07-22
+PTL.c:97:  AP.IAC=(int/*double*/ *)emalloc(sizeof(int/*double*/)*AP.NATOM); // 0811 // 2014-07-22
+PTL.c:105:  // AP.NUMEX=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*AP.NATOM); // 0811 // 2014-07-22
+PTL.c:106:  AP.NUMEX=(int/*double*/ *)emalloc(sizeof(int/*double*/)*AP.NATOM); // 0811 // 2014-07-22
+PTL.c:114:  //  AP.ICO=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*(AP.NTYPES)*(AP.NTYPES)); // 0811 // 2014-07-22
+PTL.c:115:  AP.ICO=(int/*double*/ *)emalloc(sizeof(int/*double*/)*(AP.NTYPES)*(AP.NTYPES)); // 0811 // 2014-07-22
+PTL.c:133:  //  AP.IPRES=(int *)gcemalloc(sizeof(int)*AP.NRES); // 2014-07-22
+PTL.c:134:  AP.IPRES=(int *)emalloc(sizeof(int)*AP.NRES); // 2014-07-22
+PTL.c:142:  //  AP.RK=(double *)gcemalloc(sizeof(double)*AP.NUMBND); // 2014-07-22
+PTL.c:143:  AP.RK=(double *)emalloc(sizeof(double)*AP.NUMBND); // 2014-07-22
+PTL.c:151:  //  AP.REQ=(double *)gcemalloc(sizeof(double)*AP.NUMBND); // 2014-07-22
+PTL.c:152:  AP.REQ=(double *)emalloc(sizeof(double)*AP.NUMBND); // 2014-07-22
+PTL.c:160:  //  AP.TK=(double *)gcemalloc(sizeof(double)*AP.NUMANG); // 2014-07-22
+PTL.c:161:  AP.TK=(double *)emalloc(sizeof(double)*AP.NUMANG); // 2014-07-22
+PTL.c:169:  // AP.TEQ=(double *)gcemalloc(sizeof(double)*AP.NUMANG); // 2014-07-22
+PTL.c:170:  AP.TEQ=(double *)emalloc(sizeof(double)*AP.NUMANG); // 2014-07-22
+PTL.c:178:  //  AP.PK=(double *)gcemalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:179:  AP.PK=(double *)emalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:187:  //  AP.PN=(double *)gcemalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:188:  AP.PN=(double *)emalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:196:  //  AP.PHASE=(double *)gcemalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:197:  AP.PHASE=(double *)emalloc(sizeof(double)*AP.NPTRA); // 2014-07-22
+PTL.c:205:  //  AP.SOLTY=(double *)gcemalloc(sizeof(double)*AP.NATYP); // 2014-07-22
+PTL.c:206:  AP.SOLTY=(double *)emalloc(sizeof(double)*AP.NATYP); // 2014-07-22
+PTL.c:214:  //  AP.CN1=(double *)gcemalloc(sizeof(double)*(AP.NTYPES)*(AP.NTYPES+1)/2); // 2014-07-22
+PTL.c:215:  AP.CN1=(double *)emalloc(sizeof(double)*(AP.NTYPES)*(AP.NTYPES+1)/2); // 2014-07-22
+PTL.c:223:  //  AP.CN2=(double *)gcemalloc(sizeof(double)*(AP.NTYPES)*(AP.NTYPES+1)/2); // 2014-07-22
+PTL.c:224:  AP.CN2=(double *)emalloc(sizeof(double)*(AP.NTYPES)*(AP.NTYPES+1)/2); // 2014-07-22
+PTL.c:232:  //  AP.BH=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NBONH); // 0811 // 2014-07-22
+PTL.c:233:  AP.BH=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NBONH); // 0811 // 2014-07-22
+PTL.c:234:  //  for (i=0;i<AP.NBONH;++i) AP.BH[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*3); // 2014-07-22
+PTL.c:235:  for (i=0;i<AP.NBONH;++i) AP.BH[i]=(int/*double*/ *)emalloc(sizeof(int/*double*/)*3); // 2014-07-22
+PTL.c:245:  //  AP.BA=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NBONA); // 2014-07-22
+PTL.c:246:  AP.BA=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NBONA); // 2014-07-22
+PTL.c:247:  //  for (i=0;i<AP.NBONA;++i) AP.BA[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*3); // 2014-07-22
+PTL.c:248:  for (i=0;i<AP.NBONA;++i) AP.BA[i]=(int/*double*/ *)emalloc(sizeof(int/*double*/)*3); // 2014-07-22
+PTL.c:258:  //  AP.TH=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NTHETH); // 2014-07-22
+PTL.c:259:  AP.TH=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NTHETH); // 2014-07-22
+PTL.c:260:  //  for (i=0;i<AP.NTHETH;++i) AP.TH[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*4); // 2014-07-22
+PTL.c:261:  for (i=0;i<AP.NTHETH;++i) AP.TH[i]=(int/*double*/ *)emalloc(sizeof(int/*double*/)*4); // 2014-07-22
+PTL.c:271:  //  AP.TA=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NTHETA); // 2014-07-22
+PTL.c:272:  AP.TA=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NTHETA); // 2014-07-22
+PTL.c:273:  //  for (i=0;i<AP.NTHETA;++i) AP.TA[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*4); // 2014-07-22
+PTL.c:274:  for (i=0;i<AP.NTHETA;++i) AP.TA[i]=(int/*double*/ *)emalloc(sizeof(int/*double*/)*4); // 2014-07-22
+PTL.c:284:  //  AP.PH=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NPHIH); // 2014-07-22
+PTL.c:285:  AP.PH=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NPHIH); // 2014-07-22
+PTL.c:286:  //  for (i=0;i<AP.NPHIH;++i) AP.PH[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*5); // 2014-07-22
+PTL.c:297:  //  AP.PA=(int/*double*/ **)gcemalloc(sizeof(int/*double*/ *)*AP.NPHIA); // 2014-07-22
+PTL.c:298:  AP.PA=(int/*double*/ **)emalloc(sizeof(int/*double*/ *)*AP.NPHIA); // 2014-07-22
+PTL.c:299:  //  for (i=0;i<AP.NPHIA;++i) AP.PA[i]=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*5); // 2014-07-22
+PTL.c:300:  for (i=0;i<AP.NPHIA;++i) AP.PA[i]=(int/*double*/ *)emalloc(sizeof(int/*double*/)*5); // 2014-07-22
+PTL.c:310:  //  AP.NATEX=(int *)gcemalloc(sizeof(int)*AP.NEXT); // 2014-07-22
+PTL.c:311:  AP.NATEX=(int *)emalloc(sizeof(int)*AP.NEXT); // 2014-07-22
+PTL.c:319:  //  AP.ASOL=(double *)gcemalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:320:  AP.ASOL=(double *)emalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:328:  //  AP.BSOL=(double *)gcemalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:329:  AP.BSOL=(double *)emalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:337:  //  AP.HBCUT=(double *)gcemalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:338:  AP.HBCUT=(double *)emalloc(sizeof(double)*AP.NPHB); // 2014-07-22
+PTL.c:366:  //  AP.JOIN=(int *)gcemalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:367:  AP.JOIN=(int *)emalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:375:  //  AP.IROTAT=(int *)gcemalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:376:  AP.IROTAT=(int *)emalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:391:    //    AP.NSP=(int *)gcemalloc(sizeof(int)*AP.NSPM); // 2014-07-22
+PTL.c:392:    AP.NSP=(int *)emalloc(sizeof(int)*AP.NSPM); // 2014-07-22
+PTL.c:424:    //    AP.BPER=(int **)gcemalloc(sizeof(int *)*AP.NBPER); // 2014-07-22
+PTL.c:425:    AP.BPER=(int **)emalloc(sizeof(int *)*AP.NBPER); // 2014-07-22
+PTL.c:426:    //    for (i=0;i<AP.NBPER;++i) AP.BPER[i]=(int *)gcemalloc(sizeof(int)*2); // 2014-07-22
+PTL.c:427:    for (i=0;i<AP.NBPER;++i) AP.BPER[i]=(int *)emalloc(sizeof(int)*2); // 2014-07-22
+PTL.c:434:    //    AP.ICBPER=(int *)gcemalloc(sizeof(int)*AP.NBPER*1); // 2014-07-22
+PTL.c:435:    AP.ICBPER=(int *)emalloc(sizeof(int)*AP.NBPER*1); // 2014-07-22
+PTL.c:440:    //    AP.TPER=(int **)gcemalloc(sizeof(int *)*AP.NGPER); // 2014-07-22
+PTL.c:441:    AP.TPER=(int **)gcemalloc(sizeof(int *)*AP.NGPER); // 2014-07-22
+PTL.c:442:    //    for (i=0;i<AP.NGPER;++i) AP.TPER[i]=(int *)gcemalloc(sizeof(int)*3); // 2014-07-22
+PTL.c:443:    for (i=0;i<AP.NGPER;++i) AP.TPER[i]=(int *)emalloc(sizeof(int)*3); // 2014-07-22
+PTL.c:450:    //    AP.ICTPER=(int *)gcemalloc(sizeof(int)*AP.NGPER*2); // 2014-07-22
+PTL.c:456:    //    AP.PPER=(int **)gcemalloc(sizeof(int *)*AP.NDPER); // 2014-07-22
+PTL.c:457:    AP.PPER=(int **)emalloc(sizeof(int *)*AP.NDPER); // 2014-07-22
+PTL.c:459:    //    for (i=0;i<AP.NDPER;++i)   AP.PPER=(int **)gcemalloc(sizeof(int *)*4); // 2014-06-17 // 2014-07-22
+PTL.c:460:    for (i=0;i<AP.NDPER;++i)   AP.PPER=(int **)emalloc(sizeof(int *)*4);  // 2014-07-22
+PTL.c:467:    //    AP.ICTPER=(int *)gcemalloc(sizeof(int)*AP.NDPER*2); // 2014-07-22
+PTL.c:468:    AP.ICTPER=(int *)emalloc(sizeof(int)*AP.NDPER*2); // 2014-07-22
+PTL.c:499:    //    AP.IAPER=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-06-17 // 2014-07-22
+PTL.c:500:    AP.IAPER=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:505:    //    AP.IACPER=(int *)gcemalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:506:    AP.IACPER=(int *)emalloc(sizeof(int)*AP.NATOM); // 2014-07-22
+PTL.c:512:    //    AP.CGPER=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-06-17 // 2014-07-22
+PTL.c:513:    AP.CGPER=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:528:    //    AP.LES_TYPE=(int/*double*/ *)gcemalloc(sizeof(int/*double*/)*AP.NATOM); // 2014-07-22
+PTL.c:529:    AP.LES_TYPE=(int/*double*/ *)emalloc(sizeof(int/*double*/)*AP.NATOM); // 2014-07-22
+PTL.c:535:    //    AP.LES_FAC=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:536:    AP.LES_FAC=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:541:    //    AP.LES_CNUM=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:542:    AP.LES_CNUM=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:547:    //    AP.LES_ID=(double *)gcemalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+PTL.c:548:    AP.LES_ID=(double *)emalloc(sizeof(double)*AP.NATOM); // 2014-07-22
+main.c:231:  //  mass=(double *)gcemalloc(sizeof(double)*numatom); // 2014-07-22
+main.c:232:  //  mass=(double *)emalloc(sizeof(double)*numatom); // 2014-07-22 // 2014-09-05
+main.c:236:  //  crd=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+main.c:237:  //  crd=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22 // 2014-09-05
+main.c:239:  //  crd_Term=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-06-30 // 2014-07-22
+main.c:240:  //  crd_Term=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22 // 2014-09-05
+main.c:241:  crd_Term=(double *)calloc(numatom*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:257:  //  clt=(CLT *)gcemalloc(sizeof(CLT)*(numclut)); // 2014-07-22
+main.c:258:  //  clt=(CLT *)emalloc(sizeof(CLT)*(numclut)); // 2014-07-22 // 2014-09-05
+main.c:273:  //  IndexOfABICycle=(int *)gcemalloc(sizeof(int)*(numclut)); // 2014-07-22
+main.c:274:  //  IndexOfABICycle=(int *)emalloc(sizeof(int)*(numclut)); // 2014-07-22 // 2014-09-05
+main.c:275:  IndexOfABICycle=(int *)calloc(numclut,sizeof(int)); // 2014-07-22 // 2014-09-05
+main.c:279:    //    clt[i].frc_e=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+main.c:280:    //    clt[i].frc_e=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22 // 2014-09-05
+main.c:281:    clt[i].frc_e=(double *)calloc(clt[i].num_atom_clust*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:282:    //    clt[i].frc_LJ=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+main.c:283:    //    clt[i].frc_LJ=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22 // 2014-09-05
+main.c:284:    clt[i].frc_LJ=(double *)calloc(clt[i].num_atom_clust*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:285:    //    clt[i].frc_1_4_e=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+main.c:286:    //    clt[i].frc_1_4_e=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22 // 2014-09-05
+main.c:287:    clt[i].frc_1_4_e=(double *)calloc(clt[i].num_atom_clust*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:288:    //    clt[i].frc_1_4_LJ=(double *)gcemalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22
+main.c:289:    //    clt[i].frc_1_4_LJ=(double *)emalloc(sizeof(double)*clt[i].num_atom_clust*3); // 2014-07-22 // 2014-09-05
+main.c:290:    clt[i].frc_1_4_LJ=(double *)calloc(clt[i].num_atom_clust*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:295:  //  numclutparent=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+main.c:296:  //  numclutparent=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22 // 2014-09-05
+main.c:297:  numclutparent=(int *)calloc(numclut,sizeof(int)); // 2014-07-22 // 2014-09-05
+main.c:298:  //  terminal=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+main.c:299:  //  terminal=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22 // 2014-09-05
+main.c:300:  terminal=(int *)calloc(numclut,sizeof(int)); // 2014-07-22 // 2014-09-05
+main.c:301:  //  origin=(int *)gcemalloc(sizeof(int)*numclut); // 2014-07-22
+main.c:302:  //  origin=(int *)emalloc(sizeof(int)*numclut); // 2014-07-22 // 2014-09-05
+main.c:303:  origin=(int *)calloc(numclut,sizeof(int)); // 2014-07-22 // 2014-09-05
+main.c:324:  //  Q=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:325:  //  Q=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22 // 2014-09-05
+main.c:326:  Q=(double *)calloc(numclut,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:327:  //  frc=(double *)gcemalloc(sizeof(double)*numatom*3); // 2014-07-22
+main.c:328:  //  frc=(double *)emalloc(sizeof(double)*numatom*3); // 2014-07-22 // 2014-09-05
+main.c:329:  frc=(double *)calloc(numatom*3,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:332:  //  q=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:333:  //  q=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:335:  //  qacc=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:336:  //  qacc=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22 // 2014-09-05
+main.c:337:  qacc=(double *)calloc(numclut,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:338:  //  qvel=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:339:  //  qvel=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22 // 2014-09-05
+main.c:340:  qvel=(double *)calloc(numclut,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:341:  //  qrot=(double *)gcemalloc(sizeof(double)*numclut); // 2014-07-22
+main.c:342:  //  qrot=(double *)emalloc(sizeof(double)*numclut); // 2014-07-22 // 2014-09-05
+main.c:343:  qrot=(double *)calloc(numclut,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:344:  //  predict=(double *)gcemalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+main.c:345:  //  predict=(double *)emalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22 // 2014-09-05
+main.c:346:  predict=(double *)calloc(numclut*6/**6*/,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:347:  //  correct=(double *)gcemalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22
+main.c:348:  //  correct=(double *)emalloc(sizeof(double)*numclut*6/**6*/); // 2014-07-22 // 2014-09-05
+main.c:349:  correct=(double *)calloc(numclut*6/**6*/,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:351:  //  delta_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:352:  //  delta_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-08-13 // 2014-09-05
+main.c:353:  delta_Term=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-08-13 // 2014-09-05
+main.c:354:  //  vel_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:355:  //  vel_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:356:  vel_Term=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:357:  //  acc_Term=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:358:  //  acc_Term=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:359:  acc_Term=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:360:  //  acc_Term2=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:361:  //  acc_Term2=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:362:  acc_Term2=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:363:  //  predict_Term=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+main.c:364:  //  predict_Term=(double **)emalloc(sizeof(double *)*6); // 2014-07-22 // 2014-09-05
+main.c:365:  predict_Term=(double **)calloc(6,sizeof(double *)); // 2014-07-22 // 2014-09-05
+main.c:366:  //  predict_Term2=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+main.c:367:  //  predict_Term2=(double **)emalloc(sizeof(double *)*6); // 2014-07-22 // 2014-09-05
+main.c:368:  predict_Term2=(double **)calloc(6,sizeof(double *)); // 2014-07-22 // 2014-09-05
+main.c:369:  //  correct_Term=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+main.c:370:  //  correct_Term=(double **)emalloc(sizeof(double *)*6); // 2014-07-22 // 2014-08-13
+main.c:371:  //  correct_Term2=(double **)gcemalloc(sizeof(double *)*6); // 2014-07-22
+main.c:372:  //  correct_Term2=(double **)emalloc(sizeof(double *)*6); // 2014-07-22 // 2014-09-05
+main.c:373:  correct_Term2=(double **)calloc(6,sizeof(double *)); // 2014-07-22 // 2014-09-05
+main.c:375:    //    predict_Term[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:376:    //    predict_Term[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:377:    predict_Term[i]=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:378:    //    predict_Term2[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:379:    //    predict_Term2[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:380:    predict_Term2[i]=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:381:    //    correct_Term[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:382:    //    correct_Term[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-08-13
+main.c:383:    //    correct_Term2[i]=(double *)gcemalloc(sizeof(double)*6); // 2014-07-22
+main.c:384:    //    correct_Term2[i]=(double *)emalloc(sizeof(double)*6); // 2014-07-22 // 2014-09-05
+main.c:385:    correct_Term2[i]=(double *)calloc(6,sizeof(double)); // 2014-07-22 // 2014-09-05
+main.c:396:  //  trans_A_to_CN_terminal=(double *)gcemalloc(sizeof(double)*3*3); // 2014-06-29 // 2014-07-22
+main.c:397:  //  trans_A_to_CN_terminal=(double *)emalloc(sizeof(double)*3*3); // 2014-06-29 // 2014-07-22 // 2014-09-05
+main.c:398:  trans_A_to_CN_terminal=(double *)calloc(3*3,sizeof(double)); // 2014-06-29 // 2014-07-22 // 2014-09-05
+main.c:399:  //  l_Term=(double *)gcemalloc(sizeof(double)*3); // 2014-06-29 // 2014-07-22
+main.c:400:  //  l_Term=(double *)emalloc(sizeof(double)*3); // 2014-06-29 // 2014-07-22 // 2014-09-05
+main.c:401:  l_Term=(double *)calloc(3,sizeof(double)); // 2014-06-29 // 2014-07-22 // 2014-09-05
+main.c:573:  // 2014-07-22
+main.c:646:  // 2014-07-22
+mymath.c:93:  //  ave=(double *)gcemalloc(sizeof(double)*numv); // 2014-07-22
+mymath.c:94:  ave=(double *)emalloc(sizeof(double)*numv); // 2014-07-22
+mymath.c:95:  //  var=(double *)gcemalloc(sizeof(double)*numv); // 2014-07-22
+mymath.c:96:  var=(double *)emalloc(sizeof(double)*numv); // 2014-07-22
+
+Grep finished (matches found) at Wed Sep 10 12:01:19

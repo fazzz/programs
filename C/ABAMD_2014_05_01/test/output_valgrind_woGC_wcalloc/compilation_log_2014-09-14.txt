@@ -1,0 +1,1842 @@
+-*- mode: compilation; default-directory: "/home/yamamori/work/programs/ABAMD_2014_05_01/test/" -*-
+Compilation started at Sun Sep 14 11:55:59
+
+sh test_valgrind_woGC_wcalloc_26residues.sh
+==18122== Memcheck, a memory error detector
+==18122== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==18122== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==18122== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ALADv.rst --rstv output_valgrind_woGC_wcalloc/ALADv.rve /home/yamamori/calspa/input/dipep/ALADv.crd /home/yamamori/calspa/input/dipep/ALADv.clt /home/yamamori/calspa/input/dipep/ALADv.top output_valgrind_woGC_wcalloc/ALADv.out output_valgrind_woGC_wcalloc/ALADv.out2 output_valgrind_woGC_wcalloc/ALADv.trj
+==18122== 
+--18122-- Valgrind options:
+--18122--    -v
+--18122--    --track-origins=yes
+--18122-- Contents of /proc/version:
+--18122--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--18122-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--18122-- Page sizes: currently 4096, max supported 4096
+--18122-- Valgrind library directory: /usr/lib64/valgrind
+--18122-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--18122-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--18122--    object doesn't have a dynamic symbol table
+--18122-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--18122-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--18122-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--18122-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--18122-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==18122== WARNING: new redirection conflicts with existing -- ignoring it
+--18122--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--18122-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--18122-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--18122-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--18122-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--18122-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--18122-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--18122--    object doesn't have a symbol table
+--18122-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--18122-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--18122-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--18122-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--18122-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--18122-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--18122-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--18122-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--18122-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--18122-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--18122-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--18122-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--18122-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--18122-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--18122-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--18122-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--18122-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==18122== 
+==18122== HEAP SUMMARY:
+==18122==     in use at exit: 1,648,860 bytes in 100,215 blocks
+==18122==   total heap usage: 60,000,522 allocs, 59,900,307 frees, 4,719,813,229 bytes allocated
+==18122== 
+==18122== Searching for pointers to 100,215 not-freed blocks
+==18122== Checked 10,240,584 bytes
+==18122== 
+==18122== LEAK SUMMARY:
+==18122==    definitely lost: 1,632,300 bytes in 100,212 blocks
+==18122==    indirectly lost: 0 bytes in 0 blocks
+==18122==      possibly lost: 0 bytes in 0 blocks
+==18122==    still reachable: 16,560 bytes in 3 blocks
+==18122==         suppressed: 0 bytes in 0 blocks
+==18122== Rerun with --leak-check=full to see details of leaked memory
+==18122== 
+==18122== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--18122-- 
+--18122-- used_suppression:      4 dl-hack3
+==18122== 
+==18122== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==18684== Memcheck, a memory error detector
+==18684== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==18684== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==18684== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ARGDv.rst --rstv output_valgrind_woGC_wcalloc/ARGDv.rve /home/yamamori/calspa/input/dipep/ARGDv.crd /home/yamamori/calspa/input/dipep/ARGDv.clt /home/yamamori/calspa/input/dipep/ARGDv.top output_valgrind_woGC_wcalloc/ARGDv.out output_valgrind_woGC_wcalloc/ARGDv.out2 output_valgrind_woGC_wcalloc/ARGDv.trj
+==18684== 
+--18684-- Valgrind options:
+--18684--    -v
+--18684--    --track-origins=yes
+--18684-- Contents of /proc/version:
+--18684--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--18684-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--18684-- Page sizes: currently 4096, max supported 4096
+--18684-- Valgrind library directory: /usr/lib64/valgrind
+--18684-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--18684-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--18684--    object doesn't have a dynamic symbol table
+--18684-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--18684-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--18684-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--18684-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--18684-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==18684== WARNING: new redirection conflicts with existing -- ignoring it
+--18684--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--18684-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--18684-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--18684-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--18684-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--18684-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--18684-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--18684--    object doesn't have a symbol table
+--18684-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--18684-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--18684-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--18684-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--18684-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--18684-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--18684-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--18684-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--18684-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--18684-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--18684-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--18684-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--18684-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--18684-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--18684-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--18684-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--18684-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==18684== 
+==18684== HEAP SUMMARY:
+==18684==     in use at exit: 3,290,356 bytes in 100,319 blocks
+==18684==   total heap usage: 99,200,630 allocs, 99,100,311 frees, 7,755,469,473 bytes allocated
+==18684== 
+==18684== Searching for pointers to 100,319 not-freed blocks
+==18684== Checked 10,240,696 bytes
+==18684== 
+==18684== LEAK SUMMARY:
+==18684==    definitely lost: 3,273,684 bytes in 100,316 blocks
+==18684==    indirectly lost: 0 bytes in 0 blocks
+==18684==      possibly lost: 0 bytes in 0 blocks
+==18684==    still reachable: 16,672 bytes in 3 blocks
+==18684==         suppressed: 0 bytes in 0 blocks
+==18684== Rerun with --leak-check=full to see details of leaked memory
+==18684== 
+==18684== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--18684-- 
+--18684-- used_suppression:      4 dl-hack3
+==18684== 
+==18684== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==19564== Memcheck, a memory error detector
+==19564== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==19564== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==19564== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ASNDv.rst --rstv output_valgrind_woGC_wcalloc/ASNDv.rve /home/yamamori/calspa/input/dipep/ASNDv.crd /home/yamamori/calspa/input/dipep/ASNDv.clt /home/yamamori/calspa/input/dipep/ASNDv.top output_valgrind_woGC_wcalloc/ASNDv.out output_valgrind_woGC_wcalloc/ASNDv.out2 output_valgrind_woGC_wcalloc/ASNDv.trj
+==19564== 
+--19564-- Valgrind options:
+--19564--    -v
+--19564--    --track-origins=yes
+--19564-- Contents of /proc/version:
+--19564--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--19564-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--19564-- Page sizes: currently 4096, max supported 4096
+--19564-- Valgrind library directory: /usr/lib64/valgrind
+--19564-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--19564-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--19564--    object doesn't have a dynamic symbol table
+--19564-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--19564-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--19564-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--19564-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--19564-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==19564== WARNING: new redirection conflicts with existing -- ignoring it
+--19564--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--19564-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--19564-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--19564-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--19564-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--19564-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--19564-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--19564--    object doesn't have a symbol table
+--19564-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--19564-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--19564-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--19564-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--19564-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--19564-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--19564-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--19564-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--19564-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--19564-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--19564-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--19564-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--19564-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--19564-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--19564-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--19564-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--19564-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==19564== 
+==19564== HEAP SUMMARY:
+==19564==     in use at exit: 2,459,712 bytes in 100,256 blocks
+==19564==   total heap usage: 77,400,565 allocs, 77,300,309 frees, 6,095,429,781 bytes allocated
+==19564== 
+==19564== Searching for pointers to 100,256 not-freed blocks
+==19564== Checked 10,240,616 bytes
+==19564== 
+==19564== LEAK SUMMARY:
+==19564==    definitely lost: 2,443,120 bytes in 100,253 blocks
+==19564==    indirectly lost: 0 bytes in 0 blocks
+==19564==      possibly lost: 0 bytes in 0 blocks
+==19564==    still reachable: 16,592 bytes in 3 blocks
+==19564==         suppressed: 0 bytes in 0 blocks
+==19564== Rerun with --leak-check=full to see details of leaked memory
+==19564== 
+==19564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--19564-- 
+--19564-- used_suppression:      4 dl-hack3
+==19564== 
+==19564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==20138== Memcheck, a memory error detector
+==20138== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==20138== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==20138== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ASPDv.rst --rstv output_valgrind_woGC_wcalloc/ASPDv.rve /home/yamamori/calspa/input/dipep/ASPDv.crd /home/yamamori/calspa/input/dipep/ASPDv.clt /home/yamamori/calspa/input/dipep/ASPDv.top output_valgrind_woGC_wcalloc/ASPDv.out output_valgrind_woGC_wcalloc/ASPDv.out2 output_valgrind_woGC_wcalloc/ASPDv.trj
+==20138== 
+--20138-- Valgrind options:
+--20138--    -v
+--20138--    --track-origins=yes
+--20138-- Contents of /proc/version:
+--20138--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--20138-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--20138-- Page sizes: currently 4096, max supported 4096
+--20138-- Valgrind library directory: /usr/lib64/valgrind
+--20138-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--20138-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--20138--    object doesn't have a dynamic symbol table
+--20138-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--20138-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--20138-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--20138-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--20138-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==20138== WARNING: new redirection conflicts with existing -- ignoring it
+--20138--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--20138-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--20138-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--20138-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--20138-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--20138-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--20138-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--20138--    object doesn't have a symbol table
+--20138-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--20138-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--20138-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--20138-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--20138-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--20138-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--20138-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--20138-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--20138-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--20138-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--20138-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--20138-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--20138-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--20138-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--20138-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--20138-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--20138-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==20138== 
+==20138== HEAP SUMMARY:
+==20138==     in use at exit: 2,054,024 bytes in 100,233 blocks
+==20138==   total heap usage: 66,700,541 allocs, 66,600,308 frees, 5,254,621,217 bytes allocated
+==20138== 
+==20138== Searching for pointers to 100,233 not-freed blocks
+==20138== Checked 10,240,616 bytes
+==20138== 
+==20138== LEAK SUMMARY:
+==20138==    definitely lost: 2,037,428 bytes in 100,229 blocks
+==20138==    indirectly lost: 0 bytes in 0 blocks
+==20138==      possibly lost: 0 bytes in 0 blocks
+==20138==    still reachable: 16,596 bytes in 4 blocks
+==20138==         suppressed: 0 bytes in 0 blocks
+==20138== Rerun with --leak-check=full to see details of leaked memory
+==20138== 
+==20138== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--20138-- 
+--20138-- used_suppression:      4 dl-hack3
+==20138== 
+==20138== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==20566== Memcheck, a memory error detector
+==20566== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==20566== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==20566== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/CYSDv.rst --rstv output_valgrind_woGC_wcalloc/CYSDv.rve /home/yamamori/calspa/input/dipep/CYSDv.crd /home/yamamori/calspa/input/dipep/CYSDv.clt /home/yamamori/calspa/input/dipep/CYSDv.top output_valgrind_woGC_wcalloc/CYSDv.out output_valgrind_woGC_wcalloc/CYSDv.out2 output_valgrind_woGC_wcalloc/CYSDv.trj
+==20566== 
+--20566-- Valgrind options:
+--20566--    -v
+--20566--    --track-origins=yes
+--20566-- Contents of /proc/version:
+--20566--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--20566-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--20566-- Page sizes: currently 4096, max supported 4096
+--20566-- Valgrind library directory: /usr/lib64/valgrind
+--20566-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--20566-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--20566--    object doesn't have a dynamic symbol table
+--20566-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--20566-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--20566-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--20566-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--20566-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==20566== WARNING: new redirection conflicts with existing -- ignoring it
+--20566--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--20566-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--20566-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--20566-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--20566-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--20566-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--20566-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--20566--    object doesn't have a symbol table
+--20566-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--20566-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--20566-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--20566-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--20566-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--20566-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--20566-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--20566-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--20566-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--20566-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--20566-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--20566-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--20566-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--20566-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--20566-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--20566-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--20566-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==20566== 
+==20566== HEAP SUMMARY:
+==20566==     in use at exit: 1,651,644 bytes in 100,226 blocks
+==20566==   total heap usage: 63,200,534 allocs, 63,100,308 frees, 5,001,818,673 bytes allocated
+==20566== 
+==20566== Searching for pointers to 100,226 not-freed blocks
+==20566== Checked 10,240,592 bytes
+==20566== 
+==20566== LEAK SUMMARY:
+==20566==    definitely lost: 1,635,076 bytes in 100,223 blocks
+==20566==    indirectly lost: 0 bytes in 0 blocks
+==20566==      possibly lost: 0 bytes in 0 blocks
+==20566==    still reachable: 16,568 bytes in 3 blocks
+==20566==         suppressed: 0 bytes in 0 blocks
+==20566== Rerun with --leak-check=full to see details of leaked memory
+==20566== 
+==20566== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--20566-- 
+--20566-- used_suppression:      4 dl-hack3
+==20566== 
+==20566== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==21088== Memcheck, a memory error detector
+==21088== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==21088== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==21088== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/GLNDv.rst --rstv output_valgrind_woGC_wcalloc/GLNDv.rve /home/yamamori/calspa/input/dipep/GLNDv.crd /home/yamamori/calspa/input/dipep/GLNDv.clt /home/yamamori/calspa/input/dipep/GLNDv.top output_valgrind_woGC_wcalloc/GLNDv.out output_valgrind_woGC_wcalloc/GLNDv.out2 output_valgrind_woGC_wcalloc/GLNDv.trj
+==21088== 
+--21088-- Valgrind options:
+--21088--    -v
+--21088--    --track-origins=yes
+--21088-- Contents of /proc/version:
+--21088--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--21088-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--21088-- Page sizes: currently 4096, max supported 4096
+--21088-- Valgrind library directory: /usr/lib64/valgrind
+--21088-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--21088-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--21088--    object doesn't have a dynamic symbol table
+--21088-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--21088-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--21088-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--21088-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--21088-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==21088== WARNING: new redirection conflicts with existing -- ignoring it
+--21088--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--21088-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--21088-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--21088-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--21088-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--21088-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--21088-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--21088--    object doesn't have a symbol table
+--21088-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--21088-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--21088-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--21088-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--21088-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--21088-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--21088-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--21088-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--21088-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--21088-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--21088-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--21088-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--21088-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--21088-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--21088-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--21088-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--21088-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==21088== 
+==21088== HEAP SUMMARY:
+==21088==     in use at exit: 2,468,400 bytes in 100,280 blocks
+==21088==   total heap usage: 85,800,590 allocs, 85,700,310 frees, 6,757,441,933 bytes allocated
+==21088== 
+==21088== Searching for pointers to 100,280 not-freed blocks
+==21088== Checked 10,240,640 bytes
+==21088== 
+==21088== LEAK SUMMARY:
+==21088==    definitely lost: 2,451,784 bytes in 100,277 blocks
+==21088==    indirectly lost: 0 bytes in 0 blocks
+==21088==      possibly lost: 0 bytes in 0 blocks
+==21088==    still reachable: 16,616 bytes in 3 blocks
+==21088==         suppressed: 0 bytes in 0 blocks
+==21088== Rerun with --leak-check=full to see details of leaked memory
+==21088== 
+==21088== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--21088-- 
+--21088-- used_suppression:      4 dl-hack3
+==21088== 
+==21088== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==21799== Memcheck, a memory error detector
+==21799== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==21799== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==21799== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/GLUDv.rst --rstv output_valgrind_woGC_wcalloc/GLUDv.rve /home/yamamori/calspa/input/dipep/GLUDv.crd /home/yamamori/calspa/input/dipep/GLUDv.clt /home/yamamori/calspa/input/dipep/GLUDv.top output_valgrind_woGC_wcalloc/GLUDv.out output_valgrind_woGC_wcalloc/GLUDv.out2 output_valgrind_woGC_wcalloc/GLUDv.trj
+==21799== 
+--21799-- Valgrind options:
+--21799--    -v
+--21799--    --track-origins=yes
+--21799-- Contents of /proc/version:
+--21799--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--21799-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--21799-- Page sizes: currently 4096, max supported 4096
+--21799-- Valgrind library directory: /usr/lib64/valgrind
+--21799-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--21799-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--21799--    object doesn't have a dynamic symbol table
+--21799-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--21799-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--21799-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--21799-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--21799-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==21799== WARNING: new redirection conflicts with existing -- ignoring it
+--21799--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--21799-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--21799-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--21799-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--21799-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--21799-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--21799-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--21799--    object doesn't have a symbol table
+--21799-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--21799-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--21799-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--21799-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--21799-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--21799-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--21799-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--21799-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--21799-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--21799-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--21799-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--21799-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--21799-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--21799-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--21799-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--21799-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--21799-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==21799== 
+==21799== HEAP SUMMARY:
+==21799==     in use at exit: 2,062,160 bytes in 100,257 blocks
+==21799==   total heap usage: 75,100,566 allocs, 75,000,309 frees, 5,916,632,697 bytes allocated
+==21799== 
+==21799== Searching for pointers to 100,257 not-freed blocks
+==21799== Checked 10,240,640 bytes
+==21799== 
+==21799== LEAK SUMMARY:
+==21799==    definitely lost: 2,045,540 bytes in 100,253 blocks
+==21799==    indirectly lost: 0 bytes in 0 blocks
+==21799==      possibly lost: 20 bytes in 1 blocks
+==21799==    still reachable: 16,600 bytes in 3 blocks
+==21799==         suppressed: 0 bytes in 0 blocks
+==21799== Rerun with --leak-check=full to see details of leaked memory
+==21799== 
+==21799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--21799-- 
+--21799-- used_suppression:      4 dl-hack3
+==21799== 
+==21799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==22365== Memcheck, a memory error detector
+==22365== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==22365== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==22365== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/GLYDv.rst --rstv output_valgrind_woGC_wcalloc/GLYDv.rve /home/yamamori/calspa/input/dipep/GLYDv.crd /home/yamamori/calspa/input/dipep/GLYDv.clt /home/yamamori/calspa/input/dipep/GLYDv.top output_valgrind_woGC_wcalloc/GLYDv.out output_valgrind_woGC_wcalloc/GLYDv.out2 output_valgrind_woGC_wcalloc/GLYDv.trj
+==22365== 
+--22365-- Valgrind options:
+--22365--    -v
+--22365--    --track-origins=yes
+--22365-- Contents of /proc/version:
+--22365--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--22365-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--22365-- Page sizes: currently 4096, max supported 4096
+--22365-- Valgrind library directory: /usr/lib64/valgrind
+--22365-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--22365-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--22365--    object doesn't have a dynamic symbol table
+--22365-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--22365-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--22365-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--22365-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--22365-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==22365== WARNING: new redirection conflicts with existing -- ignoring it
+--22365--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--22365-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--22365-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--22365-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--22365-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--22365-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--22365-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--22365--    object doesn't have a symbol table
+--22365-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--22365-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--22365-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--22365-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--22365-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--22365-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--22365-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--22365-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--22365-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--22365-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--22365-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--22365-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--22365-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--22365-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--22365-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--22365-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--22365-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==22365== 
+==22365== HEAP SUMMARY:
+==22365==     in use at exit: 1,641,984 bytes in 100,188 blocks
+==22365==   total heap usage: 49,200,494 allocs, 49,100,306 frees, 3,874,203,089 bytes allocated
+==22365== 
+==22365== Searching for pointers to 100,188 not-freed blocks
+==22365== Checked 10,240,560 bytes
+==22365== 
+==22365== LEAK SUMMARY:
+==22365==    definitely lost: 1,625,448 bytes in 100,185 blocks
+==22365==    indirectly lost: 0 bytes in 0 blocks
+==22365==      possibly lost: 0 bytes in 0 blocks
+==22365==    still reachable: 16,536 bytes in 3 blocks
+==22365==         suppressed: 0 bytes in 0 blocks
+==22365== Rerun with --leak-check=full to see details of leaked memory
+==22365== 
+==22365== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--22365-- 
+--22365-- used_suppression:      4 dl-hack3
+==22365== 
+==22365== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==22676== Memcheck, a memory error detector
+==22676== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==22676== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==22676== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/HIEDv.rst --rstv output_valgrind_woGC_wcalloc/HIEDv.rve /home/yamamori/calspa/input/dipep/HIEDv.crd /home/yamamori/calspa/input/dipep/HIEDv.clt /home/yamamori/calspa/input/dipep/HIEDv.top output_valgrind_woGC_wcalloc/HIEDv.out output_valgrind_woGC_wcalloc/HIEDv.out2 output_valgrind_woGC_wcalloc/HIEDv.trj
+==22676== 
+--22676-- Valgrind options:
+--22676--    -v
+--22676--    --track-origins=yes
+--22676-- Contents of /proc/version:
+--22676--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--22676-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--22676-- Page sizes: currently 4096, max supported 4096
+--22676-- Valgrind library directory: /usr/lib64/valgrind
+--22676-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--22676-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--22676--    object doesn't have a dynamic symbol table
+--22676-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--22676-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--22676-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--22676-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--22676-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==22676== WARNING: new redirection conflicts with existing -- ignoring it
+--22676--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--22676-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--22676-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--22676-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--22676-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--22676-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--22676-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--22676--    object doesn't have a symbol table
+--22676-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--22676-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--22676-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--22676-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--22676-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--22676-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--22676-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--22676-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--22676-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--22676-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--22676-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--22676-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--22676-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--22676-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--22676-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--22676-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--22676-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==22676== 
+==22676== HEAP SUMMARY:
+==22676==     in use at exit: 3,267,164 bytes in 100,274 blocks
+==22676==   total heap usage: 88,000,582 allocs, 87,900,308 frees, 6,822,637,393 bytes allocated
+==22676== 
+==22676== Searching for pointers to 100,274 not-freed blocks
+==22676== Checked 10,240,640 bytes
+==22676== 
+==22676== LEAK SUMMARY:
+==22676==    definitely lost: 3,250,548 bytes in 100,271 blocks
+==22676==    indirectly lost: 0 bytes in 0 blocks
+==22676==      possibly lost: 0 bytes in 0 blocks
+==22676==    still reachable: 16,616 bytes in 3 blocks
+==22676==         suppressed: 0 bytes in 0 blocks
+==22676== Rerun with --leak-check=full to see details of leaked memory
+==22676== 
+==22676== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--22676-- 
+--22676-- used_suppression:      4 dl-hack3
+==22676== 
+==22676== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==23477== Memcheck, a memory error detector
+==23477== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==23477== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==23477== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ILEDv.rst --rstv output_valgrind_woGC_wcalloc/ILEDv.rve /home/yamamori/calspa/input/dipep/ILEDv.crd /home/yamamori/calspa/input/dipep/ILEDv.clt /home/yamamori/calspa/input/dipep/ILEDv.top output_valgrind_woGC_wcalloc/ILEDv.out output_valgrind_woGC_wcalloc/ILEDv.out2 output_valgrind_woGC_wcalloc/ILEDv.trj
+==23477== 
+--23477-- Valgrind options:
+--23477--    -v
+--23477--    --track-origins=yes
+--23477-- Contents of /proc/version:
+--23477--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--23477-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--23477-- Page sizes: currently 4096, max supported 4096
+--23477-- Valgrind library directory: /usr/lib64/valgrind
+--23477-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--23477-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--23477--    object doesn't have a dynamic symbol table
+--23477-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--23477-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--23477-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--23477-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--23477-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==23477== WARNING: new redirection conflicts with existing -- ignoring it
+--23477--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--23477-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--23477-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--23477-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--23477-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--23477-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--23477-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--23477--    object doesn't have a symbol table
+--23477-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--23477-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--23477-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--23477-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--23477-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--23477-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--23477-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--23477-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--23477-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--23477-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--23477-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--23477-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--23477-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--23477-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--23477-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--23477-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--23477-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==23477== 
+==23477== HEAP SUMMARY:
+==23477==     in use at exit: 1,674,100 bytes in 100,291 blocks
+==23477==   total heap usage: 88,400,601 allocs, 88,300,310 frees, 6,950,648,553 bytes allocated
+==23477== 
+==23477== Searching for pointers to 100,291 not-freed blocks
+==23477== Checked 10,240,656 bytes
+==23477== 
+==23477== LEAK SUMMARY:
+==23477==    definitely lost: 1,657,468 bytes in 100,288 blocks
+==23477==    indirectly lost: 0 bytes in 0 blocks
+==23477==      possibly lost: 0 bytes in 0 blocks
+==23477==    still reachable: 16,632 bytes in 3 blocks
+==23477==         suppressed: 0 bytes in 0 blocks
+==23477== Rerun with --leak-check=full to see details of leaked memory
+==23477== 
+==23477== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--23477-- 
+--23477-- used_suppression:      4 dl-hack3
+==23477== 
+==23477== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==24244== Memcheck, a memory error detector
+==24244== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==24244== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==24244== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/LEUDv.rst --rstv output_valgrind_woGC_wcalloc/LEUDv.rve /home/yamamori/calspa/input/dipep/LEUDv.crd /home/yamamori/calspa/input/dipep/LEUDv.clt /home/yamamori/calspa/input/dipep/LEUDv.top output_valgrind_woGC_wcalloc/LEUDv.out output_valgrind_woGC_wcalloc/LEUDv.out2 output_valgrind_woGC_wcalloc/LEUDv.trj
+==24244== 
+--24244-- Valgrind options:
+--24244--    -v
+--24244--    --track-origins=yes
+--24244-- Contents of /proc/version:
+--24244--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--24244-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--24244-- Page sizes: currently 4096, max supported 4096
+--24244-- Valgrind library directory: /usr/lib64/valgrind
+--24244-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--24244-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--24244--    object doesn't have a dynamic symbol table
+--24244-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--24244-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--24244-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--24244-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--24244-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==24244== WARNING: new redirection conflicts with existing -- ignoring it
+--24244--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--24244-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--24244-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--24244-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--24244-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--24244-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--24244-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--24244--    object doesn't have a symbol table
+--24244-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--24244-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--24244-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--24244-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--24244-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--24244-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--24244-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--24244-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--24244-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--24244-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--24244-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--24244-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--24244-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--24244-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--24244-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--24244-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--24244-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==24244== 
+==24244== HEAP SUMMARY:
+==24244==     in use at exit: 1,674,100 bytes in 100,291 blocks
+==24244==   total heap usage: 88,400,601 allocs, 88,300,310 frees, 6,950,648,553 bytes allocated
+==24244== 
+==24244== Searching for pointers to 100,291 not-freed blocks
+==24244== Checked 10,240,656 bytes
+==24244== 
+==24244== LEAK SUMMARY:
+==24244==    definitely lost: 1,657,468 bytes in 100,288 blocks
+==24244==    indirectly lost: 0 bytes in 0 blocks
+==24244==      possibly lost: 0 bytes in 0 blocks
+==24244==    still reachable: 16,632 bytes in 3 blocks
+==24244==         suppressed: 0 bytes in 0 blocks
+==24244== Rerun with --leak-check=full to see details of leaked memory
+==24244== 
+==24244== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--24244-- 
+--24244-- used_suppression:      4 dl-hack3
+==24244== 
+==24244== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==24945== Memcheck, a memory error detector
+==24945== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==24945== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==24945== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/LYSDv.rst --rstv output_valgrind_woGC_wcalloc/LYSDv.rve /home/yamamori/calspa/input/dipep/LYSDv.crd /home/yamamori/calspa/input/dipep/LYSDv.clt /home/yamamori/calspa/input/dipep/LYSDv.top output_valgrind_woGC_wcalloc/LYSDv.out output_valgrind_woGC_wcalloc/LYSDv.out2 output_valgrind_woGC_wcalloc/LYSDv.trj
+==24945== 
+--24945-- Valgrind options:
+--24945--    -v
+--24945--    --track-origins=yes
+--24945-- Contents of /proc/version:
+--24945--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--24945-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--24945-- Page sizes: currently 4096, max supported 4096
+--24945-- Valgrind library directory: /usr/lib64/valgrind
+--24945-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--24945-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--24945--    object doesn't have a dynamic symbol table
+--24945-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--24945-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--24945-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--24945-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--24945-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==24945== WARNING: new redirection conflicts with existing -- ignoring it
+--24945--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--24945-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--24945-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--24945-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--24945-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--24945-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--24945-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--24945--    object doesn't have a symbol table
+--24945-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--24945-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--24945-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--24945-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--24945-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--24945-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--24945-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--24945-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--24945-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--24945-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--24945-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--24945-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--24945-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--24945-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--24945-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--24945-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--24945-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==24945== 
+==24945== HEAP SUMMARY:
+==24945==     in use at exit: 1,684,060 bytes in 100,315 blocks
+==24945==   total heap usage: 96,800,626 allocs, 96,700,311 frees, 7,612,662,453 bytes allocated
+==24945== 
+==24945== Searching for pointers to 100,315 not-freed blocks
+==24945== Checked 10,240,680 bytes
+==24945== 
+==24945== LEAK SUMMARY:
+==24945==    definitely lost: 1,667,404 bytes in 100,312 blocks
+==24945==    indirectly lost: 0 bytes in 0 blocks
+==24945==      possibly lost: 0 bytes in 0 blocks
+==24945==    still reachable: 16,656 bytes in 3 blocks
+==24945==         suppressed: 0 bytes in 0 blocks
+==24945== Rerun with --leak-check=full to see details of leaked memory
+==24945== 
+==24945== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--24945-- 
+--24945-- used_suppression:      4 dl-hack3
+==24945== 
+==24945== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==25802== Memcheck, a memory error detector
+==25802== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==25802== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==25802== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/METDv.rst --rstv output_valgrind_woGC_wcalloc/METDv.rve /home/yamamori/calspa/input/dipep/METDv.crd /home/yamamori/calspa/input/dipep/METDv.clt /home/yamamori/calspa/input/dipep/METDv.top output_valgrind_woGC_wcalloc/METDv.out output_valgrind_woGC_wcalloc/METDv.out2 output_valgrind_woGC_wcalloc/METDv.trj
+==25802== 
+--25802-- Valgrind options:
+--25802--    -v
+--25802--    --track-origins=yes
+--25802-- Contents of /proc/version:
+--25802--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--25802-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--25802-- Page sizes: currently 4096, max supported 4096
+--25802-- Valgrind library directory: /usr/lib64/valgrind
+--25802-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--25802-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--25802--    object doesn't have a dynamic symbol table
+--25802-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--25802-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--25802-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--25802-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--25802-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==25802== WARNING: new redirection conflicts with existing -- ignoring it
+--25802--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--25802-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--25802-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--25802-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--25802-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--25802-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--25802-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--25802--    object doesn't have a symbol table
+--25802-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--25802-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--25802-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--25802-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--25802-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--25802-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--25802-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--25802-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--25802-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--25802-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--25802-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--25802-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--25802-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--25802-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--25802-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--25802-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--25802-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==25802== 
+==25802== HEAP SUMMARY:
+==25802==     in use at exit: 1,667,364 bytes in 100,262 blocks
+==25802==   total heap usage: 74,600,571 allocs, 74,500,309 frees, 5,866,638,833 bytes allocated
+==25802== 
+==25802== Searching for pointers to 100,262 not-freed blocks
+==25802== Checked 10,240,656 bytes
+==25802== 
+==25802== LEAK SUMMARY:
+==25802==    definitely lost: 1,650,732 bytes in 100,258 blocks
+==25802==    indirectly lost: 0 bytes in 0 blocks
+==25802==      possibly lost: 0 bytes in 0 blocks
+==25802==    still reachable: 16,632 bytes in 4 blocks
+==25802==         suppressed: 0 bytes in 0 blocks
+==25802== Rerun with --leak-check=full to see details of leaked memory
+==25802== 
+==25802== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--25802-- 
+--25802-- used_suppression:      4 dl-hack3
+==25802== 
+==25802== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==26374== Memcheck, a memory error detector
+==26374== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==26374== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==26374== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/SERDv.rst --rstv output_valgrind_woGC_wcalloc/SERDv.rve /home/yamamori/calspa/input/dipep/SERDv.crd /home/yamamori/calspa/input/dipep/SERDv.clt /home/yamamori/calspa/input/dipep/SERDv.top output_valgrind_woGC_wcalloc/SERDv.out output_valgrind_woGC_wcalloc/SERDv.out2 output_valgrind_woGC_wcalloc/SERDv.trj
+==26374== 
+--26374-- Valgrind options:
+--26374--    -v
+--26374--    --track-origins=yes
+--26374-- Contents of /proc/version:
+--26374--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--26374-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--26374-- Page sizes: currently 4096, max supported 4096
+--26374-- Valgrind library directory: /usr/lib64/valgrind
+--26374-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--26374-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--26374--    object doesn't have a dynamic symbol table
+--26374-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--26374-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--26374-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--26374-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--26374-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==26374== WARNING: new redirection conflicts with existing -- ignoring it
+--26374--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--26374-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--26374-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--26374-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--26374-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--26374-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--26374-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--26374--    object doesn't have a symbol table
+--26374-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--26374-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--26374-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--26374-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--26374-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--26374-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--26374-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--26374-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--26374-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--26374-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--26374-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--26374-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--26374-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--26374-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--26374-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--26374-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--26374-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==26374== 
+==26374== HEAP SUMMARY:
+==26374==     in use at exit: 1,651,700 bytes in 100,228 blocks
+==26374==   total heap usage: 64,800,536 allocs, 64,700,308 frees, 5,124,219,029 bytes allocated
+==26374== 
+==26374== Searching for pointers to 100,228 not-freed blocks
+==26374== Checked 10,240,592 bytes
+==26374== 
+==26374== LEAK SUMMARY:
+==26374==    definitely lost: 1,635,132 bytes in 100,225 blocks
+==26374==    indirectly lost: 0 bytes in 0 blocks
+==26374==      possibly lost: 0 bytes in 0 blocks
+==26374==    still reachable: 16,568 bytes in 3 blocks
+==26374==         suppressed: 0 bytes in 0 blocks
+==26374== Rerun with --leak-check=full to see details of leaked memory
+==26374== 
+==26374== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--26374-- 
+--26374-- used_suppression:      4 dl-hack3
+==26374== 
+==26374== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==26877== Memcheck, a memory error detector
+==26877== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==26877== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==26877== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/TRPDv.rst --rstv output_valgrind_woGC_wcalloc/TRPDv.rve /home/yamamori/calspa/input/dipep/TRPDv.crd /home/yamamori/calspa/input/dipep/TRPDv.clt /home/yamamori/calspa/input/dipep/TRPDv.top output_valgrind_woGC_wcalloc/TRPDv.out output_valgrind_woGC_wcalloc/TRPDv.out2 output_valgrind_woGC_wcalloc/TRPDv.trj
+==26877== 
+--26877-- Valgrind options:
+--26877--    -v
+--26877--    --track-origins=yes
+--26877-- Contents of /proc/version:
+--26877--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--26877-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--26877-- Page sizes: currently 4096, max supported 4096
+--26877-- Valgrind library directory: /usr/lib64/valgrind
+--26877-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--26877-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--26877--    object doesn't have a dynamic symbol table
+--26877-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--26877-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--26877-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--26877-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--26877-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==26877== WARNING: new redirection conflicts with existing -- ignoring it
+--26877--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--26877-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--26877-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--26877-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--26877-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--26877-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--26877-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--26877--    object doesn't have a symbol table
+--26877-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--26877-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--26877-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--26877-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--26877-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--26877-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--26877-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--26877-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--26877-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--26877-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--26877-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--26877-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--26877-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--26877-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--26877-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--26877-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--26877-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==26877== 
+==26877== HEAP SUMMARY:
+==26877==     in use at exit: 4,488,184 bytes in 100,317 blocks
+==26877==   total heap usage: 106,500,625 allocs, 106,400,308 frees, 8,162,261,329 bytes allocated
+==26877== 
+==26877== Searching for pointers to 100,317 not-freed blocks
+==26877== Checked 10,240,696 bytes
+==26877== 
+==26877== LEAK SUMMARY:
+==26877==    definitely lost: 4,471,512 bytes in 100,314 blocks
+==26877==    indirectly lost: 0 bytes in 0 blocks
+==26877==      possibly lost: 0 bytes in 0 blocks
+==26877==    still reachable: 16,672 bytes in 3 blocks
+==26877==         suppressed: 0 bytes in 0 blocks
+==26877== Rerun with --leak-check=full to see details of leaked memory
+==26877== 
+==26877== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--26877-- 
+--26877-- used_suppression:      4 dl-hack3
+==26877== 
+==26877== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==28631== Memcheck, a memory error detector
+==28631== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==28631== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==28631== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/THRDv.rst --rstv output_valgrind_woGC_wcalloc/THRDv.rve /home/yamamori/calspa/input/dipep/THRDv.crd /home/yamamori/calspa/input/dipep/THRDv.clt /home/yamamori/calspa/input/dipep/THRDv.top output_valgrind_woGC_wcalloc/THRDv.out output_valgrind_woGC_wcalloc/THRDv.out2 output_valgrind_woGC_wcalloc/THRDv.trj
+==28631== 
+--28631-- Valgrind options:
+--28631--    -v
+--28631--    --track-origins=yes
+--28631-- Contents of /proc/version:
+--28631--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--28631-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--28631-- Page sizes: currently 4096, max supported 4096
+--28631-- Valgrind library directory: /usr/lib64/valgrind
+--28631-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--28631-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--28631--    object doesn't have a dynamic symbol table
+--28631-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--28631-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--28631-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--28631-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--28631-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==28631== WARNING: new redirection conflicts with existing -- ignoring it
+--28631--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--28631-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--28631-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--28631-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--28631-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--28631-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--28631-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--28631--    object doesn't have a symbol table
+--28631-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--28631-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--28631-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--28631-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--28631-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--28631-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--28631-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--28631-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--28631-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--28631-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--28631-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--28631-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--28631-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--28631-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--28631-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--28631-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--28631-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==28631== 
+==28631== HEAP SUMMARY:
+==28631==     in use at exit: 1,659,708 bytes in 100,256 blocks
+==28631==   total heap usage: 76,400,565 allocs, 76,300,309 frees, 6,031,030,357 bytes allocated
+==28631== 
+==28631== Searching for pointers to 100,256 not-freed blocks
+==28631== Checked 10,240,616 bytes
+==28631== 
+==28631== LEAK SUMMARY:
+==28631==    definitely lost: 1,643,116 bytes in 100,253 blocks
+==28631==    indirectly lost: 0 bytes in 0 blocks
+==28631==      possibly lost: 0 bytes in 0 blocks
+==28631==    still reachable: 16,592 bytes in 3 blocks
+==28631==         suppressed: 0 bytes in 0 blocks
+==28631== Rerun with --leak-check=full to see details of leaked memory
+==28631== 
+==28631== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--28631-- 
+--28631-- used_suppression:      4 dl-hack3
+==28631== 
+==28631== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==29203== Memcheck, a memory error detector
+==29203== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==29203== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==29203== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/TYRDv.rst --rstv output_valgrind_woGC_wcalloc/TYRDv.rve /home/yamamori/calspa/input/dipep/TYRDv.crd /home/yamamori/calspa/input/dipep/TYRDv.clt /home/yamamori/calspa/input/dipep/TYRDv.top output_valgrind_woGC_wcalloc/TYRDv.out output_valgrind_woGC_wcalloc/TYRDv.out2 output_valgrind_woGC_wcalloc/TYRDv.trj
+==29203== 
+--29203-- Valgrind options:
+--29203--    -v
+--29203--    --track-origins=yes
+--29203-- Contents of /proc/version:
+--29203--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--29203-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--29203-- Page sizes: currently 4096, max supported 4096
+--29203-- Valgrind library directory: /usr/lib64/valgrind
+--29203-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--29203-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--29203--    object doesn't have a dynamic symbol table
+--29203-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--29203-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--29203-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--29203-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--29203-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==29203== WARNING: new redirection conflicts with existing -- ignoring it
+--29203--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--29203-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--29203-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--29203-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--29203-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--29203-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--29203-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--29203--    object doesn't have a symbol table
+--29203-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--29203-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--29203-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--29203-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--29203-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--29203-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--29203-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--29203-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--29203-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--29203-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--29203-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--29203-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--29203-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--29203-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--29203-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--29203-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--29203-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==29203== 
+==29203== HEAP SUMMARY:
+==29203==     in use at exit: 4,078,516 bytes in 100,290 blocks
+==29203==   total heap usage: 93,800,598 allocs, 93,700,308 frees, 7,220,250,157 bytes allocated
+==29203== 
+==29203== Searching for pointers to 100,290 not-freed blocks
+==29203== Checked 10,240,672 bytes
+==29203== 
+==29203== LEAK SUMMARY:
+==29203==    definitely lost: 4,061,868 bytes in 100,287 blocks
+==29203==    indirectly lost: 0 bytes in 0 blocks
+==29203==      possibly lost: 0 bytes in 0 blocks
+==29203==    still reachable: 16,648 bytes in 3 blocks
+==29203==         suppressed: 0 bytes in 0 blocks
+==29203== Rerun with --leak-check=full to see details of leaked memory
+==29203== 
+==29203== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--29203-- 
+--29203-- used_suppression:      4 dl-hack3
+==29203== 
+==29203== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==29868== Memcheck, a memory error detector
+==29868== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==29868== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==29868== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/PHEDv.rst --rstv output_valgrind_woGC_wcalloc/PHEDv.rve /home/yamamori/calspa/input/dipep/PHEDv.crd /home/yamamori/calspa/input/dipep/PHEDv.clt /home/yamamori/calspa/input/dipep/PHEDv.top output_valgrind_woGC_wcalloc/PHEDv.out output_valgrind_woGC_wcalloc/PHEDv.out2 output_valgrind_woGC_wcalloc/PHEDv.trj
+==29868== 
+--29868-- Valgrind options:
+--29868--    -v
+--29868--    --track-origins=yes
+--29868-- Contents of /proc/version:
+--29868--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--29868-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--29868-- Page sizes: currently 4096, max supported 4096
+--29868-- Valgrind library directory: /usr/lib64/valgrind
+--29868-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--29868-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--29868--    object doesn't have a dynamic symbol table
+--29868-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--29868-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--29868-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--29868-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--29868-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==29868== WARNING: new redirection conflicts with existing -- ignoring it
+--29868--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--29868-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--29868-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--29868-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--29868-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--29868-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--29868-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--29868--    object doesn't have a symbol table
+--29868-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--29868-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--29868-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--29868-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--29868-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--29868-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--29868-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--29868-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--29868-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--29868-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--29868-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--29868-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--29868-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--29868-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--29868-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--29868-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--29868-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==29868== 
+==29868== HEAP SUMMARY:
+==29868==     in use at exit: 4,075,568 bytes in 100,286 blocks
+==29868==   total heap usage: 92,000,594 allocs, 91,900,308 frees, 7,092,646,225 bytes allocated
+==29868== 
+==29868== Searching for pointers to 100,286 not-freed blocks
+==29868== Checked 10,240,664 bytes
+==29868== 
+==29868== LEAK SUMMARY:
+==29868==    definitely lost: 4,058,928 bytes in 100,283 blocks
+==29868==    indirectly lost: 0 bytes in 0 blocks
+==29868==      possibly lost: 0 bytes in 0 blocks
+==29868==    still reachable: 16,640 bytes in 3 blocks
+==29868==         suppressed: 0 bytes in 0 blocks
+==29868== Rerun with --leak-check=full to see details of leaked memory
+==29868== 
+==29868== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--29868-- 
+--29868-- used_suppression:      4 dl-hack3
+==29868== 
+==29868== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==30589== Memcheck, a memory error detector
+==30589== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==30589== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==30589== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/PRODv.rst --rstv output_valgrind_woGC_wcalloc/PRODv.rve /home/yamamori/calspa/input/dipep/PRODv.crd /home/yamamori/calspa/input/dipep/PRODv.clt /home/yamamori/calspa/input/dipep/PRODv.top output_valgrind_woGC_wcalloc/PRODv.out output_valgrind_woGC_wcalloc/PRODv.out2 output_valgrind_woGC_wcalloc/PRODv.trj
+==30589== 
+--30589-- Valgrind options:
+--30589--    -v
+--30589--    --track-origins=yes
+--30589-- Contents of /proc/version:
+--30589--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--30589-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--30589-- Page sizes: currently 4096, max supported 4096
+--30589-- Valgrind library directory: /usr/lib64/valgrind
+--30589-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--30589-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--30589--    object doesn't have a dynamic symbol table
+--30589-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--30589-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--30589-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--30589-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--30589-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==30589== WARNING: new redirection conflicts with existing -- ignoring it
+--30589--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--30589-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--30589-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--30589-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--30589-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--30589-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--30589-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--30589--    object doesn't have a symbol table
+--30589-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--30589-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--30589-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--30589-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--30589-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--30589-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--30589-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--30589-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--30589-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--30589-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--30589-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--30589-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--30589-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--30589-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--30589-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--30589-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--30589-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==30589== 
+==30589== HEAP SUMMARY:
+==30589==     in use at exit: 1,657,632 bytes in 100,248 blocks
+==30589==   total heap usage: 82,000,553 allocs, 81,900,305 frees, 6,275,419,705 bytes allocated
+==30589== 
+==30589== Searching for pointers to 100,248 not-freed blocks
+==30589== Checked 10,240,616 bytes
+==30589== 
+==30589== LEAK SUMMARY:
+==30589==    definitely lost: 1,641,040 bytes in 100,245 blocks
+==30589==    indirectly lost: 0 bytes in 0 blocks
+==30589==      possibly lost: 0 bytes in 0 blocks
+==30589==    still reachable: 16,592 bytes in 3 blocks
+==30589==         suppressed: 0 bytes in 0 blocks
+==30589== Rerun with --leak-check=full to see details of leaked memory
+==30589== 
+==30589== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--30589-- 
+--30589-- used_suppression:      4 dl-hack3
+==30589== 
+==30589== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==31113== Memcheck, a memory error detector
+==31113== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==31113== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==31113== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/VALDv.rst --rstv output_valgrind_woGC_wcalloc/VALDv.rve /home/yamamori/calspa/input/dipep/VALDv.crd /home/yamamori/calspa/input/dipep/VALDv.clt /home/yamamori/calspa/input/dipep/VALDv.top output_valgrind_woGC_wcalloc/VALDv.out output_valgrind_woGC_wcalloc/VALDv.out2 output_valgrind_woGC_wcalloc/VALDv.trj
+==31113== 
+--31113-- Valgrind options:
+--31113--    -v
+--31113--    --track-origins=yes
+--31113-- Contents of /proc/version:
+--31113--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--31113-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--31113-- Page sizes: currently 4096, max supported 4096
+--31113-- Valgrind library directory: /usr/lib64/valgrind
+--31113-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--31113-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--31113--    object doesn't have a dynamic symbol table
+--31113-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--31113-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--31113-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--31113-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--31113-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==31113== WARNING: new redirection conflicts with existing -- ignoring it
+--31113--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--31113-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--31113-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--31113-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--31113-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--31113-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--31113-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--31113--    object doesn't have a symbol table
+--31113-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--31113-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--31113-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--31113-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--31113-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--31113-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--31113-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--31113-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--31113-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--31113-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--31113-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--31113-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--31113-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--31113-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--31113-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--31113-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--31113-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==31113== 
+==31113== HEAP SUMMARY:
+==31113==     in use at exit: 1,664,820 bytes in 100,263 blocks
+==31113==   total heap usage: 76,800,572 allocs, 76,700,309 frees, 6,043,835,721 bytes allocated
+==31113== 
+==31113== Searching for pointers to 100,263 not-freed blocks
+==31113== Checked 10,240,632 bytes
+==31113== 
+==31113== LEAK SUMMARY:
+==31113==    definitely lost: 1,648,212 bytes in 100,260 blocks
+==31113==    indirectly lost: 0 bytes in 0 blocks
+==31113==      possibly lost: 0 bytes in 0 blocks
+==31113==    still reachable: 16,608 bytes in 3 blocks
+==31113==         suppressed: 0 bytes in 0 blocks
+==31113== Rerun with --leak-check=full to see details of leaked memory
+==31113== 
+==31113== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--31113-- 
+--31113-- used_suppression:      4 dl-hack3
+==31113== 
+==31113== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==31734== Memcheck, a memory error detector
+==31734== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==31734== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==31734== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/ASHDv.rst --rstv output_valgrind_woGC_wcalloc/ASHDv.rve /home/yamamori/calspa/input/dipep/ASHDv.crd /home/yamamori/calspa/input/dipep/ASHDv.clt /home/yamamori/calspa/input/dipep/ASHDv.top output_valgrind_woGC_wcalloc/ASHDv.out output_valgrind_woGC_wcalloc/ASHDv.out2 output_valgrind_woGC_wcalloc/ASHDv.trj
+==31734== 
+--31734-- Valgrind options:
+--31734--    -v
+--31734--    --track-origins=yes
+--31734-- Contents of /proc/version:
+--31734--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--31734-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--31734-- Page sizes: currently 4096, max supported 4096
+--31734-- Valgrind library directory: /usr/lib64/valgrind
+--31734-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--31734-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--31734--    object doesn't have a dynamic symbol table
+--31734-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--31734-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--31734-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--31734-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--31734-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==31734== WARNING: new redirection conflicts with existing -- ignoring it
+--31734--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--31734-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--31734-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--31734-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--31734-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--31734-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--31734-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--31734--    object doesn't have a symbol table
+--31734-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--31734-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--31734-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--31734-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--31734-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--31734-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--31734-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--31734-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--31734-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--31734-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--31734-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--31734-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--31734-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--31734-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--31734-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--31734-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--31734-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==31734== 
+==31734== HEAP SUMMARY:
+==31734==     in use at exit: 2,057,304 bytes in 100,254 blocks
+==31734==   total heap usage: 77,900,563 allocs, 77,800,309 frees, 6,148,627,569 bytes allocated
+==31734== 
+==31734== Searching for pointers to 100,254 not-freed blocks
+==31734== Checked 10,240,608 bytes
+==31734== 
+==31734== LEAK SUMMARY:
+==31734==    definitely lost: 2,040,720 bytes in 100,251 blocks
+==31734==    indirectly lost: 0 bytes in 0 blocks
+==31734==      possibly lost: 0 bytes in 0 blocks
+==31734==    still reachable: 16,584 bytes in 3 blocks
+==31734==         suppressed: 0 bytes in 0 blocks
+==31734== Rerun with --leak-check=full to see details of leaked memory
+==31734== 
+==31734== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--31734-- 
+--31734-- used_suppression:      4 dl-hack3
+==31734== 
+==31734== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==32307== Memcheck, a memory error detector
+==32307== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==32307== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==32307== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/CYMDv.rst --rstv output_valgrind_woGC_wcalloc/CYMDv.rve /home/yamamori/calspa/input/dipep/CYMDv.crd /home/yamamori/calspa/input/dipep/CYMDv.clt /home/yamamori/calspa/input/dipep/CYMDv.top output_valgrind_woGC_wcalloc/CYMDv.out output_valgrind_woGC_wcalloc/CYMDv.out2 output_valgrind_woGC_wcalloc/CYMDv.trj
+==32307== 
+--32307-- Valgrind options:
+--32307--    -v
+--32307--    --track-origins=yes
+--32307-- Contents of /proc/version:
+--32307--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--32307-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--32307-- Page sizes: currently 4096, max supported 4096
+--32307-- Valgrind library directory: /usr/lib64/valgrind
+--32307-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--32307-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--32307--    object doesn't have a dynamic symbol table
+--32307-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--32307-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--32307-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--32307-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--32307-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==32307== WARNING: new redirection conflicts with existing -- ignoring it
+--32307--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--32307-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--32307-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--32307-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--32307-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--32307-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--32307-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--32307--    object doesn't have a symbol table
+--32307-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--32307-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--32307-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--32307-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--32307-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--32307-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--32307-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--32307-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--32307-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--32307-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--32307-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--32307-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--32307-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--32307-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--32307-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--32307-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--32307-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==32307== 
+==32307== HEAP SUMMARY:
+==32307==     in use at exit: 1,649,028 bytes in 100,221 blocks
+==32307==   total heap usage: 64,800,528 allocs, 64,700,307 frees, 5,087,013,745 bytes allocated
+==32307== 
+==32307== Searching for pointers to 100,221 not-freed blocks
+==32307== Checked 10,240,584 bytes
+==32307== 
+==32307== LEAK SUMMARY:
+==32307==    definitely lost: 1,632,468 bytes in 100,218 blocks
+==32307==    indirectly lost: 0 bytes in 0 blocks
+==32307==      possibly lost: 0 bytes in 0 blocks
+==32307==    still reachable: 16,560 bytes in 3 blocks
+==32307==         suppressed: 0 bytes in 0 blocks
+==32307== Rerun with --leak-check=full to see details of leaked memory
+==32307== 
+==32307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--32307-- 
+--32307-- used_suppression:      4 dl-hack3
+==32307== 
+==32307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==343== Memcheck, a memory error detector
+==343== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==343== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==343== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/CYXDv.rst --rstv output_valgrind_woGC_wcalloc/CYXDv.rve /home/yamamori/calspa/input/dipep/CYXDv.crd /home/yamamori/calspa/input/dipep/CYXDv.clt /home/yamamori/calspa/input/dipep/CYXDv.top output_valgrind_woGC_wcalloc/CYXDv.out output_valgrind_woGC_wcalloc/CYXDv.out2 output_valgrind_woGC_wcalloc/CYXDv.trj
+==343== 
+--343-- Valgrind options:
+--343--    -v
+--343--    --track-origins=yes
+--343-- Contents of /proc/version:
+--343--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--343-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--343-- Page sizes: currently 4096, max supported 4096
+--343-- Valgrind library directory: /usr/lib64/valgrind
+--343-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--343-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--343--    object doesn't have a dynamic symbol table
+--343-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--343-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--343-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--343-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--343-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==343== WARNING: new redirection conflicts with existing -- ignoring it
+--343--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--343-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--343-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--343-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--343-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--343-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--343-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--343--    object doesn't have a symbol table
+--343-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--343-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--343-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--343-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--343-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--343-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--343-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--343-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--343-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--343-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--343-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--343-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--343-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--343-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--343-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--343-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--343-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==343== 
+==343== HEAP SUMMARY:
+==343==     in use at exit: 1,649,028 bytes in 100,221 blocks
+==343==   total heap usage: 64,800,528 allocs, 64,700,307 frees, 5,087,013,745 bytes allocated
+==343== 
+==343== Searching for pointers to 100,221 not-freed blocks
+==343== Checked 10,240,584 bytes
+==343== 
+==343== LEAK SUMMARY:
+==343==    definitely lost: 1,632,468 bytes in 100,218 blocks
+==343==    indirectly lost: 0 bytes in 0 blocks
+==343==      possibly lost: 0 bytes in 0 blocks
+==343==    still reachable: 16,560 bytes in 3 blocks
+==343==         suppressed: 0 bytes in 0 blocks
+==343== Rerun with --leak-check=full to see details of leaked memory
+==343== 
+==343== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--343-- 
+--343-- used_suppression:      4 dl-hack3
+==343== 
+==343== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==769== Memcheck, a memory error detector
+==769== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==769== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==769== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/GLHDv.rst --rstv output_valgrind_woGC_wcalloc/GLHDv.rve /home/yamamori/calspa/input/dipep/GLHDv.crd /home/yamamori/calspa/input/dipep/GLHDv.clt /home/yamamori/calspa/input/dipep/GLHDv.top output_valgrind_woGC_wcalloc/GLHDv.out output_valgrind_woGC_wcalloc/GLHDv.out2 output_valgrind_woGC_wcalloc/GLHDv.trj
+==769== 
+--769-- Valgrind options:
+--769--    -v
+--769--    --track-origins=yes
+--769-- Contents of /proc/version:
+--769--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--769-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--769-- Page sizes: currently 4096, max supported 4096
+--769-- Valgrind library directory: /usr/lib64/valgrind
+--769-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--769-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--769--    object doesn't have a dynamic symbol table
+--769-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--769-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--769-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--769-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--769-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==769== WARNING: new redirection conflicts with existing -- ignoring it
+--769--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--769-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--769-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--769-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--769-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--769-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--769-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--769--    object doesn't have a symbol table
+--769-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--769-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--769-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--769-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--769-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--769-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--769-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--769-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--769-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--769-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--769-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--769-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--769-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--769-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--769-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--769-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--769-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==769== 
+==769== HEAP SUMMARY:
+==769==     in use at exit: 2,065,752 bytes in 100,278 blocks
+==769==   total heap usage: 86,300,588 allocs, 86,200,310 frees, 6,810,639,457 bytes allocated
+==769== 
+==769== Searching for pointers to 100,278 not-freed blocks
+==769== Checked 10,240,632 bytes
+==769== 
+==769== LEAK SUMMARY:
+==769==    definitely lost: 2,049,144 bytes in 100,275 blocks
+==769==    indirectly lost: 0 bytes in 0 blocks
+==769==      possibly lost: 0 bytes in 0 blocks
+==769==    still reachable: 16,608 bytes in 3 blocks
+==769==         suppressed: 0 bytes in 0 blocks
+==769== Rerun with --leak-check=full to see details of leaked memory
+==769== 
+==769== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--769-- 
+--769-- used_suppression:      4 dl-hack3
+==769== 
+==769== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==1494== Memcheck, a memory error detector
+==1494== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==1494== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==1494== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/HIEDv.rst --rstv output_valgrind_woGC_wcalloc/HIEDv.rve /home/yamamori/calspa/input/dipep/HIEDv.crd /home/yamamori/calspa/input/dipep/HIEDv.clt /home/yamamori/calspa/input/dipep/HIEDv.top output_valgrind_woGC_wcalloc/HIEDv.out output_valgrind_woGC_wcalloc/HIEDv.out2 output_valgrind_woGC_wcalloc/HIEDv.trj
+==1494== 
+--1494-- Valgrind options:
+--1494--    -v
+--1494--    --track-origins=yes
+--1494-- Contents of /proc/version:
+--1494--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--1494-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--1494-- Page sizes: currently 4096, max supported 4096
+--1494-- Valgrind library directory: /usr/lib64/valgrind
+--1494-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--1494-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--1494--    object doesn't have a dynamic symbol table
+--1494-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--1494-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--1494-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--1494-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--1494-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==1494== WARNING: new redirection conflicts with existing -- ignoring it
+--1494--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--1494-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--1494-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--1494-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--1494-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--1494-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--1494-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--1494--    object doesn't have a symbol table
+--1494-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--1494-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--1494-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--1494-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--1494-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--1494-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--1494-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--1494-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--1494-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--1494-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--1494-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--1494-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--1494-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--1494-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--1494-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--1494-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--1494-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==1494== 
+==1494== HEAP SUMMARY:
+==1494==     in use at exit: 3,267,164 bytes in 100,274 blocks
+==1494==   total heap usage: 88,000,582 allocs, 87,900,308 frees, 6,822,637,393 bytes allocated
+==1494== 
+==1494== Searching for pointers to 100,274 not-freed blocks
+==1494== Checked 10,240,640 bytes
+==1494== 
+==1494== LEAK SUMMARY:
+==1494==    definitely lost: 3,250,548 bytes in 100,271 blocks
+==1494==    indirectly lost: 0 bytes in 0 blocks
+==1494==      possibly lost: 0 bytes in 0 blocks
+==1494==    still reachable: 16,616 bytes in 3 blocks
+==1494==         suppressed: 0 bytes in 0 blocks
+==1494== Rerun with --leak-check=full to see details of leaked memory
+==1494== 
+==1494== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1494-- 
+--1494-- used_suppression:      4 dl-hack3
+==1494== 
+==1494== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==2111== Memcheck, a memory error detector
+==2111== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==2111== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==2111== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/HIPDv.rst --rstv output_valgrind_woGC_wcalloc/HIPDv.rve /home/yamamori/calspa/input/dipep/HIPDv.crd /home/yamamori/calspa/input/dipep/HIPDv.clt /home/yamamori/calspa/input/dipep/HIPDv.top output_valgrind_woGC_wcalloc/HIPDv.out output_valgrind_woGC_wcalloc/HIPDv.out2 output_valgrind_woGC_wcalloc/HIPDv.trj
+==2111== 
+--2111-- Valgrind options:
+--2111--    -v
+--2111--    --track-origins=yes
+--2111-- Contents of /proc/version:
+--2111--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--2111-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--2111-- Page sizes: currently 4096, max supported 4096
+--2111-- Valgrind library directory: /usr/lib64/valgrind
+--2111-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--2111-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--2111--    object doesn't have a dynamic symbol table
+--2111-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--2111-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--2111-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--2111-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--2111-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==2111== WARNING: new redirection conflicts with existing -- ignoring it
+--2111--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--2111-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--2111-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--2111-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--2111-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--2111-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--2111-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--2111--    object doesn't have a symbol table
+--2111-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--2111-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--2111-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--2111-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--2111-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--2111-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--2111-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--2111-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--2111-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--2111-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--2111-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--2111-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--2111-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--2111-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--2111-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--2111-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--2111-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==2111== 
+==2111== HEAP SUMMARY:
+==2111==     in use at exit: 3,670,004 bytes in 100,282 blocks
+==2111==   total heap usage: 92,300,590 allocs, 92,200,308 frees, 7,137,840,597 bytes allocated
+==2111== 
+==2111== Searching for pointers to 100,282 not-freed blocks
+==2111== Checked 10,240,648 bytes
+==2111== 
+==2111== LEAK SUMMARY:
+==2111==    definitely lost: 3,653,380 bytes in 100,279 blocks
+==2111==    indirectly lost: 0 bytes in 0 blocks
+==2111==      possibly lost: 0 bytes in 0 blocks
+==2111==    still reachable: 16,624 bytes in 3 blocks
+==2111==         suppressed: 0 bytes in 0 blocks
+==2111== Rerun with --leak-check=full to see details of leaked memory
+==2111== 
+==2111== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--2111-- 
+--2111-- used_suppression:      4 dl-hack3
+==2111== 
+==2111== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+==2750== Memcheck, a memory error detector
+==2750== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==2750== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==2750== Command: /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc --nve --dt 0.001 --termon --temp 300 --tau 1.0 --nums 100000 --int 1000 --intout 1000 --intnc 1000 --rst output_valgrind_woGC_wcalloc/LYNDv.rst --rstv output_valgrind_woGC_wcalloc/LYNDv.rve /home/yamamori/calspa/input/dipep/LYNDv.crd /home/yamamori/calspa/input/dipep/LYNDv.clt /home/yamamori/calspa/input/dipep/LYNDv.top output_valgrind_woGC_wcalloc/LYNDv.out output_valgrind_woGC_wcalloc/LYNDv.out2 output_valgrind_woGC_wcalloc/LYNDv.trj
+==2750== 
+--2750-- Valgrind options:
+--2750--    -v
+--2750--    --track-origins=yes
+--2750-- Contents of /proc/version:
+--2750--   Linux version 2.6.18-194.32.1.el5 (mockbuild@builder10.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Wed Jan 5 17:52:25 EST 2011
+--2750-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--2750-- Page sizes: currently 4096, max supported 4096
+--2750-- Valgrind library directory: /usr/lib64/valgrind
+--2750-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/src_woGC_wcalloc/ABAMD_woGC_wcalloc (0x400000)
+--2750-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux (0x38000000)
+--2750--    object doesn't have a dynamic symbol table
+--2750-- Reading syms from /lib64/ld-2.5.so (0x338e600000)
+--2750-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+--2750-- REDIR: 0x338e6146d0 (strlen) redirected to 0x3803e767 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--2750-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so (0x4802000)
+--2750-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so (0x4a03000)
+==2750== WARNING: new redirection conflicts with existing -- ignoring it
+--2750--     new: 0x338e6146d0 (strlen              ) R-> 0x04a06dc0 strlen
+--2750-- REDIR: 0x338e6144f0 (index) redirected to 0x4a06c30 (index)
+--2750-- REDIR: 0x338e6146a0 (strcmp) redirected to 0x4a06e90 (strcmp)
+--2750-- Reading syms from /lib64/libm-2.5.so (0x338ee00000)
+--2750-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libgc.so.1 (0x4c3f000)
+--2750-- Reading syms from /home/yamamori/work/programs/ABAMD_2014_05_01/lib/libnetcdf.so.7 (0x4e7d000)
+--2750-- Reading syms from /lib64/libgcc_s-4.1.2-20080825.so.1 (0x3393600000)
+--2750--    object doesn't have a symbol table
+--2750-- Reading syms from /lib64/libc-2.5.so (0x338ea00000)
+--2750-- Reading syms from /lib64/libdl-2.5.so (0x338f200000)
+--2750-- Reading syms from /lib64/libpthread-2.5.so (0x338f600000)
+--2750-- REDIR: 0x338ea7ae00 (memset) redirected to 0x4a07030 (memset)
+--2750-- REDIR: 0x338ea7c240 (memcpy) redirected to 0x4a08030 (memcpy)
+--2750-- REDIR: 0x338ea79f40 (rindex) redirected to 0x4a06ae0 (rindex)
+--2750-- REDIR: 0x338ea79b50 (strlen) redirected to 0x4a06d80 (strlen)
+--2750-- REDIR: 0x338ea79dd0 (strncmp) redirected to 0x4a06de0 (strncmp)
+--2750-- REDIR: 0x338ea749e0 (calloc) redirected to 0x4a05092 (calloc)
+--2750-- REDIR: 0x338ea74dc0 (malloc) redirected to 0x4a05d9a (malloc)
+--2750-- REDIR: 0x338ea7a640 (memchr) redirected to 0x4a06f10 (memchr)
+--2750-- REDIR: 0x338ea72870 (free) redirected to 0x4a059aa (free)
+--2750-- REDIR: 0x338ea79610 (strcpy) redirected to 0x4a082c0 (strcpy)
+--2750-- REDIR: 0x338ea79420 (index) redirected to 0x4a06b70 (index)
+--2750-- REDIR: 0x338ea752e0 (realloc) redirected to 0x4a05e4b (realloc)
+--2750-- REDIR: 0x338ea79e90 (strncpy) redirected to 0x4a081a0 (strncpy)
+--2750-- REDIR: 0x338ea7b930 (mempcpy) redirected to 0x4a07870 (mempcpy)
+==2750== 
+==2750== HEAP SUMMARY:
+==2750==     in use at exit: 1,681,060 bytes in 100,314 blocks
+==2750==   total heap usage: 99,000,625 allocs, 98,900,311 frees, 7,789,859,097 bytes allocated
+==2750== 
+==2750== Searching for pointers to 100,314 not-freed blocks
+==2750== Checked 10,240,672 bytes
+==2750== 
+==2750== LEAK SUMMARY:
+==2750==    definitely lost: 1,664,412 bytes in 100,311 blocks
+==2750==    indirectly lost: 0 bytes in 0 blocks
+==2750==      possibly lost: 0 bytes in 0 blocks
+==2750==    still reachable: 16,648 bytes in 3 blocks
+==2750==         suppressed: 0 bytes in 0 blocks
+==2750== Rerun with --leak-check=full to see details of leaked memory
+==2750== 
+==2750== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--2750-- 
+--2750-- used_suppression:      4 dl-hack3
+==2750== 
+==2750== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+
+Compilation finished at Mon Sep 15 18:12:40
