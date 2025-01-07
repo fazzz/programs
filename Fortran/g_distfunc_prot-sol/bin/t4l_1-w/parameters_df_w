@@ -1,0 +1,10 @@
+&controls
+nMolSlu=1
+nMolSlv=18660
+nAtmSlu=2644
+nAtmSlv=3
+IndxIniAtmSlu=1
+IndxIniAtmSlv=24822
+dr=0.02
+/
+

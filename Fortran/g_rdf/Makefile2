@@ -1,0 +1,33 @@
+#
+# Makefile for RDF (MolA-MolB)
+#
+
+TARGET = rdf-xtc
+
+FC   = gfortran
+
+#FLAG = -fbacktrace -ffpe-trap=invalid,zero,overflow -O -Wuninitialized -g -pg -Wall -pedantic -std=f95
+FLAG = -O2
+
+SRC = rdf-xtc.f90 xdr.f90
+
+OBJS = rdf-xtc.o xdr.o
+
+MOD_FILES = xdr.mod
+
+.SUFFIXES: .f90
+
+All:$(TARGET)
+
+${TARGET}:${OBJS}
+	$(FC) $(FLAG) -o $@ $(OBJS) -L/Users/yamamoriyuu/onedrive/Research/work/programs/Fortran/xdrfile/lib -lxdrfile ;
+
+rdf-xtc.o: xdr.o
+xdr.o:
+
+.f90.o:
+	$(FC) -c $<;
+
+.PHONY:clean
+clean:
+	rm $(OBJS) $(MOD_FILES) $(TARGET)

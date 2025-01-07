@@ -1,0 +1,11 @@
+&whamcomtrols
+tol = 1.0e-5
+num_binh = 30
+num_bins = 30
+N = 144
+b = 300
+minh = -180.0e0
+mins = -180.0e0
+maxh = 180.0e0
+maxs = 180.0e0
+\

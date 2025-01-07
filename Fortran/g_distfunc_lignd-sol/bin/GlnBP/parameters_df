@@ -1,0 +1,9 @@
+&controls
+nMolSlv=20000
+nAtmLig=20
+nAtmSlv=3
+IndxIniAtmLig=3545
+IndxIniAtmSlv=3565
+dr=0.02
+/
+

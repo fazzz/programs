@@ -1,0 +1,5 @@
+&sslpcacontrols
+natom = 5
+nframe = 1000
+rou = 0.91
+/

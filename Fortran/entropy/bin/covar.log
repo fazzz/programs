@@ -1,0 +1,20 @@
+Covariance analysis log, written Mon Aug 22 14:40:19 2016
+
+Program: covar
+Working directory: /Users/tokunaga/Desktop/entropy
+
+Read 3 frames from out.xtc (time 0 to 0 ps)
+Read reference structure for fit from mdrun.tpr
+
+Analysis group is 'Protein' (855 atoms)
+Fit group is 'Protein' (855 atoms)
+Analysis is non-mass weighted
+Fit is non-mass weighted
+Diagonalized the 2565x2565 covariance matrix
+Trace of the covariance matrix before diagonalizing: 0.000131185
+Trace of the covariance matrix after diagonalizing: 0.000131185
+
+Wrote 2 eigenvalues to eigenval.xvg
+Wrote reference structure to eigenvec.trr
+Wrote average structure to average.pdb and eigenvec.trr
+Wrote eigenvectors 1 to 2 to eigenvec.trr

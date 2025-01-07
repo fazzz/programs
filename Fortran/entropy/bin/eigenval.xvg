@@ -1,0 +1,17 @@
+# This file was created Mon Aug 22 14:40:19 2016
+# Created by:
+# GROMACS:      gmx covar, VERSION 5.0.6
+# Executable:   /usr/local/bin/../Cellar/gromacs/5.0.6/bin/gmx
+# Library dir:  /usr/local/bin/../Cellar/gromacs/5.0.6/share/gromacs/top
+# Command line:
+#   gmx covar -f out.xtc -s mdrun.tpr
+# gmx is part of G R O M A C S:
+#
+# Gromacs Runs One Microsecond At Cannonball Speeds
+#
+@    title "Eigenvalues of the covariance matrix"
+@    xaxis  label "Eigenvector index"
+@    yaxis  label "(nm\S2\N)"
+@TYPE xy
+         1 7.70463e-05
+         2 5.41388e-05

@@ -1,0 +1,12 @@
+&mccontrols
+Num=108,
+maxsteps=10000,
+outputinterval=10,
+seed=4358,
+T=328.0d0,
+epsilon=119.8d0,
+sigma=3.822d0,
+L_box_size=34.9d0,
+L_cut_off=10.0d0,
+deltaX=0.2d0,
+/

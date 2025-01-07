@@ -1,0 +1,184 @@
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+The begining of iteration of block coordinate descent method... 
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  2-th max diff:  0.005232
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  3-th max diff:  0.003233
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  4-th max diff:  0.001682
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  5-th max diff:  0.001204
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  6-th max diff:  0.000729
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  7-th max diff:  0.000410
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  8-th max diff:  0.000217
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+  9-th max diff:  0.000107
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 10-th max diff:  0.000056
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 11-th max diff:  0.000035
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 12-th max diff:  0.000022
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 13-th max diff:  0.000014
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 14-th max diff:  0.000013
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 15-th max diff:  0.000012
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 16-th max diff:  0.000011
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+    2-th max diff:  0.000000
+ 17-th max diff:  0.000009
+A*iA=
+   1.000   -0.000    0.000   -0.000   -0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000 
+
+  -0.000    1.000    0.000   -0.000   -0.000    0.000   -0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000 
+
+   0.000    0.000    1.000   -0.000    0.000   -0.000    0.000    0.000    0.000    0.000    0.000    0.000   -0.000   -0.000 
+
+  -0.000    0.000   -0.000    1.000    0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000 
+
+  -0.000    0.000   -0.000    0.000    1.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000    0.000   -0.000 
+
+  -0.000    0.000   -0.000    0.000   -0.000    1.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000    0.000 
+
+   0.000   -0.000    0.000    0.000   -0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000 
+
+   0.000   -0.000    0.000    0.000   -0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000   -0.000 
+
+   0.000   -0.000    0.000    0.000   -0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000 
+
+   0.000   -0.000    0.000    0.000   -0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000 
+
+  -0.000    0.000   -0.000   -0.000    0.000   -0.000   -0.000   -0.000   -0.000   -0.000    1.000   -0.000   -0.000   -0.000 
+
+   0.000   -0.000    0.000    0.000   -0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000 
+
+  -0.000    0.000   -0.000   -0.000    0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000   -0.000    1.000   -0.000 
+
+  -0.000    0.000   -0.000    0.000   -0.000    0.000    0.000    0.000   -0.000   -0.000    0.000    0.000    0.000    1.000 
+
+The block coordinate descent method is converged.
+   0 .9810753E+00  20.877688
+   1 .6533862E+00  34.782015
+   2 .6177220E+00  47.927395
+   3 .5242332E+00  59.083294
+   4 .4649590E+00  68.977815
+   5 .4559279E+00  78.680149
+   6 .4043357E+00  87.284580
+   7 .3442293E+00  94.609923
+   8 .1256508E+00  97.283823
+   9 .3469840E-01  98.022219
+  10 .2651275E-01  98.586422
+  11 .2432527E-01  99.104073
+  12 .2340736E-01  99.602192
+  13 .1869363E-01 100.000000

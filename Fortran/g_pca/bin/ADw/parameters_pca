@@ -1,0 +1,6 @@
+&mdinfo
+natom = 10
+nframe = 1000
+pc1 = 1
+pc2 = 2
+/
