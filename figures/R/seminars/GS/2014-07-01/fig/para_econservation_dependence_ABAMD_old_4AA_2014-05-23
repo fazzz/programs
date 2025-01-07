@@ -1,0 +1,11 @@
+#!/bin/sh
+
+RES=( dummy  ALA  LEU  ILE  GLN )
+    
+NRES=$(expr ${#RES[*]} - 1)
+
+clustname0=( dummy ""  ""  ""  "" ) 
+
+clustname=( dummy CH3_Term_fixed CH3_Term_fixed CH3_Term_fixed CH3_Term_fixed  )
+
+clustname2=( dummy XX  XX  XX NH2_Term_fixed  )

@@ -1,0 +1,251 @@
+! additional parameter type table  
+! parm99.dat
+
+! atomtype.mod, atomtype.old, mass ,radius,comment for atom, bond pairs, V , eq, comment, angle pairs, V , eq, comment, dihed pairs, n , V , phase, tyep, comment,
+
+NM,N, 14.01, 0.530, sp2 nitrogen in amide groups,
+ ,,,,,C -NM, 490.0, 1.335,  JCC 7 (1986) 230; AA,
+ ,,,,,H -NM, 434.0, 1.010,  JCC 7 (1986) 230; AA,
+ ,,,,,,,,,CT-C -NM, 70.0,    116.60,    AA general,
+ ,,,,,,,,,H1-CT-NM, 50.0,    109.50,    AA general  changed based on NMA nmodes,
+ ,,,,,,,,,C -CT-NM, 63.0,    110.10,    AA general,
+ ,,,,,,,,,CT-CT-NM,  80.0,   109.70,    AA ala general    (JACS 94  2657),
+ ,,,,,,,,,C -NM -CT,    50.0,      121.90,    AA general,
+ ,,,,,,,,,C -NM -H,     50.0,      120.00,    AA general gln asn changed based on NMMA nmodes,
+ ,,,,,,,,,CT-NM -H,     50.0,      118.04,    AA general     changed based on NMMA nmodes,
+ ,,,,,,,,,CT-NM -CT,    50.0,      118.00,    AA pro             (DETAR JACS 99 1232),
+ ,,,,,,,,,H -NM -H,     35.0,      120.00,    ade cyt gua gln asn     **,
+ ,,,,,,,,,,,,,X - C - NM - X , 4, 1.00, 180.0,  2. , 
+
+NN,N2,14.01,   0.530,   sp2 N in amino groups,
+ ,,,,,CA-NN,  481.0,    1.340,       JCC 7 (1986) 230; ARG CYT GUA,
+ ,,,,,CT-NN,  337.0,    1.463,       JCC 7 (1986) 230; ARG,
+ ,,,,,H -NN,  434.0,    1.010,       JCC 7 (1986) 230; ADE CYT GUA ARG,
+ ,,,,,,,,,CB-CA-NN,    70.0,      123.50,
+ ,,,,,,,,,CM-CA-NN,    70.0,      120.10,
+ ,,,,,,,,,NN-CA-NA,    70.0,      116.00,
+ ,,,,,,,,,NN-CA-NC,    70.0,      119.30,
+ ,,,,,,,,,NN-CA-NN,    70.0,      120.00,    AA arg,
+ ,,,,,,,,,H1-CT-NN,    50.0,      109.50,    AA arg  changed based on NMA nmodes,
+ ,,,,,,,,,CT-CT-NN,    80.0,      111.20,    AA arg          (JCP 76 1439),
+ ,,,,,,,,,CA-NN-H,     50.0,      120.00,    
+ ,,,,,,,,,CA-NN-CT,    50.0,      123.20,    AA arg,
+ ,,,,,,,,,CT-NN-H,     50.0,      118.40,    AA arg,
+ ,,,,,,,,,,H -NN-H,     35.0,      120.00,    
+ ,,,,,,,,,,,,,X - CA - NN - X , 4,  0.96, 180.0,  2. , 
+
+NO,N3, 14.01,      0.530,     sp3 N for charged amino groups (Lys etc),
+,,,,,CT-NO,  367.0,    1.471,       JCC 7 (1986) 230; LYS,
+,,,,,H -NO,  434.0,    1.010,       JCC 7 (1986) 230; LYS,    
+,,,,,LP-NO,  600.0,    0.200,       or 0.35,
+,,,,,,,,,HP-CT-NO,    50.0,      109.50,    AA lys ch3nh3+ changed based on NMA nmodes,
+,,,,,,,,,C -CT-NO,    80.0,      111.20,    AA amino terminal residues,
+,,,,,,,,,CT-CT-NO,    80.0,      111.20,    AA lys             (JCP 76 1439),
+,,,,,,,,,CT-NO-H,     50.0,      109.50,    AA lys     changed based on NMA nmodes,
+,,,,,,,,,CT-NO-CT,    50.0,      109.50,    AA pro/nt,
+,,,,,,,,,H -NO-H,     35.0,      109.50,    AA lys AA(end),
+,,,,,,,,,CT-NO-LP,   150.0,       109.5,    in neutral lysine,
+,,,,,,,,,H -NO-LP,   150.0,       109.5,    in neutral lysine,
+,,,,,,,,,,,,,X - CT - NO - X , 9, 0.14,   0.0,   3. ,  
+
+OM,OH, 16.00,         0.465,               oxygen in hydroxyl group,
+,,,,,C -OM,  450.0,    1.364,       JCC 7 (1986) 230; (not used any more for TYR) ,
+,,,,,CA-OM,  450.0,    1.364,       substituted for C-OH in tyr ,
+,,,,,CT-OM,  320.0,    1.410,       JCC 7 (1986) 230; SUGARS,
+,,,,,OM-P,   230.0,    1.610,       JCC 7 (1986) 230; NA PHOSPHATES,
+,,,,,HO-OM,  553.0,    0.960,       JCC 7 (1986) 230; SUGARS SER TYR,
+,,,,,LP-OM,  600.0,    0.200,       or 0.35,
+,,,,,,,,,C -C -OM,    80.0,      120.00,    Junmei et al 1999,
+,,,,,,,,,CA-C -OM,    70.0,      120.00,    AA (not used in tyr),
+,,,,,,,,,CT-C -OM,    80.0,      110.00,    Junmei et al 1999,
+,,,,,,,,,O -C -OM,    80.0,      120.00,    (check with Junmei for: theta0:120.0?),
+,,,,,,,,,H4-C -OM,    50.0,      120.00,    Junmei et al 1999,
+,,,,,,,,,H5-C -OM,    50.0,      107.00,    Junmei et al 1999,
+,,,,,,,,,CA-CA-OM,    70.0,      120.00,    replacement in tyr,
+,,,,,,,,,H1-CT-OM,    50.0,      109.50,    changed based on NMA nmodes ,
+,,,,,,,,,CT-CT-OM,    50.0,      109.50,
+,,,,,,,,,C -OM-HO,    50.0,      113.00,    (not used in tyr anymore),
+,,,,,,,,,CA-OM-HO,    50.0,      113.00,    replacement in tyr,
+,,,,,,,,,CT-OM-HO,    55.0,      108.50,
+,,,,,,,,,HO-OM-P,     45.0,      108.50,
+,,,,,,,,,O2-P -OM,    45.0,      108.23,
+,,,,,,,,,OM-P -OS,    45.0,      102.60,
+,,,,,,,,,C -OM-LP,   150.0,       120.0,
+,,,,,,,,,CT-OM-LP,   150.0,       109.5,
+,,,,,,,,,HO-OM-LP,   150.0,       109.5,
+,,,,,,,,,LP-OM-LP,   150.0,       109.5,
+,,,,,,,,,,,,,X - CT - OM - X ,  3,  0.05,   0.0,  3. ,  
+,,,,,,,,,,,,,X - CA - OM - X ,  2,  0.18, 180.0,  2. , 
+
+SM,SH, 32.06, 2.900, S in cystine,
+,,,,,CT-SM,  237.0,    1.810,       changed from 222.0 based on methanethiol nmodes,
+,,,,,HS-SM,  274.0,    1.336,       JCC 7 (1986) 230; CYS,
+,,,,,LP-SM,  600.0,    0.700,       cys cyx,
+,,,,,,,,,H1-CT-SM,    50.0,      109.50,    AA cyx     changed based on NMA nmodes,
+,,,,,,,,,CT-CT-SM,    50.0,      108.60,    AA cys,
+,,,,,,,,,CT-SM-HS,    43.0,       96.00,    changed from 44.0 based on methanethiol nmodes,
+,,,,,,,,,HS-SM-HS,    35.0,       92.07,    AA cys,
+,,,,,,,,,CT-SM-LP,   150.0,        90.0,    cys cyx met,
+,,,,,,,,,LP-SM-LP,   150.0,       180.0,    cys cyx met,
+,,,,,,,,,HS-SM-LP,   150.0,        90.0,    cys  ,
+,,,,,,,,,,,,,X - CT - SM - X, 3,  0.075,   0.0, 3. , 
+
+SN,S, 32.06,         2.900,               S in disulfide linkage,pol:JPC,102,2399,98,
+,,,,,CT-SN,   227.0,    1.810,       changed from 222.0 based on dimethylS nmodes,
+,,,,,SN -SN,   166.0,    2.038,       JCC 7 (1986) 230; CYX   (SCHERAGA),
+,,,,,LP -SN,   600.0,    0.700,       cys cyx met,
+,,,,,,,,,H1-CT-SN,     50.0,      109.50,    AA cys     changed based on NMA nmodes,
+,,,,,,,,,CT-CT-SN,     50.0,      114.70,    AA cyx            (SCHERAGA  JPC 79 1428),
+,,,,,,,,,CT-SN -CT,    62.0,       98.90,    AA met,
+,,,,,,,,,CT-SN -LP,   150.0,        90.0,    cys cyx met,
+,,,,,,,,,LP-SN -LP,   150.0,       180.0,    cys cyx met,
+,,,,,,,,,,,,,X - CT - SN - X , 3,  0.50,  0.0,  3. , 
+
+CM,CT,, 12.01,         0.878,               sp3 aliphatic C,
+,,,,,C -CM,  317.0,    1.522,       JCC 7 (1986) 230; AA,
+,,,,,CA-CM,  317.0,    1.510,       JCC 7 (1986) 230; PHE TYR,
+,,,,,CD-CM,  317.0,    1.510,       Junmei et al 1999,
+,,,,,CM-CM,  317.0,    1.510,       JCC 7 (1986) 230; THY,
+,,,,,CM-CM,  310.0,    1.526,       JCC 7 (1986) 230; AA SUGARS,
+,,,,,CM-HC,  340.0,    1.090,       changed from 331 bsd on NMA nmodes; AA SUGARS,
+,,,,,CM-H1,  340.0,    1.090,       changed from 331 bsd on NMA nmodes; AA RIBOSE,
+,,,,,CM-H2,  340.0,    1.090,       changed from 331 bsd on NMA nmodes; SUGARS,
+,,,,,CM-H3,  340.0,    1.090,       changed from 331 bsd on NMA nmodes; not assigned,
+,,,,,CM-HP,  340.0,    1.090,       changed from 331; AA-lysine methyl ammonium cation,
+,,,,,CM-N*,  337.0,    1.475,       JCC 7 (1986) 230; ADE CYT GUA THY URA,
+,,,,,CM-N2,  337.0,    1.463,       JCC 7 (1986) 230; ARG,
+,,,,,CM-OH,  320.0,    1.410,       JCC 7 (1986) 230; SUGARS,
+,,,,,CM-OS,  320.0,    1.410,       JCC 7 (1986) 230; NUCLEIC ACIDS,
+,,,,,C*-CM,  317.0,    1.495,       JCC 7 (1986) 230; TRP,
+,,,,,CC-CM,  317.0,    1.504,       JCC 7 (1986) 230; HIS,
+,,,,,CM-N,   337.0,    1.449,       JCC 7 (1986) 230; AA,
+,,,,,CM-N3,  367.0,    1.471,       JCC 7 (1986) 230; LYS,
+,,,,,CM-NT,  367.0,    1.471,       for neutral amines ,
+,,,,,CM-S,   227.0,    1.810,       changed from 222.0 based on dimethylS nmodes,
+,,,,,CM-SH,  237.0,    1.810,       changed from 222.0 based on methanethiol nmodes,
+,,,,,CM-CY,  400.0,    1.458,       Howard et al JCC 16 243 1995,
+,,,,,CM-CZ,  400.0,    1.459,       Howard et al JCC 16 243 1995,
+,,,,,F -CM,  367.0,    1.380,       JCC 13 (1992) 963;CF4; R0=1.332 FOR CHF3,
+,,,,,Cl-CM,  232.0,    1.766,       6-31g* opt,
+,,,,,Br-CM,  159.0,    1.944,       Junmei et al 99 ,
+,,,,,I -CM,  148.0,    2.166,       Junmei et al 99 ,
+
+,,,,,,,,,CM-C -O,     80.0,      120.40,
+,,,,,,,,,CM-C -O2,    70.0,      117.00,
+,,,,,,,,,CM-C -N,     70.0,      116.60,    AA general,
+,,,,,,,,,CM-C -CM,    63.0,      117.00,    Junmei et al 1999,
+,,,,,,,,,CM-C -OS,    80.0,      115.00,    Junmei et al 1999,
+,,,,,,,,,CM-C -OH,    80.0,      110.00,    Junmei et al 1999,
+,,,,,,,,,H4-C -CM,    50.0,      115.00,    Junmei et al 1999,
+,,,,,,,,,CA-CA-CM,    70.0,      120.00,
+,,,,,,,,,CD-CD-CM,    70.0,      120.00,    Junmei et al 1999,
+,,,,,,,,,CM-CD-CM,    70.0,      120.00,    Junmei et al 1999,
+,,,,,,,,,C -CM-CM,    70.0,      119.70,
+,,,,,,,,,CM-CM-CM,    70.0,      119.70,
+,,,,,,,,,HA-CM-CM,    50.0,      120.00,    Junmei et al 1999,
+,,,,,,,,,H1-CM-H1,    35.0,      109.50,
+,,,,,,,,,H1-CM-N*,    50.0,      109.50,    changed based on NMA nmodes,
+,,,,,,,,,H1-CM-OH,    50.0,      109.50,    changed based on NMA nmodes ,
+,,,,,,,,,H1-CM-OS,    50.0,      109.50,    changed based on NMA nmodes ,
+,,,,,,,,,H1-CM-CM,    50.0,      109.50,    Junmei et al 1999 ,
+,,,,,,,,,H1-CM-CY,    50.0,      110.00,    Junmei et al 1999,
+,,,,,,,,,H1-CM-CZ,    50.0,      110.00,    Junmei et al 1999,
+,,,,,,,,,H1-CM-N,     50.0,      109.50,    AA general  changed based on NMA nmodes,
+,,,,,,,,,H1-CM-S,     50.0,      109.50,    AA cys     changed based on NMA nmodes,
+,,,,,,,,,H1-CM-SH,    50.0,      109.50,    AA cyx     changed based on NMA nmodes,
+,,,,,,,,,H1-CM-N2,    50.0,      109.50,    AA arg     changed based on NMA nmodes,
+,,,,,,,,,H1-CM-NT,    50.0,      109.50,    neutral amines ,
+,,,,,,,,,H2-CM-H2,    35.0,      109.50,    AA lys,
+,,,,,,,,,H2-CM-N*,    50.0,      109.50,    changed based on NMA nmodes,
+,,,,,,,,,H2-CM-OS,    50.0,      109.50,    changed based on NMA nmodes,
+,,,,,,,,,HP-CM-HP,    35.0,      109.50,    AA lys ch3nh4+,
+,,,,,,,,,HP-CM-N3,    50.0,      109.50,    AA lys ch3nh3+ changed based on NMA nmodes,
+,,,,,,,,,HC-CM-HC,    35.0,      109.50,
+,,,,,,,,,HC-CM-CM,    50.0,      109.50,    changed based on NMA nmodes,
+,,,,,,,,,HC-CM-CD,    50.0,      109.50,    Junmei et al 1999,
+,,,,,,,,,HC-CM-CZ,    50.0,      110.00,    Junmei et al 1999,
+,,,,,,,,,C -CM-H1,    50.0,      109.50,    AA general  changed based on NMA nmodes,
+,,,,,,,,,C -CM-HP,    50.0,      109.50,    AA zwitterion  changed based on NMA nmodes,
+,,,,,,,,,C -CM-HC,    50.0,      109.50,    AA gln      changed based on NMA nmodes,
+,,,,,,,,,C -CM-N,     63.0,      110.10,    AA general,
+,,,,,,,,,C -CM-N3,    80.0,      111.20,    AA amino terminal residues,
+,,,,,,,,,C -CM-CM,    63.0,      111.10,    AA general,
+,,,,,,,,,C -CM-OS,  60.0,      109.50,    Junmei et al 1999
+,,,,,,,,,CA-CM-HC,  50.0,      109.50,    AA tyr     changed based on NMA nmodes
+,,,,,,,,,CC-CM-CM,  63.0,      113.10,    AA his
+,,,,,,,,,CC-CM-HC,  50.0,      109.50,    AA his     changed based on NMA nmodes
+,,,,,,,,,CM-CM-CM,  63.0,      111.00,    Junmei et al 1999 (last change: Mar24 99)
+,,,,,,,,,CM-CM-OS,  50.0,      109.50,    Junmei et al 1999
+,,,,,,,,,CM-CM-CM  ,  40.0,      109.50,
+,,,,,,,,,CM-CM-HC  ,  50.0,      109.50,    changed based on NMA nmodes
+,,,,,,,,,CM-CM-H1  ,  50.0,      109.50,    changed based on NMA nmodes
+,,,,,,,,,CM-CM-H2  ,  50.0,      109.50,    changed based on NMA nmodes
+,,,,,,,,,CM-CM-HP  ,  50.0,      109.50,    changed based on NMA nmodes
+,,,,,,,,,CM-CM-N*  ,  50.0,      109.50,
+,,,,,,,,,CM-CM-OH  ,  50.0,      109.50,
+,,,,,,,,,CM-CM-OS  ,  50.0,      109.50,
+,,,,,,,,,CM-CM-S   ,  50.0,      114.70,    AA cyx            (SCHERAGA  JPC 79 1428)
+,,,,,,,,,CM-CM-SH  ,  50.0,      108.60,    AA cys
+,,,,,,,,,CM-CM-CA  ,  63.0,      114.00,    AA phe tyr          (SCH JPC  79 2379)
+,,,,,,,,,CM-CM-N2  ,  80.0,      111.20,    AA arg             (JCP 76 1439)
+,,,,,,,,,CM-CM-N   ,  80.0,      109.70,    AA ala general    (JACS 94 2657)
+,,,,,,,,,CM-CM-N3  ,  80.0,      111.20,    AA lys             (JCP 76 1439)
+,,,,,,,,,CM-CM-NT  ,  80.0,      111.20,    neutral amines 
+,,,,,,,,,CM-CM-CY  ,  63.0,      110.00,    Junmei et al 1999    
+,,,,,,,,,CM-CM-CZ  ,  63.0,      110.00,    Junmei et al 1999
+,,,,,,,,,C*-CM-CM  ,  63.0,      115.60,    AA trp
+,,,,,,,,,C*-CM-HC  ,  50.0,      109.50,    AA trp    changed based on NMA nmodes
+,,,,,,,,,OS-CM-OS  , 160.0,      101.00,    Junmei et al 1999
+,,,,,,,,,OS-CM-CY  ,  50.0,      110.00,    Junmei et al 1999
+,,,,,,,,,OS-CM-CZ  ,  50.0,      110.00,    Junmei et al 1999
+,,,,,,,,,OS-CM-N*  ,  50.0,      109.50,
+,,,,,,,,,F -CM-F   ,  77.0,      109.10,    JCC 13 (1992) 963;
+,,,,,,,,,F -CM-H1  ,  50.0,      109.50,    JCC 13 (1992) 963;
+,,,,,,,,,F -CM-CM  ,  50.0,      109.00,    
+,,,,,,,,,F -CM-H2  ,  50.0,      109.50,  
+,,,,,,,,,Cl-CM-CM  ,  50.0,      108.50,    (6-31g* opt value)
+,,,,,,,,,Cl-CM-H1  ,  50.0,      108.50,    (6-31g* opt value)  
+,,,,,,,,,Br-CM-CM  ,  50.0,      108.00,    Junmei et al 99 
+,,,,,,,,,Br-CM-H1  ,  50.0,      106.50,    Junmei et al 99 
+,,,,,,,,,I -CM-CM  ,  50.0,      106.00,    Junmei et al 99 
+,,,,,,,,,CM-CC-NA  ,  70.0,      120.00,    AA his
+,,,,,,,,,CM-CC-CV  ,  70.0,      120.00,    AA his
+,,,,,,,,,CM-CC-NB  ,  70.0,      120.00,    AA his
+,,,,,,,,,CM-CC-CW  ,  70.0,      120.00,    AA his
+,,,,,,,,,CB-C*-CM  ,  70.0,      128.60,    AA trp
+,,,,,,,,,CM-C*-CW  ,  70.0,      125.00,    AA trp
+,,,,,,,,,CM-CY-NY  ,  80.0,      180.00,    Junmei et al 1999
+,,,,,,,,,CM-CZ-CZ  ,  80.0,      180.00,    Junmei et al 1999
+,,,,,,,,,C -N -CM  ,  50.0,      121.90,    AA general
+,,,,,,,,,CM-N -H   ,  50.0,      118.04,    AA general     changed based on NMA nmodes
+,,,,,,,,,CM-N -CM  ,  50.0,      118.00,    AA pro             (DETAR JACS 991232)
+,,,,,,,,,C -N*-CM  ,  70.0,      117.60,
+,,,,,,,,,CB-N*-CM  ,  70.0,      125.80,
+,,,,,,,,,CK-N*-CM  ,  70.0,      128.80,
+,,,,,,,,,CM-N*-CM  ,  70.0,      121.20,
+,,,,,,,,,CA-N2-CM  ,  50.0,      123.20,    AA arg
+,,,,,,,,,CM-N2-H   ,  50.0,      118.40,    AA arg
+,,,,,,,,,CM-N3-H   ,  50.0,      109.50,    AA lys     changed based on NMA nmodes
+,,,,,,,,,CM-N3-CM  ,  50.0,      109.50,    AA pro/nt
+,,,,,,,,,CM-NT-H   ,  50.0,      109.50,    neutral amines 
+,,,,,,,,,CM-NT-CM  ,  50.0,      109.50,    neutral amines 
+,,,,,,,,,CM-OH-HO  ,  55.0,      108.50,
+,,,,,,,,,C -OS-CM  ,  60.0,      117.00,    Junmei et al 1999
+,,,,,,,,,CM-OS-CM  ,  60.0,      117.00,    Junmei et al 1999
+,,,,,,,,,CM-OS-CM  ,  60.0,      109.50,
+,,,,,,,,,CM-OS-P   , 100.0,      120.50,
+,,,,,,,,,CM-S -CM  ,  62.0,       98.90,    AA met
+,,,,,,,,,CM-S -S   ,  68.0,      103.70,    AA cyx             (SCHERAGA  JPC 79 1428)
+,,,,,,,,,CM-SH-HS  ,  43.0,       96.00,    changed from 44.0 based on methanethiol nmodes
+,,,,,,,,,CM-N3-LP  , 150.0,       109.5,    in neutral lysine
+,,,,,,,,,CM-NT-LP  , 150.0,       109.5,
+,,,,,,,,,CM-OH-LP  , 150.0,       109.5,
+,,,,,,,,,CM-OS-LP  , 150.0,       109.5,
+,,,,,,,,,CM-S -LP  , 150.0,        90.0,    cys cyx met
+,,,,,,,,,CM-SH-LP  , 150.0,        90.0,    cys cyx met
+,,,,,,,,,,,,,X - CT - CM - X, 9, 0.14,   0.0,  3. ,
+
+
+
+
+

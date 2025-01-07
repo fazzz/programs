@@ -1,0 +1,61 @@
+! tuned atom type table  
+! all_amino94.lib, all_aminont94.lib, all_aminoct94.lib, parm99.dat
+! dihedtype, resname, restype, atomtype, n, v_n, phase ,type, atomtype_mod, v_n_mod
+
+C-NH2, ASN,  ASN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00, 
+C-NH2, ASN, CASN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00,
+C-NH2, ASN, NASN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00,
+C-NH2, GLN,  GLN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00,
+C-NH2, GLN, CGLN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00,
+C-NH2, GLN,  NLN, X - C - N - X, 4, 10.00, 180.0,  2. ,  X - C - NM - X , 1.00,
+
+C-N , ARG,  ARG, X - CA - N2 - X, 4,  9.60, 180.0,  2. ,  X - CA - NN - X , 0.96,
+C-N , ARG, CARG, X - CA - N2 - X, 4,  9.60, 180.0,  2. ,  X - CA - NN - X , 0.96,
+C-N , ARG, NARG, X - CA - N2 - X, 4,  9.60, 180.0,  2. ,  X - CA - NN - X , 0.96,
+
+C-NH3, LYS,  LYN, X - CT - N3 - X, 9, 1.40,   0.0,   3. ,  X - CT - NO - X , 0.14,
+C-NH3, LYS,  LYS, X - CT - N3 - X, 9, 1.40,   0.0,   3. ,  X - CT - NO - X , 0.14,
+C-NH3, LYS, CLYS, X - CT - N3 - X, 9, 1.40,   0.0,   3. ,  X - CT - NO - X , 0.14,
+C-NH3, LYS, NLYS, X - CT - N3 - X, 9, 1.40,   0.0,   3. ,  X - CT - NO - X , 0.14,
+
+C-OH , SER,  SER,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , SER, CSER,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , SER, NSER,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , THR,  THR,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , THR, CTHR,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , THR, NTHR,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+
+C-OH ,  TYR,  TYR,  X - CA - OH - X, 2,  1.80, 180.0, 2. ,  X - CA - OM - X ,  0.18,
+C-OH ,  TYR, CTYR,  X - CA - OH - X, 2,  1.80, 180.0, 2. ,  X - CA - OM - X ,  0.18,
+C-OH ,  TYR, NTYR,  X - CA - OH - X, 2,  1.80, 180.0, 2. ,  X - CA - OM - X ,  0.18,
+
+C-OH , ASN,  ASH,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+C-OH , GLN,  GLH,  X - CT - OH - X, 3,  0.50,   0.0,  3. ,  X - CT - OM - X , 0.05,
+
+C-SH ,  CYS,  CYS,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+C-SH ,  CYS, CCYS,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+C-SH ,  CYS, NCYS,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+C-SH ,  CYS,  CYX,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+C-SH ,  CYS, CCYX,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+C-SH ,  CYS, NCYX,  X - CT - SH - X, 3,  0.75,   0.0, 3. ,  X - CT - SM - X ,  0.08,
+
+C-CH3 ,  THR,  THR,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  THR, CTHR,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X , 0.14,
+C-CH3 ,  THR, NTHR,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X , 0.14,
+C-CH3 ,  VAL,  VAL,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  VAL, CVAL,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  VAL, NVAL,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ILE,  ILE,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ILE, CILE,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ILE, NILE,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  LEU,  LEU,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  LEU, CLEU,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  LEU, NLEU,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ALA,  ALA,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ALA, CALA,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+C-CH3 ,  ALA, NALA,  X - CT - CT - X, 9, 1.40,   0.0,  3. ,  X - CT - CM - X ,  0.14,
+
+S-CH3 ,  MET,  MET,  X - CT - S  - X, 3,  1.00,  0.0,  3. ,  X - CT - SN - X ,  0.50,
+S-CH3 ,  MET, CMET,  X - CT - S  - X, 3,  1.00,  0.0,  3. ,  X - CT - SN - X ,  0.50,
+S-CH3 ,  MET, NMET,  X - CT - S  - X, 3,  1.00,  0.0,  3. ,  X - CT - SN - X ,  0.50,
+

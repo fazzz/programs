@@ -1,0 +1,110 @@
+
+source("~/Rspa/plmGeneral_wsrange.R")
+
+dir01 <- "/home/yamamori/calspa/TACCM_CGAAREMD/AD"
+dirbase1 <- paste(dir01,"/e_CG-FG_NH_2012-07-27",sep="")
+
+dir02 <- "~/calspa/refcalc/REMD/AD"
+dirbase2 <- paste(dir02,"/s_REVAC_2012-07-23_",ff,sep="")
+
+nTZs<-1
+
+title=name.title
+
+if ( phsiflag == "psi" )
+  label.x<-expression(paste(phi))
+if ( phsiflag == "phi" )
+  label.x<-expression(paste(psi))
+
+label.y="pmf"
+
+xrange <- c(-3.14,3.14,4)
+xrange.axis <- c(-2,3,5)
+yrange.axis <- c(0,height,10)
+height.ext <- height * 1.2
+yrange <- c(0,height.ext,10)
+
+fact.x <- 1
+fact.y <- 1
+ave.x <- 1
+
+file.name <- paste(name.out,".tiff",sep='')
+cat(file.name,'\n')
+tiff(file.name,width=700,height=500)
+#tiff(file.name,width=400,height=250)
+
+par(mfrow=c(4,5))
+par(mar=c(0.0,0.0,0.0,0.0))
+par(oma=c(7.5,6.0,2.0,2.0))
+
+dx <- 6.28 / num
+cat(dx,'\n')
+
+s <- 1
+for (t in 1:20) {
+  name   <- NULL
+  id.xs  <- NULL
+  id.ys  <- NULL
+  ids.ys <- NULL
+  iro    <- NULL
+  senshu <- NULL
+  tenshu <- NULL
+  hutosa <- NULL
+  
+  name[1] <- paste(dirbase2,"/",pname2,"/nEX=",numEX2,"/freq=",TLbase2,"ps","/pmf/1D/pmf_p1",phsiflag,"@",t,sep="")
+  cat(name[1],'\n')
+  id.xs[1] <- 1
+  id.ys[1] <- 2
+  ids.ys[1] <- 3
+  iro[1] <- 1
+  senshu[1] <- 1
+  tenshu[1] <- 19 #3
+  hutosa[1] <- 5 #3 #1
+
+  for (n in 1:nparameters ) {
+    m <- n+1
+    name[m] <- paste(dirbase1,"/tau=",tau[n],"/mZ=",mZ[n],"/TZ=",TZs[n],"/",pname1[n],"/nEX=",numEX1[n],"/fq=",TLbase1[n],"/pmf/1D/pmf_pymbar_1_TAA=",TAA[n],"_TCG=",TCG[n],"_TZ=",TZs[n],"_KZAAo=",KZAAo[n],"_KZCGo=",KZCGo[n],"_",AACG[n],phsiflag,"@",t,sep="")
+    cat(name[m],'\n')
+    id.xs[m] <- 1
+    id.ys[m] <- 2
+    ids.ys[m] <- 3
+    iro[m] <- m #2
+    senshu[m] <- 1
+    tenshu[m] <- 3
+    hutosa[m] <- 1
+  }
+
+  is.leg <- 0
+
+  plmGeneralwsrange(data.names=name,
+                    sd.names=name,
+                    id.ys=id.ys,
+                    ids.ys=ids.ys,
+                    is.sen=rep(0,20),
+#                    is.sen=rep(3,20),
+                    label.size=0.5,axis.size=2.0,
+                    iro=iro,axis.ft="F",is.header="T",
+                    sdiro=iro,
+                    xrange=xrange,yrange=yrange,
+                    sdyrange=yrange,
+                    warrow="T")
+  val = -3.0 + 0.3 * (t -1)
+  txt <- paste(phsiflag,"=",val,sep='')
+  text(0,19.0,txt,cex=2.0)
+  box(lwd=2.0)
+  
+#  k <- s %% numy
+  k <- t %% numy
+  if ( k == 1 ) {
+    axis(2,yaxp=yrange.axis,lwd=2.0,cex.axis=1.5)
+    mtext(outer=T,label.y,side=2,line=4.0,cex=1.5)
+  }
+  
+  if ( t > numy*(numx-1) ) {
+    axis(1,xaxp=xrange.axis,lwd=2.0,cex.axis=1.5)
+    mtext(outer=T,label.x,side=1,line=4.0,cex=1.5)
+  }
+#  s <- s+1
+}
+
+dev.off()

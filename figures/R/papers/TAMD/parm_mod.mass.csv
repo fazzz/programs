@@ -1,0 +1,61 @@
+! tuned atom type table  ( mass tune )
+! all_amino94.lib, all_aminont94.lib, all_aminoct94.lib, parm99.dat
+! dihedtype, resname, restype, atomtype, atomtype_mod,
+
+C-NH2, ASN,  ASN, X - C - N - X,  X - CH- NH- X , 
+C-NH2, ASN, CASN, X - C - N - X,  X - CH- NH- X ,
+C-NH2, ASN, NASN, X - C - N - X,  X - CH- NH- X ,
+C-NH2, GLN,  GLN, X - C - N - X,  X - CH- NH- X ,
+C-NH2, GLN, CGLN, X - C - N - X,  X - CH- NH- X ,
+C-NH2, GLN,  NLN, X - C - N - X,  X - CH- NH- X ,
+
+C-N , ARG,  ARG, X - CA - N2 - X, X - CI - NI - X , 
+C-N , ARG, CARG, X - CA - N2 - X, X - CI - NI - X , 
+C-N , ARG, NARG, X - CA - N2 - X, X - CI - NI - X , 
+
+C-NH3, LYS,  LYN, X - CT - N3 - X, X - CJ - NJ - X ,
+C-NH3, LYS,  LYS, X - CT - N3 - X, X - CJ - NJ - X ,
+C-NH3, LYS, CLYS, X - CT - N3 - X, X - CJ - NJ - X ,
+C-NH3, LYS, NLYS, X - CT - N3 - X, X - CJ - NJ - X ,
+
+C-OH , SER,  SER,  X - CT - OH - X,  X - CJ - OI - X , 
+C-OH , SER, CSER,  X - CT - OH - X,  X - CJ - OI - X , 
+C-OH , SER, NSER,  X - CT - OH - X,  X - CJ - OI - X , 
+C-OH , THR,  THR,  X - CT - OH - X,  X - CJ - OI - X , 
+C-OH , THR, CTHR,  X - CT - OH - X,  X - CJ - OI - X , 
+C-OH , THR, NTHR,  X - CT - OH - X,  X - CJ - OI - X , 
+
+C-OH ,  TYR,  TYR,  X - CA - OH - X, X - CI - OI - X ,
+C-OH ,  TYR, CTYR,  X - CA - OH - X, X - CI - OI - X ,
+C-OH ,  TYR, NTYR,  X - CA - OH - X, X - CI - OI - X ,
+
+C-OH , ASN,  ASH,  X - CT - OH - X, X - CJ - OI - X , 
+C-OH , GLN,  GLH,  X - CT - OH - X, X - CJ - OI - X , 
+
+C-SH ,  CYS,  CYS, X - CT - SH - X, X - CJ - SI - X ,
+C-SH ,  CYS, CCYS, X - CT - SH - X, X - CJ - SI - X ,
+C-SH ,  CYS, NCYS, X - CT - SH - X, X - CJ - SI - X ,
+C-SH ,  CYS,  CYX, X - CT - SH - X, X - CJ - SI - X ,
+C-SH ,  CYS, CCYX, X - CT - SH - X, X - CJ - SI - X ,
+C-SH ,  CYS, NCYX, X - CT - SH - X, X - CJ - SI - X ,
+
+C-CH3 , THR,  THR, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , THR, CTHR, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , THR, NTHR, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , VAL,  VAL, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , VAL, CVAL, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , VAL, NVAL, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ILE,  ILE, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ILE, CILE, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ILE, NILE, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , LEU,  LEU, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , LEU, CLEU, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , LEU, NLEU, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ALA,  ALA, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ALA, CALA, X - CT - CT - X,  X - CJ - CJ - X ,
+C-CH3 , ALA, NALA, X - CT - CT - X,  X - CJ - CJ - X ,
+
+S-CH3 , MET,  MET, X - CT - S  - X,  X - CJ - SJ - X ,
+S-CH3 , MET, CMET, X - CT - S  - X,  X - CJ - SJ - X ,
+S-CH3 , MET, NMET, X - CT - S  - X,  X - CJ - SJ - X ,
+

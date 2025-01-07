@@ -1,0 +1,3 @@
+USAGE:
+[-h] help 
+/home/yamamori/mybin/find_mimg [-h] numbinx numbiny inputfilename 

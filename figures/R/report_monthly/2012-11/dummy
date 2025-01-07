@@ -1,0 +1,9 @@
+name.pmf <- paste("/home/yamamori/calspa/refcalc/UmbSam/AD/s_UmbSam_vac_2012-11-12_ff99SB/Umb_Nbin=12x12_K=10/pmf/pmf_UmbMD_vac_10ns.txt",sep='')
+felwFillConMap(name.pmf,label.x=label.x,label.y=label.y,level=level,title=title,kt="F/kBT")
+name.pmf <- paste("/home/yamamori/calspa/refcalc/UmbSam/AD/s_UmbSam_vac_2012-11-12_ff99SB/Umb_Nbin=12x12_K=20/pmf/pmf_UmbMD_vac_10ns.txt",sep='')
+felwFillConMap(name.pmf,label.x=label.x,label.y=label.y,level=level,title=title,kt="F/kBT")
+name.pmf <- paste("/home/yamamori/calspa/refcalc/UmbSam/AD/s_UmbSam_vac_2012-11-12_ff99SB/Umb_Nbin=12x12_K=5/pmf/pmf_UmbMD_vac_10ns.txt",sep='')
+felwFillConMap(name.pmf,label.x=label.x,label.y=label.y,level=level,title=title,kt="F/kBT")
+felwFillConBar(name.pmf,label.x=label.x,label.y=label.y,level=level,title=title,kt="F/kBT")
+
+dev.off()

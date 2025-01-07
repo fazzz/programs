@@ -1,0 +1,216 @@
+fact.y=1
+
+TAA<-"300"
+TCG<-"300"
+
+TZs <- c( "700" )
+nTZs <- length(TZs)
+
+tau<-c(  "1.0" )
+ntau<-length(tau)
+
+mZ<-c(  "100.00" )
+nmZ<-length(mZ)
+
+nKZAA<-4
+nKZCG<-4
+numRE<-4
+
+pname1<-"SB_KZMAX=500_NR4_woeljd0.001"
+
+numEX1<-"1000"
+
+TLbase1<-"10"
+
+AACG <- "CG"
+width <- "1"
+
+KZAAo <- "0"
+KZCGo <- "500"
+
+numuene <- "4"
+
+height <- 20
+
+phsiflag <- "phi"
+phsi <- "phi"
+name.title <- paste(AACG,sep="")
+
+
+ff<-"ff99SB"
+
+pname2<-"f300t600_rep4"
+
+numEX2<-"100000"
+
+TLbase2<-"1"
+TLbaseREUS<-"10"
+
+numEXREUS<-"250"
+
+numREUS<-"16"
+
+pnameREUS<-"UmbAt_Nbin_4x4_K_1"
+ff2<-"ff99SB"
+
+pname3<-"Umb_Nbin=12x12_K=10"
+
+TLns<-"10"
+
+ffTAMD <-"99SB"
+tauTAMD <-"1.0"
+TBTAMD <- 750
+KZTAMD <- "1000"
+mZTAMD <- "50000.00"
+TeTAMD=300
+
+
+name.out <- "/home/yamamori/papers/CG-FG_TACCM_REMD/eps/fig4-a-b_comp_MuSTARMD-TREMD-REUS-TAMD-UmbSamp_AD_1Dpmf_2013-08-20"
+
+source("~/Rspa/plmGeneral_wsrange.R")
+
+dir01 <- "/home/yamamori/calspa/TACCM_CGAAREMD/AD"
+dirbase1 <- paste(dir01,"/e_CG-FG_NH_2012-07-27",sep="")
+
+dir02 <- "~/calspa/refcalc/REMD/AD"
+dirbase2 <- paste(dir02,"/s_REVAC_2012-07-23_",ff,sep="")
+
+dirREUS <- "~/calspa/refcalc/REUS/AD"
+dirbaseREUS <- paste(dirREUS,"/s_REUSVAC_2013-08-12_",ff,sep="")
+
+dir03 <- "~/calspa/refcalc/UmbSam/AD"
+dirbase3 <- paste(dir03,"/s_UmbSam_vac_2012-11-12_",ff2,sep="")
+
+dir04 <- "~/calspa/TACCM/AD"
+dirbase4 <- paste(dir04,"/e_TACCM_NH_2012-07-31_",ffTAMD,sep="")
+
+nTZs<-1
+
+title=name.title
+
+label.y="FEL (kT)"
+
+xrange <- c(-1.0,1.0,4)
+xrange.axis <- c(-1.0,1.0,4)
+
+yrange <- c(0,25,5)
+yrange.axis <- c(0,25,5)
+
+fact.x <- 1/pi
+#fact.y <- 1/pi
+ave.x <- 1
+
+file.name <- paste(name.out,".eps",sep='')
+#cat(file.name,'\n')
+#tiff(file.name,width=800,height=700)
+#tiff(file.name,width=600,height=525)
+postscript(file.name,width=2.7,height=3.0,horizontal=FALSE,onefile=FALSE,paper="special")
+
+par(mfrow=c(2,1))
+par(mai=c(0.0,0.0,0.0,0.0))
+par(oma = c(3.5,3.0,1.0,0.6) )
+#par(oma=c(7.5,6.0,2.0,2.0))
+
+s <- 1
+name <- NULL
+
+id.xs <- c(1,1,1,1,1)
+id.ys <- c(2,2,2,2,2)
+ids.ys <- c(3,3,3,3,3)
+iro <- c(1,3,2,1,"blue")
+senshu <- c(1,1,1,1,1)
+#  tenshu <- c(1,1)
+tenshu <- c(19,3,3,2,2)
+hutosa <- c(0.8,0.8,0.8,0.8,0.8)
+is.leg <- 0
+
+phsiflag="phi"
+xy <- "x"
+
+name[1] <- paste(dirbase3,"/",pname3,"/pmf/1D/pmf_1D_UmbMD_vac_",TLns,"ns_",xy,"=",3,".txt",sep="")
+
+name[2] <- paste(dirbase2,"/",pname2,"/nEX=",numEX2,"/freq=",TLbase2,"ps","/pmf/1D/pmf_py1",phsiflag,"@",3,"_2",sep="")
+
+name[3] <- paste(dirbase1,"/tau=",tau[1],"/mZ=",mZ[1],"/TZ=",TZs[1],"/",pname1,"/nEX=",numEX1,"/fq=",TLbase1,"/pmf/1D/","pmf_pymbar_1_TAA=300_TCG=300_TZ=700_KZAAo=500_KZCGo=0_AA",phsiflag,"@",3,sep="")
+
+name[4] <- paste(dirbase4,"/tau=",tauTAMD,"/TB=",TBTAMD,"/KZ=",KZTAMD,"/mZ=",mZTAMD,"/pmf_1D/pmf_1D_T=",TeTAMD,"_x=",3,".txt",sep="")
+
+name[5] <- paste(dirbaseREUS,"/",pnameREUS,"/nEX_",numEXREUS,"/freq_",TLbaseREUS,"ps","/pmf/1D/pmf_1D_UmbMD_vac_nbx=20_nby=20_",xy,"=3",".txt",sep="")
+
+label.x<-expression(paste(psi,"(radian,","/",pi,")"))
+
+plmGeneralwsrange(data.names=name,
+                  sd.names=name,
+                  id.ys=id.ys,
+                  ids.ys=ids.ys,
+                  is.sen=rep(0,20),
+                  label.size=0.5,axis.size=1.0,
+                  iro=iro,axis.ft="F",is.header="T",
+                  sdiro=iro,
+                  xrange=xrange,yrange=yrange,
+                  sdyrange=yrange,
+                  warrow="T")
+box(lwd=1.0)
+
+txt <- "(a)"
+text(0.75,20,txt,cex=1.4)
+  
+axis(2,yaxp=yrange.axis,lwd=1.0,cex.axis=1.0)
+
+
+phsiflag="phi"
+xy <- "x"
+
+name[1] <- paste(dirbase3,"/",pname3,"/pmf/1D/pmf_1D_UmbMD_vac_",TLns,"ns_",xy,"=",6,".txt",sep="")
+
+name[2] <- paste(dirbase2,"/",pname2,"/nEX=",numEX2,"/freq=",TLbase2,"ps","/pmf/1D/pmf_py1",phsiflag,"@",6,"_2",sep="")
+
+name[3] <- paste(dirbase1,"/tau=",tau[1],"/mZ=",mZ[1],"/TZ=",TZs[1],"/",pname1,"/nEX=",numEX1,"/fq=",TLbase1,"/pmf/1D/","pmf_pymbar_1_TAA=300_TCG=300_TZ=700_KZAAo=500_KZCGo=0_AA",phsiflag,"@",6,sep="")
+
+name[4] <- paste(dirbase4,"/tau=",tauTAMD,"/TB=",TBTAMD,"/KZ=",KZTAMD,"/mZ=",mZTAMD,"/pmf_1D/pmf_1D_T=",TeTAMD,"_x=",6,".txt",sep="")
+
+name[5] <- paste(dirbaseREUS,"/",pnameREUS,"/nEX_",numEXREUS,"/freq_",TLbaseREUS,"ps","/pmf/1D/pmf_1D_UmbMD_vac_nbx=20_nby=20_",xy,"=6",".txt",sep="")
+
+#cat(name)
+
+xrange <- c(-1.0,1.0,4)
+xrange.axis <- c(-1.0,1.0,4)
+
+fact.x <- 1/pi
+#fact.y <- 1/pi
+ave.x <- 1
+
+label.x<-expression(paste(psi,"(radian,","/",pi,")"))
+
+xrange <- c(-1.0,1.0,4)
+xrange.axis <- c(-1.0,1.0,4)
+
+yrange <- c(0,25,5)
+yrange.axis <- c(0,20,4)
+
+id.ys <- c(2,2,2,2,2)
+ids.ys <- c(3,3,3,3,3)
+
+plmGeneralwsrange(data.names=name,
+                  sd.names=name,
+                  id.ys=id.ys,
+                  ids.ys=ids.ys,
+                  is.sen=rep(0,20),
+                  label.size=0.5,axis.size=1.0,
+                  iro=iro,axis.ft="F",is.header="T",
+                  sdiro=iro,
+                  xrange=xrange,yrange=yrange,
+                  sdyrange=yrange,
+                  warrow="T")
+box(lwd=1.0)
+
+txt <- "(b)"
+text(0.75,20,txt,cex=1.4)
+
+axis(2,yaxp=yrange.axis,lwd=1.0,cex.axis=1.0)
+mtext(outer=T,label.y,side=2,line=2.0,cex=1.0)
+
+axis(1,xaxp=xrange.axis,lwd=1.0,cex.axis=1.0)
+mtext(label.x,side=1,line=2.0,cex=1.0)
+
+dev.off()
