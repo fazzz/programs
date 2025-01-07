@@ -1,0 +1,144 @@
+#
+#************************************************************************
+#                              AMBER                                   **
+#                                                                      **
+#               Copyright (c) 1986, 1991, 1995, 1997, 1999, 2004, 2008 **
+#                Regents of the University of California               **
+#                       All Rights Reserved.                           ** 
+#                                                                      **
+#  This software provided pursuant to a license agreement containing   **
+#  restrictions on its disclosure, duplication, and use. This software **
+#  contains confidential and proprietary information, and may not be   **
+#  extracted or distributed, in whole or in part, for any purpose      **
+#  whatsoever, without the express written permission of the authors.  **
+#  This notice, and the associated author list, must be attached to    **
+#  all copies, or extracts, of this software. Any additional           **
+#  restrictions set forth in the license agreement also apply to this  **
+#  software.                                                           **
+#************************************************************************
+
+# Makefile for UCSF Amber 10  PMEMD 
+
+SHELL=/bin/sh
+VPATH=
+BINDIR=../../../bin/
+
+# Platform-specific info should be found in ../config.h
+include ../config.h
+
+OBJS=   gbl_constants.o gbl_datatypes.o state_info.o file_io_dat.o \
+        mdin_ctrl_dat.o mdin_ewald_dat.o mdin_debugf_dat.o prmtop_dat.o \
+        inpcrd_dat.o dynamics_dat.o img.o \
+        parallel_dat.o parallel.o gb_parallel.o \
+        pme_direct.o pme_recip_dat.o pme_slab_recip.o pme_blk_recip.o \
+        pme_slab_fft.o pme_blk_fft.o pme_fft_dat.o fft1d.o \
+        bspline.o pme_force.o pbc.o nb_pairlist.o \
+        nb_exclusions.o cit.o dynamics.o bonds.o angles.o dihedrals.o \
+        extra_pnts_nb14.o runmd.o loadbal.o shake.o prfs.o mol_list.o \
+        runmin.o constraints.o axis_optimize.o gb_ene.o veclib.o gb_force.o \
+        timers.o pmemd_lib.o runfiles.o file_io.o bintraj.o pmemd_clib.o \
+        pmemd.o random.o degcnt.o erfcfun.o nmr_calls.o nmr_lib.o \
+        get_cmdline.o master_setup.o pme_alltasks_setup.o pme_setup.o \
+        ene_frc_splines.o gb_alltasks_setup.o nextprmtop_section.o \
+        angles_ub.o dihedrals_imp.o cmap.o charmm.o charmm_gold.o
+
+ifeq ($(CUDA_ENABLED),True)
+all: pmemd.cuda
+else
+ifeq ($(MPI_ENABLED),True)
+all: pmemd.MPI
+else
+all: pmemd
+endif
+endif
+
+install: all 
+ifeq ($(CUDA_ENABLED),True)
+	mv pmemd.cuda $(BINDIR)
+else
+ifeq ($(MPI_ENABLED),True)
+	mv pmemd.MPI $(BINDIR)
+else
+	mv pmemd $(BINDIR)
+endif
+endif
+
+uninstall:
+	-rm -f $(BINDIR)/pmemd.cuda
+	-rm -f $(BINDIR)/pmemd.cuda_SPSP
+	-rm -f $(BINDIR)/pmemd.cuda_SPDP
+	-rm -f $(BINDIR)/pmemd.cuda_DPDP
+	-rm -f $(BINDIR)/pmemd.MPI
+	-rm -f $(BINDIR)/pmemd
+
+ifeq ($(CUDA_ENABLED),True)
+PMEMD_CU_LIBS=./cuda/cuda.a
+
+$(PMEMD_CU_LIBS):
+	cd ./cuda; $(MAKE) -f Makefile.advanced 
+
+pmemd.cuda: $(NETCDF_MOD) $(OBJS) $(PMEMD_CU_LIBS)
+	$(LOAD) $(LOADFLAGS) -o $@ $(OBJS) $(FFT_LIBS) $(NETCDF_LIBS) $(MATH_LIBS) $(MPI_LIBS) \
+        $(CU_LIBS) $(CU_LOADLIBS) $(PMEMD_CU_LIBS) $(CU_CUDPP_LIBS) $(LOADLIBS)
+else
+ifeq ($(MPI_ENABLED),True)
+pmemd.MPI: $(NETCDF_MOD) $(OBJS)
+	$(LOAD) $(LOADFLAGS) -o $@ $(OBJS) $(FFT_LIBS) $(NETCDF_LIBS) $(MATH_LIBS) $(MPI_LIBS) $(LOADLIBS)
+else
+pmemd: $(NETCDF_MOD) $(OBJS)
+	$(LOAD) $(LOADFLAGS) -o $@ $(OBJS) $(FFT_LIBS) $(NETCDF_LIBS) $(MATH_LIBS) $(LOADLIBS)
+endif
+endif
+
+
+# Some implementations of netcdf seem to have more than just netcdf.mod...
+
+netcdf.mod:
+	cp $(NETCDF_HOME)/include/*.mod .
+
+depends:
+	../makef90depends > f90depends
+
+clean:
+	rm -f *.f90 *.o *.$(MODULE_SUFFIX) pmemd.MPI pmemd pmemd.cuda *.d work.pc* 
+	cd ./cuda ; $(MAKE) -f Makefile.advanced clean
+
+# The following statement keeps the .f90 files from getting clobbered; this
+# would happen because they are intermediates.
+	 
+.PRECIOUS: .f90
+
+# Control the suffixes available; this essentially eliminates built-in
+# inference rules, done here to improve portability.
+
+.SUFFIXES:
+
+.SUFFIXES: .fpp .c .o
+
+
+ifeq ($(CUDA_ENABLED),True)
+.fpp.o:
+	$(CPP) $(CPPFLAGS) $(CU_DEFINES) $(FFT_INCLUDE) $(MPI_INCLUDE) $(FFT_DEFINES) $(NETCDF_DEFINES) $(MPI_DEFINES) $(DIRFRC_DEFINES) $(MATH_DEFINES) $(F90_DEFINES) $*.fpp $*.f90
+	$(F90) $(F90FLAGS) $(F90_OPT_DFLT) $*.f90
+.fpp.o:
+else
+.fpp.o:
+	$(CPP) $(CPPFLAGS) $(FFT_INCLUDE) $(MPI_INCLUDE) $(FFT_DEFINES) $(NETCDF_DEFINES) $(MPI_DEFINES) $(DIRFRC_DEFINES) $(MATH_DEFINES) $(F90_DEFINES) $*.fpp $*.f90
+	$(F90) $(F90FLAGS) $(F90_OPT_DFLT) $*.f90
+
+endif
+
+.c.o:
+	$(CC) $(CFLAGS) -c $*.c
+
+# All f90 source compiles at F90_OPT_DFLT unless overridden here:
+
+# F90_OPT_LO:
+
+# F90_OPT_MED:
+
+# F90_OPT_HI (the usual F90_OPT_DFLT):
+
+## Dependencies for f90 modules and include files generated by makef90depends:
+
+include f90depends

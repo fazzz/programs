@@ -1,0 +1,52 @@
+8
+
+dir
+1797
+svn://172.16.165.94/yamamori/var/svn/LA/trunk
+svn://172.16.165.94
+
+
+
+2011-03-22T07:59:11.542834Z
+1796
+yamamori
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c8113bb6-d80e-0410-aa45-c078eb5207e6
+
+LA.h
+file
+
+
+
+
+2011-03-22T08:36:30.000000Z
+512cfbd5aec80019444616b7ac0bad80
+2011-03-15T12:19:55.541683Z
+1761
+yamamori
+
+LA.c
+file
+
+
+
+
+2011-03-22T08:36:30.000000Z
+a9e40d8b317206211cac5843680a25cd
+2011-03-22T07:59:11.542834Z
+1796
+yamamori
+

@@ -1,0 +1,6 @@
+
+#define criteria_BAR 1.0e-7
+
+double BAR_ite(double F,double *ene_U0_C0,double *ene_U0_C1, double *ene_U1_C0,double *ene_U1_C1, int n0, int n1);
+double MBAR_ite(double *F, double *ene, int n_sim, int *n);
+

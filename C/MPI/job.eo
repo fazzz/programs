@@ -1,0 +1,13 @@
+-catch_rsh /home/sge/default/spool//ajisai02/active_jobs/1075479.1/pe_hostfile
+ajisai02
+ajisai02
+problem with execution of mpi1  on  ajisai02:  [Errno 2] No such file or directory 
+-catch_rsh /home/sge/default/spool//ajisai02/active_jobs/1075480.1/pe_hostfile
+ajisai02
+ajisai02
+Hellow, MPI!
+Hellow, MPI!
+-catch_rsh /home/sge/default/spool//ajisai02/active_jobs/1075481.1/pe_hostfile
+ajisai02
+ajisai02
+problem with execution of /home/yamamori/work/programs/MPI/mpi2  on  ajisai02:  [Errno 2] No such file or directory 

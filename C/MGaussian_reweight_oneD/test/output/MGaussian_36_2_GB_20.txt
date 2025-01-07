@@ -1,0 +1,340 @@
+nyu_  1  =-8.724e-02 Sigma_  1=5.000e-01 pi_  1   =     nan 
+nyu_  2  =6.444e-02 Sigma_  2=5.000e-01 pi_  2   =     nan 
+nyu_  3  =-6.025e-02 Sigma_  3=5.000e-01 pi_  3   =     nan 
+nyu_  4  =1.011e-01 Sigma_  4=5.000e-01 pi_  4   =     nan 
+nyu_  5  =-3.975e-02 Sigma_  5=5.000e-01 pi_  5   =     nan 
+nyu_  6  =1.180e-01 Sigma_  6=5.000e-01 pi_  6   =     nan 
+nyu_  7  =-2.462e-02 Sigma_  7=5.000e-01 pi_  7   =     nan 
+nyu_  8  =1.816e-02 Sigma_  8=5.000e-01 pi_  8   =     nan 
+nyu_  9  =-9.887e-02 Sigma_  9=5.000e-01 pi_  9   =     nan 
+nyu_ 10  =3.706e-02 Sigma_ 10=5.000e-01 pi_ 10   =     nan 
+nyu_ 11  =2.307e-01 Sigma_ 11=5.000e-01 pi_ 11   =     nan 
+nyu_ 12  =1.055e-01 Sigma_ 12=5.000e-01 pi_ 12   =     nan 
+nyu_ 13  =1.582e-01 Sigma_ 13=5.000e-01 pi_ 13   =     nan 
+nyu_ 14  =2.614e-02 Sigma_ 14=5.000e-01 pi_ 14   =     nan 
+nyu_ 15  =4.065e-01 Sigma_ 15=5.000e-01 pi_ 15   =     nan 
+nyu_ 16  =2.890e-01 Sigma_ 16=5.000e-01 pi_ 16   =     nan 
+nyu_ 17  =2.618e-01 Sigma_ 17=5.000e-01 pi_ 17   =     nan 
+nyu_ 18  =3.729e-01 Sigma_ 18=5.000e-01 pi_ 18   =     nan 
+nyu_ 19  =1.455e-01 Sigma_ 19=5.000e-01 pi_ 19   =     nan 
+nyu_ 20  =2.652e-01 Sigma_ 20=5.000e-01 pi_ 20   =     nan 
+nyu_ 21  =3.633e-01 Sigma_ 21=5.000e-01 pi_ 21   =     nan 
+nyu_ 22  =2.109e-01 Sigma_ 22=5.000e-01 pi_ 22   =     nan 
+nyu_ 23  =4.321e-01 Sigma_ 23=5.000e-01 pi_ 23   =     nan 
+nyu_ 24  =2.821e-01 Sigma_ 24=5.000e-01 pi_ 24   =     nan 
+nyu_ 25  =5.370e-01 Sigma_ 25=5.000e-01 pi_ 25   =     nan 
+nyu_ 26  =4.415e-01 Sigma_ 26=5.000e-01 pi_ 26   =     nan 
+nyu_ 27  =3.663e-01 Sigma_ 27=5.000e-01 pi_ 27   =     nan 
+nyu_ 28  =2.895e-01 Sigma_ 28=5.000e-01 pi_ 28   =     nan 
+nyu_ 29  =2.949e-01 Sigma_ 29=5.000e-01 pi_ 29   =     nan 
+nyu_ 30  =4.547e-01 Sigma_ 30=5.000e-01 pi_ 30   =     nan 
+nyu_ 31  =6.039e-01 Sigma_ 31=5.000e-01 pi_ 31   =     nan 
+nyu_ 32  =7.615e-01 Sigma_ 32=5.000e-01 pi_ 32   =     nan 
+nyu_ 33  =5.663e-01 Sigma_ 33=5.000e-01 pi_ 33   =     nan 
+nyu_ 34  =7.479e-01 Sigma_ 34=5.000e-01 pi_ 34   =     nan 
+nyu_ 35  =7.925e-01 Sigma_ 35=5.000e-01 pi_ 35   =     nan 
+nyu_ 36  =6.046e-01 Sigma_ 36=5.000e-01 pi_ 36   =     nan 
+nyu_ 37  =6.051e-01 Sigma_ 37=5.000e-01 pi_ 37   =     nan 
+nyu_ 38  =6.118e-01 Sigma_ 38=5.000e-01 pi_ 38   =     nan 
+nyu_ 39  =6.262e-01 Sigma_ 39=5.000e-01 pi_ 39   =     nan 
+nyu_ 40  =7.292e-01 Sigma_ 40=5.000e-01 pi_ 40   =     nan 
+nyu_ 41  =8.059e-01 Sigma_ 41=5.000e-01 pi_ 41   =     nan 
+nyu_ 42  =7.647e-01 Sigma_ 42=5.000e-01 pi_ 42   =     nan 
+nyu_ 43  =8.380e-01 Sigma_ 43=5.000e-01 pi_ 43   =     nan 
+nyu_ 44  =6.637e-01 Sigma_ 44=5.000e-01 pi_ 44   =     nan 
+nyu_ 45  =8.217e-01 Sigma_ 45=5.000e-01 pi_ 45   =     nan 
+nyu_ 46  =6.962e-01 Sigma_ 46=5.000e-01 pi_ 46   =     nan 
+nyu_ 47  =8.227e-01 Sigma_ 47=5.000e-01 pi_ 47   =     nan 
+nyu_ 48  =5.648e-01 Sigma_ 48=5.000e-01 pi_ 48   =     nan 
+nyu_ 49  =7.673e-01 Sigma_ 49=5.000e-01 pi_ 49   =     nan 
+nyu_ 50  =7.907e-01 Sigma_ 50=5.000e-01 pi_ 50   =     nan 
+nyu_ 51  =9.970e-01 Sigma_ 51=5.000e-01 pi_ 51   =     nan 
+nyu_ 52  =9.375e-01 Sigma_ 52=5.000e-01 pi_ 52   =     nan 
+nyu_ 53  =9.345e-01 Sigma_ 53=5.000e-01 pi_ 53   =     nan 
+nyu_ 54  =7.835e-01 Sigma_ 54=5.000e-01 pi_ 54   =     nan 
+nyu_ 55  =8.834e-01 Sigma_ 55=5.000e-01 pi_ 55   =     nan 
+nyu_ 56  =8.063e-01 Sigma_ 56=5.000e-01 pi_ 56   =     nan 
+nyu_ 57  =8.693e-01 Sigma_ 57=5.000e-01 pi_ 57   =     nan 
+nyu_ 58  =9.448e-01 Sigma_ 58=5.000e-01 pi_ 58   =     nan 
+nyu_ 59  =9.599e-01 Sigma_ 59=5.000e-01 pi_ 59   =     nan 
+nyu_ 60  =8.742e-01 Sigma_ 60=5.000e-01 pi_ 60   =     nan 
+nyu_ 61  =1.050e+00 Sigma_ 61=5.000e-01 pi_ 61   =     nan 
+nyu_ 62  =8.826e-01 Sigma_ 62=5.000e-01 pi_ 62   =     nan 
+nyu_ 63  =1.045e+00 Sigma_ 63=5.000e-01 pi_ 63   =     nan 
+nyu_ 64  =9.459e-01 Sigma_ 64=5.000e-01 pi_ 64   =     nan 
+nyu_ 65  =1.016e+00 Sigma_ 65=5.000e-01 pi_ 65   =     nan 
+nyu_ 66  =1.073e+00 Sigma_ 66=5.000e-01 pi_ 66   =     nan 
+nyu_ 67  =1.056e+00 Sigma_ 67=5.000e-01 pi_ 67   =     nan 
+nyu_ 68  =1.038e+00 Sigma_ 68=5.000e-01 pi_ 68   =     nan 
+nyu_ 69  =9.944e-01 Sigma_ 69=5.000e-01 pi_ 69   =     nan 
+nyu_ 70  =1.106e+00 Sigma_ 70=5.000e-01 pi_ 70   =     nan 
+nyu_ 71  =1.152e+00 Sigma_ 71=5.000e-01 pi_ 71   =     nan 
+nyu_ 72  =1.228e+00 Sigma_ 72=5.000e-01 pi_ 72   =     nan 
+nyu_ 73  =1.184e+00 Sigma_ 73=5.000e-01 pi_ 73   =     nan 
+nyu_ 74  =1.181e+00 Sigma_ 74=5.000e-01 pi_ 74   =     nan 
+nyu_ 75  =1.074e+00 Sigma_ 75=5.000e-01 pi_ 75   =     nan 
+nyu_ 76  =1.078e+00 Sigma_ 76=5.000e-01 pi_ 76   =     nan 
+nyu_ 77  =1.269e+00 Sigma_ 77=5.000e-01 pi_ 77   =     nan 
+nyu_ 78  =1.214e+00 Sigma_ 78=5.000e-01 pi_ 78   =     nan 
+nyu_ 79  =1.145e+00 Sigma_ 79=5.000e-01 pi_ 79   =     nan 
+nyu_ 80  =1.211e+00 Sigma_ 80=5.000e-01 pi_ 80   =     nan 
+nyu_ 81  =1.219e+00 Sigma_ 81=5.000e-01 pi_ 81   =     nan 
+nyu_ 82  =1.205e+00 Sigma_ 82=5.000e-01 pi_ 82   =     nan 
+nyu_ 83  =1.272e+00 Sigma_ 83=5.000e-01 pi_ 83   =     nan 
+nyu_ 84  =1.378e+00 Sigma_ 84=5.000e-01 pi_ 84   =     nan 
+nyu_ 85  =1.256e+00 Sigma_ 85=5.000e-01 pi_ 85   =     nan 
+nyu_ 86  =1.263e+00 Sigma_ 86=5.000e-01 pi_ 86   =     nan 
+nyu_ 87  =1.324e+00 Sigma_ 87=5.000e-01 pi_ 87   =     nan 
+nyu_ 88  =1.243e+00 Sigma_ 88=5.000e-01 pi_ 88   =     nan 
+nyu_ 89  =1.315e+00 Sigma_ 89=5.000e-01 pi_ 89   =     nan 
+nyu_ 90  =1.255e+00 Sigma_ 90=5.000e-01 pi_ 90   =     nan 
+nyu_ 91  =1.267e+00 Sigma_ 91=5.000e-01 pi_ 91   =     nan 
+nyu_ 92  =1.395e+00 Sigma_ 92=5.000e-01 pi_ 92   =     nan 
+nyu_ 93  =1.549e+00 Sigma_ 93=5.000e-01 pi_ 93   =     nan 
+nyu_ 94  =1.375e+00 Sigma_ 94=5.000e-01 pi_ 94   =     nan 
+nyu_ 95  =1.397e+00 Sigma_ 95=5.000e-01 pi_ 95   =     nan 
+nyu_ 96  =1.347e+00 Sigma_ 96=5.000e-01 pi_ 96   =     nan 
+nyu_ 97  =1.392e+00 Sigma_ 97=5.000e-01 pi_ 97   =     nan 
+nyu_ 98  =1.397e+00 Sigma_ 98=5.000e-01 pi_ 98   =     nan 
+nyu_ 99  =1.557e+00 Sigma_ 99=5.000e-01 pi_ 99   =     nan 
+nyu_100  =1.298e+00 Sigma_100=5.000e-01 pi_100   =     nan 
+nyu_101  =1.481e+00 Sigma_101=5.000e-01 pi_101   =     nan 
+nyu_102  =1.494e+00 Sigma_102=5.000e-01 pi_102   =     nan 
+nyu_103  =1.595e+00 Sigma_103=5.000e-01 pi_103   =     nan 
+nyu_104  =1.473e+00 Sigma_104=5.000e-01 pi_104   =     nan 
+nyu_105  =1.567e+00 Sigma_105=5.000e-01 pi_105   =     nan 
+nyu_106  =1.475e+00 Sigma_106=5.000e-01 pi_106   =     nan 
+nyu_107  =1.606e+00 Sigma_107=5.000e-01 pi_107   =     nan 
+nyu_108  =1.492e+00 Sigma_108=5.000e-01 pi_108   =     nan 
+nyu_109  =1.730e+00 Sigma_109=5.000e-01 pi_109   =     nan 
+nyu_110  =1.474e+00 Sigma_110=5.000e-01 pi_110   =     nan 
+nyu_111  =1.811e+00 Sigma_111=5.000e-01 pi_111   =     nan 
+nyu_112  =1.664e+00 Sigma_112=5.000e-01 pi_112   =     nan 
+nyu_113  =1.760e+00 Sigma_113=5.000e-01 pi_113   =     nan 
+nyu_114  =1.769e+00 Sigma_114=5.000e-01 pi_114   =     nan 
+nyu_115  =1.624e+00 Sigma_115=5.000e-01 pi_115   =     nan 
+nyu_116  =1.574e+00 Sigma_116=5.000e-01 pi_116   =     nan 
+nyu_117  =1.566e+00 Sigma_117=5.000e-01 pi_117   =     nan 
+nyu_118  =1.595e+00 Sigma_118=5.000e-01 pi_118   =     nan 
+nyu_119  =1.712e+00 Sigma_119=5.000e-01 pi_119   =     nan 
+nyu_120  =1.607e+00 Sigma_120=5.000e-01 pi_120   =     nan 
+nyu_121  =2.247e+00 Sigma_121=5.000e-01 pi_121   =     nan 
+nyu_122  =1.804e+00 Sigma_122=5.000e-01 pi_122   =     nan 
+nyu_123  =2.114e+00 Sigma_123=5.000e-01 pi_123   =     nan 
+nyu_124  =2.027e+00 Sigma_124=5.000e-01 pi_124   =     nan 
+nyu_125  =1.996e+00 Sigma_125=5.000e-01 pi_125   =     nan 
+nyu_126  =2.033e+00 Sigma_126=5.000e-01 pi_126   =     nan 
+nyu_127  =2.219e+00 Sigma_127=5.000e-01 pi_127   =     nan 
+nyu_128  =2.001e+00 Sigma_128=5.000e-01 pi_128   =     nan 
+nyu_129  =1.775e+00 Sigma_129=5.000e-01 pi_129   =     nan 
+nyu_130  =1.956e+00 Sigma_130=5.000e-01 pi_130   =     nan 
+nyu_131  =2.485e+00 Sigma_131=5.000e-01 pi_131   =     nan 
+nyu_132  =2.232e+00 Sigma_132=5.000e-01 pi_132   =     nan 
+nyu_133  =2.222e+00 Sigma_133=5.000e-01 pi_133   =     nan 
+nyu_134  =2.344e+00 Sigma_134=5.000e-01 pi_134   =     nan 
+nyu_135  =2.432e+00 Sigma_135=5.000e-01 pi_135   =     nan 
+nyu_136  =2.140e+00 Sigma_136=5.000e-01 pi_136   =     nan 
+nyu_137  =1.999e+00 Sigma_137=5.000e-01 pi_137   =     nan 
+nyu_138  =2.301e+00 Sigma_138=5.000e-01 pi_138   =     nan 
+nyu_139  =2.520e+00 Sigma_139=5.000e-01 pi_139   =     nan 
+nyu_140  =2.495e+00 Sigma_140=5.000e-01 pi_140   =     nan 
+nyu_141  =2.768e+00 Sigma_141=5.000e-01 pi_141   =     nan 
+nyu_142  =2.443e+00 Sigma_142=5.000e-01 pi_142   =     nan 
+nyu_143  =2.525e+00 Sigma_143=5.000e-01 pi_143   =     nan 
+nyu_144  =2.481e+00 Sigma_144=5.000e-01 pi_144   =     nan 
+nyu_145  =2.587e+00 Sigma_145=5.000e-01 pi_145   =     nan 
+nyu_146  =2.639e+00 Sigma_146=5.000e-01 pi_146   =     nan 
+nyu_147  =2.575e+00 Sigma_147=5.000e-01 pi_147   =     nan 
+nyu_148  =2.678e+00 Sigma_148=5.000e-01 pi_148   =     nan 
+nyu_149  =2.402e+00 Sigma_149=5.000e-01 pi_149   =     nan 
+nyu_150  =2.682e+00 Sigma_150=5.000e-01 pi_150   =     nan 
+nyu_151  =2.810e+00 Sigma_151=5.000e-01 pi_151   =     nan 
+nyu_152  =2.659e+00 Sigma_152=5.000e-01 pi_152   =     nan 
+nyu_153  =2.748e+00 Sigma_153=5.000e-01 pi_153   =     nan 
+nyu_154  =2.891e+00 Sigma_154=5.000e-01 pi_154   =     nan 
+nyu_155  =2.885e+00 Sigma_155=5.000e-01 pi_155   =     nan 
+nyu_156  =2.961e+00 Sigma_156=5.000e-01 pi_156   =     nan 
+nyu_157  =2.803e+00 Sigma_157=5.000e-01 pi_157   =     nan 
+nyu_158  =2.785e+00 Sigma_158=5.000e-01 pi_158   =     nan 
+nyu_159  =2.988e+00 Sigma_159=5.000e-01 pi_159   =     nan 
+nyu_160  =2.741e+00 Sigma_160=5.000e-01 pi_160   =     nan 
+nyu_161  =3.049e+00 Sigma_161=5.000e-01 pi_161   =     nan 
+nyu_162  =2.946e+00 Sigma_162=5.000e-01 pi_162   =     nan 
+nyu_163  =2.878e+00 Sigma_163=5.000e-01 pi_163   =     nan 
+nyu_164  =2.917e+00 Sigma_164=5.000e-01 pi_164   =     nan 
+nyu_165  =2.937e+00 Sigma_165=5.000e-01 pi_165   =     nan 
+nyu_166  =2.867e+00 Sigma_166=5.000e-01 pi_166   =     nan 
+nyu_167  =3.035e+00 Sigma_167=5.000e-01 pi_167   =     nan 
+nyu_168  =2.868e+00 Sigma_168=5.000e-01 pi_168   =     nan 
+nyu_169  =2.881e+00 Sigma_169=5.000e-01 pi_169   =     nan 
+nyu_170  =3.087e+00 Sigma_170=5.000e-01 pi_170   =     nan 
+nyu_171  =-3.033e+00 Sigma_171=5.000e-01 pi_171   =     nan 
+nyu_172  =-3.086e+00 Sigma_172=5.000e-01 pi_172   =     nan 
+nyu_173  =-3.122e+00 Sigma_173=5.000e-01 pi_173   =     nan 
+nyu_174  =-3.116e+00 Sigma_174=5.000e-01 pi_174   =     nan 
+nyu_175  =3.057e+00 Sigma_175=5.000e-01 pi_175   =     nan 
+nyu_176  =3.135e+00 Sigma_176=5.000e-01 pi_176   =     nan 
+nyu_177  =-2.923e+00 Sigma_177=5.000e-01 pi_177   =     nan 
+nyu_178  =-3.102e+00 Sigma_178=5.000e-01 pi_178   =     nan 
+nyu_179  =3.089e+00 Sigma_179=5.000e-01 pi_179   =     nan 
+nyu_180  =-3.063e+00 Sigma_180=5.000e-01 pi_180   =     nan 
+nyu_181  =-2.841e+00 Sigma_181=5.000e-01 pi_181   =     nan 
+nyu_182  =-3.043e+00 Sigma_182=5.000e-01 pi_182   =     nan 
+nyu_183  =-2.917e+00 Sigma_183=5.000e-01 pi_183   =     nan 
+nyu_184  =-2.983e+00 Sigma_184=5.000e-01 pi_184   =     nan 
+nyu_185  =3.127e+00 Sigma_185=5.000e-01 pi_185   =     nan 
+nyu_186  =-3.026e+00 Sigma_186=5.000e-01 pi_186   =     nan 
+nyu_187  =-2.980e+00 Sigma_187=5.000e-01 pi_187   =     nan 
+nyu_188  =-2.979e+00 Sigma_188=5.000e-01 pi_188   =     nan 
+nyu_189  =-3.124e+00 Sigma_189=5.000e-01 pi_189   =     nan 
+nyu_190  =-2.957e+00 Sigma_190=5.000e-01 pi_190   =     nan 
+nyu_191  =-2.849e+00 Sigma_191=5.000e-01 pi_191   =     nan 
+nyu_192  =-2.933e+00 Sigma_192=5.000e-01 pi_192   =     nan 
+nyu_193  =-2.757e+00 Sigma_193=5.000e-01 pi_193   =     nan 
+nyu_194  =-2.791e+00 Sigma_194=5.000e-01 pi_194   =     nan 
+nyu_195  =-2.868e+00 Sigma_195=5.000e-01 pi_195   =     nan 
+nyu_196  =-2.984e+00 Sigma_196=5.000e-01 pi_196   =     nan 
+nyu_197  =-2.842e+00 Sigma_197=5.000e-01 pi_197   =     nan 
+nyu_198  =-2.915e+00 Sigma_198=5.000e-01 pi_198   =     nan 
+nyu_199  =-2.849e+00 Sigma_199=5.000e-01 pi_199   =     nan 
+nyu_200  =-2.902e+00 Sigma_200=5.000e-01 pi_200   =     nan 
+nyu_201  =-2.798e+00 Sigma_201=5.000e-01 pi_201   =     nan 
+nyu_202  =-2.854e+00 Sigma_202=5.000e-01 pi_202   =     nan 
+nyu_203  =-2.837e+00 Sigma_203=5.000e-01 pi_203   =     nan 
+nyu_204  =-2.656e+00 Sigma_204=5.000e-01 pi_204   =     nan 
+nyu_205  =-2.764e+00 Sigma_205=5.000e-01 pi_205   =     nan 
+nyu_206  =-2.672e+00 Sigma_206=5.000e-01 pi_206   =     nan 
+nyu_207  =-2.662e+00 Sigma_207=5.000e-01 pi_207   =     nan 
+nyu_208  =-2.842e+00 Sigma_208=5.000e-01 pi_208   =     nan 
+nyu_209  =-2.671e+00 Sigma_209=5.000e-01 pi_209   =     nan 
+nyu_210  =-2.857e+00 Sigma_210=5.000e-01 pi_210   =     nan 
+nyu_211  =-2.516e+00 Sigma_211=5.000e-01 pi_211   =     nan 
+nyu_212  =-2.587e+00 Sigma_212=5.000e-01 pi_212   =     nan 
+nyu_213  =-2.633e+00 Sigma_213=5.000e-01 pi_213   =     nan 
+nyu_214  =-2.725e+00 Sigma_214=5.000e-01 pi_214   =     nan 
+nyu_215  =-2.599e+00 Sigma_215=5.000e-01 pi_215   =     nan 
+nyu_216  =-2.553e+00 Sigma_216=5.000e-01 pi_216   =     nan 
+nyu_217  =-2.641e+00 Sigma_217=5.000e-01 pi_217   =     nan 
+nyu_218  =-2.598e+00 Sigma_218=5.000e-01 pi_218   =     nan 
+nyu_219  =-2.689e+00 Sigma_219=5.000e-01 pi_219   =     nan 
+nyu_220  =-2.694e+00 Sigma_220=5.000e-01 pi_220   =     nan 
+nyu_221  =-2.394e+00 Sigma_221=5.000e-01 pi_221   =     nan 
+nyu_222  =-2.254e+00 Sigma_222=5.000e-01 pi_222   =     nan 
+nyu_223  =-2.478e+00 Sigma_223=5.000e-01 pi_223   =     nan 
+nyu_224  =-2.556e+00 Sigma_224=5.000e-01 pi_224   =     nan 
+nyu_225  =-2.463e+00 Sigma_225=5.000e-01 pi_225   =     nan 
+nyu_226  =-2.448e+00 Sigma_226=5.000e-01 pi_226   =     nan 
+nyu_227  =-2.403e+00 Sigma_227=5.000e-01 pi_227   =     nan 
+nyu_228  =-2.451e+00 Sigma_228=5.000e-01 pi_228   =     nan 
+nyu_229  =-2.489e+00 Sigma_229=5.000e-01 pi_229   =     nan 
+nyu_230  =-2.321e+00 Sigma_230=5.000e-01 pi_230   =     nan 
+nyu_231  =-2.256e+00 Sigma_231=5.000e-01 pi_231   =     nan 
+nyu_232  =-2.233e+00 Sigma_232=5.000e-01 pi_232   =     nan 
+nyu_233  =-2.275e+00 Sigma_233=5.000e-01 pi_233   =     nan 
+nyu_234  =-2.230e+00 Sigma_234=5.000e-01 pi_234   =     nan 
+nyu_235  =-2.346e+00 Sigma_235=5.000e-01 pi_235   =     nan 
+nyu_236  =-2.432e+00 Sigma_236=5.000e-01 pi_236   =     nan 
+nyu_237  =-2.208e+00 Sigma_237=5.000e-01 pi_237   =     nan 
+nyu_238  =-2.257e+00 Sigma_238=5.000e-01 pi_238   =     nan 
+nyu_239  =-2.279e+00 Sigma_239=5.000e-01 pi_239   =     nan 
+nyu_240  =-2.320e+00 Sigma_240=5.000e-01 pi_240   =     nan 
+nyu_241  =-2.216e+00 Sigma_241=5.000e-01 pi_241   =     nan 
+nyu_242  =-2.124e+00 Sigma_242=5.000e-01 pi_242   =     nan 
+nyu_243  =-2.256e+00 Sigma_243=5.000e-01 pi_243   =     nan 
+nyu_244  =-2.153e+00 Sigma_244=5.000e-01 pi_244   =     nan 
+nyu_245  =-2.141e+00 Sigma_245=5.000e-01 pi_245   =     nan 
+nyu_246  =-2.010e+00 Sigma_246=5.000e-01 pi_246   =     nan 
+nyu_247  =-2.142e+00 Sigma_247=5.000e-01 pi_247   =     nan 
+nyu_248  =-2.071e+00 Sigma_248=5.000e-01 pi_248   =     nan 
+nyu_249  =-2.182e+00 Sigma_249=5.000e-01 pi_249   =     nan 
+nyu_250  =-2.063e+00 Sigma_250=5.000e-01 pi_250   =     nan 
+nyu_251  =-1.892e+00 Sigma_251=5.000e-01 pi_251   =     nan 
+nyu_252  =-1.824e+00 Sigma_252=5.000e-01 pi_252   =     nan 
+nyu_253  =-1.830e+00 Sigma_253=5.000e-01 pi_253   =     nan 
+nyu_254  =-2.028e+00 Sigma_254=5.000e-01 pi_254   =     nan 
+nyu_255  =-1.842e+00 Sigma_255=5.000e-01 pi_255   =     nan 
+nyu_256  =-1.950e+00 Sigma_256=5.000e-01 pi_256   =     nan 
+nyu_257  =-1.896e+00 Sigma_257=5.000e-01 pi_257   =     nan 
+nyu_258  =-1.765e+00 Sigma_258=5.000e-01 pi_258   =     nan 
+nyu_259  =-1.884e+00 Sigma_259=5.000e-01 pi_259   =     nan 
+nyu_260  =-2.056e+00 Sigma_260=5.000e-01 pi_260   =     nan 
+nyu_261  =-1.832e+00 Sigma_261=5.000e-01 pi_261   =     nan 
+nyu_262  =-1.513e+00 Sigma_262=5.000e-01 pi_262   =     nan 
+nyu_263  =-1.835e+00 Sigma_263=5.000e-01 pi_263   =     nan 
+nyu_264  =-1.655e+00 Sigma_264=5.000e-01 pi_264   =     nan 
+nyu_265  =-1.691e+00 Sigma_265=5.000e-01 pi_265   =     nan 
+nyu_266  =-1.674e+00 Sigma_266=5.000e-01 pi_266   =     nan 
+nyu_267  =-1.741e+00 Sigma_267=5.000e-01 pi_267   =     nan 
+nyu_268  =-1.763e+00 Sigma_268=5.000e-01 pi_268   =     nan 
+nyu_269  =-1.780e+00 Sigma_269=5.000e-01 pi_269   =     nan 
+nyu_270  =-1.567e+00 Sigma_270=5.000e-01 pi_270   =     nan 
+nyu_271  =-1.472e+00 Sigma_271=5.000e-01 pi_271   =     nan 
+nyu_272  =-1.542e+00 Sigma_272=5.000e-01 pi_272   =     nan 
+nyu_273  =-1.471e+00 Sigma_273=5.000e-01 pi_273   =     nan 
+nyu_274  =-1.463e+00 Sigma_274=5.000e-01 pi_274   =     nan 
+nyu_275  =-1.553e+00 Sigma_275=5.000e-01 pi_275   =     nan 
+nyu_276  =-1.495e+00 Sigma_276=5.000e-01 pi_276   =     nan 
+nyu_277  =-1.595e+00 Sigma_277=5.000e-01 pi_277   =     nan 
+nyu_278  =-1.585e+00 Sigma_278=5.000e-01 pi_278   =     nan 
+nyu_279  =-1.519e+00 Sigma_279=5.000e-01 pi_279   =     nan 
+nyu_280  =-1.467e+00 Sigma_280=5.000e-01 pi_280   =     nan 
+nyu_281  =-1.271e+00 Sigma_281=5.000e-01 pi_281   =     nan 
+nyu_282  =-1.533e+00 Sigma_282=5.000e-01 pi_282   =     nan 
+nyu_283  =-1.504e+00 Sigma_283=5.000e-01 pi_283   =     nan 
+nyu_284  =-1.358e+00 Sigma_284=5.000e-01 pi_284   =     nan 
+nyu_285  =-1.405e+00 Sigma_285=5.000e-01 pi_285   =     nan 
+nyu_286  =-1.358e+00 Sigma_286=5.000e-01 pi_286   =     nan 
+nyu_287  =-1.484e+00 Sigma_287=5.000e-01 pi_287   =     nan 
+nyu_288  =-1.402e+00 Sigma_288=5.000e-01 pi_288   =     nan 
+nyu_289  =-1.328e+00 Sigma_289=5.000e-01 pi_289   =     nan 
+nyu_290  =-1.410e+00 Sigma_290=5.000e-01 pi_290   =     nan 
+nyu_291  =-1.200e+00 Sigma_291=5.000e-01 pi_291   =     nan 
+nyu_292  =-1.341e+00 Sigma_292=5.000e-01 pi_292   =     nan 
+nyu_293  =-1.270e+00 Sigma_293=5.000e-01 pi_293   =     nan 
+nyu_294  =-1.308e+00 Sigma_294=5.000e-01 pi_294   =     nan 
+nyu_295  =-1.227e+00 Sigma_295=5.000e-01 pi_295   =     nan 
+nyu_296  =-1.291e+00 Sigma_296=5.000e-01 pi_296   =     nan 
+nyu_297  =-1.200e+00 Sigma_297=5.000e-01 pi_297   =     nan 
+nyu_298  =-1.229e+00 Sigma_298=5.000e-01 pi_298   =     nan 
+nyu_299  =-1.161e+00 Sigma_299=5.000e-01 pi_299   =     nan 
+nyu_300  =-1.452e+00 Sigma_300=5.000e-01 pi_300   =     nan 
+nyu_301  =-1.102e+00 Sigma_301=5.000e-01 pi_301   =     nan 
+nyu_302  =-1.080e+00 Sigma_302=5.000e-01 pi_302   =     nan 
+nyu_303  =-1.072e+00 Sigma_303=5.000e-01 pi_303   =     nan 
+nyu_304  =-1.273e+00 Sigma_304=5.000e-01 pi_304   =     nan 
+nyu_305  =-1.295e+00 Sigma_305=5.000e-01 pi_305   =     nan 
+nyu_306  =-1.173e+00 Sigma_306=5.000e-01 pi_306   =     nan 
+nyu_307  =-1.144e+00 Sigma_307=5.000e-01 pi_307   =     nan 
+nyu_308  =-1.181e+00 Sigma_308=5.000e-01 pi_308   =     nan 
+nyu_309  =-1.113e+00 Sigma_309=5.000e-01 pi_309   =     nan 
+nyu_310  =-1.164e+00 Sigma_310=5.000e-01 pi_310   =     nan 
+nyu_311  =-1.017e+00 Sigma_311=5.000e-01 pi_311   =     nan 
+nyu_312  =-9.563e-01 Sigma_312=5.000e-01 pi_312   =     nan 
+nyu_313  =-9.432e-01 Sigma_313=5.000e-01 pi_313   =     nan 
+nyu_314  =-9.725e-01 Sigma_314=5.000e-01 pi_314   =     nan 
+nyu_315  =-8.380e-01 Sigma_315=5.000e-01 pi_315   =     nan 
+nyu_316  =-9.051e-01 Sigma_316=5.000e-01 pi_316   =     nan 
+nyu_317  =-9.652e-01 Sigma_317=5.000e-01 pi_317   =     nan 
+nyu_318  =-9.395e-01 Sigma_318=5.000e-01 pi_318   =     nan 
+nyu_319  =-9.678e-01 Sigma_319=5.000e-01 pi_319   =     nan 
+nyu_320  =-9.515e-01 Sigma_320=5.000e-01 pi_320   =     nan 
+nyu_321  =-1.456e+00 Sigma_321=5.000e-01 pi_321   =     nan 
+nyu_322  =-1.330e+00 Sigma_322=5.000e-01 pi_322   =     nan 
+nyu_323  =-1.714e+00 Sigma_323=5.000e-01 pi_323   =     nan 
+nyu_324  =-1.427e+00 Sigma_324=5.000e-01 pi_324   =     nan 
+nyu_325  =-1.619e+00 Sigma_325=5.000e-01 pi_325   =     nan 
+nyu_326  =-1.206e+00 Sigma_326=5.000e-01 pi_326   =     nan 
+nyu_327  =-1.616e+00 Sigma_327=5.000e-01 pi_327   =     nan 
+nyu_328  =-1.890e+00 Sigma_328=5.000e-01 pi_328   =     nan 
+nyu_329  =-1.409e+00 Sigma_329=5.000e-01 pi_329   =     nan 
+nyu_330  =-1.345e+00 Sigma_330=5.000e-01 pi_330   =     nan 
+nyu_331  =-1.456e+00 Sigma_331=5.000e-01 pi_331   =     nan 
+nyu_332  =-1.330e+00 Sigma_332=5.000e-01 pi_332   =     nan 
+nyu_333  =-1.714e+00 Sigma_333=5.000e-01 pi_333   =     nan 
+nyu_334  =-1.427e+00 Sigma_334=5.000e-01 pi_334   =     nan 
+nyu_335  =-1.619e+00 Sigma_335=5.000e-01 pi_335   =     nan 
+nyu_336  =-1.206e+00 Sigma_336=5.000e-01 pi_336   =     nan 
+nyu_337  =-1.616e+00 Sigma_337=5.000e-01 pi_337   =     nan 
+nyu_338  =-1.890e+00 Sigma_338=5.000e-01 pi_338   =     nan 
+nyu_339  =-1.409e+00 Sigma_339=5.000e-01 pi_339   =     nan 
+nyu_340  =-1.345e+00 Sigma_340=5.000e-01 pi_340   =     nan 

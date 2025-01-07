@@ -1,0 +1,21 @@
+nyu_  1  =-2.558e+00 Sigma_  1=1.096e-01 pi_  1   =     nan 
+nyu_  2  =-2.110e+00 Sigma_  2=2.243e-01 pi_  2   =     nan 
+nyu_  3  =-1.634e+00 Sigma_  3=     nan pi_  3   =     nan 
+nyu_  4  =-1.622e+00 Sigma_  4=1.481e-01 pi_  4   =     nan 
+nyu_  5  =-1.502e+00 Sigma_  5=1.014e-01 pi_  5   =     nan 
+nyu_  6  =-1.305e+00 Sigma_  6=9.659e-02 pi_  6   =     nan 
+nyu_  7  =-1.479e+00 Sigma_  7=9.880e-02 pi_  7   =     nan 
+nyu_  8  =-2.086e+00 Sigma_  8=2.629e-01 pi_  8   =     nan 
+nyu_  9  =-1.967e+04 Sigma_  9=1.490e+04 pi_  9   =     nan 
+nyu_ 10  =-2.119e+04 Sigma_ 10=1.605e+04 pi_ 10   =     nan 
+nyu_ 11  =-1.268e+04 Sigma_ 11=9.601e+03 pi_ 11   =     nan 
+nyu_ 12  =1.151e+03 Sigma_ 12=8.702e+02 pi_ 12   =     nan 
+nyu_ 13  =1.041e+00 Sigma_ 13=2.163e-01 pi_ 13   =     nan 
+nyu_ 14  =1.054e+00 Sigma_ 14=2.065e-01 pi_ 14   =     nan 
+nyu_ 15  =1.091e+00 Sigma_ 15=1.746e-01 pi_ 15   =     nan 
+nyu_ 16  =1.125e+00 Sigma_ 16=1.824e-01 pi_ 16   =     nan 
+nyu_ 17  =1.308e+00 Sigma_ 17=8.626e-02 pi_ 17   =     nan 
+nyu_ 18  =2.347e+03 Sigma_ 18=1.776e+03 pi_ 18   =     nan 
+nyu_ 19  =4.056e+03 Sigma_ 19=3.070e+03 pi_ 19   =     nan 
+nyu_ 20  =4.442e+03 Sigma_ 20=3.362e+03 pi_ 20   =     nan 
+nyu_ 21  =3.518e+02 Sigma_ 21=2.648e+02 pi_ 21   =     nan 

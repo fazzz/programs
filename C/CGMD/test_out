@@ -1,0 +1,44 @@
+/***********************************************/
+steps            = 0  
+total time       =      0.000 ps  
+T_kelvin         = 0.000000e+00 K  
+toal_energy      = -1.525359e+01 kcal/mol  
+toal_vertial_energy      = 0.000000e+00 kcal/mol  
+kinetic_energy6   = 0.000000e+00 kcal/mol  
+kinetic_energy8   = 0.000000e+00 kcal/mol  
+kinetic_energy_vertial   = 0.000000e+00 kcal/mol  
+potential_energy_real = -1.525359e+01 kcal/mol  
+potential_energy_vertial   = 0.000000e+00 kcal/mol  
+s_NVT1   = 1.000000e+00   
+s_NVT2   = 0.000000e+00   
+s_NVT3   = 0.000000e+00   
+xi   = 0.000000e+00   
+xi_dummy   = 0.000000e+00   
+dihedral_energy  = 8.107065e+00 kcal/mol  
+elect_energy     = -8.012380e+01 kcal/mol  
+VDW_energy       = 2.811986e+00 kcal/mol  
+1_4_elect_energy = 4.893546e+01 kcal/mol  
+1_4_VDW_energy   = 5.015692e+00 kcal/mol  
+
+/***********************************************/
+steps            = 0  
+total time       =      0.000 ps  
+T_kelvin         = 0.000000e+00 K  
+toal_energy      = -1.525359e+01 kcal/mol  
+toal_vertial_energy      = 0.000000e+00 kcal/mol  
+kinetic_energy6   = 0.000000e+00 kcal/mol  
+kinetic_energy8   = 0.000000e+00 kcal/mol  
+kinetic_energy_vertial   = 0.000000e+00 kcal/mol  
+potential_energy_real = -1.525359e+01 kcal/mol  
+potential_energy_vertial   = 0.000000e+00 kcal/mol  
+s_NVT1   = 1.000000e+00   
+s_NVT2   = 0.000000e+00   
+s_NVT3   = 0.000000e+00   
+xi   = 0.000000e+00   
+xi_dummy   = 0.000000e+00   
+dihedral_energy  = 8.107065e+00 kcal/mol  
+elect_energy     = -8.012380e+01 kcal/mol  
+VDW_energy       = 2.811986e+00 kcal/mol  
+1_4_elect_energy = 4.893546e+01 kcal/mol  
+1_4_VDW_energy   = 5.015692e+00 kcal/mol  
+

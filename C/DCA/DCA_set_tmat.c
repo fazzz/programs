@@ -1,0 +1,94 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "DCA.h"
+#include "EF.h"
+
+void DCAs_trans_Matrix(CLT *clt,int nNumClut_all,int num_atom_all,double *crd) {
+  int nNumClt;
+  int alpha,alpha2;  
+  int nNumClutParent;
+
+  for (nNumClt=0;nNumClt<nNumClut_all;++nNumClt) {
+    nNumClutParent = clt[nNumClt].nNumClutOfParent-1;
+
+    if (nNumClt==0)
+      for (alpha=0;alpha<6;++alpha)
+	for (alpha2=0;alpha2<6;++alpha2)
+	  clt[nNumClt].TransMatrix[alpha][alpha2]= 0.0;
+    else 
+      sub_set_trans_Matrix(clt[nNumClt].TransMatrix,
+			   nNumClt,clt[nNumClt].trans_A_to_CN,clt[nNumClt].origin_atom_a,
+			   nNumClutParent,clt[nNumClutParent].trans_A_to_CN,clt[nNumClutParent].origin_atom_a,
+			   crd);
+  }
+}
+
+void sub_set_trans_Matrix(double TransMatrix[6][6],
+			  int nNumClt,          double trans_A_to_CN[3][3],          int origin_atom_a,
+			  int nNumCltminousone, double trans_A_to_CN_minousone[3][3],int origin_atom_a_minousone,
+			  double *crd) {
+  int alpha,alpha2,alpha3,i,j,k;
+  int nNumAtomOfClut,nNumAtomOfClut2;
+  int nNumAtomOfClutminousone;
+  int num,num2;
+  double Coord[3];
+  double Coord2[3];
+  double RotatnNumtonNumMiOn[3][3];
+  double mat2[3][3];
+
+  for (alpha=0;alpha<3;++alpha)
+    for (alpha2=0;alpha2<3;++alpha2)
+      RotatnNumtonNumMiOn[alpha][alpha2] = 0.0;
+
+  for (alpha=0;alpha<3;++alpha)
+    for (alpha2=0;alpha2<3;++alpha2)
+      for (alpha3=0;alpha3<3;++alpha3)
+	RotatnNumtonNumMiOn[alpha][alpha2]
+	  +=  trans_A_to_CN_minousone[alpha][alpha3]*trans_A_to_CN[alpha2][alpha3];
+	
+  nNumAtomOfClut = origin_atom_a-1;
+  nNumAtomOfClutminousone = origin_atom_a_minousone-1;
+
+  for(alpha=0;alpha<3;++alpha) Coord[alpha]=crd[nNumAtomOfClut*3+alpha]-crd[nNumAtomOfClutminousone*3+alpha];
+
+  for(alpha=0;alpha<3;++alpha) Coord2[alpha]=0.0;
+
+  for(alpha=0;alpha<3;++alpha)
+    for(alpha2=0;alpha2<3;++alpha2)
+      Coord2[alpha]+=trans_A_to_CN_minousone[alpha][alpha2]*Coord[alpha2];
+
+  for(alpha=0;alpha<3;++alpha)
+      for(alpha2=0;alpha2<3;++alpha2)
+	TransMatrix[alpha][alpha2]=RotatnNumtonNumMiOn[alpha][alpha2];
+
+  for(alpha=3;alpha<6;++alpha)
+    for(alpha2=3;alpha2<6;++alpha2)
+      TransMatrix[alpha][alpha2]=RotatnNumtonNumMiOn[alpha-3][alpha2-3];
+
+  for(alpha=3;alpha<6;++alpha)
+    for(alpha2=0;alpha2<3;++alpha2)
+      TransMatrix[alpha][alpha2]=0.0;
+
+  mat2[0][0]= 0.0;
+  mat2[0][1]=-Coord2[2];
+  mat2[0][2]= Coord2[1];
+  mat2[1][0]= Coord2[2];
+  mat2[1][1]= 0.0;
+  mat2[1][2]=-Coord2[0];
+  mat2[2][0]=-Coord2[1];
+  mat2[2][1]= Coord2[0];
+  mat2[2][2]= 0.0;
+  
+  for (i=0;i<3;++i)
+    for (j=0;j<3;++j)
+      TransMatrix[i][j+3] = 0.0;
+
+  for (i=0;i<3;++i)
+    for (j=0;j<3;++j)
+      for (k=0;k<3;++k)
+	TransMatrix[i][j+3] += mat2[i][k]*RotatnNumtonNumMiOn[k][j];
+
+}

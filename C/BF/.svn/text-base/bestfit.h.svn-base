@@ -1,0 +1,6 @@
+
+double bestfit(double *coord_ref,double *coord_tag,double *velo_tag,double *mass,int numatom,int flag);
+
+void bf_trajectry(int numatom, int numstep, double *mass,double *coord_ref,double *rmsd_trj,char *trjname,char *velname, char *traj_bfname,char *velo_bfname,int flagv,int flaga,int flago, int flagc);
+
+void ave_coord(double *coord_ref , FILE *inputfile, int numatom, int numstep, int flagc);

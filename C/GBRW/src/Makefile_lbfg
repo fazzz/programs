@@ -1,0 +1,42 @@
+#
+# Makefile for PATH_search_EM_Z_string program
+#
+
+HOME=../
+SRC=.
+BIN=../bin
+LIBDIR=-L/home/yamamori/work/programs/GBRW/lib -L/home/yamamori/work/programs/ABAMD_2014_05_01/lib
+INCDIR=-I/home/yamamori/work/programs/GBRW/include -I/home/yamamori/work/programs/ABAMD_2014_05_01/include
+
+# definitions
+#CC    = icc -pg -O3 -tpp6 -ipo
+#CC    = icc -check=conversion,stack,uninit
+#CC    = icc
+CC    = gcc -g
+#CC     = gcc
+
+CFLAG = #-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -O2
+
+OBJS =  main_lbfg.o
+
+LIBS =  
+
+EXLIBS=-llbfgs -lm -lgc
+
+TARGET =lbfg
+
+.c.o:
+	$(CC) $(INCDIR) -c $(CFLAG) $<;
+
+all: lbfg install
+
+# rules of generations
+lbfg:  $(OBJS) $(LIBS)
+	$(CC) $(CFLAG) -o $@ $(OBJS) $(LIBDIR) $(INCDIR) $(EXLIBS) ;
+
+install: 
+	cp $(TARGET) $(BIN) ; 
+
+clean: 
+	rm $(OBJS); \
+	rm $(TARGET);

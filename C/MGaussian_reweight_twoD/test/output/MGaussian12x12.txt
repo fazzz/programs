@@ -1,0 +1,10 @@
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 
+nyu_d  =      nan      nan Sigma_d =      nan      nan      nan      nan pi_d   =      nan 

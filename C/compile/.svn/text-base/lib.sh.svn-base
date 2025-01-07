@@ -1,0 +1,4 @@
+
+libg=( -lCSI -lbestfit -lTOPO -lBOXMULL  -lPMF -lREMD -lMB -lPT -lPDBf -lSSL -lFF -lEF -lINTG -lQUA -lLA -lHIST  -lmymath -lIO -ldPCA -lPCA  -lSPE -lMC  -lrmsd -lSHELL -lRAND  -lRBD -llapack_LINUX_kusu -lblas_LINUX_kusu  -lf2c_kusu -lfftw3  -lm -lgc )
+
+libo=( -lCSI  -lbestfit -lTOPO -lBOXMULL  -lPMF -lREMD -lMB -lPT -lPDBf -lSSL -lFF -lEF -lINTG -lQUA -lLA -lHIST  -lmymath -lIO -ldPCA -lPCA  -lSPE -lMC  -lrmsd -lSHELL -lRAND  -lRBD -llapack_LINUX_kusu -lblas_LINUX_kusu -lf2c_kusu -lfftw3  -lm -lgc )

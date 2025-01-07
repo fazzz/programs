@@ -1,0 +1,2 @@
+
+double set_coord_from_dihed(double phi, double psi, double q[5][3]);

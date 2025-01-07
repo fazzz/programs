@@ -1,0 +1,9 @@
+nyu_  1  =-2.411e+00 Sigma_  1=4.046e-01 pi_  1   =2.032e-01 
+nyu_  2  =-2.235e+00 Sigma_  2=3.980e-01 pi_  2   =2.032e-01 
+nyu_  3  =-1.823e+00 Sigma_  3=2.007e-01 pi_  3   =2.032e-01 
+nyu_  4  =-2.650e+00 Sigma_  4=3.932e-01 pi_  4   =1.539e-01 
+nyu_  5  =-2.371e+01 Sigma_  5=1.648e+01 pi_  5   =1.539e-01 
+nyu_  6  =1.138e+00 Sigma_  6=1.975e-01 pi_  6   =1.539e-01 
+nyu_  7  =1.131e+00 Sigma_  7=2.213e-01 pi_  7   =     nan 
+nyu_  8  =8.027e+00 Sigma_  8=     nan pi_  8   =     nan 
+nyu_  9  =6.756e+00 Sigma_  9=     nan pi_  9   =     nan 

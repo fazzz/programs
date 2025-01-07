@@ -1,0 +1,819 @@
+#define _GNU_SOURCE  
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "IO.h"
+#include "EF.h"
+#include "PT.h"
+
+int io_dismisstrj_Amberform(FILE *inputfile,int numstep,int numatom){
+  int i,j,k;
+  double dummy;
+  char *line;
+  size_t len=0;
+
+  getline(&line,&len,inputfile);
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numatom;++j) {
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&dummy);
+      }
+    }
+  }
+
+  return 0;
+
+}
+
+int io_dismisstrj(FILE *inputfile,int numstep,int numatom){
+  int i,j,k;
+  double dummy;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numatom;++j) {
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&dummy);
+      }
+    }
+  }
+
+  return 0;
+
+}
+
+int io_dismissdata(FILE *inputfile,int numstep,int numdata){
+  int i,j,k;
+  double dummy;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdata;++j)
+      fscanf(inputfile,"%lf",&dummy);
+
+  return 0;
+
+}
+
+
+int io_inputtrj_Amberform(FILE *inputfile,double *trj) {
+  int i,j;
+  int numatom;
+  char *line;
+  size_t len=0;
+
+  getline(&line,&len,inputfile);
+  fscanf(inputfile,"%d\n",&numatom);
+  for (i=0;i<numatom;++i) {
+    for (j=0;j<3;++j) {
+      fscanf(inputfile,"%lf",&trj[i*3+j]);
+    }
+  }
+
+  return 0;
+}
+
+int io_scantrj(FILE *inputfile,int numatom,int numstep,double **data){
+  int i,j,k;
+  double f;
+  
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numatom;++j) {
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&f);
+	if (f!=111111)
+	  data[i][j*3+k]=f;
+	else
+	  --k;
+      }
+    }
+  }
+
+  return 0;
+}
+
+int io_scantrj2(FILE *inputfile,int numatom,int numstep,double *data){
+  int i;
+  
+  for (i=0;i<numstep*numatom*3;++i) fscanf(inputfile,"%lf",&data[i]);
+
+  return 0;
+}
+
+
+int io_scancatrj(FILE *inputfile,int numatom,int numstep,double **data){
+  int i,j,k,l,flag;
+  double f;
+  
+  for (i=0;i<numstep;++i) {
+    l=0;
+    for (j=0;j<numatom;++j) {
+      if (strncmp(AP.IGRAPH[j],"CA",2)==0) {
+	flag=1;
+	++l;
+      }
+      else flag=0;
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&f);
+	if (f!=111111 ) {
+ 	  if (flag==1)
+	    data[i][(l-1)*3+k]=f;
+	}
+	else
+	  --k;
+      }
+    }
+  }
+
+  return l;
+}
+
+int io_scancamass(FILE *inputfile,int numres,double *mass){
+  int i,j;
+
+  j=0;
+  for (i=0;i<AP.NATOM;++i) {
+    if (strncmp(AP.IGRAPH[i],"CA",2)==0) {
+      mass[j]=AP.AMASS[i];
+      ++j;
+    }
+  }
+
+  if (j==0) {
+    printf("error: there is no CA in parmtop\n");
+    exit(1);
+  }
+  else if (j!=numres)
+    printf("error ??: numres does not equal to num of C-alpha\n");
+
+  return j+1;
+}
+
+int io_scanconf(FILE *inputfile,int numatom,double *data,int flag){
+  int i,j,d;
+  double f;
+  
+  for (i=0;i<numatom;++i) {
+    if (flag=='c')
+      fscanf(inputfile,"%d",&d);
+    for (j=0;j<3;++j) {
+      fscanf(inputfile,"%lf",&f);
+      if (f!=111111)
+	data[i*3+j]=f;
+      else
+	--j;
+    }
+  }
+
+  return 0;
+}
+
+int io_scancaconf(FILE *inputfile,double *data){
+  int i,j,k;
+  double f;
+  
+  k=0;
+  for (i=0;i<AP.NATOM;++i) {
+    if (strncmp(AP.IGRAPH[i],"CA",2)==0) {
+      for (j=0;j<3;++j)
+	fscanf(inputfile,"%lf",&data[k*3+j]);
+      ++k;
+    }
+    else {
+      for (j=0;j<3;++j)
+	fscanf(inputfile,"%lf",&f);
+    }
+  }
+
+  return k;
+}
+
+int io_scanconf_Amber_rst(FILE *inputfile,double *data){
+  int numatom;
+  int i,j,d;
+  double time;
+  char *line;
+  size_t len=0;
+  
+  getline(&line,&len,inputfile);
+  fscanf(inputfile,"%d",&numatom);
+  fscanf(inputfile,"%lf",&time);
+  for (i=0;i<numatom;++i)
+    for (j=0;j<3;++j)
+      fscanf(inputfile,"%lf",&data[i*3+j]);
+
+  return 0;
+}
+
+int io_scanconf_Amber_ini(FILE *inputfile,int numatom, double *data){
+  int i;
+  char *line;
+  size_t len=0;
+  
+  getline(&line,&len,inputfile);
+  getline(&line,&len,inputfile);
+  for (i=0;i<numatom*3;++i)
+    fscanf(inputfile,"%lf",&data[i]);
+
+  return 0;
+}
+
+
+
+/**********************************************************************/
+/* int io_scancaconf(FILE *inputfile,int numatom,double *crd){	      */
+/*   int i,j,k=0,flag;						      */
+/*   double f;							      */
+/* 								      */
+/*   for (i=0;i<numatom;++i) {					      */
+/*     if (strncmp(AP.IGRAPH[i],"CA",2)==0) {			      */
+/*       flag=1;						      */
+/*       ++k;							      */
+/*     }							      */
+/*     else							      */
+/*       flag=0;						      */
+/*     for (j=0;j<3;++j) {					      */
+/*       fscanf(inputfile,"%lf",&f);				      */
+/*       if (flag==1)						      */
+/* 	crd[(k-1)*3+j]=f;					      */
+/*     }							      */
+/*   }								      */
+/* 								      */
+/*   return k;							      */
+/* }								      */
+/**********************************************************************/
+
+int io_scan_aw(FILE *inputfile,int numstep,double *data) {
+  int i,j,k;
+  int numatom;
+  double d;
+
+  numatom=AP.NATOM;
+  for (i=0;i<numstep;++i)  {
+    for (j=0;j<numatom;++j)  {
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&d);
+	data[i*numatom*3+j*3+k] = d*sqrt(AP.AMASS[j]);
+      }
+    }
+  }
+
+  return 1;
+}
+
+int io_count_atomtype(char atomtype[20][4],int numtype) {
+  int i,j;
+  int numatom,numatomtype=0;
+
+  numatom=AP.NATOM;
+  for (i=0;i<numatom;++i)
+    for (j=0;j<numtype;++j)
+      if (strncmp(AP.IGRAPH[i],atomtype[j],3) == 0)
+	++numatomtype;
+
+  if (numatomtype==0) {
+    printf("error:There are no %s\n",atomtype);
+    exit(1);
+  }
+
+  return numatomtype;
+}
+
+int io_scan_atomtype_traj_aw(FILE *inputfile,int numstep,double *data, int typeflag,char atomtype[20][4], int numtype,int numatomtype) {
+  int i,j,k,l;
+  int numatom;
+  double d;
+
+  numatom=AP.NATOM;
+
+  for (i=0;i<numstep;++i)  {
+    for (j=0;j<numatom;++j)  {
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&d);
+	if (typeflag==1) {
+	  for (l=0;l<numtype;++l)
+	    if (strncmp(AP.IGRAPH[j],atomtype[l],3) == 0) {
+	      data[i*numatomtype*3+j*3+k] = d*sqrt(AP.AMASS[j]);
+	  }
+	}
+	else {
+	    data[i*numatomtype*3+j*3+k] = d*sqrt(AP.AMASS[j]);
+	}
+      }
+    }
+  }
+
+  return numatomtype;
+}
+
+int io_scan_data(FILE *inputfile,int numdimension,double *data,int flag){
+  int i,d;
+
+  if (flag=='c')
+    fscanf(inputfile,"%d",&d);
+  for (i=0;i<numdimension;++i) {
+    fscanf(inputfile,"%lf",&data[i]);
+  }
+
+  return 0;
+}
+
+int io_scantimeseries(FILE *inputfile,int numstep,int numdimension,double *data,int flag){
+  int i,j,d;
+  
+  for (i=0;i<numstep;++i) {
+    if (flag=='c')
+      fscanf(inputfile,"%d",&d);
+    for (j=0;j<numdimension;++j) {
+      fscanf(inputfile,"%lf",&data[i*numdimension+j]);
+    }
+  }
+  
+  return 0;
+}
+
+int io_scanodtimeseries(FILE *inputfile,int numcolum,int numspecificcolum, int numintialraw, int numfinalrow, double *data){
+  int i,j;
+  double temp;
+  
+  for (i=numintialraw;i<=numfinalrow;++i) {
+    for (j=0;j<numcolum;++j) {
+      if (j==numspecificcolum)
+	fscanf(inputfile,"%lf",&data[i-numintialraw]);
+      else
+	fscanf(inputfile,"%lf",&temp);
+    }
+  }
+  
+  return 0;
+}
+
+
+
+int io_scanslidetimeseries(FILE *inputfile,int numstep, int numslide,int numdimension,double *data,int flag) {
+  int i,j,d;
+  double f;
+  double *datadummy;
+  
+  datadummy=(double *)ecalloc(numdimension*(numstep-numslide),sizeof(double));
+  
+  for (i=numslide;i<numstep;++i)
+    for (j=0;j<numdimension;++j)
+      datadummy[(i-numslide)*numdimension+j]=data[i*numdimension+j];
+  
+  for (i=0;i<numstep-numslide;++i)
+    for (j=0;j<numstep;++j)
+      data[i*numstep+j]=datadummy[i*numstep+j];
+
+  for (i=0;i<numslide;++i) {
+    if (flag=='c')
+      fscanf(inputfile,"%d",&d);
+    for (j=0;j<numstep;++j) {
+      fscanf(inputfile,"%lf",&f);
+      data[(i+numstep-numslide)*numdimension+j]=f;
+    }
+  }
+  
+  return 0;
+}
+
+int io_scanconf_atomtype(FILE *inputfile,char *atomname,int numname, int numatom,double *crd) {
+  int i,j,k;
+  double dummy;
+
+  k=0;
+  for (i=0;i<numatom;++i) {
+    if(strncmp(AP.IGRAPH[i],"CA",2)==0 ) {
+      for (j=0;j<3;++j) {
+	fscanf(inputfile,"%lf",&crd[k*3+j]);
+      }
+      ++k;
+    }
+    else {
+      for (j=0;j<3;++j) {
+	fscanf(inputfile,"%lf",&dummy);
+      }
+    }
+  }
+}
+
+int io_scanmatrix(FILE *inputfile,int numrow,int numcolum,double *data){
+  int i,j;
+  
+  for (i=0;i<numrow;++i) {
+    for (j=0;j<numcolum;++j) {
+      fscanf(inputfile,"%lf",&data[i*numcolum+j]);
+    }
+  }
+    
+  return 0;
+}
+
+int io_scantraj_aw(FILE *inputfile,int numstep,int numatom,double *traj) {
+  int i,j,k;
+  double d;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numatom;++j)
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&d);
+	traj[i*numatom*3+j*3+k] = d*sqrt(AP.AMASS[j]);
+      }
+  return 0;
+}
+
+int io_scansptraj_aw(FILE *inputfile,int numstep,int numatom,int numspatom,double *traj) {
+  int i,j,k;
+  double d;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numatom;++j)
+      for (k=0;k<3;++k) {
+	fscanf(inputfile,"%lf",&d);
+	if (j==numspatom)
+	  traj[i*3+k] = d*sqrt(AP.AMASS[j]);
+      }
+  return 0;
+}
+
+
+int io_scancalphatraj_aw(FILE *inputfile,int numstep,int numatom,int numres,double *traj) {
+  int i,j,k,l;
+  double d;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numatom;++j)
+      for (k=0;k<3;++k)
+	if (strncmp(AP.IGRAPH[j],"CA\0",3) == 0) {
+	fscanf(inputfile,"%lf",&d);
+	traj[l*numres*3+i*3+j] = d*sqrt(AP.AMASS[j]);
+	++l;
+      }
+  return 0;
+}
+
+int io_scanspcalphatraj_aw(FILE *inputfile,int numstep,int numatom,int numres,int numspres,double *traj) {
+  int i,j,k,l;
+  double d;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numatom;++j)
+      for (k=0;k<3;++k)
+	if (strncmp(AP.IGRAPH[j],"CA\0",3) == 0) {
+	  fscanf(inputfile,"%lf",&d);
+	  traj[l*numres*3+i*3+j] = d*sqrt(AP.AMASS[j]);
+	  if ( l==numspres )
+	    traj[i*3+k] = d*sqrt(AP.AMASS[j]);
+	  ++l;
+
+      }
+  return 0;
+}
+
+
+int io_scandtraj(FILE *inputfile,int numstep,int numdihed,double *traj) {
+  int i,j,k;
+  double d;
+
+  for (i=0;i<numstep;++i)
+    for (j=0;j<numdihed;++j)
+      fscanf(inputfile,"%lf",&traj[i*numdihed+j]);
+
+  return 0;
+}
+
+int io_scanspdtraj(FILE *inputfile,int numstep,int numdihed,int numspdihed,double *traj) {
+  int i,j,k;
+  double d;
+
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numdihed;++j) {
+      fscanf(inputfile,"%lf",&d);
+      if ( j==numspdihed ) {
+	traj[i]=d;
+      }
+    }
+  }
+
+  return 0;
+}
+
+int io_scancoldata(FILE *inputfile,int numf,int numi,int numcol,int col, double *data){
+  int i,j;
+  double temp;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numi;++i)
+    getline(&line,&len,inputfile);  
+  for (i=0;i<numf-numi+1;++i) {
+    for (j=0;j<numcol;++j) {
+      if (j==col-1)
+	fscanf(inputfile,"%lf",&data[i]);
+      else 
+	fscanf(inputfile,"%lf",&temp);
+    }
+  }
+
+  return 0;
+}
+
+int io_scnadcoldata(FILE *inputfile,int numf,int numi,int numcol,int xcol,int ycol, double *data){
+  int i,j;
+  double temp;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numi;++i)
+    getline(&line,&len,inputfile);  
+  for (i=0;i<numf-numi+1;++i) {
+    for (j=0;j<numcol;++j) {
+      if (j==xcol-1)
+	fscanf(inputfile,"%lf",&data[i*2]);
+      else if (j==ycol-1)
+	fscanf(inputfile,"%lf",&data[i*2+1]);
+      else 
+	fscanf(inputfile,"%lf",&temp);
+    }
+  }
+
+  return 0;
+}
+
+int io_scnascoldata(FILE *inputfile,int numf,int numi,int numcol,int scol, double *data){
+  int i,j;
+  double temp;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numi;++i)
+    getline(&line,&len,inputfile);  
+  for (i=0;i<numf-numi+1;++i) {
+    for (j=0;j<numcol;++j) {
+      if (j==scol-1)
+	fscanf(inputfile,"%lf",&data[i*2]);
+      else 
+	fscanf(inputfile,"%lf",&temp);
+    }
+  }
+
+  return 0;
+}
+
+int io_scnasdcoldata(FILE *inputfile,int numf,int numi,int numcol,int scol,int scol2, double *data){
+  int i,j;
+  double temp;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numi;++i)
+    getline(&line,&len,inputfile);  
+  for (i=0;i<numf-numi+1;++i) {
+    for (j=0;j<numcol;++j) {
+      if (j==scol-1)
+	fscanf(inputfile,"%lf",&data[i*2]);
+      else if (j==scol2-1)
+	fscanf(inputfile,"%lf",&data[i*2+1]);
+      else 
+	fscanf(inputfile,"%lf",&temp);
+    }
+  }
+
+  return 0;
+}
+
+double *io_scandcoldata2(FILE *inputfile,int numi,int numcol,int xcol,int ycol,int *numstep,double *data){
+/**************************************************************************/
+/*   int i,j,k;								  */
+/*   double f;								  */
+/* 									  */
+/*   char *line;							  */
+/*   size_t len=0;							  */
+/* 									  */
+/*   for (i=0;i<numi;++i)						  */
+/*     getline(&line,&len,inputfile);					  */
+/*   									  */
+/*   for (i=(*numstep);;++i) {						  */
+/*     for (j=0;j<numcol;++j) {						  */
+/* 									  */
+/*       if (j==xcol-1) {						  */
+/* 	data=(double *)gcerealloc(data,sizeof(double)*(i+1)*2);		  */
+/* 	data[i*2]=f;							  */
+/*       }								  */
+/*       else if (j==ycol-1) {						  */
+/* 	data[i*2+1]=f;							  */
+/*       }								  */
+/*     }								  */
+/*     else {								  */
+/*       *numstep=i-1;							  */
+/*       return data;							  */
+/*     }								  */
+/*   }									  */
+/* }									  */
+/**************************************************************************/
+}
+
+void *io_inputtrj_for_gather_Amberform(FILE *inputfile,double *trj,int numstep, int numatom) {
+  int i;
+  double f;
+  char *line;
+  size_t len=0;
+
+  getline(&line,&len,inputfile);
+  for (i=0;i<numstep*numatom*3;++i)
+    if (fscanf(inputfile,"%lf",&f)!=-1)
+      trj[i]=f;
+
+}
+
+int io_addtrj_Amberform(FILE *outputfile,double *trj,int numstep,int numatom) {
+  int i;
+
+  for (i=0;i<numstep*numatom*3;++i) {
+    fprintf(outputfile,"%12.8lf ",trj[i]);
+   if ((i+1)%10==0)
+     fprintf(outputfile,"\n");
+  }
+
+  return 0;
+}
+
+
+int io_outputconf(FILE *outputfile,int numatom,double *data,int flag){
+  int i,j,d;
+  double f;
+  
+  for (i=0;i<numatom;++i) {
+    if (flag=='c')
+      fprintf(outputfile,"%d ",i);
+    for (j=0;j<3;++j)
+      fprintf(outputfile,"%10.6lf",data[i*3+j]);
+    fprintf(outputfile,"\n");
+  }
+  fprintf(outputfile,"\n");
+
+  return 0;
+}
+
+int io_outputdata(FILE *outputfile, int numdimension, double *data) {
+  int i;
+  
+  for (i=0;i<numdimension;++i)
+    fprintf(outputfile,"%e ",data[i]);
+  fprintf(outputfile,"\n");
+
+  return 0;
+}
+
+int io_outputdata_f(FILE *outputfile, int numdimension, double *data) {
+  int i;
+  
+  for (i=0;i<numdimension;++i)
+    fprintf(outputfile,"%d %e \n",i+1,data[i]);
+
+  return 0;
+}
+
+
+int io_outputtimeseries(FILE *outputfile,int numstep,int numdimension,double *data){
+  int i,j,d;
+  
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numdimension;++j) {
+      fprintf(outputfile,"%e",data[i*numdimension+j]);
+    }
+    fprintf(outputfile,"\n");
+  }
+  
+  return 0;
+}
+
+int io_outputtimeseries_f(FILE *outputfile,int numstep,int numdimension,double *data){
+  int i,j,d;
+  
+  for (i=0;i<numstep;++i) {
+    fprintf(outputfile,"%d ",i+1);
+    for (j=0;j<numdimension;++j) {
+      fprintf(outputfile," %e",data[i*numdimension+j]);
+    }
+    fprintf(outputfile,"\n");
+  }
+  
+  return 0;
+}
+
+
+int io_outputmatrix(FILE *inputfile,int numrow,int numcolum,double *data){
+  int i,j;
+  
+  for (i=0;i<numrow;++i) {
+    for (j=0;j<numcolum;++j) {
+      fprintf(inputfile,"%10.6lf ",data[i*numcolum+j]);
+    }
+    fprintf(inputfile,"\n");
+  }
+  fprintf(inputfile,"\n");
+    
+  return 0;
+}
+
+int io_outputconf_Amberform(FILE *outputfile,int numatom,double *data) {
+  int i,j;
+
+  fprintf(outputfile,"AD\n");
+  fprintf(outputfile,"%d\n",numatom);
+  for (i=0;i<numatom;++i) {
+    for (j=0;j<3;++j) {
+      fprintf(outputfile,"%12.7lf",data[i*3+j]);
+      if (((i*3+j+1)%6)==0) {
+	fprintf(outputfile,"\n");
+      }
+    }
+  }
+
+  return 0;
+}
+
+int io_thin_down_data(FILE *inputfile,FILE *outputfile,int numinterval) {
+  int i=0;
+  char *line;
+  size_t len=0;
+
+  while (getline(&line,&len,inputfile) != -1) {
+    if ((i%numinterval) == 0)
+      fprintf(outputfile,"%s",line);
+    ++i;
+  }
+  return 0;
+
+}
+
+int io_chop_trj_data(FILE *inputfile,FILE *outputfile,int numlength, int numatom) {
+  int i=0;
+  char *line;
+  size_t len=0;
+  double *data;
+
+  data=(double *)gcemalloc(sizeof(double)*numatom*3);
+
+  for (i=0;i<numlength;++i) {
+    io_scanconf(inputfile,numatom,data,'x');
+    io_outputconf(outputfile,numatom,data,'x');
+  }
+
+  return 0;
+
+}
+
+int io_chop_timeseries_data(FILE *inputfile,FILE *outputfile,int numlength, int numdata) {
+  int i=0,j;
+  double d;
+  char *line;
+  size_t len=0;
+
+  for (i=0;i<numlength;++i) {
+    for (j=0;j<numdata;++j) {
+      fscanf(inputfile,"%lf",&d);
+      fprintf(outputfile,"%e ",d);
+    }
+    fprintf(outputfile," \n");
+  }
+
+  return 0;
+
+}
+
+
+int io_outtrj(FILE *inputfile,int numatom,int numstep,double **data){
+  int i,j,k;
+  double f;
+  
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numatom;++j) {
+      for (k=0;k<3;++k) {
+	fprintf(inputfile,"%lf ",data[i][j*3+k]);
+      }
+      fprintf(inputfile,"\n");
+    }
+  }
+
+  return 0;
+}
+
+int io_outtrj2(FILE *outputfile,int numatom,int numstep,double *data){
+  int i,j;
+  
+  for (i=0;i<numstep;++i) {
+    for (j=0;j<numatom;++j)
+      fprintf(outputfile,"%10.4lf %10.4lf %10.4lf\n",data[i*numatom*3+j*3],data[i*numatom*3+j*3+1],data[i*numatom*3+j*3+2]);
+    fprintf(outputfile,"\n");
+  }
+
+  return 0;
+}
+
+
+

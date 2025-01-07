@@ -1,0 +1,139 @@
+#
+# Makefile for MD program
+#
+
+# definitions
+#CC    = icc -pg -O3 -tpp6 -ipo
+#CC    = gcc -pg -g
+#CC    = gcc -lm -pg
+CFLAG = -g -pg
+#CFLAG  = -O4
+#CFLAG  = -O2
+#CFLAG = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -m64 -O2
+
+OBJS	= Cal_mol_dyn_multimer.o pick_data_multimer.o pick_dihed.o \
+	trans_A_to_CN_multimer.o trans_CN_to_A_multimer.o \
+	Calc_ABA_cycle_multimer.o Calc_Bias_force_cycle_multimer.o \
+	Calc_dd_theta_cycle_multimer.o Calc_sp_acc_cycle_multimer.o \
+	Calc_d_theta_cycle.o Calc_sp_velo_cycle.o \
+	set_inertia.o set_trans_Matrix.o set_initial_velo.o \
+	set_predict_acc.o set_predict_velo.o\
+	set_sp_velo_multimer.o set_atom_velo.o set_coriolis_acc.o set_coriolis_force_multimer.o \
+	output.o output_file_coo_pro.o output_file_pdb.o \
+	output_file_initial_pdb.o output_file_vel_pro.o output_restat.o \
+	Calc_vector_atoms.o \
+	Calc_L_J_PotentialandForce.o \
+	Calc_L_J_PotentialandForce2.o \
+	Calc_dihed_PotentialandForce.o \
+	force_multimer.o analthermo_dyn_multimer.o \
+	set_friction_tensor.o Calc_Brownian.o \
+	gen_norm_rand.o gen_randnum.o \
+	v-v_multimer.o velocity_scaling.o verlet.o \
+	CreatPsivsPhiMap.o \
+	Initialize.o \
+	getoption.o \
+	Calc_Matrix_cycle.o \
+	Calc_Hatrix_cycle.o \
+	Jordan.o \
+	readParmtop.o \
+	quaternion.o \
+#	EF.o \
+#	Calc_dihed_PotentialandForceforUmbSam.o \
+#	pick_datadUmbSam.o
+
+LIBS	= gener.h ABA_multimer.h physics.h MD.h force.h \
+		BD.h genrand.h UmsSan.h ParmTop.h quaternion.h 	f2c.h clapack.h 
+
+
+#TARGET	= mass_MD.exe
+#OLDVERSION = mass_MD_old.exe
+#TARGET	= MD_debug.exe
+#TARGET	= MD2.1.g.exe
+#OLDVERSION = MD_old2.1.g.exe
+TARGET	= MD2.1.1.exe_debug_30_08_11_multimerg
+OLDVERSION = MD_old2.1.1.exe_debug_30_08_11_multimerg
+
+
+# rules of generations
+$(TARGET):  $(OBJS) $(LIBS)
+	$(CC) $(CFLAG) -o $@ $(OBJS) -L${HOME}/mylib -I${HOME}/myinclude -L${HOME}/lib -I${HOME}/include lapack_LINUX_kusu.a blas_LINUX_kusu.a libf2c_kusu.a -lm -lEF -lnetcdf -lgc ; \
+#	mv ../../../bin/$(TARGET) ../../../bin/$(OLDVERSION); 
+	cp $@ ../../../bin/; \
+	cp $@ ~/mybin/;
+
+.c.o:
+	$(CC) -c $(CFLAG) $<;
+
+Cal_mol_dyn_multimer.o: gener.h ABA_multimer.h
+pick_data_multimer.o: gener.h ABA_multimer.h
+trans_A_to_CN_multimer.o: gener.h ABA_multimer.h quaternion.h
+pick_dihed.o: gener.h ABA_multimer.h
+trans_CN_to_A_multimer.o: gener.h ABA_multimer.h
+Calc_ABA_cycle_multimer.o: gener.h ABA_multimer.h
+Calc_Bias_force_cycle_multimer.o: gener.h ABA_multimer.h f2c.h clapack.h
+Calc_dd_theta_cycle_multimer.o: gener.h ABA_multimer.h physics.h MD.h f2c.h clapack.h
+Calc_d_theta_cycle.o: gener.h ABA_multimer.h physics.h MD.h BD.h
+Calc_sp_velo_cycle.o: gener.h ABA_multimer.h physics.h MD.h BD.h
+Calc_sp_acc_cycle_multimer.o: gener.h ABA_multimer.h physics.h MD.h force.h
+set_inertia.o: gener.h ABA_multimer.h
+set_trans_Matrix.o: gener.h ABA_multimer.h
+set_initial_velo.o: gener.h ABA_multimer.h physics.h
+set_predict_acc.o: gener.h ABA_multimer.h physics.h
+set_predict_velo.o: gener.h ABA_multimer.h physics.h BD.h
+set_sp_velo_multimer.o: gener.h ABA_multimer.h
+set_atom_velo: gener.h ABA_multimer.h physics.h MD.h
+set_coriolis_acc.o: gener.h ABA_multimer.h
+set_coriolis_force_multimer.o: gener.h ABA_multimer.h
+output_file_coo_pro.o: gener.h ABA_multimer.h
+output_file_pdb.o: gener.h ABA_multimer.h physics.h MD.h
+output_file_initial_pdb.o: gener.h ABA_multimer.h physics.h MD.h
+output_file_vel_pro.o: gener.h ABA_multimer.h physics.h MD.h
+output_restat.o: gener.h ABA_multimer.h physics.h MD.h
+v-v_multimer.o: gener.h ABA_multimer.h physics.h MD.h
+Calc_vector_atoms.c: gener.h ABA_multimer.h physics.h MD.h force.h
+Calc_L_J_PotentialandForce.o: gener.h ABA_multimer.h physics.h MD.h force.h
+#Calc_ele_sta_PotentialandForce.c: gener.h ABA_multimer.h physics.h MD.h force.h
+Calc_dihed_PotentialandForce.o: gener.h ABA_multimer.h physics.h MD.h force.h
+Calc_dihed_PotentialandForce2.o: gener.h ABA_multimer.h physics.h MD.h force.h
+force_multimer.o:  gener.h ABA_multimer.h physics.h MD.h force.h
+analthermo_dyn_multimer.o:  gener.h ABA_multimer.h physics.h MD.h force.h
+set_friction_tensor.o: gener.h ABA_multimer.h physics.h MD.h force.h BD.h
+Calc_Brownian.o:  gener.h ABA_multimer.h physics.h MD.h force.h BD.h genrand.h
+gen_norm_rand.o:  gener.h ABA_multimer.h physics.h MD.h force.h BD.h genrand.h
+gen_randnum.o:  gener.h ABA_multimer.h physics.h MD.h force.h BD.h genrand.h
+velocity_scaling.o: gener.h ABA_multimer.h physics.h MD.h force.h
+verlet.o: gener.h ABA_multimer.h physics.h MD.h force.h BD.h
+CreatPsivsPhiMap.o: gener.h ABA_multimer.h physics.h MD.h force.h
+Initialize.o:  gener.h ABA_multimer.h
+getoption.o: gener.h ABA_multimer.h physics.h MD.h force.h
+Calc_Matrix_cycle.o: gener.h ABA_multimer.h physics.h MD.h force.h
+Calc_Hatrix_cycle.o: gener.h ABA_multimer.h physics.h MD.h force.h
+Jordan.o: gener.h ABA_multimer.h physics.h MD.h force.h
+readParmtop.o: gener.h ABA_multimer.h physics.h MD.h force.h ParmTop.h
+quaternion.o: quaternion.h	 #QUA.h
+#EF.o: EF.h
+#Calc_dihed_PotentialandForceforUmbSam.o: gener.h ABA_multimer.h physics.h MD.h force.h
+#pick_datadUmbSam.o:  gener.h ABA_multimer.h physics.h MD.h force.h
+
+#MD: $(OBJS) $(LIBS)
+#	$(CC) $(OFLAG) -lm -o $@.exe $(OBJS); \
+#	mv ../../../bin/$@.exe ../../../bin/$@_old.exe; \
+#	cp $@.exe ../../../bin/; 
+
+clean:
+	rm $(OBJS); \
+#	cd ../../../bin/; \
+#	rm $(TARGET);
+
+test:
+	cp ../../../tst/test.sh ../../../bin/; \
+	cd ../../../bin;sh test.sh;
+
+testhp35:
+	cp ../../../tst/tstMDhp35.sh ../../../bin/; \
+	cd ../../../bin;sh tstMDhp35.sh;
+
+testAD:
+	cp ../../../tst/tstMDAD.sh ../../../bin/; \
+	cd ../../../bin;sh tstMDAD.sh;
+

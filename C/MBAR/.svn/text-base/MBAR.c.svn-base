@@ -1,0 +1,61 @@
+
+#include "MBAR.h"
+#include "mymath.h"
+
+double BAR_ite(double F,double *ene_U0_C0,double *ene_U0_C1, double *ene_U1_C0,double *ene_U1_C1, int n0, int n1){
+  int i,j,ite;
+  double C=0.0,sum0,sum1,F_n,dF;
+
+  for (ite=0;dF>=criteria_BAR;++ite) {
+    for (j = 0; j < n0; ++j) {
+      sum0+=Fermi(ene_U0_C0[i]-ene_U0_C1[i]+C);
+    }
+    for (j = 0; j < n1; ++j) {
+      sum1+=Fermi(ene_U1_C0[i]-ene_U1_C1[i]+C);
+    }
+    
+    F_n=log(sum0/sum1)+C-log(n1/n0);
+    C=F+log(n1/n0);
+    dF=abf(F_n-F);
+    F=F_n;
+  }
+  return dF;
+}
+
+
+double MBAR_ite(double *F, double *ene, int n_sim, int *n){
+  int i,j,k,ite,index,index2;
+  double *F_n,*dF;
+  double num,din,max_dF;
+
+  F_n  = (double *)emalloc(sizeof(double)*n_sim);
+  dF   = (double *)emalloc(sizeof(double)*n_sim);
+
+  for (i = 0; i < n_sim; ++i) {
+    F[i]=0.0;   	
+  }
+
+  for (ite = 0; max_dF < criteria_BAR ; ++ite) {
+    index=0;
+    for (i = 0; i < n_sim; ++i) {
+      index2=0;
+      for (j = 0; j < n[j]; ++j) {
+	for (k = 0; k < n_sim; ++k) {	  
+	  din+=n[k]*exp(F[k]-ene[index+k]);
+	  index2+=n[j];
+	}
+	num+=exp(-ene[index+j])/din;
+	index+=n[j];
+      }
+      F_n[i]=-log(num);
+      dF[k]=F_n[k]-F[k];
+      F[k]=F_n[k];
+    }
+    max_dF=dF[0];
+    for (i = 0; i < n_sim; ++i)
+      if (max_dF<=dF[k])
+	max_dF=dF[k];
+  }
+    
+  return 0.0;
+}

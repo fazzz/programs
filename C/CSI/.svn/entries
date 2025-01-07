@@ -1,0 +1,52 @@
+8
+
+dir
+1797
+svn://172.16.165.94/yamamori/var/svn/CSI/trunk
+svn://172.16.165.94
+
+
+
+2011-03-22T07:59:10.505225Z
+1795
+yamamori
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c8113bb6-d80e-0410-aa45-c078eb5207e6
+
+CSI.h
+file
+
+
+
+
+2011-03-22T08:36:24.000000Z
+cebaed3b7e436ff4723e3258148be3b0
+2011-03-16T03:58:43.173051Z
+1791
+yamamori
+
+cubic_spline_interpolation.c
+file
+
+
+
+
+2011-03-22T08:36:24.000000Z
+8c973e0b9f47476b9de102a3dabf6d22
+2011-03-22T07:59:10.505225Z
+1795
+yamamori
+
